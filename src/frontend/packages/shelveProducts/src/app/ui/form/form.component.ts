@@ -179,7 +179,7 @@ export class FormComponent implements OnInit, OnDestroy {
                 this.tableService.dataSource.set(this.tableService.dataSource().map(product =>
                     product.shelveCode === shelveCode ? { ...product, ...payload } : product
                 ));
-
+                this.statisticsPanelService.getStatistics();
                 this.toastr.success(`Product "${shelveCode}" was updated successfully.`, '', {
                     positionClass: 'toast-bottom-left'
                 });

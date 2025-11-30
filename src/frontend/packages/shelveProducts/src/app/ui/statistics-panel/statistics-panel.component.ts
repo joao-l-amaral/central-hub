@@ -44,7 +44,7 @@ export class StatisticsPanelComponent {
     totalCaloriesStatus = computed(() => {
         const totalCalories = +this.totalCalories();
 
-        const daysToInConsideration = 96;
+        const daysToInConsideration = 7;
         const minCalories = 1200*daysToInConsideration;
         const maxCalories = 2400*daysToInConsideration;
 
