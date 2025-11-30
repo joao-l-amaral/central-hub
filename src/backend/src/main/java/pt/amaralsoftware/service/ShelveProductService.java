@@ -125,6 +125,16 @@ public class ShelveProductService {
                 catShelveProductEntity.setInsertDate(date);
             }
 
+            Integer weight = updatedShelveProductDTO.getWeight();
+            if (weight != null) {
+                catShelveProductEntity.setWeight(weight);
+            }
+
+            Integer calories = updatedShelveProductDTO.getCalories();
+            if (calories != null) {
+                catShelveProductEntity.setCalories(calories);
+            }
+
             ZonedDateTime expirationDate = catShelveProductEntity.getExpirationDate();
             String formattedExpirationDate = expirationDate.format(DateTimeFormatter.ofPattern(DATE_PATTERN));
 
