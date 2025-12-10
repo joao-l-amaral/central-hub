@@ -1,13 +1,10 @@
-import { Component, inject, ViewEncapsulation } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { I18nService, InternalizationPipe, MF_FRONTEND } from '@portal/library';
-import { HttpClient } from '@angular/common/http';
-import { firstValueFrom } from 'rxjs';
-import { App } from '../app';
+import { I18nService, MF_FRONTEND } from '@portal/library';
 
 @Component({
-  selector: 'app-nx-welcome',
-  imports: [CommonModule, InternalizationPipe, App],
+  selector: 'ng-mf-nx-welcome2',
+  imports: [CommonModule],
   template: `
     <!--
      * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -431,19 +428,13 @@ import { App } from '../app';
       }
     </style>
     <div class="wrapper">
-      <app-mf2></app-mf2>
       <div class="container">
         <!--  WELCOME  -->
         <div id="welcome">
           <h1>
             <span> Hello there, </span>
-            Welcome mf2 👋
+            Welcome Sample project (For example purposes) 👋
           </h1>
-        </div>
-        <div>
-          <button (click)="teste()">
-            {{ 'aaa.botao' | translate }}
-          </button>
         </div>
         <!--  HERO  -->
         <div id="hero" class="rounded">
@@ -804,7 +795,7 @@ nx run-many -t build test lint</pre>
               </svg>
               View project details
             </summary>
-            <pre>nx show project mf2</pre>
+            <pre>nx show project sample</pre>
           </details>
 
           <details>
@@ -870,17 +861,15 @@ nx g &#64;nx/angular:component ui/src/lib/button</pre>
     </div>
   `,
   styles: [],
-  providers: [{ provide: MF_FRONTEND, useValue: 'mf2' }],
+  providers: [{ provide: MF_FRONTEND, useValue: 'sample' }],
 })
 export class NxWelcome {
-  private readonly i18nService = inject(I18nService);
-  private readonly http = inject(HttpClient);
 
-  teste() {
-    firstValueFrom(
-      this.http.get('https://jsonplaceholder.typicode.com/todos/1')
-    ).then((response) => {
-      console.log(response);
-    });
+  private readonly i18nService  = inject(I18nService);
+  private readonly mf = inject(MF_FRONTEND);
+
+  constructor() {
+     console.log(this.i18nService.translate(this.mf, "welcome_message"));
   }
+
 }

@@ -1,8 +1,8 @@
 export default {
-  displayName: 'mf2',
-  preset: '../jest.preset.js',
+  displayName: 'sample',
+  preset: '../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
-  coverageDirectory: '../coverage/mf2',
+  coverageDirectory: '../../coverage/packages/sample',
   transform: {
     '^.+\\.(ts|mjs|js|html)$': [
       'jest-preset-angular',

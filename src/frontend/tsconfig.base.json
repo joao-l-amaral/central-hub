@@ -15,8 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "mf1/Routes": ["packages/mf1/src/app/remote-entry/entry.routes.ts"],
-      "mf2/Routes": ["packages/mf2/src/app/remote-entry/entry.routes.ts"],
+      "sample/Routes": ["packages/sample/src/app/remote-entry/entry.routes.ts"],
       "shelveProducts/Routes": ["packages/shelveProducts/src/app/remote-entry/entry.routes.ts"],
       "@portal/library": ["packages/portal-lib/src/public-api.ts"]
     }

@@ -1,9 +1,9 @@
 import { ModuleFederationConfig } from '@nx/module-federation';
 
 const config: ModuleFederationConfig = {
-  name: 'mf1',
+  name: 'sample',
   exposes: {
-    './Routes': 'packages/mf1/src/app/remote-entry/entry.routes.ts',
+    './Routes': 'packages/sample/src/app/remote-entry/entry.routes.ts',
   }
 };
 

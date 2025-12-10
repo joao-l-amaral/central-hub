@@ -3,7 +3,7 @@ import { NxWelcome } from './nx-welcome';
 
 @Component({
   imports: [NxWelcome],
-  selector: 'app-mf2-entry',
-  template: `<app-nx-welcome></app-nx-welcome>`,
+  selector: 'ng-mf-sample-entry',
+  template: `<ng-mf-nx-welcome2></ng-mf-nx-welcome2>`,
 })
 export class RemoteEntry {}

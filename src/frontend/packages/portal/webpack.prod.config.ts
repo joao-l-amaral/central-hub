@@ -20,8 +20,7 @@ export default withModuleFederation(
      * ]
      */
     remotes: [
-        ["mf1", "/mf1/remoteEntry.js"],
-        ["mf2", "/mf2/remoteEntry.js"],
+        ["sample", "/sample/remoteEntry.js"],
         ["shelveProducts", "/shelveProducts/remoteEntry.js"],
     ]
   },
