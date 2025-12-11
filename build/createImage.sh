@@ -1,7 +1,7 @@
 #!/bin/bash
 set -x
 
-VERSION=2.0.0
+VERSION=2.1.0
 APPLICATION_NAME=central-hub
 PUSH=false
 

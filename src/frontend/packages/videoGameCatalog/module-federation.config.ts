@@ -1,8 +1,10 @@
 import { ModuleFederationConfig } from '@nx/module-federation';
 
 const config: ModuleFederationConfig = {
-  name: 'portal',
-  remotes: ['sample', 'videoGameCatalog', 'shelveProducts'],
+  name: 'videoGameCatalog',
+  exposes: {
+    './Routes': 'packages/videoGameCatalog/src/app/remote-entry/entry.routes.ts',
+  }
 };
 
 /**

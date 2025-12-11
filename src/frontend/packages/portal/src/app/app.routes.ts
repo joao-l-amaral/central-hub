@@ -6,6 +6,10 @@ export const appRoutes: Route[] = [
     loadChildren: () => import('sample/Routes').then((m) => m!.remoteRoutes),
   },
   {
+    path: 'videoGameCatalog',
+    loadChildren: () => import('videoGameCatalog/Routes').then((m) => m!.remoteRoutes),
+  },
+  {
     path: 'shelveProducts',
     loadChildren: () => import('shelveProducts/Routes').then((m) => m!.remoteRoutes),
   },
@@ -14,3 +18,4 @@ export const appRoutes: Route[] = [
     loadChildren: () => import('sample/Routes').then((m) => m!.remoteRoutes),
   },
 ];
+4

@@ -19,11 +19,6 @@ export default withModuleFederation(
      *   ['app2', 'https://app2.example.com'],
      * ]
      */
-    remotes: [
-        ["sample", "/sample/remoteEntry.js"],
-        ["shelveProducts", "/shelveProducts/remoteEntry.js"],
-        ["videoGameCatalog", "/videoGameCatalog/remoteEntry.js"],
-    ]
   },
   { dts: false }
 );

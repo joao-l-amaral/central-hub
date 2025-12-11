@@ -6,6 +6,13 @@ module.exports = {
         "logLevel": "debug",
         "pathRewrite": { "^/assets/shelveProducts": "/assets" }
     },
+    "/assets/videoGameCatalog": {
+        "target": "http://localhost:4202",
+        "secure": false,
+        "changeOrigin": true,
+        "logLevel": "debug",
+        "pathRewrite": { "^/assets/videoGameCatalog": "/assets" }
+    },
     "/assets/sample": {
         "target": "http://localhost:4203",
         "secure": false,

@@ -17,6 +17,7 @@
     "paths": {
       "sample/Routes": ["packages/sample/src/app/remote-entry/entry.routes.ts"],
       "shelveProducts/Routes": ["packages/shelveProducts/src/app/remote-entry/entry.routes.ts"],
+      "videoGameCatalog/Routes": ["packages/videoGameCatalog/src/app/remote-entry/entry.routes.ts"],
       "@portal/library": ["packages/portal-lib/src/public-api.ts"]
     }
   },

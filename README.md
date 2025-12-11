@@ -6,7 +6,10 @@ Tried the open project route, but... yeah, doesn’t give me a 100% perfect solu
 So here we go — time to build things my way! 🛠️💥🛠️
 
 # 📦 Patch Notes
-## v2.0.0 (2025-11-219)
+## v2.1.0 (2025-12-05)
+- Added a new frontend for my personal video game library.
+
+## v2.0.0 (2025-11-29)
 
 ### ⚙️ Application
 - Changed project name to "Central Hub" to better reflect its purpose as a personal application hub.
