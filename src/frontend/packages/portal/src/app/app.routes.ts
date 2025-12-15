@@ -6,8 +6,8 @@ export const appRoutes: Route[] = [
     loadChildren: () => import('sample/Routes').then((m) => m!.remoteRoutes),
   },
   {
-    path: 'videoGameCatalog',
-    loadChildren: () => import('videoGameCatalog/Routes').then((m) => m!.remoteRoutes),
+    path: 'gameVault',
+    loadChildren: () => import('gameVault/Routes').then((m) => m!.remoteRoutes),
   },
   {
     path: 'shelveProducts',

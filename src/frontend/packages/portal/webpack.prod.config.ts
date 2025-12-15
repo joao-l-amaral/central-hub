@@ -22,7 +22,7 @@ export default withModuleFederation(
     remotes: [
         ["sample", "/sample/remoteEntry.js"],
         ["shelveProducts", "/shelveProducts/remoteEntry.js"],
-        ["videoGameCatalog", "/videoGameCatalog/remoteEntry.js"],
+        ["gameVault", "/gameVault/remoteEntry.js"],
     ]
   },
   { dts: false }

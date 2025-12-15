@@ -9,6 +9,7 @@ import org.apache.commons.collections4.CollectionUtils;
 import org.jboss.resteasy.reactive.RestResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import pt.amaralsoftware.config.ShelveProductValidations;
 import pt.amaralsoftware.models.DTO.ShelveProductDTO;
 import pt.amaralsoftware.models.ProductCount;
 import pt.amaralsoftware.service.ShelveProductService;
@@ -23,6 +24,8 @@ public class ShelveProductAPI {
 
     @Inject
     ShelveProductService shelveProductService;
+    @Inject
+    ShelveProductValidations shelveProductValidations;
 
     @GET
     @Path("/productStatistics")
@@ -101,5 +104,19 @@ public class ShelveProductAPI {
         this.shelveProductService.removeShelveCode(shelveCode);
 
         return RestResponse.ok();
+    }
+
+    @GET
+    @Path("/forceExpirationVerification")
+    public RestResponse<String> forceDatabaseLoad() {
+        shelveProductValidations.checkExpirationDate();
+        return RestResponse.ok("Expiration date check triggered.");
+    }
+
+    @GET
+    @Path("/forceGenerateReport")
+    public RestResponse<String> generateReport() {
+        shelveProductValidations.generateReport();
+        return RestResponse.ok("Expiration date check triggered.");
     }
 }

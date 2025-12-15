@@ -15,6 +15,7 @@ public class GameVaultAPI {
     LoadGameDatabaseSchedule loadGameDatabaseSchedule;
 
     @GET
+    @Path("/forceLoadGameVaultDatabase")
     public RestResponse<String> forceDatabaseLoad() {
         loadGameDatabaseSchedule.init();
         return RestResponse.ok("Data base sync forcefully loaded.");

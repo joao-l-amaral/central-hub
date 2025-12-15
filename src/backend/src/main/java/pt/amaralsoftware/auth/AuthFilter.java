@@ -9,7 +9,6 @@ import jakarta.ws.rs.ext.Provider;
 import jakarta.ws.rs.core.Response;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
-import java.io.IOException;
 import java.util.Base64;
 
 @Authenticated
@@ -21,7 +20,7 @@ public class AuthFilter implements ContainerRequestFilter {
     String basicAuthToken;
 
     @Override
-    public void filter(ContainerRequestContext requestContext) throws IOException {
+    public void filter(ContainerRequestContext requestContext) {
         String authHeader = requestContext.getHeaderString("Authorization");
 
         if (authHeader == null || !isValid(authHeader)) {

@@ -1,5 +1,6 @@
 package pt.amaralsoftware.config;
 
+import io.quarkus.scheduler.Scheduled;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import org.apache.commons.lang3.BooleanUtils;
@@ -15,15 +16,19 @@ import org.xml.sax.SAXException;
 import pt.amaralsoftware.service.CatConfigService;
 import pt.amaralsoftware.service.CatGamePlatformService;
 import pt.amaralsoftware.service.CatGameService;
+import pt.amaralsoftware.util.NtfyUtils;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.*;
 import java.net.URI;
+import java.net.URL;
+import java.net.URLConnection;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.*;
@@ -40,6 +45,7 @@ public class LoadGameDatabaseSchedule {
 
     private static final String FILE_HASH_FILE = "hash.txt";
     private static final String FILE_WITH_GAME_DATA = "Metadata.xml";
+    private static final String FILE_WITH_PLATFORM_DATA = "Platforms.xml";
     private static final String PLATFORM = "Platform";
 
     @Inject
@@ -48,8 +54,10 @@ public class LoadGameDatabaseSchedule {
     CatGamePlatformService catGamePlatformService;
     @Inject
     CatGameService catGameService;
+    @Inject
+    NtfyUtils ntfyUtils;
 
-    //@Scheduled(cron = "0 0 12 ? * 1")
+    @Scheduled(cron = "0 0 12 ? * 1")
     public void init() {
         try {
             Boolean haveData = checkAndLoadFile();
@@ -66,7 +74,9 @@ public class LoadGameDatabaseSchedule {
                         Files.delete(path);
 
                         log.debug("The downloaded file didn't change.");
-                        //TODO send notification
+
+                        this.ntfyUtils.send("Video game metadata game didn't change.");
+
                         return;
                     } else {
                         Files.delete(file.toPath());
@@ -77,10 +87,14 @@ public class LoadGameDatabaseSchedule {
                 }
 
                 extractFolder();
-                parseData("Platforms.xml");
+                parseData(FILE_WITH_PLATFORM_DATA);
                 parseData(FILE_WITH_GAME_DATA);
                 removeExtractedFile();
-
+            } else {
+                Boolean gamesMetaDataDownloaded = getGamesMetaData();
+                if(BooleanUtils.isTrue(gamesMetaDataDownloaded)) {
+                    init();
+                }
             }
         } catch (IOException | NoSuchAlgorithmException | ParserConfigurationException | SAXException e) {
             log.error("Game vault data source failed to process. {}", e.getMessage());
@@ -116,8 +130,6 @@ public class LoadGameDatabaseSchedule {
     }
 
     private Boolean checkAndLoadFile() {
-        //https://gamesdb.launchbox-app.com/Metadata.zip
-
 
         File file = new File(FILE_DOWNLOAD_PATH);
 
@@ -125,37 +137,42 @@ public class LoadGameDatabaseSchedule {
 
         if(!file.exists()) {
             log.error("File {} not found.", file.getAbsolutePath());
-            //TODO send notification
+            this.ntfyUtils.send("[GameVault] Downloading new metadata file.");
             return false;
         }
 
         return true;
     }
 
-    /* private Boolean getData() throws IOException {
-
-        final String fileUrl = "https://gamesdb.launchbox-app.com/Metadata.zip";
+    private Boolean getGamesMetaData() throws IOException {
 
         File file = new File(FILE_DOWNLOAD_PATH);
 
         log.info("Downloading file {}", file.getAbsolutePath());
 
-        long bytesDownloaded = downloadFile(fileUrl, "Metadata.zip");
+        long bytesDownloaded = downloadFile();
 
         if(bytesDownloaded == 0) {
             log.error("Could not download file {}", file.getAbsolutePath());
-            //TODO send notification
+            this.ntfyUtils.send("[GameVault] It was not possible to download the metadata file.");
             return false;
         }
 
         return true;
     }
 
-    private long downloadFile(String url, String fileName) throws IOException {
-        try (InputStream in = URI.create(url).toURL().openStream()) {
-            return Files.copy(in, Paths.get(fileName));
+    private long downloadFile() throws IOException {
+        final String fileUrl = "https://gamesdb.launchbox-app.com/Metadata.zip";
+
+        URL url = URI.create(fileUrl).toURL();
+        URLConnection conn = url.openConnection();
+        conn.setConnectTimeout(15_000);
+        conn.setReadTimeout(30_000);
+
+        try (InputStream in = URI.create(fileUrl).toURL().openStream()) {
+            return Files.copy(in, Paths.get(FILE_DOWNLOAD_PATH), StandardCopyOption.REPLACE_EXISTING);
         }
-    } */
+    }
 
     private Map<String, Object> processPlatforms(
             Element platform,

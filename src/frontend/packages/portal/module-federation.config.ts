@@ -2,7 +2,7 @@ import { ModuleFederationConfig } from '@nx/module-federation';
 
 const config: ModuleFederationConfig = {
   name: 'portal',
-  remotes: ['sample', 'videoGameCatalog', 'shelveProducts'],
+  remotes: ['sample', 'gameVault', 'shelveProducts'],
 };
 
 /**

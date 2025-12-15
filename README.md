@@ -7,6 +7,8 @@ So here we go — time to build things my way! 🛠️💥🛠️
 
 # 📦 Patch Notes
 ## v2.1.0 (2025-12-05)
+
+### 🧩 Angular Frontend
 - Added a new frontend for my personal video game library.
 
 ## v2.0.0 (2025-11-29)
