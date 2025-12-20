@@ -174,18 +174,12 @@ public class LoadGameDatabaseSchedule {
         }
     }
 
-    private Map<String, Object> processPlatforms(
-            Element platform,
-            List<String> consolePlatformToLookUp,
-            boolean nameFoundInLookUpList
-    ) {
+    private Map<String, Object> processPlatforms(Element platform) {
         Map<String, Object> platformMap = new HashMap<>();
 
-        String name = getTagValue("Name", platform);
+        String category = getTagValue("Category", platform);
 
-        nameFoundInLookUpList = isNameFoundInLookUpList(consolePlatformToLookUp, nameFoundInLookUpList, name);
-
-        if(BooleanUtils.isTrue(nameFoundInLookUpList)) {
+        if(category.equals("Consoles")) {
             platformMap.put("name", getTagValue("Name", platform));
             platformMap.put("releaseDate", getTagValue("ReleaseDate", platform));
             platformMap.put("developer", getTagValue("Developer", platform));
@@ -245,7 +239,7 @@ public class LoadGameDatabaseSchedule {
     }
 
     private void parseData(String fileToParse) throws ParserConfigurationException, IOException, SAXException {
-        List<String> consolePlatformToLookUp = catConfigService.getGameVaultPlatform();
+        List<String> consolePlatformToLookUp = catGamePlatformService.getSelectedPlatforms();
 
         File xmlFile = new File(String.format("%s/%s", FILE_EXTRACTED_PATH, fileToParse));
 
@@ -280,7 +274,7 @@ public class LoadGameDatabaseSchedule {
                     continue;
                 }
 
-                Map<String, Object> processedPlatform = this.processPlatforms(element, consolePlatformToLookUp, nameFoundInLookUpList);
+                Map<String, Object> processedPlatform = this.processPlatforms(element);
                 catGamePlatformService.savePlatforms(processedPlatform);
             }
         }

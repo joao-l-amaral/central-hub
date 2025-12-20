@@ -1,0 +1,30 @@
+<h1>Administrator page</h1>
+
+<div class="row">
+    <div class="col-md-4">
+        <h3>!Platform selector</h3>
+
+        <mat-button-toggle-group
+            name="platforms"
+            aria-label="platforms"
+            [hideMultipleSelectionIndicator]="hideMultipleSelectionIndicator()"
+            [vertical]="true"
+            multiple
+            (change)="onValChange($event)"
+        >
+            @for(platform of platforms(); track platform) {
+                <mat-button-toggle
+                    [value]="platform.platformName"
+                    [checked]="platform.isSelected"
+                >{{ platform.platformName }}</mat-button-toggle>
+            }
+        </mat-button-toggle-group>
+    </div>
+    <div class="col-md-4">
+        <h3>!CatConfig configuration</h3>
+
+        <mat-card>
+            <pre class="mat-elevation-z2 pre-wrap">{{ configuration() | json }}</pre>
+        </mat-card>
+    </div>
+</div>

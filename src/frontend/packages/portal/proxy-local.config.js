@@ -20,7 +20,7 @@ module.exports = {
         "logLevel": "debug",
         "pathRewrite": { "^/assets/sample": "/assets" }
     },
-    "/shelve/api": {
+    "/**/api/*": {
         "target": "http://localhost:8080",
         "secure": false,
         "changeOrigin": true,

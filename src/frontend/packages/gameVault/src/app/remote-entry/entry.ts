@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { NxWelcome } from './nx-welcome';
+import { GameVaultComponent } from '../pages/game-vault/game-vault.component';
 
 @Component({
-  imports: [NxWelcome],
+    imports: [GameVaultComponent],
   selector: 'ng-mf-gameVault-entry',
-  template: `<ng-mf-nx-welcome2></ng-mf-nx-welcome2>`,
+  template: `<game-vault-home></game-vault-home>`,
 })
 export class RemoteEntry {}

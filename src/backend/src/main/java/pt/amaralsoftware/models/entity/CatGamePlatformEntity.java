@@ -22,11 +22,13 @@ public class CatGamePlatformEntity extends PanacheEntityBase implements Serializ
     private String notes;
     private String media;
     private String maxControllers;
+    @Column(name ="is_to_import")
+    private Boolean isToImport;
 
     public CatGamePlatformEntity() {
     }
 
-    public CatGamePlatformEntity(String name, String releaseDate, String developer, String manufacturer, String cpu, String memory, String graphics, String sound, String display, String notes, String media, String maxControllers) {
+    public CatGamePlatformEntity(String name, String releaseDate, String developer, String manufacturer, String cpu, String memory, String graphics, String sound, String display, String notes, String media, String maxControllers, Boolean isToImport) {
         this.name = name;
         this.releaseDate = releaseDate;
         this.developer = developer;
@@ -39,6 +41,7 @@ public class CatGamePlatformEntity extends PanacheEntityBase implements Serializ
         this.notes = notes;
         this.media = media;
         this.maxControllers = maxControllers;
+        this.isToImport = isToImport;
     }
 
     public String getName() {
@@ -87,5 +90,13 @@ public class CatGamePlatformEntity extends PanacheEntityBase implements Serializ
 
     public String getMaxControllers() {
         return maxControllers;
+    }
+
+    public Boolean getToImport() {
+        return isToImport;
+    }
+
+    public void setToImport(Boolean toImport) {
+        isToImport = toImport;
     }
 }
