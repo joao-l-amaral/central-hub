@@ -3,8 +3,8 @@ import { GamePlatformApiService } from '../../data-source/game-platform-api.serv
 import { MatButtonToggleChange, MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { Platforms } from '../../interfaces/game-platforms.interface';
-import { MatCard } from '@angular/material/card';
-import { JsonPipe } from '@angular/common';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ConfigurationComponent } from './configuration/configuration.component';
 
 @Component({
     selector: 'administration-administration',
@@ -13,8 +13,8 @@ import { JsonPipe } from '@angular/common';
     imports: [
         MatButtonToggleModule,
         MatCheckboxModule,
-        MatCard,
-        JsonPipe
+        ReactiveFormsModule,
+        ConfigurationComponent
     ],
     standalone: true,
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -33,6 +33,8 @@ export class AdministrationComponent implements OnInit {
     hideMultipleSelectionIndicator = signal(false);
     configuration = signal("");
 
+    catConfigConfigurationEdit = signal(false);
+
     platforms = computed(() => {
         const { listOfPlatforms, listOfSelectedPlatforms } = this.platformList();
 
@@ -42,27 +44,36 @@ export class AdministrationComponent implements OnInit {
         }));
     })
 
+    readonly form = new FormGroup({
+        data: new FormControl('', [Validators.required]),
+    });
+
     ngOnInit(): void {
         this.gamePlatformApi.getPlatforms().then(platforms => {
             this.platformList.set(platforms);
         });
         this.gamePlatformApi.getConfigurations().then(configuration => {
-            const s = JSON.stringify(configuration);
-            console.log(s);
-            const parsedConfiguration = JSON.parse(s);
-            console.log(parsedConfiguration);
-
-            const b = typeof configuration === 'string'
+            const configurationToDisplay = typeof configuration === 'string'
                     ? JSON.parse(configuration)
                     : configuration;
 
-
-            this.configuration.set(b);
-
+            this.configuration.set(configurationToDisplay);
         });
     }
 
     onValChange(value: MatButtonToggleChange) {
         this.gamePlatformApi.updatePlatform(value.value).then( () => {});
+    }
+
+    onChangeEditState() {
+        this.catConfigConfigurationEdit.set(!this.catConfigConfigurationEdit());
+    }
+
+    save() {
+        if (this.form.invalid) {
+            return;
+        }
+
+        alert("send")
     }
 }

@@ -1,4 +1,4 @@
-<h1>Administrator page</h1>
+<h1>!Administrator page</h1>
 
 <div class="row">
     <div class="col-md-4">
@@ -11,6 +11,7 @@
             [vertical]="true"
             multiple
             (change)="onValChange($event)"
+            class="custom-toggle"
         >
             @for(platform of platforms(); track platform) {
                 <mat-button-toggle
@@ -21,10 +22,6 @@
         </mat-button-toggle-group>
     </div>
     <div class="col-md-4">
-        <h3>!CatConfig configuration</h3>
-
-        <mat-card>
-            <pre class="mat-elevation-z2 pre-wrap">{{ configuration() | json }}</pre>
-        </mat-card>
+        <configuration-administration></configuration-administration>
     </div>
 </div>

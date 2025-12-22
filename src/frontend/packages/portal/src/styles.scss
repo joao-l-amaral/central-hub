@@ -27,6 +27,7 @@ body { margin: 0; font-family: 'Inter', sans-serif; }
     --mat-sys-label-large-font: var(--font-family);
     --mat-button-filled-label-text-font: var(--font-family);
     --mat-form-field-filled-label-text-font: var(--font-family);
+    --mat-form-field-subscript-text-font: var(--font-family);
 
     // Collapsable Component
     //--mat-expansion-container-text-font: 'Inter', sans-serif;
@@ -36,6 +37,9 @@ body { margin: 0; font-family: 'Inter', sans-serif; }
     --mat-expansion-header-hover-state-layer-color: var(--color-secondary);
     --mat-expansion-header-text-color: var(--color-highlight);
     --mat-expansion-row-item-container-height: 20px;
+
+    // Button group
+    --mat-button-toggle-selected-state-text-color: var(--color-highlight);
 
     .mat-mdc-row {
         height: 20px;
@@ -129,7 +133,7 @@ body { margin: 0; font-family: 'Inter', sans-serif; }
     .mat-mdc-option,
     .mat-mdc-dialog-title,
     .mat-mdc-dialog-content,
-    .mat-typography {
+    .mat-typography, {
         font-family: 'Inter', sans-serif !important;
     }
 }
