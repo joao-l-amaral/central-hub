@@ -1,22 +1,24 @@
-<h3>!CatConfig configuration</h3>
+<h3>{{ 'game.vault.catconfig.configuration.title' | translate }}</h3>
 
 <div class="mb-2 catconfig-configuration-actions">
     <div>
         @if(!catConfigConfigurationEdit()) {
             <button
                 mat-flat-button
-                class="btn btn-primary btn-sm"
                 (click)="onChangeEditState()"
-            >!Edit</button>
+            >{{ 'game.vault.catconfig.edit' | translate }}</button>
         }
         @else {
             <button
-                class="btn btn-primary btn-sm ml-2"
+                mat-stroked-button
+                class="ml-2"
                 (click)="onChangeEditState()"
-            >!Cancel</button>
+            >{{ 'game.vault.catconfig.cancel' | translate }}</button>
             <button
-                class="btn btn-primary btn-sm ml-2"
-            >!Save</button>
+                mat-flat-button
+                class="ml-2"
+                (click)="onSaveConfiguration()"
+            >{{ 'game.vault.catconfig.save' | translate }}</button>
         }
     </div>
 </div>
@@ -24,7 +26,7 @@
 <mat-card>
     <form [formGroup]="form" class="w-100">
         <mat-form-field appearance="fill" subscriptSizing="dynamic" class="w-100">
-            <mat-label>Configuration</mat-label>
+            <mat-label>{{ 'game.vault.catconfig.configuration' | translate }}</mat-label>
 
             <textarea
                 matInput
@@ -35,8 +37,8 @@
                 placeholder="Edit configuration..."
             ></textarea>
 
-            <mat-hint align="start"><b>keyWordsToLookFor:</b> !Key words to look for in the platforms name.</mat-hint>
-            <mat-hint align="end"><b>keyWordsToIgnore:</b> !Key works to ignore in the platforms name.</mat-hint>
+            <mat-hint align="start"><b>keyWordsToLookFor:</b> {{ 'game.vault.catconfig.keyWordsToLookFor' | translate }}</mat-hint>
+            <mat-hint align="end"><b>keyWordsToIgnore:</b> {{ 'game.vault.catconfig.keyWordsToIgnore' | translate }}</mat-hint>
         </mat-form-field>
     </form>
 </mat-card>

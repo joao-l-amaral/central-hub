@@ -71,8 +71,7 @@
       "executor": "@nx/angular:module-federation-dev-server",
       "options": {
         "port": 4201,
-        "publicHost": "http://localhost:4201",
-        "proxyConfig": "packages/shelveProducts/proxy-local.config.js"
+        "publicHost": "http://localhost:4201"
       },
       "configurations": {
         "production": {

@@ -5,6 +5,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { Platforms } from '../../interfaces/game-platforms.interface';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ConfigurationComponent } from './configuration/configuration.component';
+import { InternalizationPipe, MF_FRONTEND } from '@portal/library';
 
 @Component({
     selector: 'administration-administration',
@@ -14,12 +15,14 @@ import { ConfigurationComponent } from './configuration/configuration.component'
         MatButtonToggleModule,
         MatCheckboxModule,
         ReactiveFormsModule,
-        ConfigurationComponent
+        ConfigurationComponent,
+        InternalizationPipe
     ],
     standalone: true,
     changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [
-        GamePlatformApiService
+        GamePlatformApiService,
+        { provide: MF_FRONTEND, useValue: 'gameVault' }
     ]
 })
 export class AdministrationComponent implements OnInit {
@@ -63,10 +66,6 @@ export class AdministrationComponent implements OnInit {
 
     onValChange(value: MatButtonToggleChange) {
         this.gamePlatformApi.updatePlatform(value.value).then( () => {});
-    }
-
-    onChangeEditState() {
-        this.catConfigConfigurationEdit.set(!this.catConfigConfigurationEdit());
     }
 
     save() {

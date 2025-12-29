@@ -38,11 +38,15 @@ export const appConfig: ApplicationConfig = {
     provideAppInitializer(() => {
       const appInitService = inject(AppInitService);
       const remotes = (config.remotes as Array<string>) ?? [];
-      appInitService.fetchApplicationConfiguration();
+      appInitService.fetchApplicationConfiguration().then(() => {
+          console.info("Application configuration loaded");
+      });
+      appInitService.fetchPortalInternalization();
       if (remotes.length > 0) {
         for (const remote of remotes) {
-          console.log(`Fetching i18n data for remote: ${remote}`);
-          appInitService.fetchI18nData(remote);
+          appInitService.fetchI18nData(remote).then(() => {
+              console.info(`Fetched i18n data from remote: ${remote}`);
+          });
         }
       } else {
         console.error("Remotes not found in module-federation.config.ts");

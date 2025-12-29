@@ -27,7 +27,7 @@
     "form.quantity": "Quantity",
     "form.weight": "Liquid Weight",
     "form.calories": "Calories",
-    "modal.title": "Remove produto(s)",
+    "modal.title": "Remove product(s)",
     "remove.one.product": "Are you sure you want to remove the product?",
     "remove.multi.product": "Are you sure you want to remove the products %s?",
     "remove.single.product": "Are you sure you want to remove the product %s?",

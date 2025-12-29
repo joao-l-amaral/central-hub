@@ -14,6 +14,8 @@ export class I18nService {
 
         const i18nData = [...this.i18n()];
 
+        namespace = (namespace.length > 0) ? namespace : 'portal';
+
         const namespaceDictionary = {
           namespace: namespace,
           dictionary: dictionary
@@ -25,8 +27,6 @@ export class I18nService {
     }
 
     translate(namespace: string | null, value: string, arg?: string) {
-
-        if(namespace === null) namespace = "portal";
 
         const i18nData = this.i18n().find(item => item.namespace === namespace);
 

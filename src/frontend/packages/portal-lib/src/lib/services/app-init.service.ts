@@ -40,12 +40,18 @@ export class AppInitService {
     }
 
     async fetchApplicationConfiguration() {
-        console.log("Fetch bff token from portal configuration...");
+        console.log("Fetch bff token from portal configuration.");
 
         const applicationConfiguration = await this.getApplicationConfiguration();
         const applicationConfigurationAuthPass = btoa(applicationConfiguration["bff.auth.pass"]);
 
         this.applicationConfigurations.basicAuthenticationToken.set(applicationConfigurationAuthPass);
+    }
+
+    fetchPortalInternalization() {
+        this.fetchI18nData('').then(() => {
+            console.info('Fetched i18n data from portal');
+        })
     }
 
 }

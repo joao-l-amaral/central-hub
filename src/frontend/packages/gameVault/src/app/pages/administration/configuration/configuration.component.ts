@@ -8,6 +8,8 @@ import { GamePlatformApiService } from '../../../data-source/game-platform-api.s
 import { MatInput } from '@angular/material/input';
 import { CdkTextareaAutosize } from '@angular/cdk/text-field';
 import { MatButton } from '@angular/material/button';
+import { ConfirmationModalComponent, I18nService, InternalizationPipe, MF_FRONTEND } from '@portal/library';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
     selector: 'configuration-administration',
@@ -23,7 +25,8 @@ import { MatButton } from '@angular/material/button';
         MatHint,
         MatInput,
         CdkTextareaAutosize,
-        MatButton
+        MatButton,
+        InternalizationPipe
     ],
     standalone: true,
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -32,6 +35,9 @@ import { MatButton } from '@angular/material/button';
 export class ConfigurationComponent implements OnInit {
 
     private readonly gamePlatformApi = inject(GamePlatformApiService);
+    private readonly i18nService = inject(I18nService);
+    private readonly dialog = inject(MatDialog);
+    private readonly mf = inject(MF_FRONTEND);
 
     configuration = signal("");
 
@@ -64,11 +70,20 @@ export class ConfigurationComponent implements OnInit {
         }
     }
 
-    save() {
-        // if (this.form.invalid) {
-        //     return;
-        // }
+    onSaveConfiguration() {
+        const modalMsg =   this.i18nService.translate(this.mf, "game.vault.catconfig.edit.description");
 
-        alert("send")
+        const dialogRef = this.dialog.open(ConfirmationModalComponent, {
+            data: {title: this.i18nService.translate(this.mf, "game.vault.catconfig.edit.title"), message: modalMsg},
+            position: { top: '100px' }
+        });
+
+        dialogRef.afterClosed().subscribe(result => {
+            if (result !== undefined) {
+                alert("send");
+                this.catConfigConfigurationEdit.set(false);
+                this.form.get('configurationData')?.disable();
+            }
+        });
     }
 }

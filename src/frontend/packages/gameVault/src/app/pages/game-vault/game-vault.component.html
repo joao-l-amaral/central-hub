@@ -1,14 +1,14 @@
 <div class="container-flex">
     <div class="row">
         <div class="col-md-12 slide-area">
-            <mat-slide-toggle [formControl]="slideForm">!Administrator</mat-slide-toggle>
+            <mat-slide-toggle [formControl]="slideForm">{{ 'game.vault.administrator' | translate }}</mat-slide-toggle>
         </div>
         <div class="col-md-12">
             @if(isAdministrator()) {
                 <administration-administration></administration-administration>
             }
             @else {
-                <h1>Home page</h1>
+                <h1>{{ 'game.vault.catalog' | translate }}</h1>
             }
         </div>
     </div>

@@ -3,6 +3,7 @@
   "version": "2.1.0",
   "license": "MIT",
   "scripts": {
+    "startAll": "nx serve portal --devRemotes=gameVault,shelveProducts",
     "start": "nx serve portal",
     "build": "nx build portal",
     "test": "nx test portal",

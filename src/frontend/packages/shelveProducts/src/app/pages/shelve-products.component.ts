@@ -13,7 +13,7 @@ import { StatisticsPanelService } from '../ui/statistics-panel/statistics-panel.
 import { ToastrService } from 'ngx-toastr';
 import { MatDialog } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
-import { ConfirmationModalComponent } from '../ui/confirmation-modal/confirmation-modal.component';
+import { ConfirmationModalComponent } from '../../../../portal-lib/src/lib/ui/confirmation-modal/confirmation-modal.component';
 import { I18nService, InternalizationPipe, MF_FRONTEND } from '@portal/library';
 import { SelectionModel } from '@angular/cdk/collections';
 import { ShelveProduct } from '../interface/shelve-product.interface';
