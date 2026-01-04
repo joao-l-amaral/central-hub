@@ -1,11 +1,12 @@
-import { ChangeDetectionStrategy, Component, inject, model, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, model } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
     MAT_DIALOG_DATA,
     MatDialogActions,
     MatDialogClose,
     MatDialogContent,
-    MatDialogRef, MatDialogTitle
+    MatDialogRef,
+    MatDialogTitle
 } from '@angular/material/dialog';
 import { MatButton } from '@angular/material/button';
 import { FormsModule } from '@angular/forms';
@@ -35,7 +36,7 @@ export interface DialogData {
         { provide: MF_FRONTEND, useValue: 'portal' }
     ]
 })
-export class ConfirmationModalComponent implements OnInit {
+export class ConfirmationModalComponent {
 
     readonly dialogRef = inject(MatDialogRef<ConfirmationModalComponent>);
     readonly data = inject<DialogData>(MAT_DIALOG_DATA);
@@ -45,13 +46,6 @@ export class ConfirmationModalComponent implements OnInit {
 
     readonly okTranslation = this.i18nService.translate(this.mf, "commons.ok");
     readonly cancelTranslation = this.i18nService.translate(this.mf, "commons.cancel");
-
-
-    ngOnInit(): void {
-        console.log(this.mf);
-        console.log(this.okTranslation);
-    }
-
 
     onNoClick(): void {
         this.dialogRef.close();

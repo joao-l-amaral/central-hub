@@ -2,6 +2,9 @@ package pt.amaralsoftware.service;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import jakarta.transaction.Transactional;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import pt.amaralsoftware.models.GameVaultConfiguration;
 import pt.amaralsoftware.models.entity.CatConfigEntity;
 import pt.amaralsoftware.repository.CatConfigRepository;
@@ -12,6 +15,7 @@ import java.io.IOException;
 @ApplicationScoped
 public class CatConfigService {
 
+    private static final Logger log = LoggerFactory.getLogger(CatConfigService.class);
     @Inject
     CatConfigRepository catConfigRepository;
 
@@ -24,5 +28,16 @@ public class CatConfigService {
         CatConfigEntity catConfigEntity = catConfigRepository.find("WHERE module = 'GameVault'").firstResult();
         String configuration = catConfigEntity.getConfiguration();
         return JSONSerializer.fromJSON(configuration, GameVaultConfiguration.class);
+    }
+
+    @Transactional
+    public void updateGameVaultConfiguration(String payload) {
+        log.debug("Updating GameVault configuration: {}", payload);
+
+        CatConfigEntity catConfigEntity = catConfigRepository.find("WHERE module = 'GameVault'").firstResult();
+
+        catConfigEntity.setConfiguration(payload);
+
+        catConfigRepository.persist(catConfigEntity);
     }
 }

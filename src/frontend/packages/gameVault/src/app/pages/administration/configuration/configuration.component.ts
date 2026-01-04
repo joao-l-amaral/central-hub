@@ -10,6 +10,7 @@ import { CdkTextareaAutosize } from '@angular/cdk/text-field';
 import { MatButton } from '@angular/material/button';
 import { ConfirmationModalComponent, I18nService, InternalizationPipe, MF_FRONTEND } from '@portal/library';
 import { MatDialog } from '@angular/material/dialog';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
     selector: 'configuration-administration',
@@ -36,6 +37,7 @@ export class ConfigurationComponent implements OnInit {
 
     private readonly gamePlatformApi = inject(GamePlatformApiService);
     private readonly i18nService = inject(I18nService);
+    private readonly toastr = inject(ToastrService);
     private readonly dialog = inject(MatDialog);
     private readonly mf = inject(MF_FRONTEND);
 
@@ -70,6 +72,22 @@ export class ConfigurationComponent implements OnInit {
         }
     }
 
+    private updatePlatformConfiguration(configuration: string) {
+
+        this.gamePlatformApi.updatePlatformConfiguration(configuration).then(() => {
+
+            const successTitle = this.i18nService.translate(this.mf, "game.vault.catconfig.configuration.title");
+            const successMessage = this.i18nService.translate(this.mf, "game.vault.catconfig.updated");
+
+            this.toastr.success(successMessage, successTitle, {
+                positionClass: 'toast-bottom-left'
+            });
+
+            this.catConfigConfigurationEdit.set(false);
+            this.form.get('configurationData')?.disable();
+        });
+    }
+
     onSaveConfiguration() {
         const modalMsg =   this.i18nService.translate(this.mf, "game.vault.catconfig.edit.description");
 
@@ -80,9 +98,8 @@ export class ConfigurationComponent implements OnInit {
 
         dialogRef.afterClosed().subscribe(result => {
             if (result !== undefined) {
-                alert("send");
-                this.catConfigConfigurationEdit.set(false);
-                this.form.get('configurationData')?.disable();
+                const configuration = this.form.get('configurationData')?.value ?? "";
+                this.updatePlatformConfiguration(configuration);
             }
         });
     }

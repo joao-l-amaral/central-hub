@@ -6,6 +6,7 @@ import { Platforms } from '../../interfaces/game-platforms.interface';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ConfigurationComponent } from './configuration/configuration.component';
 import { InternalizationPipe, MF_FRONTEND } from '@portal/library';
+import { ActionsComponent } from './actions/actions.component';
 
 @Component({
     selector: 'administration-administration',
@@ -16,7 +17,8 @@ import { InternalizationPipe, MF_FRONTEND } from '@portal/library';
         MatCheckboxModule,
         ReactiveFormsModule,
         ConfigurationComponent,
-        InternalizationPipe
+        InternalizationPipe,
+        ActionsComponent
     ],
     standalone: true,
     changeDetection: ChangeDetectionStrategy.OnPush,

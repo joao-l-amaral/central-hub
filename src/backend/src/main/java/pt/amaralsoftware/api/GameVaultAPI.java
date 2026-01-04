@@ -3,6 +3,7 @@ package pt.amaralsoftware.api;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.PATCH;
+import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
 import org.jboss.resteasy.reactive.RestResponse;
 import org.slf4j.Logger;
@@ -10,7 +11,6 @@ import org.slf4j.LoggerFactory;
 import pt.amaralsoftware.config.LoadGameDatabaseSchedule;
 import pt.amaralsoftware.models.DTO.gamevault.GameVaultPlatformDTO;
 import pt.amaralsoftware.models.GameVaultConfiguration;
-import pt.amaralsoftware.models.entity.CatConfigEntity;
 import pt.amaralsoftware.service.CatConfigService;
 import pt.amaralsoftware.service.CatGamePlatformService;
 
@@ -71,6 +71,14 @@ public class GameVaultAPI {
         } catch (IOException e) {
             log.error("Error updating platforms. {}", e.getMessage());
         }
+
+        return RestResponse.ok();
+    }
+
+    @PUT
+    @Path("/updatePlatformConfiguration")
+    public RestResponse<String> updatePlatformConfiguration(String payload) {
+        catConfigService.updateGameVaultConfiguration(payload);
 
         return RestResponse.ok();
     }

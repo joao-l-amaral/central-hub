@@ -23,7 +23,15 @@
             "input": "packages/gameVault/public"
           }
         ],
-        "styles": ["packages/gameVault/src/styles.scss"],
+        "styles": [
+            "packages/gameVault/src/styles.scss",
+            "@angular/material/prebuilt-themes/azure-blue.css",
+            "node_modules/bootstrap/dist/css/bootstrap.min.css",
+            "node_modules/ngx-toastr/toastr.css"
+        ],
+        "scripts": [
+          "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
+        ],
         "customWebpackConfig": {
           "path": "packages/gameVault/webpack.config.ts"
         }

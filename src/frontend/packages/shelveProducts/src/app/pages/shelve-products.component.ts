@@ -13,7 +13,7 @@ import { StatisticsPanelService } from '../ui/statistics-panel/statistics-panel.
 import { ToastrService } from 'ngx-toastr';
 import { MatDialog } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
-import { ConfirmationModalComponent } from '../../../../portal-lib/src/lib/ui/confirmation-modal/confirmation-modal.component';
+import { ConfirmationModalComponent } from '@portal/library';
 import { I18nService, InternalizationPipe, MF_FRONTEND } from '@portal/library';
 import { SelectionModel } from '@angular/cdk/collections';
 import { ShelveProduct } from '../interface/shelve-product.interface';
@@ -58,11 +58,11 @@ export class ShelveProductsComponent  implements OnDestroy {
 
     events: string[] = [];
     opened = false;
-    private sub: Subscription;
-    private subClose: Subscription;
-    private subChanged: Subscription;
+    private readonly sub: Subscription;
+    private readonly subClose: Subscription;
+    private readonly subChanged: Subscription;
 
-    private defaultShelveProduct = this.sideNavService.defaultShelveProduct;
+    private readonly defaultShelveProduct = this.sideNavService.defaultShelveProduct;
 
     deletionDisable = signal<boolean>(true);
 
