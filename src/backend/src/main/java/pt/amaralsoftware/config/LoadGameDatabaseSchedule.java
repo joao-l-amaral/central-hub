@@ -6,6 +6,7 @@ import jakarta.inject.Inject;
 import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.SystemUtils;
+import org.apache.commons.text.WordUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
@@ -21,6 +22,12 @@ import pt.amaralsoftware.util.NtfyUtils;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.stream.XMLEventReader;
+import javax.xml.stream.XMLInputFactory;
+import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.events.Characters;
+import javax.xml.stream.events.StartElement;
+import javax.xml.stream.events.XMLEvent;
 import java.io.*;
 import java.net.URI;
 import java.net.URL;
@@ -35,6 +42,66 @@ import java.util.*;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
+class ParsedMetadaModel {
+    Boolean isGame;
+    Boolean nameFoundInLookUpList;
+    Map<String, Object> gameMap;
+    String currentKey;
+    StringBuilder currentValue;
+
+    public ParsedMetadaModel() {
+        this.isGame = false;
+        this.nameFoundInLookUpList = false;
+        this.gameMap = new HashMap<>();
+        this.currentKey = null;
+        this.currentValue = new StringBuilder();
+    }
+
+    public Boolean getGame() {
+        return isGame;
+    }
+
+    public void setGame(Boolean game) {
+        isGame = game;
+    }
+
+    public Boolean getNameFoundInLookUpList() {
+        return nameFoundInLookUpList;
+    }
+
+    public void setNameFoundInLookUpList(Boolean nameFoundInLookUpList) {
+        this.nameFoundInLookUpList = nameFoundInLookUpList;
+    }
+
+    public void setCurrentKey(String currentKey) {
+        this.currentKey = currentKey;
+    }
+
+    public StringBuilder getCurrentValue() {
+        return currentValue;
+    }
+
+    public void resetCurrentValue() {
+        this.currentValue.setLength(0);
+    }
+
+    public void setCurrentValue(StringBuilder currentValue) {
+        this.currentValue = currentValue;
+    }
+
+    public Map<String, Object> getGameMap() {
+        return gameMap;
+    }
+
+    public void clearGameMap() {
+        this.gameMap.clear();
+    }
+
+    public void addGameToMap() {
+        this.gameMap.put(this.currentKey, this.currentValue.toString());
+    }
+}
+
 @ApplicationScoped
 public class LoadGameDatabaseSchedule {
 
@@ -46,7 +113,7 @@ public class LoadGameDatabaseSchedule {
     private static final String FILE_HASH_FILE = "hash.txt";
     private static final String FILE_WITH_GAME_DATA = "Metadata.xml";
     private static final String FILE_WITH_PLATFORM_DATA = "Platforms.xml";
-    private static final String PLATFORM = "Platform";
+    private static final String PLATFORM = "platform";
 
     @Inject
     CatConfigService catConfigService;
@@ -87,8 +154,8 @@ public class LoadGameDatabaseSchedule {
                 }
 
                 extractFolder();
-                parseData(FILE_WITH_PLATFORM_DATA);
-                parseData(FILE_WITH_GAME_DATA);
+                parseData();
+                parseDataByStream();
                 removeExtractedFile();
             } else {
                 Boolean gamesMetaDataDownloaded = getGamesMetaData();
@@ -96,7 +163,7 @@ public class LoadGameDatabaseSchedule {
                     init();
                 }
             }
-        } catch (IOException | NoSuchAlgorithmException | ParserConfigurationException | SAXException e) {
+        } catch (IOException | ParserConfigurationException | SAXException | NoSuchAlgorithmException e) {
             log.error("Game vault data source failed to process. {}", e.getMessage());
         }
     }
@@ -198,50 +265,133 @@ public class LoadGameDatabaseSchedule {
     }
 
     private Map<String, Object> processGames(
-            Element game,
+            Map<String, Object> gameMap,
             List<String> consolePlatformToLookUp,
             boolean nameFoundInLookUpList
     ) {
-        Map<String, Object> gameMap = new HashMap<>();
 
-        String platform = getTagValue(PLATFORM, game);
+        String platform = String.valueOf(gameMap.get(PLATFORM));
 
         nameFoundInLookUpList = isNameFoundInLookUpList(consolePlatformToLookUp, nameFoundInLookUpList, platform);
 
         if(BooleanUtils.isTrue(nameFoundInLookUpList)) {
-            gameMap.put("name", getTagValue("Name", game));
-            gameMap.put("releaseDate", getTagValue("ReleaseDate", game));
-            gameMap.put("releaseYear", getTagValue("ReleaseYear", game));
-            gameMap.put("overview", getTagValue("Overview", game));
-            gameMap.put("maxPlayers", getTagValue("MaxPlayers", game));
-            gameMap.put("videoUrl", getTagValue("VideoUrl", game));
-            gameMap.put("communityRating", getTagValue("CommunityRating", game));
-            gameMap.put("platform", getTagValue(PLATFORM, game));
-            gameMap.put("esrb", getTagValue("ESRB", game));
-            gameMap.put("developer", getTagValue("Developer", game));
-            gameMap.put("publisher", getTagValue("Publisher", game));
+            return gameMap;
         }
 
-        return gameMap;
+        return null;
     }
 
     private boolean isNameFoundInLookUpList(List<String> consolePlatformToLookUp, boolean nameFoundInLookUpList, String name) {
         for (String platformToLookUp : consolePlatformToLookUp) {
-            String formattedNameToCheck = name.replace(" ", "").toUpperCase();
-            String platformToCheck = platformToLookUp.trim().replace(" ", "");
-            if (formattedNameToCheck.endsWith(platformToCheck)) {
+            if (name.endsWith(platformToLookUp)) {
                 nameFoundInLookUpList = true;
-                log.info("Platform {} found in look up list", formattedNameToCheck);
+                log.info("Platform {} found in look up list", name);
                 break;
             }
         }
         return nameFoundInLookUpList;
     }
 
-    private void parseData(String fileToParse) throws ParserConfigurationException, IOException, SAXException {
+    private void parseDataByStream() {
         List<String> consolePlatformToLookUp = catGamePlatformService.getSelectedPlatforms();
 
-        File xmlFile = new File(String.format("%s/%s", FILE_EXTRACTED_PATH, fileToParse));
+        File xmlFile = new File(String.format("%s/%s", FILE_EXTRACTED_PATH, LoadGameDatabaseSchedule.FILE_WITH_GAME_DATA));
+
+        XMLInputFactory factory = XMLInputFactory.newInstance();
+
+        factory.setProperty(XMLInputFactory.SUPPORT_DTD, false);
+        factory.setProperty("javax.xml.stream.isSupportingExternalEntities", false);
+
+        ParsedMetadaModel parsedMetadaModel = new ParsedMetadaModel();
+
+        try (InputStream is = new FileInputStream(xmlFile)) {
+            XMLEventReader reader = factory.createXMLEventReader(is);
+
+            while (reader.hasNext()) {
+                XMLEvent event = reader.nextEvent();
+
+                String currentKey = null;
+                if (event.isStartElement()) {
+                    StartElement start = event.asStartElement();
+                    String tagName = start.getName().getLocalPart();
+
+                    if (StringUtils.containsIgnoreCase(tagName, "game")) {
+                        parsedMetadaModel.setGame(true);
+                        parsedMetadaModel.setNameFoundInLookUpList(false);
+                        continue;
+                    }
+
+                    currentKey = setKey(parsedMetadaModel, tagName);
+                    parsedMetadaModel.setCurrentKey(currentKey);
+
+                } else if (event.isCharacters()) {
+                    Characters chars = event.asCharacters();
+                    String text = chars.getData().trim();
+
+                    StringBuilder currentValue = parsedMetadaModel.getCurrentValue();
+                    addValue(currentValue, text);
+
+                } else if (event.isEndElement()) {
+                    String tagName = event.asEndElement().getName().getLocalPart();
+
+                    if (StringUtils.containsIgnoreCase(tagName, "game")) {
+                        saveGame(parsedMetadaModel, consolePlatformToLookUp);
+                        parsedMetadaModel = new ParsedMetadaModel();
+                        continue;
+                    }
+
+                    parsedMetadaModel.addGameToMap();
+                    parsedMetadaModel.setCurrentValue(new StringBuilder());
+                }
+            }
+        } catch (XMLStreamException | IOException e) {
+            log.error(e.getMessage());
+        }
+    }
+
+    private void saveGame(ParsedMetadaModel parsedMetadaModel, List<String> consolePlatformToLookUp) {
+        parsedMetadaModel.setGame(false);
+        Map<String, Object> gameMap = parsedMetadaModel.getGameMap();
+        Boolean nameFoundInLookUpList = parsedMetadaModel.getNameFoundInLookUpList();
+        Map<String, Object> processedGame = this.processGames(gameMap, consolePlatformToLookUp, nameFoundInLookUpList);
+        if(processedGame != null) {
+            log.debug("Saving game {}", processedGame);
+            catGameService.saveGames(processedGame);
+        }
+        parsedMetadaModel.clearGameMap();
+    }
+
+    private String setKey(ParsedMetadaModel parsedMetadaModel, String tagName) {
+        Boolean isGame = parsedMetadaModel.getGame();
+        if(BooleanUtils.isTrue(isGame) && StringUtils.isNoneBlank(tagName)) {
+            parsedMetadaModel.resetCurrentValue();
+            return normalizeKey(tagName);
+        }
+        return null;
+    }
+
+    private void addValue(StringBuilder sb, String value) {
+        if(StringUtils.isNotBlank(value)) {
+            sb.append(value);
+        }
+    }
+
+    private String normalizeKey(String tagName) {
+        String key = WordUtils.uncapitalize(tagName);
+
+        switch (key) {
+            case "eSRB":
+                return "esrb";
+            case "videoURL":
+                return "videoUrl";
+            default:
+                return key;
+        }
+    }
+
+    private void parseData() throws ParserConfigurationException, IOException, SAXException {
+
+        File xmlFile = new File(String.format("%s/%s", FILE_EXTRACTED_PATH, LoadGameDatabaseSchedule.FILE_WITH_PLATFORM_DATA));
 
         DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
 
@@ -258,21 +408,15 @@ public class LoadGameDatabaseSchedule {
         Node launchBox = document.getElementsByTagName("LaunchBox").item(0);
         NodeList childNodes = launchBox.getChildNodes();
 
-        String parseTarget = (StringUtils.equals(fileToParse, FILE_WITH_GAME_DATA)) ? "Game" : PLATFORM;
+        String parseTarget = (StringUtils.equals(LoadGameDatabaseSchedule.FILE_WITH_PLATFORM_DATA, FILE_WITH_GAME_DATA)) ? "Game" : PLATFORM;
 
 
         for (int i = 0; i < childNodes.getLength(); i++) {
-            boolean nameFoundInLookUpList = false;
+//            boolean nameFoundInLookUpList = false;
             Node node = childNodes.item(i);
 
             if (node.getNodeType() == Node.ELEMENT_NODE && node.getNodeName().equals(parseTarget)) {
                 Element element = (Element) node;
-
-                if(StringUtils.equals(fileToParse, FILE_WITH_GAME_DATA)) {
-                    Map<String, Object> processedGame = this.processGames(element, consolePlatformToLookUp, nameFoundInLookUpList);
-                    catGameService.saveGames(processedGame);
-                    continue;
-                }
 
                 Map<String, Object> processedPlatform = this.processPlatforms(element);
                 catGamePlatformService.savePlatforms(processedPlatform);
