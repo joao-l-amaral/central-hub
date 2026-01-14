@@ -2,14 +2,9 @@
 
 <button
     mat-flat-button
+    lib-custom-button
+    [label]="'game.vault.actions.force.update' | translate"
+    [isLoading]="isLoading()"
     (click)="onForceGamesUpdate()"
-    [disabled]="isLoading()">
-
-    @if(isLoading()){
-        <mat-spinner [diameter]="20" strokeWidth="3"></mat-spinner>
-    }
-    @else {
-        <ng-container>{{ 'game.vault.actions.force.update' | translate }}</ng-container>
-    }
-
+>
 </button>

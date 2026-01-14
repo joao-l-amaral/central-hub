@@ -28,7 +28,7 @@ export class LibCustomButtonDirective {
                 this.matButton.disabled = true;
                 this.addSpinner();
             } else {
-                this.rendered.setProperty(this.el.nativeElement, 'textProperty', this.label());
+                this.rendered.setProperty(this.el.nativeElement, 'textContent', this.label());
                 this.matButton.disabled = false;
                 this.removeSpinner();
                 this.loadIcon();
