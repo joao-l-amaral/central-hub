@@ -8,7 +8,13 @@ import { GamePlatformApiService } from '../../../data-source/game-platform-api.s
 import { MatInput } from '@angular/material/input';
 import { CdkTextareaAutosize } from '@angular/cdk/text-field';
 import { MatButton } from '@angular/material/button';
-import { ConfirmationModalComponent, I18nService, InternalizationPipe, MF_FRONTEND } from '@portal/library';
+import {
+  ConfirmationModalComponent,
+  I18nService,
+  InternalizationPipe,
+  LibCustomButtonDirective,
+  MF_FRONTEND
+} from '@portal/library';
 import { MatDialog } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 
@@ -16,19 +22,20 @@ import { ToastrService } from 'ngx-toastr';
     selector: 'configuration-administration',
     templateUrl: './configuration.component.html',
     styleUrl: './configuration.component.scss',
-    imports: [
-        MatButtonToggleModule,
-        MatCheckboxModule,
-        MatCard,
-        MatFormField,
-        ReactiveFormsModule,
-        MatLabel,
-        MatHint,
-        MatInput,
-        CdkTextareaAutosize,
-        MatButton,
-        InternalizationPipe
-    ],
+  imports: [
+    MatButtonToggleModule,
+    MatCheckboxModule,
+    MatCard,
+    MatFormField,
+    ReactiveFormsModule,
+    MatLabel,
+    MatHint,
+    MatInput,
+    CdkTextareaAutosize,
+    MatButton,
+    InternalizationPipe,
+    LibCustomButtonDirective
+  ],
     standalone: true,
     changeDetection: ChangeDetectionStrategy.OnPush,
     providers: []

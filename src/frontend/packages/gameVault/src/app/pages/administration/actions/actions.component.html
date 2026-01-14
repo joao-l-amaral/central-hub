@@ -1,10 +1,11 @@
 <h3>{{ 'game.vault.actions' | translate }}</h3>
 
 <button
-    mat-flat-button
+    mat-button
     lib-custom-button
     [label]="'game.vault.actions.force.update' | translate"
     [isLoading]="isLoading()"
+    [type]="'primary'"
     (click)="onForceGamesUpdate()"
 >
 </button>

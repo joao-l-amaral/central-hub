@@ -3,6 +3,13 @@
     <p>{{ data.message }}</p>
 </mat-dialog-content>
 <mat-dialog-actions>
-    <button mat-stroked-button (click)="onNoClick()">{{ cancelTranslation }}</button>
+    <button
+        mat-button
+        lib-custom-button
+        [label]="cancelTranslation"
+        [type]="'secondary'"
+        (click)="onNoClick()"
+    >
+    </button>
     <button mat-flat-button [mat-dialog-close]="product()" cdkFocusInitial>{{ okTranslation }}</button>
 </mat-dialog-actions>

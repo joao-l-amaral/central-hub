@@ -10,8 +10,9 @@ import {
 } from '@angular/material/dialog';
 import { MatButton } from '@angular/material/button';
 import { FormsModule } from '@angular/forms';
-import { MF_FRONTEND } from '../../pipes';
+import { InternalizationPipe, MF_FRONTEND } from '../../pipes';
 import { I18nService } from '../../services';
+import { LibCustomButtonDirective } from '../../directives';
 
 export interface DialogData {
     title: string;
@@ -23,15 +24,17 @@ export interface DialogData {
     templateUrl: './confirmation-modal.component.html',
     standalone: true,
     changeDetection: ChangeDetectionStrategy.OnPush,
-    imports: [
-        CommonModule,
-        MatDialogContent,
-        MatButton,
-        MatDialogActions,
-        FormsModule,
-        MatDialogClose,
-        MatDialogTitle
-    ],
+  imports: [
+    CommonModule,
+    MatDialogContent,
+    MatButton,
+    MatDialogActions,
+    FormsModule,
+    MatDialogClose,
+    MatDialogTitle,
+    InternalizationPipe,
+    LibCustomButtonDirective
+  ],
     providers: [
         { provide: MF_FRONTEND, useValue: 'portal' }
     ]

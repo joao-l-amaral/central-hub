@@ -2,27 +2,33 @@
 
     @if(isEditMode()){
         <button
-            mat-flat-button
+            mat-button
+            lib-custom-button
+            [label]="'Update'"
+            [type]="'primary'"
+            [icon]="'update'"
             (click)="updateProduct()"
         >
-            <mat-icon>update</mat-icon>
-            Update
         </button>
     }
     @else {
         <button
-            mat-stroked-button
+            mat-button
+            lib-custom-button
+            [label]="'Clear'"
+            [type]="'secondary'"
+            [icon]="'clear'"
             (click)="clearForm()"
         >
-            <mat-icon>clear</mat-icon>
-            Clear
         </button>
         <button
-            mat-flat-button
+            mat-button
+            lib-custom-button
+            [label]="'Save'"
+            [type]="'primary'"
+            [icon]="'save'"
             (click)="submitForm()"
         >
-            <mat-icon>save</mat-icon>
-            Save
         </button>
     }
 </div>

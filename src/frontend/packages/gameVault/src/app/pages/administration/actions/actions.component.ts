@@ -1,9 +1,8 @@
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { I18nService, InternalizationPipe, LibCustomButtonDirective, MF_FRONTEND } from '@portal/library';
-import { MatButton } from '@angular/material/button';
 import { GamePlatformApiService } from '../../../data-source/game-platform-api.service';
 import { ToastrService } from 'ngx-toastr';
-import { MatProgressSpinner } from '@angular/material/progress-spinner';
+import { MatButton } from '@angular/material/button';
 
 @Component({
     selector: 'actions-administration',
@@ -11,9 +10,8 @@ import { MatProgressSpinner } from '@angular/material/progress-spinner';
     styleUrl: './actions.component.scss',
     imports: [
         InternalizationPipe,
-        MatButton,
-        MatProgressSpinner,
-        LibCustomButtonDirective
+        LibCustomButtonDirective,
+        MatButton
     ],
     standalone: true,
     changeDetection: ChangeDetectionStrategy.OnPush,

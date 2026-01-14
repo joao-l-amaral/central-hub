@@ -46,6 +46,7 @@ body { margin: 0; font-family: 'Inter', sans-serif; }
     }
 
     // Button Component
+    --mat-button-outlined-outline-color: var(--color-primary);
     --mat-icon-button-state-layer-size: 36px;
     --mat-icon-button-icon-size: 22px;
     --mat-button-filled-container-shape: 8px;

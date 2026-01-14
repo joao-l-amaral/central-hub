@@ -13,7 +13,7 @@ import { TableService } from '../table/table.service';
 import { ToastrService } from 'ngx-toastr';
 import { SideNavService } from '../../services/side-nav.service';
 import { StatisticsPanelService } from '../statistics-panel/statistics-panel.service';
-import { InternalizationPipe } from '@portal/library';
+import { InternalizationPipe, LibCustomButtonDirective } from '@portal/library';
 import { MatAutocomplete, MatAutocompleteSelectedEvent, MatAutocompleteTrigger } from '@angular/material/autocomplete';
 import { Subscription } from 'rxjs';
 
@@ -23,22 +23,23 @@ import { Subscription } from 'rxjs';
     styleUrl: './form.component.scss',
     standalone: true,
     changeDetection: ChangeDetectionStrategy.OnPush,
-    imports: [
-        CommonModule,
-        MatFormField,
-        MatFormFieldModule,
-        MatInputModule,
-        ReactiveFormsModule,
-        MatButton,
-        MatIconModule,
-        MatDatepickerInput,
-        MatDatepickerToggle,
-        MatDatepicker,
-        InternalizationPipe,
-        MatAutocomplete,
-        MatOption,
-        MatAutocompleteTrigger
-    ],
+  imports: [
+    CommonModule,
+    MatFormField,
+    MatFormFieldModule,
+    MatInputModule,
+    ReactiveFormsModule,
+    MatButton,
+    MatIconModule,
+    MatDatepickerInput,
+    MatDatepickerToggle,
+    MatDatepicker,
+    InternalizationPipe,
+    MatAutocomplete,
+    MatOption,
+    MatAutocompleteTrigger,
+    LibCustomButtonDirective
+  ],
     providers: [
         ShelveProductService,
         provideNativeDateAdapter(),

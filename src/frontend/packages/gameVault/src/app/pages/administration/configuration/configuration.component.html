@@ -4,21 +4,33 @@
     <div>
         @if(!catConfigConfigurationEdit()) {
             <button
-                mat-flat-button
+                mat-button
+                lib-custom-button
+                [label]="'game.vault.catconfig.edit' | translate"
+                [type]="'primary'"
                 (click)="onChangeEditState()"
-            >{{ 'game.vault.catconfig.edit' | translate }}</button>
+            >
+            </button>
         }
         @else {
             <button
-                mat-stroked-button
+                mat-button
+                lib-custom-button
                 class="ml-2"
+                [label]="'game.vault.catconfig.cancel' | translate"
+                [type]="'secondary'"
                 (click)="onChangeEditState()"
-            >{{ 'game.vault.catconfig.cancel' | translate }}</button>
+            >
+            </button>
             <button
-                mat-flat-button
+                mat-button
+                lib-custom-button
                 class="ml-2"
-                (click)="onSaveConfiguration()"
-            >{{ 'game.vault.catconfig.save' | translate }}</button>
+                [label]="'game.vault.catconfig.save' | translate"
+                [type]="'primary'"
+                (click)="onChangeEditState()"
+            >
+            </button>
         }
     </div>
 </div>

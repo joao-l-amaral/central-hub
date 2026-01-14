@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject, OnDestroy, signal, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatIconButton } from '@angular/material/button';
+import { MatButton, MatIconButton } from '@angular/material/button';
 import { MatSidenav, MatSidenavContainer, MatSidenavContent } from '@angular/material/sidenav';
 import { FormComponent } from '../ui/form/form.component';
 import { MatIcon } from '@angular/material/icon';
@@ -13,8 +13,13 @@ import { StatisticsPanelService } from '../ui/statistics-panel/statistics-panel.
 import { ToastrService } from 'ngx-toastr';
 import { MatDialog } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
-import { ConfirmationModalComponent } from '@portal/library';
-import { I18nService, InternalizationPipe, MF_FRONTEND } from '@portal/library';
+import {
+    I18nService,
+    InternalizationPipe,
+    MF_FRONTEND,
+    ConfirmationModalComponent,
+    LibCustomButtonDirective
+} from '@portal/library';
 import { SelectionModel } from '@angular/cdk/collections';
 import { ShelveProduct } from '../interface/shelve-product.interface';
 
@@ -32,7 +37,9 @@ import { ShelveProduct } from '../interface/shelve-product.interface';
         MatSidenavContainer,
         MatSidenavContent,
         StatisticsPanelComponent,
-        TableComponent
+        TableComponent,
+        LibCustomButtonDirective,
+        MatButton
     ],
     standalone: true,
     changeDetection: ChangeDetectionStrategy.OnPush,
