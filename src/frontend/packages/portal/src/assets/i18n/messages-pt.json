@@ -8,5 +8,7 @@
     "game.vault.catconfig.keyWordsToIgnore": "Key works to ignore in the platforms name.",
     "game.vault.catconfig.edit": "Edit",
     "game.vault.catconfig.save": "Save",
-    "game.vault.catconfig.cancel": "Cancel"
+    "game.vault.catconfig.cancel": "Cancel",
+    "title.gameVault": "GameVault",
+    "title.shelveProducts": "Shelve Prodcuts"
 }
