@@ -4,8 +4,8 @@ WORKDIR /app
 
 COPY --chown=185:0 . .
 
-RUN yarn install \
- && yarn run build
+RUN npm install \
+ && npm run build
 
 FROM nginxinc/nginx-unprivileged:1.29.1-alpine as runner
 
