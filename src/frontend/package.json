@@ -3,10 +3,9 @@
   "version": "2.1.0",
   "license": "MIT",
   "scripts": {
-    "startAll": "nx serve portal --devRemotes=gameVault,shelveProducts",
-    "start": "nx serve portal",
-    "build": "nx build portal",
-    "test": "nx test portal",
+    "start": "nx serve portal --devRemotes=gameVault,shelveProducts",
+    "build": "npx nx run-many -t build",
+    "test": "nx run-many -t test",
     "lint": "nx run-many -t lint",
     "e2e": "nx e2e portal-e2e"
   },
