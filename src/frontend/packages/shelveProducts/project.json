@@ -4,7 +4,7 @@
   "projectType": "application",
   "prefix": "shelveProdcuts",
   "sourceRoot": "packages/shelveProducts/src",
-  "tags": [],
+  "tags": ["scope:shelveProducts", "type:app"],
   "targets": {
     "build": {
       "executor": "@nx/angular:webpack-browser",

@@ -2,7 +2,7 @@ import { Injectable, signal } from '@angular/core';
 
 @Injectable()
 export class BreadcrumbStateService {
-    breadcrumbPath = signal<string[]>([]);
+    readonly breadcrumbPath = signal<string[]>([]);
 
     addPath(url: string) {
         const paths = url.split('/');

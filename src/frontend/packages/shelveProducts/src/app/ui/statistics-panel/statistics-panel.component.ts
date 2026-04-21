@@ -5,7 +5,7 @@ import { StatisticsPanelService } from './statistics-panel.service';
 import { InternalizationPipe, KeyValueComponent } from '@portal/library';
 
 @Component({
-    selector: 'app-statistics-panel-component',
+    selector: 'shelve-products-statistics-panel-component',
     templateUrl: './statistics-panel.component.html',
     styleUrl: './statistics-panel.component.scss',
     standalone: true,
@@ -20,20 +20,20 @@ import { InternalizationPipe, KeyValueComponent } from '@portal/library';
 })
 export class StatisticsPanelComponent {
 
-    private readonly statisticsPanelService = inject(StatisticsPanelService);
+    readonly #statisticsPanelService = inject(StatisticsPanelService);
 
     readonly panelOpenState = signal(false);
 
-    statistics = computed(() => {
-        return this.statisticsPanelService.statistics()
+    readonly statistics = computed(() => {
+        return this.#statisticsPanelService.statistics()
     });
 
-    totalCalories = computed(() => {
-       const shelveProductCounts = this.statisticsPanelService.statistics();
+    readonly totalCalories = computed(() => {
+       const shelveProductCounts = this.#statisticsPanelService.statistics();
        let total = 0;
 
        for(const statistic of shelveProductCounts) {
-           let calories = statistic.calories ?? 0;
+           const calories = statistic.calories ?? 0;
 
            total += calories;
        }
@@ -41,7 +41,7 @@ export class StatisticsPanelComponent {
        return `${total}`;
     });
 
-    totalCaloriesStatus = computed(() => {
+    readonly totalCaloriesStatus = computed(() => {
         const totalCalories = +this.totalCalories();
 
         const daysToInConsideration = 7;
@@ -62,7 +62,7 @@ export class StatisticsPanelComponent {
     })
 
     constructor() {
-        this.statisticsPanelService.getStatistics();
+        this.#statisticsPanelService.getStatistics();
     }
 
 }

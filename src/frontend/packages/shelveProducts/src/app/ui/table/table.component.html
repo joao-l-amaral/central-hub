@@ -1,7 +1,7 @@
 <div class="example-container mat-elevation-z8">
     @if (isLoadingResults()) {
         <div class="example-loading-shade">
-            <mat-spinner></mat-spinner>
+            <mat-spinner/>
         </div>
     }
 
@@ -16,12 +16,10 @@
         <table mat-table [dataSource]="dataSource()" class="mat-elevation-z8" matSort (matSortChange)="sortData($event)">
             <ng-container matColumnDef="select">
                 <th mat-header-cell *matHeaderCellDef>
-                    <mat-checkbox (change)="$event ? masterToggle() : null" [checked]="selection().hasValue() && isAllSelected()">
-                    </mat-checkbox>
+                    <mat-checkbox (change)="$event ? masterToggle() : null" [checked]="selection().hasValue() && isAllSelected()"/>
                 </th>
                 <td mat-cell *matCellDef="let row">
-                    <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection().toggle(row) : null" [checked]="selection().isSelected(row)">
-                    </mat-checkbox>
+                    <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection().toggle(row) : null" [checked]="selection().isSelected(row)"/>
                 </td>
             </ng-container>
 

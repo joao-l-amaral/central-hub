@@ -5,10 +5,10 @@ import { SelectionModel } from '@angular/cdk/collections';
 @Injectable()
 export class TableService {
 
-    isLoadingResults = signal<boolean>(true);
+    readonly isLoadingResults = signal<boolean>(true);
 
-    dataSource = signal<ShelveProduct[]>([]);
+    readonly dataSource = signal<ShelveProduct[]>([]);
 
-    selection = signal<SelectionModel<ShelveProduct>>(new SelectionModel<ShelveProduct>(true, []));
+    readonly selection = signal<SelectionModel<ShelveProduct>>(new SelectionModel<ShelveProduct>(true, []));
 
 }

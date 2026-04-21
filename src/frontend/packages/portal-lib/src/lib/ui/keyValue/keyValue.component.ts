@@ -8,9 +8,9 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class KeyValueComponent {
-    key = input.required<string>();
-    subKey = input<string>("");
-    value = input.required<string>();
-    keyValueColArea = input("12");
-    clazz = input("");
+    readonly key = input.required<string>();
+    readonly subKey = input<string>("");
+    readonly value = input.required<string>();
+    readonly keyValueColArea = input("12");
+    readonly clazz = input("");
 }

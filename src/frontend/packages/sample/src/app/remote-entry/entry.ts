@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import {ChangeDetectionStrategy, Component} from '@angular/core';
 import { NxWelcome } from './nx-welcome';
 
 @Component({
   imports: [NxWelcome],
-  selector: 'ng-mf-sample-entry',
-  template: `<ng-mf-nx-welcome2></ng-mf-nx-welcome2>`,
+  selector: 'sample-sample-entry',
+  template: `<sample-nx-welcome/>`,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RemoteEntry {}

@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import {ChangeDetectionStrategy, Component} from '@angular/core';
 import { GameVaultComponent } from '../pages/game-vault/game-vault.component';
 
 @Component({
     imports: [GameVaultComponent],
-    selector: 'ng-mf-gameVault-entry',
-    template: `<game-vault-home></game-vault-home>`,
+    selector: 'gameq-game-vault-entry',
+    template: `<gameq-vault-home/>`,
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RemoteEntry {}

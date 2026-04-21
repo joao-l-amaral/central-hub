@@ -18,4 +18,4 @@ export const appRoutes: Route[] = [
     loadChildren: () => import('sample/Routes').then((m) => m!.remoteRoutes),
   },
 ];
-4
+

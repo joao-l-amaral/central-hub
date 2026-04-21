@@ -10,13 +10,13 @@
                     [subKey]="'statistic.panel.description' | translate"
                     [value]="totalCalories()"
                     [clazz]="totalCaloriesStatus()"
-                ></lib-key-value>
+                />
                 @for(statistic of statistics(); track statistic.productName) {
                     <lib-key-value
                         [key]="statistic.productName"
                         subKey="{{ statistic.barCode + ' - ' + statistic.calories + '(kcal)' }}"
                         [value]="statistic.productCount"
-                    ></lib-key-value>
+                    />
                 }
             </div>
         </ng-template>

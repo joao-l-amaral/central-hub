@@ -7,11 +7,11 @@ export class SideNavService {
 
     defaultShelveProduct: ShelveProduct = {shelveCode: '', date: '', barCode: '', expiryDate: '', name: '', calories: 0, weight: 0};
 
-    productSelected = signal<ShelveProduct>(this.defaultShelveProduct);
+    readonly productSelected = signal<ShelveProduct>(this.defaultShelveProduct);
 
     toggleSidenavSource = new Subject<void>();
     toggleSidenavClose = new Subject<void>();
 
-    isEditMode = signal<boolean>(false);
+    readonly isEditMode = signal<boolean>(false);
 
 }

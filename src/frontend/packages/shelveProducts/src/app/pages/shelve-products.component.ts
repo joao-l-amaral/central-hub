@@ -52,14 +52,14 @@ import { ShelveProduct } from '../interface/shelve-product.interface';
     ]
 })
 export class ShelveProductsComponent  implements OnDestroy {
-    private readonly statisticsPanelService = inject(StatisticsPanelService);
-    private readonly tableService = inject(TableService);
-    private readonly sideNavService = inject(SideNavService);
-    private readonly shelveProductService = inject(ShelveProductService);
-    private readonly toastr = inject(ToastrService);
-    private readonly dialog = inject(MatDialog);
-    private readonly I18nService = inject(I18nService);
-    private readonly mf = inject(MF_FRONTEND);
+    readonly #statisticsPanelService = inject(StatisticsPanelService);
+    readonly #tableService = inject(TableService);
+    readonly #sideNavService = inject(SideNavService);
+    readonly #shelveProductService = inject(ShelveProductService);
+    readonly #toastr = inject(ToastrService);
+    readonly #dialog = inject(MatDialog);
+    readonly #i18nService = inject(I18nService);
+    readonly #mf = inject(MF_FRONTEND);
 
     @ViewChild('sidenav') sidenav!: MatSidenav;
 
@@ -69,40 +69,40 @@ export class ShelveProductsComponent  implements OnDestroy {
     private readonly subClose: Subscription;
     private readonly subChanged: Subscription;
 
-    private readonly defaultShelveProduct = this.sideNavService.defaultShelveProduct;
+    private readonly defaultShelveProduct = this.#sideNavService.defaultShelveProduct;
 
-    deletionDisable = signal<boolean>(true);
+    readonly deletionDisable = signal<boolean>(true);
 
 
     constructor() {
 
         console.info("--- ShelveProductsComponent initialized ---");
-        this.sub = this.sideNavService.toggleSidenavSource.subscribe(() => {
+        this.sub = this.#sideNavService.toggleSidenavSource.subscribe(() => {
             if(!this.sidenav.opened) {
                 this.sidenav.toggle();
             }
         });
-        this.subClose = this.sideNavService.toggleSidenavClose.subscribe(() => {
+        this.subClose = this.#sideNavService.toggleSidenavClose.subscribe(() => {
             if(this.sidenav.opened) {
                 this.sidenav.close();
             }
         });
-        this.subChanged = this.tableService.selection().changed.subscribe(() => {
-            let hasValue = !this.tableService.selection().hasValue();
+        this.subChanged = this.#tableService.selection().changed.subscribe(() => {
+            const hasValue = !this.#tableService.selection().hasValue();
             this.deletionDisable.set(hasValue);
         });
     }
 
     protected async refreshProducts() {
-        this.tableService.isLoadingResults.set(true);
-        let shelveProducts = await this.shelveProductService.getShelveProduct();
-        this.tableService.dataSource.set(shelveProducts);
-        this.tableService.isLoadingResults.set(false);
+        this.#tableService.isLoadingResults.set(true);
+        const shelveProducts = await this.#shelveProductService.getShelveProduct();
+        this.#tableService.dataSource.set(shelveProducts);
+        this.#tableService.isLoadingResults.set(false);
     }
 
     protected addProduct(){
-        this.sideNavService.isEditMode.set(false);
-        this.sideNavService.productSelected.set(this.defaultShelveProduct);
+        this.#sideNavService.isEditMode.set(false);
+        this.#sideNavService.productSelected.set(this.defaultShelveProduct);
         if(!this.sidenav.opened) {
             this.sidenav.toggle();
         } else {
@@ -112,27 +112,27 @@ export class ShelveProductsComponent  implements OnDestroy {
     }
 
     protected removeProducts() {
-        let selectedProducts = this.tableService.selection().selected;
+        const selectedProducts = this.#tableService.selection().selected;
 
         const modalMsg = (selectedProducts?.length > 1) ?
-            this.I18nService.translate(this.mf, "remove.multi.product", selectedProducts.map(product => product.shelveCode).join(', ')) :
-            this.I18nService.translate(this.mf, "remove.one.product");
+            this.#i18nService.translate(this.#mf, "remove.multi.product", selectedProducts.map(product => product.shelveCode).join(', ')) :
+            this.#i18nService.translate(this.#mf, "remove.one.product");
 
-        const dialogRef = this.dialog.open(ConfirmationModalComponent, {
-            data: {title: this.I18nService.translate(this.mf, "modal.title"), message: modalMsg},
+        const dialogRef = this.#dialog.open(ConfirmationModalComponent, {
+            data: {title: this.#i18nService.translate(this.#mf, "modal.title"), message: modalMsg},
         });
 
         dialogRef.afterClosed().subscribe(result => {
             if (result !== undefined) {
-                for (let product of selectedProducts) {
-                    this.shelveProductService.removeProduct(product.shelveCode).then(
+                for (const product of selectedProducts) {
+                    this.#shelveProductService.removeProduct(product.shelveCode).then(
                         () => {
-                            this.statisticsPanelService.getStatistics();
-                            this.tableService.dataSource.set(this.tableService.dataSource().filter(shelveProduct => shelveProduct.shelveCode !== product.shelveCode));
-                            this.toastr.success(`Product "${product.shelveCode}" was removed.`, '', {
+                            this.#statisticsPanelService.getStatistics();
+                            this.#tableService.dataSource.set(this.#tableService.dataSource().filter(shelveProduct => shelveProduct.shelveCode !== product.shelveCode));
+                            this.#toastr.success(`Product "${product.shelveCode}" was removed.`, '', {
                                 positionClass: 'toast-bottom-left'
                             });
-                            this.tableService.selection.set(new SelectionModel<ShelveProduct>(true, []));
+                            this.#tableService.selection.set(new SelectionModel<ShelveProduct>(true, []));
                         }
                     )
                 }
@@ -149,6 +149,6 @@ export class ShelveProductsComponent  implements OnDestroy {
 
     closeNav() {
         this.sidenav.toggle()
-        this.sideNavService.productSelected.set(this.defaultShelveProduct);
+        this.#sideNavService.productSelected.set(this.defaultShelveProduct);
     }
 }

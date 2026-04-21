@@ -1,9 +1,9 @@
-import { Component, inject } from '@angular/core';
+import {ChangeDetectionStrategy, Component, inject} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { I18nService, MF_FRONTEND } from '@portal/library';
 
 @Component({
-  selector: 'ng-mf-nx-welcome2',
+  selector: 'sample-nx-welcome',
   imports: [CommonModule],
   template: `
     <!--
@@ -862,6 +862,7 @@ nx g &#64;nx/angular:component ui/src/lib/button</pre>
   `,
   styles: [],
   providers: [{ provide: MF_FRONTEND, useValue: 'sample' }],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class NxWelcome {
 

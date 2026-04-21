@@ -38,7 +38,7 @@ export const appConfig: ApplicationConfig = {
         ApplicationConfigurations,
         provideAppInitializer(() => {
           const appInitService = inject(AppInitService);
-          const remotes = (config.remotes as Array<string>) ?? [];
+          const remotes = (config.remotes as string[]) ?? [];
           appInitService.fetchApplicationConfiguration().then(() => {
               console.info("Application configuration loaded");
           });

@@ -3,7 +3,7 @@
     @if(isEditMode()){
         <button
             mat-button
-            lib-custom-button
+            libCustomButton
             [label]="'Update'"
             [type]="'primary'"
             [icon]="'update'"
@@ -14,7 +14,7 @@
     @else {
         <button
             mat-button
-            lib-custom-button
+            libCustomButton
             [label]="'Clear'"
             [type]="'secondary'"
             [icon]="'clear'"
@@ -23,7 +23,7 @@
         </button>
         <button
             mat-button
-            lib-custom-button
+            libCustomButton
             [label]="'Save'"
             [type]="'primary'"
             [icon]="'save'"
@@ -85,8 +85,8 @@
         <mat-form-field appearance="fill">
             <mat-label>{{ 'form.expiry.date' | translate }}</mat-label>
             <input matInput [matDatepicker]="picker" [min]="today" formControlName="expiryDate" />
-            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-            <mat-datepicker #picker></mat-datepicker>
+            <mat-datepicker-toggle matIconSuffix [for]="picker"/>
+            <mat-datepicker #picker/>
             @if(myForm.get('expiryDate')?.hasError('required')) {
                 <mat-error>{{ 'form.expiry.date.error' | translate }}</mat-error>
             }
