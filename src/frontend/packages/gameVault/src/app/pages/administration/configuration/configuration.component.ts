@@ -19,7 +19,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
-    selector: 'configuration-administration',
+    selector: 'gameq-configuration-administration',
     templateUrl: './configuration.component.html',
     styleUrl: './configuration.component.scss',
   imports: [
@@ -42,22 +42,22 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class ConfigurationComponent implements OnInit {
 
-    private readonly gamePlatformApi = inject(GamePlatformApiService);
-    private readonly i18nService = inject(I18nService);
-    private readonly toastr = inject(ToastrService);
-    private readonly dialog = inject(MatDialog);
-    private readonly mf = inject(MF_FRONTEND);
+    readonly #gamePlatformApi = inject(GamePlatformApiService);
+    readonly #i18nService = inject(I18nService);
+    readonly #toastr = inject(ToastrService);
+    readonly #dialog = inject(MatDialog);
+    readonly #mf = inject(MF_FRONTEND);
 
-    configuration = signal("");
+    readonly configuration = signal("");
 
-    catConfigConfigurationEdit = signal(false);
+    readonly catConfigConfigurationEdit = signal(false);
 
     readonly form = new FormGroup({
         configurationData: new FormControl('', [Validators.required]),
     });
 
     ngOnInit(): void {
-        this.gamePlatformApi.getConfigurations().then(configuration => {
+        this.#gamePlatformApi.getConfigurations().then(configuration => {
             const configurationToDisplay = typeof configuration === 'string'
                 ? JSON.parse(configuration)
                 : configuration;
@@ -81,12 +81,12 @@ export class ConfigurationComponent implements OnInit {
 
     private updatePlatformConfiguration(configuration: string) {
 
-        this.gamePlatformApi.updatePlatformConfiguration(configuration).then(() => {
+        this.#gamePlatformApi.updatePlatformConfiguration(configuration).then(() => {
 
-            const successTitle = this.i18nService.translate(this.mf, "game.vault.catconfig.configuration.title");
-            const successMessage = this.i18nService.translate(this.mf, "game.vault.catconfig.updated");
+            const successTitle = this.#i18nService.translate(this.#mf, "game.vault.catconfig.configuration.title");
+            const successMessage = this.#i18nService.translate(this.#mf, "game.vault.catconfig.updated");
 
-            this.toastr.success(successMessage, successTitle, {
+            this.#toastr.success(successMessage, successTitle, {
                 positionClass: 'toast-bottom-left'
             });
 
@@ -96,10 +96,10 @@ export class ConfigurationComponent implements OnInit {
     }
 
     onSaveConfiguration() {
-        const modalMsg =   this.i18nService.translate(this.mf, "game.vault.catconfig.edit.description");
+        const modalMsg = this.#i18nService.translate(this.#mf, "game.vault.catconfig.edit.description");
 
-        const dialogRef = this.dialog.open(ConfirmationModalComponent, {
-            data: {title: this.i18nService.translate(this.mf, "game.vault.catconfig.edit.title"), message: modalMsg},
+        const dialogRef = this.#dialog.open(ConfirmationModalComponent, {
+            data: {title: this.#i18nService.translate(this.#mf, "game.vault.catconfig.edit.title"), message: modalMsg},
             position: { top: '100px' }
         });
 

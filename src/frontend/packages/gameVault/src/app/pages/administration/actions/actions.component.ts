@@ -5,7 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { MatButton } from '@angular/material/button';
 
 @Component({
-    selector: 'actions-administration',
+    selector: 'gameq-actions-administration',
     templateUrl: './actions.component.html',
     styleUrl: './actions.component.scss',
     imports: [
@@ -20,20 +20,20 @@ import { MatButton } from '@angular/material/button';
 })
 export class ActionsComponent {
 
-    private readonly gamePlatformApiService = inject(GamePlatformApiService);
-    private readonly i18nService = inject(I18nService);
-    private readonly toastr = inject(ToastrService);
-    private readonly mf = inject(MF_FRONTEND);
+    readonly #gamePlatformApiService = inject(GamePlatformApiService);
+    readonly #i18nService = inject(I18nService);
+    readonly #toastr = inject(ToastrService);
+    readonly #mf = inject(MF_FRONTEND);
 
-    isLoading = signal(false);
+    readonly isLoading = signal(false);
 
     onForceGamesUpdate() {
         this.isLoading.set(true);
-        this.gamePlatformApiService.forceGameSynchronization()
+        this.#gamePlatformApiService.forceGameSynchronization()
             .then(() => {
                 this.isLoading.set(false);
-                const successMsg = this.i18nService.translate(this.mf, "game.vault.game.sync.success");
-                this.toastr.success(successMsg);
+                const successMsg = this.#i18nService.translate(this.#mf, "game.vault.game.sync.success");
+                this.#toastr.success(successMsg);
             });
     }
 

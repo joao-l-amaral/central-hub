@@ -20,7 +20,7 @@ import { StatisticsPanelService } from '../statistics-panel/statistics-panel.ser
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
-    selector: 'app-table-component',
+    selector: 'shelve-products-table-component',
     templateUrl: './table.component.html',
     styleUrl: './table.component.scss',
     standalone: true,
@@ -45,19 +45,19 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class TableComponent {
 
-    private readonly statisticsPanelService = inject(StatisticsPanelService);
-    private readonly shelveProductService = inject(ShelveProductService);
-    private readonly tableService = inject(TableService);
-    private readonly sideNavService = inject(SideNavService);
-    private readonly toastr = inject(ToastrService);
-    private readonly dialog = inject(MatDialog);
-    private readonly i18nService = inject(I18nService);
-    private readonly mf = inject(MF_FRONTEND);
+    readonly #statisticsPanelService = inject(StatisticsPanelService);
+    readonly #shelveProductService = inject(ShelveProductService);
+    readonly #tableService = inject(TableService);
+    readonly #sideNavService = inject(SideNavService);
+    readonly #toastr = inject(ToastrService);
+    readonly #dialog = inject(MatDialog);
+    readonly #i18nService = inject(I18nService);
+    readonly #mf = inject(MF_FRONTEND);
 
     displayedColumns: string[] = ['select', 'Name', 'BarCode', 'ShelveCode', 'Calories', 'Weight', 'InsertDate', 'ExpiryDate', 'daysLeft', 'actions'];
 
     @HostListener('window:resize', ['$event'])
-    onResize(event: UIEvent) {
+    onResize(_event: UIEvent) {
         this.setDisplayedColumn();
     }
 
@@ -74,20 +74,20 @@ export class TableComponent {
         }
     }
 
-    filter= signal<string>("");
+    readonly filter= signal<string>("");
 
-    dataSource = computed(()=>{
+    readonly dataSource = computed(()=>{
 
-        const shelveProducts = this.tableService.dataSource();
+        const shelveProducts = this.#tableService.dataSource();
 
-        if(shelveProducts == null || shelveProducts?.length === 0){
+        if(shelveProducts === null || shelveProducts?.length === 0){
             return [];
         }
 
-        let shelveProductsTable = shelveProducts!.map(shelveProduct =>{
-            let expiryDate = shelveProduct.expiryDate;
+        const shelveProductsTable = shelveProducts!.map(shelveProduct =>{
+            const expiryDate = shelveProduct.expiryDate;
 
-            let shelveProductTable: ShelveProductTable =  {
+            const shelveProductTable: ShelveProductTable =  {
                 name: shelveProduct.name,
                 barCode: shelveProduct.barCode,
                 shelveCode: shelveProduct.shelveCode,
@@ -103,7 +103,7 @@ export class TableComponent {
 
         const filter = this.filter();
 
-        if(filter.trim().length == 0) {
+        if(filter.trim().length === 0) {
             return shelveProductsTable;
         }
 
@@ -114,38 +114,44 @@ export class TableComponent {
         );
     });
 
-    selection = this.tableService.selection
+    selection = this.#tableService.selection
 
-    isLoadingResults = this.tableService.isLoadingResults;
+    isLoadingResults = this.#tableService.isLoadingResults;
 
     constructor() {
         this.setDisplayedColumn();
 
-        this.shelveProductService.getShelveProduct()
+        this.#shelveProductService.getShelveProduct()
             .then(products => {
-                this.tableService.dataSource.set(products);
+                this.#tableService.dataSource.set(products);
             })
             .finally(() => {
-                this.tableService.isLoadingResults.set(false);
+                this.#tableService.isLoadingResults.set(false);
             });
     }
 
     protected isAllSelected() {
-        const numSelected = this.tableService.selection().selected.length;
+        const numSelected = this.#tableService.selection().selected.length;
         const numRows = this.dataSource().length;
         return numSelected === numRows;
     }
 
     protected masterToggle() {
-        this.isAllSelected() ? this.tableService.selection().clear() : this.dataSource().forEach((row) => this.tableService.selection().select(row));
+        if (this.isAllSelected()) {
+            this.#tableService.selection().clear();
+        } else {
+            this.dataSource().forEach((row) =>
+                this.#tableService.selection().select(row)
+            );
+        }
     }
 
     protected editProduct(shelveProduct: ShelveProduct) {
-        this.sideNavService.isEditMode.set(true);
-        this.sideNavService.productSelected.set(shelveProduct);
+        this.#sideNavService.isEditMode.set(true);
+        this.#sideNavService.productSelected.set(shelveProduct);
 
         setTimeout(()=> {
-            this.sideNavService.toggleSidenavSource.next();
+            this.#sideNavService.toggleSidenavSource.next();
         }, 0); //Microtask
     }
 
@@ -163,7 +169,7 @@ export class TableComponent {
     }
 
     protected sortData(sort: Sort) {
-        const data = this.tableService.dataSource();
+        const data = this.#tableService.dataSource();
         if (!sort.active || sort.direction === '') {
             return;
         }
@@ -188,41 +194,41 @@ export class TableComponent {
             }
         });
 
-        this.tableService.dataSource.set(sortedData);
+        this.#tableService.dataSource.set(sortedData);
     }
 
     isActiveRow(row: ShelveProduct) {
-        return this.sideNavService.productSelected() === row
+        return this.#sideNavService.productSelected() === row
     }
 
     cloneProduct($event: PointerEvent, row: ShelveProduct) {
         $event.stopPropagation();
-        this.sideNavService.productSelected.set(row);
+        this.#sideNavService.productSelected.set(row);
 
         setTimeout(()=> {
-            this.sideNavService.toggleSidenavSource.next();
+            this.#sideNavService.toggleSidenavSource.next();
         }, 0); //Microtask
     }
 
     protected removeProduct($event: PointerEvent, product: ShelveProduct) {
         $event.stopPropagation();
 
-        const modalMsg =   this.i18nService.translate(this.mf, "remove.single.product", `${product.name} (${product.shelveCode})`);
+        const modalMsg = this.#i18nService.translate(this.#mf, "remove.single.product", `${product.name} (${product.shelveCode})`);
 
-        const dialogRef = this.dialog.open(ConfirmationModalComponent, {
-            data: {title: this.i18nService.translate(this.mf, "modal.title"), message: modalMsg},
+        const dialogRef = this.#dialog.open(ConfirmationModalComponent, {
+            data: {title: this.#i18nService.translate(this.#mf, "modal.title"), message: modalMsg},
         });
 
         dialogRef.afterClosed().subscribe(result => {
             if (result !== undefined) {
-                this.shelveProductService.removeProduct(product.shelveCode).then(
+                this.#shelveProductService.removeProduct(product.shelveCode).then(
                     () => {
-                        this.statisticsPanelService.getStatistics();
-                        this.tableService.dataSource.set(this.tableService.dataSource().filter(shelveProduct => shelveProduct.shelveCode !== product.shelveCode));
-                        this.toastr.success(`Product "${product.shelveCode}" was removed.`, '', {
+                        this.#statisticsPanelService.getStatistics();
+                        this.#tableService.dataSource.set(this.#tableService.dataSource().filter(shelveProduct => shelveProduct.shelveCode !== product.shelveCode));
+                        this.#toastr.success(`Product "${product.shelveCode}" was removed.`, '', {
                             positionClass: 'toast-bottom-left'
                         });
-                        this.tableService.selection.set(new SelectionModel<ShelveProduct>(true, []));
+                        this.#tableService.selection.set(new SelectionModel<ShelveProduct>(true, []));
                     }
                 )
             }

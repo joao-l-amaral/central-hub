@@ -1,8 +1,8 @@
 export default {
   displayName: 'portal-lib',
-  preset: '../jest.preset.js',
+  preset: '../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
-  coverageDirectory: '../coverage/portal-lib',
+  coverageDirectory: '../../coverage/packages/portal-lib',
   transform: {
     '^.+\\.(ts|mjs|js|html)$': [
       'jest-preset-angular',

@@ -4,7 +4,7 @@ import { MatIcon } from '@angular/material/icon';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 
 @Directive({
-    selector: '[lib-custom-button]',
+    selector: '[libCustomButton]',
     standalone: true,
     host: {
         'class': 'mdc-button mat-mdc-button-base mat-primary'
@@ -12,36 +12,36 @@ import { MatProgressSpinner } from '@angular/material/progress-spinner';
 })
 export class LibCustomButtonDirective implements OnInit {
 
-    title = input<string>("");
-    label = input<string>("");
-    isLoading = input<boolean>(false);
-    icon = input<string>("");
-    type = input.required<'primary' | 'secondary' | 'text'>();
+    readonly title = input<string>("");
+    readonly label = input<string>("");
+    readonly isLoading = input<boolean>(false);
+    readonly icon = input<string>("");
+    readonly type = input.required<'primary' | 'secondary' | 'text'>();
 
-    private readonly matButton = inject(MatButton, { optional: true, host: true });
+    readonly #matButton = inject(MatButton, { optional: true, host: true });
 
-    private readonly renderer = inject(Renderer2);
-    private readonly el = inject(ElementRef);
-    private readonly vcr = inject(ViewContainerRef);
-    private spinnerInstance: ComponentRef<MatProgressSpinner> | null = null;
+    readonly #renderer = inject(Renderer2);
+    readonly #el = inject(ElementRef);
+    readonly #vcr = inject(ViewContainerRef);
+    #spinnerInstance: ComponentRef<MatProgressSpinner> | null = null;
 
-    private button: MatButton;
+    readonly button: MatButton;
 
     constructor() {
 
-        if (!this.matButton) {
+        if (!this.#matButton) {
             throw new Error('appCustomButton directive requires mat-button directive on the same element');
         }
 
-        this.button = this.matButton;
+        this.button = this.#matButton;
 
         effect(() => {
             if(this.isLoading()) {
-                this.renderer.setProperty(this.el.nativeElement, 'textContent', '');
+                this.#renderer.setProperty(this.#el.nativeElement, 'textContent', '');
                 this.button.disabled = true;
                 this.addSpinner();
             } else {
-                this.renderer.setProperty(this.el.nativeElement, 'textContent', this.label());
+                this.#renderer.setProperty(this.#el.nativeElement, 'textContent', this.label());
                 this.button.disabled = false;
                 this.removeSpinner();
                 this.loadIcon();
@@ -51,7 +51,7 @@ export class LibCustomButtonDirective implements OnInit {
 
     ngOnInit(): void {
 
-        this.renderer.setProperty(this.el.nativeElement, 'title', this.title());
+        this.#renderer.setProperty(this.#el.nativeElement, 'title', this.title());
 
         switch (this.type()) {
             case 'primary':
@@ -68,28 +68,28 @@ export class LibCustomButtonDirective implements OnInit {
 
     private loadIcon() {
         if (this.icon()) {
-            const iconInstance = this.vcr.createComponent(MatIcon);
+            const iconInstance = this.#vcr.createComponent(MatIcon);
             iconInstance.setInput('fontIcon', this.icon());
             const iconEl = iconInstance.location.nativeElement;
-            this.renderer.insertBefore(this.el.nativeElement, iconEl, this.el.nativeElement.firstChild);
+            this.#renderer.insertBefore(this.#el.nativeElement, iconEl, this.#el.nativeElement.firstChild);
         }
     }
 
     private addSpinner() {
-        this.spinnerInstance = this.vcr.createComponent(MatProgressSpinner);
-        const loadingSpinner = this.spinnerInstance.instance;
+        this.#spinnerInstance = this.#vcr.createComponent(MatProgressSpinner);
+        const loadingSpinner = this.#spinnerInstance.instance;
         loadingSpinner.diameter = 20;
         loadingSpinner.strokeWidth = 2;
         loadingSpinner.mode = 'indeterminate';
 
-        const spinnerEl = this.spinnerInstance.location.nativeElement;
-        this.renderer.appendChild(this.el.nativeElement, spinnerEl);
+        const spinnerEl = this.#spinnerInstance.location.nativeElement;
+        this.#renderer.appendChild(this.#el.nativeElement, spinnerEl);
     }
 
     private removeSpinner() {
-        if (this.spinnerInstance) {
-            this.spinnerInstance.destroy();
-            this.spinnerInstance = null;
+        if (this.#spinnerInstance) {
+            this.#spinnerInstance.destroy();
+            this.#spinnerInstance = null;
         }
     }
 }

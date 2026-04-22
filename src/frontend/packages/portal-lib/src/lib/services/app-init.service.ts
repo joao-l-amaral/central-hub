@@ -4,9 +4,7 @@ import { I18nService } from './i18n.service';
 import { firstValueFrom, shareReplay } from 'rxjs';
 import { ApplicationConfigurations } from './application-configurations.service';
 
-type MapEntry = {
-  [key: string]: string;
-};
+type MapEntry = Record<string, string>;
 
 @Injectable()
 export class AppInitService {

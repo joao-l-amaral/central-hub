@@ -1,4 +1,9 @@
-import { ChangeDetectionStrategy, Component, inject, model } from '@angular/core';
+import {
+    ChangeDetectionStrategy,
+    Component,
+    inject,
+    model,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
     MAT_DIALOG_DATA,
@@ -6,11 +11,11 @@ import {
     MatDialogClose,
     MatDialogContent,
     MatDialogRef,
-    MatDialogTitle
+    MatDialogTitle,
 } from '@angular/material/dialog';
 import { MatButton } from '@angular/material/button';
 import { FormsModule } from '@angular/forms';
-import { InternalizationPipe, MF_FRONTEND } from '../../pipes';
+import { MF_FRONTEND } from '../../pipes';
 import { I18nService } from '../../services';
 import { LibCustomButtonDirective } from '../../directives';
 
@@ -32,7 +37,6 @@ export interface DialogData {
     FormsModule,
     MatDialogClose,
     MatDialogTitle,
-    InternalizationPipe,
     LibCustomButtonDirective
   ],
     providers: [

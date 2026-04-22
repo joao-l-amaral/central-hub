@@ -9,7 +9,7 @@ import { InternalizationPipe, MF_FRONTEND } from '@portal/library';
 import { ActionsComponent } from './actions/actions.component';
 
 @Component({
-    selector: 'administration-administration',
+    selector: 'gameq-administration-administration',
     templateUrl: './administration.component.html',
     styleUrl: './administration.component.scss',
     imports: [
@@ -29,18 +29,18 @@ import { ActionsComponent } from './actions/actions.component';
 })
 export class AdministrationComponent implements OnInit {
 
-    private readonly gamePlatformApi = inject(GamePlatformApiService);
+    readonly #gamePlatformApi = inject(GamePlatformApiService);
 
-    platformList = signal<Platforms>({
+    readonly platformList = signal<Platforms>({
         listOfPlatforms: [],
         listOfSelectedPlatforms: []
     });
-    hideMultipleSelectionIndicator = signal(false);
-    configuration = signal("");
+    readonly hideMultipleSelectionIndicator = signal(false);
+    readonly configuration = signal("");
 
-    catConfigConfigurationEdit = signal(false);
+    readonly catConfigConfigurationEdit = signal(false);
 
-    platforms = computed(() => {
+    readonly platforms = computed(() => {
         const { listOfPlatforms, listOfSelectedPlatforms } = this.platformList();
 
         return listOfPlatforms.map(platform => ({
@@ -54,10 +54,10 @@ export class AdministrationComponent implements OnInit {
     });
 
     ngOnInit(): void {
-        this.gamePlatformApi.getPlatforms().then(platforms => {
+        this.#gamePlatformApi.getPlatforms().then(platforms => {
             this.platformList.set(platforms);
         });
-        this.gamePlatformApi.getConfigurations().then(configuration => {
+        this.#gamePlatformApi.getConfigurations().then(configuration => {
             const configurationToDisplay = typeof configuration === 'string'
                     ? JSON.parse(configuration)
                     : configuration;
@@ -67,7 +67,7 @@ export class AdministrationComponent implements OnInit {
     }
 
     onValChange(value: MatButtonToggleChange) {
-        this.gamePlatformApi.updatePlatform(value.value).then( () => {});
+        this.#gamePlatformApi.updatePlatform(value.value).then( () => { /* empty */ });
     }
 
     save() {

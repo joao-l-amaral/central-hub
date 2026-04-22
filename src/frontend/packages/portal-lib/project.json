@@ -1,17 +1,17 @@
 {
   "name": "@portal/library",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "portal-lib/src",
+  "sourceRoot": "packages/portal-lib/src",
   "prefix": "lib",
   "projectType": "library",
-  "tags": [],
+  "tags": ["scope:shared", "type:lib"],
   "targets": {
     "test": {
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
-        "jestConfig": "portal-lib/jest.config.ts",
-        "tsConfig": "portal-lib/tsconfig.spec.json"
+        "jestConfig": "packages/portal-lib/jest.config.ts",
+        "tsConfig": "packages/portal-lib/tsconfig.spec.json"
       }
     },
     "lint": {

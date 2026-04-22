@@ -18,7 +18,7 @@ import { MatAutocomplete, MatAutocompleteSelectedEvent, MatAutocompleteTrigger }
 import { Subscription } from 'rxjs';
 
 @Component({
-    selector: 'app-form-component',
+    selector: 'shelve-products-form-component',
     templateUrl: './form.component.html',
     styleUrl: './form.component.scss',
     standalone: true,
@@ -48,24 +48,24 @@ import { Subscription } from 'rxjs';
 })
 export class FormComponent implements OnInit, OnDestroy {
 
-    private readonly fb = inject(FormBuilder);
-    private readonly shelveProductService = inject(ShelveProductService);
-    private readonly datePipe = inject(DatePipe);
-    private readonly tableService = inject(TableService);
-    private readonly sideNavService = inject(SideNavService);
-    private readonly toastr = inject(ToastrService);
-    private readonly statisticsPanelService = inject(StatisticsPanelService);
+    readonly #fb = inject(FormBuilder);
+    readonly #shelveProductService = inject(ShelveProductService);
+    readonly #datePipe = inject(DatePipe);
+    readonly #tableService = inject(TableService);
+    readonly #sideNavService = inject(SideNavService);
+    readonly #toastr = inject(ToastrService);
+    readonly #statisticsPanelService = inject(StatisticsPanelService);
 
     protected today: Date = new Date();
 
-    isEditMode = this.sideNavService.isEditMode;
+    isEditMode = this.#sideNavService.isEditMode;
 
     filteredProductsByBarCode: string[] = [];
-    private subscription: Subscription | undefined;
+    #subscription: Subscription | undefined;
 
     constructor() {
         effect(() => {
-            let shelveProduct = this.sideNavService.productSelected();
+            const shelveProduct = this.#sideNavService.productSelected();
             this.myForm.patchValue(shelveProduct);
         });
 
@@ -79,19 +79,19 @@ export class FormComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy(): void {
-        if(this.subscription){
-            this.subscription.unsubscribe();
+        if(this.#subscription){
+            this.#subscription.unsubscribe();
         }
     }
 
     ngOnInit(): void {
-        this.subscription = this.myForm.valueChanges.subscribe(value => {
+        this.#subscription = this.myForm.valueChanges.subscribe(value => {
             if (value?.barCode) {
                 this.filteredProductsByBarCode = [];
 
                 const barCode = value?.barCode;
 
-                let shelveProducts = this.tableService.dataSource();
+                const shelveProducts = this.#tableService.dataSource();
                 const filteredProducts = shelveProducts.filter(product => {
                     return product.barCode.startsWith(barCode);
                 })
@@ -103,7 +103,7 @@ export class FormComponent implements OnInit, OnDestroy {
         });
     }
 
-    protected myForm = this.fb.group({
+    protected myForm = this.#fb.group({
         name: ['', Validators.required],
         barCode: ['', Validators.required],
         shelveCode: ['', Validators.required],
@@ -117,45 +117,45 @@ export class FormComponent implements OnInit, OnDestroy {
 
         if(this.myForm.valid) {
 
-            this.tableService.isLoadingResults.set(true);
+            this.#tableService.isLoadingResults.set(true);
 
             const payload: ShelveProduct = {
                 name: this.myForm.value.name ?? '',
                 barCode: this.myForm.value.barCode ?? '',
                 shelveCode: this.myForm.value.shelveCode ?? '',
-                expiryDate: this.datePipe.transform(this.myForm.value.expiryDate, 'yyyy-MM-dd') ?? '',
-                date: this.datePipe.transform(new Date(), 'yyyy-MM-dd') ?? '',
+                expiryDate: this.#datePipe.transform(this.myForm.value.expiryDate, 'yyyy-MM-dd') ?? '',
+                date: this.#datePipe.transform(new Date(), 'yyyy-MM-dd') ?? '',
                 weight: this.myForm.value.weight ?? 0,
                 calories: this.myForm.value.calories ?? 0,
             }
 
-            this.shelveProductService.saveShelveProduct(payload)
+            this.#shelveProductService.saveShelveProduct(payload)
                 .then( (shelveProduct: ShelveProduct) => {
-                    let shelveProducts = this.tableService.dataSource();
-                    if(shelveProducts == null){
+                    let shelveProducts = this.#tableService.dataSource();
+                    if(shelveProducts === null){
                         shelveProducts = [];
                     }
                     const updatedShelveProducts = [...shelveProducts, shelveProduct];
-                    this.tableService.dataSource.set(updatedShelveProducts);
-                    this.statisticsPanelService.getStatistics();
-                    this.toastr.success(`Product "${shelveProduct.shelveCode}" was added successfully.`, '', {
+                    this.#tableService.dataSource.set(updatedShelveProducts);
+                    this.#statisticsPanelService.getStatistics();
+                    this.#toastr.success(`Product "${shelveProduct.shelveCode}" was added successfully.`, '', {
                         positionClass: 'toast-bottom-left'
                     });
                     this.clearForm();
                 })
                 .catch( (error) => {
-                    this.toastr.error(error.statusText, '', {
+                    this.#toastr.error(error.statusText, '', {
                         positionClass: 'toast-bottom-left'
                     });
                 })
                 .finally(() => {
-                    this.tableService.isLoadingResults.set(false);
+                    this.#tableService.isLoadingResults.set(false);
                 });
         }
     }
 
     protected clearForm() {
-        this.sideNavService.isEditMode.set(false);
+        this.#sideNavService.isEditMode.set(false);
         this.myForm.controls["shelveCode"].enable();
         this.myForm.reset();
     }
@@ -163,35 +163,35 @@ export class FormComponent implements OnInit, OnDestroy {
     protected updateProduct() {
         const shelveCode = this.myForm.getRawValue().shelveCode;
 
-        this.tableService.isLoadingResults.set(true);
+        this.#tableService.isLoadingResults.set(true);
 
         const payload: ShelveProduct = {
             name: this.myForm.value.name ?? '',
             barCode: this.myForm.value.barCode ?? '',
             shelveCode: shelveCode!,
-            expiryDate: this.datePipe.transform(this.myForm.value.expiryDate, 'yyyy-MM-dd') ?? '',
-            date: this.datePipe.transform(new Date(), 'yyyy-MM-dd') ?? '',
+            expiryDate: this.#datePipe.transform(this.myForm.value.expiryDate, 'yyyy-MM-dd') ?? '',
+            date: this.#datePipe.transform(new Date(), 'yyyy-MM-dd') ?? '',
             weight: this.myForm.value.weight ?? 0,
             calories: this.myForm.value.calories ?? 0
         }
 
-        this.shelveProductService.updateProduct(shelveCode!, payload)
+        this.#shelveProductService.updateProduct(shelveCode!, payload)
             .then( () => {
-                this.tableService.dataSource.set(this.tableService.dataSource().map(product =>
+                this.#tableService.dataSource.set(this.#tableService.dataSource().map(product =>
                     product.shelveCode === shelveCode ? { ...product, ...payload } : product
                 ));
-                this.statisticsPanelService.getStatistics();
-                this.toastr.success(`Product "${shelveCode}" was updated successfully.`, '', {
+                this.#statisticsPanelService.getStatistics();
+                this.#toastr.success(`Product "${shelveCode}" was updated successfully.`, '', {
                     positionClass: 'toast-bottom-left'
                 });
             })
             .catch( (error) => {
-                this.toastr.error(error.statusText, '', {
+                this.#toastr.error(error.statusText, '', {
                     positionClass: 'toast-bottom-left'
                 });
             })
             .finally(() => {
-                this.tableService.isLoadingResults.set(false);
+                this.#tableService.isLoadingResults.set(false);
             });
 
     }
@@ -199,7 +199,7 @@ export class FormComponent implements OnInit, OnDestroy {
     onSelect($event: MatAutocompleteSelectedEvent) {
         const selectedValue = $event.option.value;
 
-        const shelveProducts = this.tableService.dataSource();
+        const shelveProducts = this.#tableService.dataSource();
 
         const product = shelveProducts.filter(product => product.barCode === selectedValue)[0];
 
