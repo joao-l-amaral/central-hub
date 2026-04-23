@@ -13,7 +13,7 @@ env:
 
 jobs:
   tag:
-    name: Create Git Tag
+    name: Create Git Tag, Build & Push Frontend
     runs-on: [self-hosted, unraid, linux]
     steps:
       - uses: actions/checkout@v4
@@ -32,20 +32,11 @@ jobs:
           git tag v${{ inputs.tag }}
           git push origin v${{ inputs.tag }}
 
-  build-frontend:
-    name: Build & Push Frontend
-    runs-on: [self-hosted, unraid, linux]
-    needs: tag
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          ref: v${{ inputs.tag }}
-
       - name: Build & Push Docker image
         working-directory: .
         run: |
           chmod +x build/createImage.sh
-          ./build/createImage.sh -m src/frontend/Dockerfile-frontend -t ${{ inputs.tag }} -p
+          ./build/createImage.sh -m src/frontend/Dockerfile-frontend -t ${{ inputs.tag }} -p      
 
   #build-backend:
   #  name: Build & Push Backend
