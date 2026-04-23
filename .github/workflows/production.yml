@@ -36,7 +36,7 @@ jobs:
         working-directory: .
         run: |
           chmod +x build/createImage.sh
-          ./build/createImage.sh -m src/frontend/Dockerfile-frontend -t ${{ inputs.tag }} -p      
+          ./build/createImage.sh -m src/frontend/Dockerfile-frontend -t ${{ inputs.tag }} -r localhost -p      
 
   #build-backend:
   #  name: Build & Push Backend
