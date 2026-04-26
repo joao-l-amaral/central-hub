@@ -35,7 +35,7 @@ jobs:
       - name: Build & Push Docker image
         working-directory: build
         run: |
-          chmod +x build/createImage.sh
+          chmod +x createImage.sh
           ./createImage.sh -t ${{ inputs.tag }} -r 100.92.117.108 -p      
 
   #build-backend:
