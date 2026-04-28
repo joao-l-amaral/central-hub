@@ -41,9 +41,14 @@ export class AppInitService {
         console.log("Fetch bff token from portal configuration.");
 
         const applicationConfiguration = await this.getApplicationConfiguration();
-        const applicationConfigurationAuthPass = btoa(applicationConfiguration["bff.auth.pass"]);
 
-        this.applicationConfigurations.basicAuthenticationToken.set(applicationConfigurationAuthPass);
+        const bffBasicAuthPass = applicationConfiguration["bff.auth.pass"];
+
+        if(bffBasicAuthPass && bffBasicAuthPass.length > 0) {
+            const applicationConfigurationAuthPass = btoa(bffBasicAuthPass);
+
+            this.applicationConfigurations.basicAuthenticationToken.set(applicationConfigurationAuthPass);
+        }
     }
 
     fetchPortalInternalization() {

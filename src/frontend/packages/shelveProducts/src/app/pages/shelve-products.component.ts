@@ -24,12 +24,7 @@ import { StatisticsPanelService } from '../ui/statistics-panel/statistics-panel.
 import { ToastrService } from 'ngx-toastr';
 import { MatDialog } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
-import {
-    ConfirmationModalComponent,
-    I18nService,
-    InternalizationPipe,
-    MF_FRONTEND,
-} from '@portal/library';
+import { ConfirmationModalComponent, I18nService, InternalizationPipe, MF_FRONTEND } from '@portal/library';
 import { SelectionModel } from '@angular/cdk/collections';
 import { ShelveProduct } from '../interface/shelve-product.interface';
 
@@ -47,7 +42,7 @@ import { ShelveProduct } from '../interface/shelve-product.interface';
         MatSidenavContainer,
         MatSidenavContent,
         StatisticsPanelComponent,
-        TableComponent,
+        TableComponent
     ],
     standalone: true,
     changeDetection: ChangeDetectionStrategy.OnPush,

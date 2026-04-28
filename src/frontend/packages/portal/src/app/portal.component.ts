@@ -1,4 +1,9 @@
-import {ChangeDetectionStrategy, Component, inject, OnDestroy} from '@angular/core';
+import {
+    ChangeDetectionStrategy,
+    Component,
+    inject,
+    OnDestroy,
+} from '@angular/core';
 import { NavigationEnd, Router, RouterModule } from '@angular/router';
 import { NavComponent } from './features/nav/nav.component';
 import { filter, Subscription } from 'rxjs';
@@ -21,7 +26,7 @@ export class PortalComponent implements OnDestroy {
 
     constructor() {
         this.#routerTracker = this.#router.events
-            .pipe(filter(e => e instanceof NavigationEnd))
+            .pipe(filter((e) => e instanceof NavigationEnd))
             .subscribe((e: NavigationEnd) => {
                 this.#breadcrumbState.addPath(e.url);
             });
