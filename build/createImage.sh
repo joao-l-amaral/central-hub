@@ -1,7 +1,7 @@
 #!/bin/bash
 set -x
 
-VERSION=2.1.0
+VERSION=0.0.0
 APPLICATION_NAME=central-hub
 PUSH=false
 
@@ -9,17 +9,20 @@ MODULES=();
 MODULES+=("../src/backend/Dockerfile-backend");
 MODULES+=("../src/frontend/Dockerfile-frontend");
 
-#print_usage
 print_usage() {
-    echo "options are:"
-    echo "-p to push images default false"
-    echo "-m modules separated by comma default are ${ALL_MODULES[@]}"
+    echo "Options are:"
+    echo "-p                Push images, default false"
+    echo "-t <tag>          Image tag/version, default ${VERSION}"
+    echo "-m <modules>      Modules separated by space, quoted as one argument"
+    echo "                  Example: -m \"../src/backend/Dockerfile-backend ../src/frontend/Dockerfile-frontend\""
+    echo "-h                Show help"
 }
 
-while getopts 'pm:e:h' flag; do
+while getopts ':pt:m:h' flag; do
   case "${flag}" in
     p) PUSH='true' ;;
     m) MODULES=(${OPTARG}) ;;
+    t) VERSION="${OPTARG}" ;;
     h) print_usage
         exit 1 ;;
     *) print_usage
