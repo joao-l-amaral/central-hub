@@ -8,9 +8,12 @@ on:
         required: true
         type: string
 
+env:
+  NX_NO_CLOUD: 'true'
+
 jobs:
   tag:
-    name: Create Git Tag
+    name: Create Git Tag, Build & Push Frontend
     runs-on: [self-hosted, unraid, linux]
     steps:
       - uses: actions/checkout@v4
@@ -29,34 +32,11 @@ jobs:
           git tag v${{ inputs.tag }}
           git push origin v${{ inputs.tag }}
 
-  build-frontend:
-    name: Build & Push Frontend
-    runs-on: [self-hosted, unraid, linux]
-    needs: tag
-    defaults:
-      run:
-        working-directory: src/frontend
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          ref: v${{ inputs.tag }}
-
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: npm
-          cache-dependency-path: src/frontend/package-lock.json
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Build frontend
-        run: npm run build -- --configuration=production
-
       - name: Build & Push Docker image
+        working-directory: build
         run: |
-          chmod +x build/createimage.sh
-          ./build/createimage.sh -m ../src/frontend/Dockerfile-frontend
+          chmod +x createImage.sh
+          ./createImage.sh -t ${{ inputs.tag }} -r 100.92.117.108 -p      
 
   #build-backend:
   #  name: Build & Push Backend

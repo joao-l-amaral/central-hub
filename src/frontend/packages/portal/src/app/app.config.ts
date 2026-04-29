@@ -1,20 +1,16 @@
 import {
-  ApplicationConfig,
-  inject,
-  provideAppInitializer,
-  provideBrowserGlobalErrorListeners,
-  provideZoneChangeDetection,
+    ApplicationConfig,
+    inject,
+    provideAppInitializer,
+    provideBrowserGlobalErrorListeners,
+    provideZoneChangeDetection
 } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { appRoutes } from './app.routes';
-import {
-  provideHttpClient, withInterceptors,
-  withInterceptorsFromDi
-} from '@angular/common/http';
+import { provideHttpClient, withInterceptors, withInterceptorsFromDi } from '@angular/common/http';
 import { provideToastr } from 'ngx-toastr';
 import config from '../../module-federation.config';
-import { AppInitService, ApplicationConfigurations, MF_FRONTEND } from '@portal/library';
-import { tokenInterceptor } from './commons/interceptors/token-interceptor';
+import { AppInitService, ApplicationConfigurations, AuthApi, MF_FRONTEND, providerOidcAuth } from '@portal/library';
 import { httpErrorInterceptor } from './commons/interceptors/httperror-interceptor';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { BreadcrumbStateService } from './features/breadcrumb/breadcrumb-state';
@@ -26,9 +22,10 @@ export const appConfig: ApplicationConfig = {
         provideRouter(appRoutes),
         provideHttpClient(
           withInterceptorsFromDi(),
-          withInterceptors([tokenInterceptor, httpErrorInterceptor])
+          withInterceptors([httpErrorInterceptor])
         ),
         provideAnimations(),
+        providerOidcAuth(),
         provideToastr({
           timeOut: 3000,
           positionClass: 'toast-top-right',
@@ -38,9 +35,11 @@ export const appConfig: ApplicationConfig = {
         ApplicationConfigurations,
         provideAppInitializer(() => {
           const appInitService = inject(AppInitService);
+          const authApi = inject(AuthApi);
           const remotes = (config.remotes as string[]) ?? [];
           appInitService.fetchApplicationConfiguration().then(() => {
               console.info("Application configuration loaded");
+              authApi.doAutoLogin();
           });
           appInitService.fetchPortalInternalization();
           if (remotes.length > 0) {

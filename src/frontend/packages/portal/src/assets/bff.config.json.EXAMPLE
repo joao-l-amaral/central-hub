@@ -1,4 +1,4 @@
 {
-    "bff.auth.pass": "DUMMY"
+    "bff.auth.pass": "DUMMY" //If is to ignore jwt validations. It must combine with the same configuration in the bff
 }
 

@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.util.List;
 
 @Path("/shelve/api")
+@Authenticated
 public class ShelveProductAPI {
     private final Logger log = LoggerFactory.getLogger(ShelveProductAPI.class);
 
@@ -56,7 +57,6 @@ public class ShelveProductAPI {
     @GET
     @Path("/products")
     @Produces(MediaType.APPLICATION_JSON)
-    @Authenticated
     public RestResponse<List<ShelveProductDTO>> getProduct() {
 
         List<ShelveProductDTO> shelveProducts = this.shelveProductService.getShelveProducts();
