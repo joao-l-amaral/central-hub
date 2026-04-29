@@ -6,7 +6,6 @@ interface State {
     idToken: string;
 }
 
-
 @Injectable()
 export class AuthState {
 
