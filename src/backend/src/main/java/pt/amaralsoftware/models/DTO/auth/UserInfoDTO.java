@@ -17,6 +17,10 @@ public class UserInfoDTO implements Serializable {
         this.name = name;
     }
 
+    public String getIdToken() {
+        return idToken;
+    }
+
     public void setIdToken(String idToken) {
         this.idToken = idToken;
     }
