@@ -1,16 +1,11 @@
 package pt.amaralsoftware.service;
 
 import io.quarkus.oidc.IdToken;
-import io.quarkus.security.credential.Credential;
-import io.quarkus.security.identity.SecurityIdentity;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.eclipse.microprofile.jwt.JsonWebToken;
 import pt.amaralsoftware.models.DTO.auth.UserInfoDTO;
-
-import java.security.Principal;
-import java.util.Set;
 
 @ApplicationScoped
 public class AuthService {

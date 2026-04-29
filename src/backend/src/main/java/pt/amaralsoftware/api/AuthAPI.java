@@ -16,6 +16,7 @@ import pt.amaralsoftware.service.AuthService;
 import java.net.URI;
 
 @Path("/auth")
+@Authenticated
 public class AuthAPI {
     private final Logger log = LoggerFactory.getLogger(AuthAPI.class);
 
@@ -24,7 +25,6 @@ public class AuthAPI {
 
     @GET
     @Path("/session")
-    @Authenticated
     public RestResponse<UserInfoDTO> getSession() {
         log.info("Check if the web is logged in.");
 
@@ -35,7 +35,6 @@ public class AuthAPI {
 
     @GET
     @Path("/login")
-    @Authenticated
     @Produces(MediaType.TEXT_HTML)
     public RestResponse<Void> login(@QueryParam("redirect_uri") String redirectUri) {
         return RestResponse.seeOther(URI.create(redirectUri));
@@ -43,7 +42,6 @@ public class AuthAPI {
 
     @GET
     @Path("/logout")
-    @Authenticated
     @Produces(MediaType.TEXT_HTML)
     public RestResponse<Void> logout(
             @QueryParam("redirect_uri") String redirectUri,
