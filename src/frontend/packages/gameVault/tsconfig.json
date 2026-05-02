@@ -11,12 +11,7 @@
         "isolatedModules": true,
         "emitDecoratorMetadata": false,
         "module": "preserve",
-        "lib": ["dom", "es2022"],
-        "allowDefaultProject": [
-            "module-federation.config.ts",
-            "webpack.config.ts",
-            "webpack.prod.config.ts"
-        ]
+        "lib": ["dom", "es2022"]
     },
     "angularCompilerOptions": {
         "enableI18nLegacyMessageIdFormat": false,
