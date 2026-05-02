@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { MatExpansionModule } from '@angular/material/expansion';
 import { StatisticsPanelService } from './statistics-panel.service';
 import { InternalizationPipe, KeyValueComponent } from '@portal/library';
@@ -11,11 +11,10 @@ import { InternalizationPipe, KeyValueComponent } from '@portal/library';
     standalone: true,
     changeDetection: ChangeDetectionStrategy.OnPush,
     imports: [
-        CommonModule,
-        MatExpansionModule,
-        InternalizationPipe,
-        KeyValueComponent
-    ],
+    MatExpansionModule,
+    InternalizationPipe,
+    KeyValueComponent
+],
     providers: []
 })
 export class StatisticsPanelComponent {

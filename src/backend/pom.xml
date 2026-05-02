@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>pt.amaral</groupId>
     <artifactId>storage-product</artifactId>
-    <version>2.0.0-SNAPSHOT</version>
+    <version>3.0.0-SNAPSHOT</version>
 
     <properties>
         <compiler-plugin.version>3.14.0</compiler-plugin.version>
@@ -15,6 +15,10 @@
         <quarkus.platform.version>3.22.1</quarkus.platform.version>
         <skipITs>true</skipITs>
         <surefire-plugin.version>3.5.2</surefire-plugin.version>
+        <net.dv8tion.version>5.5.1</net.dv8tion.version>
+        <org.apache.commons.commons-text>1.11.0</org.apache.commons.commons-text>
+        <org.apache.commons.commons-collections4>4.5.0</org.apache.commons.commons-collections4>
+        <org.apache.commons.commons-lang3>3.17.0</org.apache.commons.commons-lang3>
     </properties>
 
     <dependencyManagement>
@@ -79,17 +83,17 @@
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
-            <version>3.17.0</version>
+            <version>${org.apache.commons.commons-lang3}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-collections4</artifactId>
-            <version>4.5.0</version>
+            <version>${org.apache.commons.commons-collections4}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-text</artifactId>
-            <version>1.11.0</version>
+            <version>${org.apache.commons.commons-text}</version>
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
@@ -102,7 +106,7 @@
         <dependency>
             <groupId>net.dv8tion</groupId>
             <artifactId>JDA</artifactId>
-            <version>5.5.1</version>
+            <version>${net.dv8tion.version}</version>
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>

@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, effect, inject, OnDestroy, OnInit }
 import { MatFormField, MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { CommonModule, DatePipe } from '@angular/common';
+import { DatePipe } from '@angular/common';
 import { MatButton } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDatepicker, MatDatepickerInput, MatDatepickerToggle } from '@angular/material/datepicker';
@@ -24,7 +24,6 @@ import { Subscription } from 'rxjs';
     standalone: true,
     changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
-    CommonModule,
     MatFormField,
     MatFormFieldModule,
     MatInputModule,
@@ -39,7 +38,7 @@ import { Subscription } from 'rxjs';
     MatOption,
     MatAutocompleteTrigger,
     LibCustomButtonDirective
-  ],
+],
     providers: [
         ShelveProductService,
         provideNativeDateAdapter(),

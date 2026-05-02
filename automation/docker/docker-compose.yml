@@ -19,7 +19,7 @@ services:
     image: 192.168.1.222:5000/central-hub-backend:2.0.0
     container_name: backend
     ports:
-      - "8080:8080"
+      - "8088:8080"
     networks:
       - central-application
     environment:

@@ -4,7 +4,7 @@ import {
     inject,
     model,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import {
     MAT_DIALOG_DATA,
     MatDialogActions,
@@ -30,7 +30,6 @@ export interface DialogData {
     standalone: true,
     changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
-    CommonModule,
     MatDialogContent,
     MatButton,
     MatDialogActions,
@@ -38,7 +37,7 @@ export interface DialogData {
     MatDialogClose,
     MatDialogTitle,
     LibCustomButtonDirective
-  ],
+],
     providers: [
         { provide: MF_FRONTEND, useValue: 'portal' }
     ]
