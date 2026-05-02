@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { PortalComponent } from './portal.component';
 import {BreadcrumbStateService} from "./features/breadcrumb/breadcrumb-state";
 import {AuthApi, AuthState} from "@portal/library";
-import {ActivatedRoute, provideRouter} from "@angular/router";
+import {provideRouter} from "@angular/router";
 
 describe('PortalComponent', () => {
   let component: PortalComponent;
