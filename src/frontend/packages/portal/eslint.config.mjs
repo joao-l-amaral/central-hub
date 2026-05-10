@@ -5,11 +5,25 @@ import tseslint from 'typescript-eslint';
 import eslintConfigPrettier from 'eslint-config-prettier';
 
 export default tseslint.config(
+    {
+        ignores: [
+            '*.config.js',
+            '*.config.ts',
+            '*.prod.config.ts',
+            'src/test-setup.ts',
+        ],
+    },
     ...baseConfig,
 
     // ── TypeScript ─────────────────────────────────────
     {
         files: ['**/*.ts'],
+        languageOptions: {
+            parserOptions: {
+                projectService: true,
+                tsconfigRootDir: import.meta.dirname,
+            },
+        },
         extends: [
             ...tseslint.configs.recommended,
             ...tseslint.configs.stylistic,

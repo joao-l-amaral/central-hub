@@ -5,11 +5,25 @@ import tseslint from 'typescript-eslint';
 import eslintConfigPrettier from 'eslint-config-prettier';
 
 export default tseslint.config(
+    {
+        ignores: [
+            'module-federation.config.ts',
+            'webpack.config.ts',
+            'webpack.prod.config.ts',
+            'src/test-setup.ts',
+        ],
+    },
     ...baseConfig,
 
     // ── TypeScript ─────────────────────────────────────
     {
         files: ['**/*.ts'],
+        languageOptions: {
+            parserOptions: {
+                projectService: true,
+                tsconfigRootDir: import.meta.dirname,
+            },
+        },
         extends: [
             ...tseslint.configs.recommended,
             ...tseslint.configs.stylistic,
@@ -35,7 +49,6 @@ export default tseslint.config(
                 varsIgnorePattern: '^_',
                 caughtErrorsIgnorePattern: '^_'
             }],
-
             '@typescript-eslint/explicit-function-return-type': 'off',
             '@typescript-eslint/explicit-module-boundary-types': 'off',
 

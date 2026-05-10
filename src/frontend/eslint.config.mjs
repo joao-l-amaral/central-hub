@@ -5,7 +5,20 @@ export default [
     ...nx.configs['flat/typescript'],
     ...nx.configs['flat/javascript'],
     {
-        ignores: ['**/dist', '**/.angular', '**/coverage'],
+        ignores: [
+            '**/dist',
+            '**/.angular',
+            '**/coverage',
+            '**/vite.config.*.timestamp*',
+            '**/vitest.config.*.timestamp*',
+            '**/*.mjs',
+            '**/webpack.config.ts',
+            '**/webpack.prod.config.ts',
+            '**/module-federation.config.ts',
+            '**/*.mjs',
+            '**/proxy-local.config.js',
+            '**/*.config.js',
+        ],
     },
     {
         files: ['**/*.ts', '**/*.tsx', '**/*.js', '**/*.jsx'],
@@ -64,6 +77,24 @@ export default [
                     ],
                 },
             ],
+        },
+    },
+    {
+        files: ['**/*.ts', '**/*.tsx'],
+        languageOptions: {
+            parserOptions: {
+                projectService: true,
+                tsconfigRootDir: import.meta.dirname,
+            },
+        },
+    },
+    {
+        // config files don't belong to any tsconfig — ignore typed linting for them
+        files: ['**/*.mjs', '**/*.cjs', 'eslint.config.*'],
+        languageOptions: {
+            parserOptions: {
+                project: null,   // ← disable typed linting for config files
+            },
         },
     },
 ];

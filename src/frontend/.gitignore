@@ -44,3 +44,9 @@ Thumbs.db
 .github/instructions/nx.instructions.md
 
 .angular
+
+.claude/worktrees
+.nx/polygraph
+.nx/self-healing
+vite.config.*.timestamp*
+vitest.config.*.timestamp*

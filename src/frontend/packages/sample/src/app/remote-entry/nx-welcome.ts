@@ -1,10 +1,10 @@
 import {ChangeDetectionStrategy, Component, inject} from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { I18nService, MF_FRONTEND } from '@portal/library';
 
 @Component({
   selector: 'sample-nx-welcome',
-  imports: [CommonModule],
+  imports: [],
   template: `
     <!--
      * * * * * * * * * * * * * * * * * * * * * * * * * * * *

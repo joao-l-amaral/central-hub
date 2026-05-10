@@ -6,7 +6,7 @@ import {
     signal,
     ViewChild,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { MatIconButton } from '@angular/material/button';
 import {
     MatSidenav,
@@ -33,17 +33,16 @@ import { ShelveProduct } from '../interface/shelve-product.interface';
     templateUrl: './shelve-products.component.html',
     styleUrl: './shelve-products.component.scss',
     imports: [
-        CommonModule,
-        FormComponent,
-        InternalizationPipe,
-        MatIcon,
-        MatIconButton,
-        MatSidenav,
-        MatSidenavContainer,
-        MatSidenavContent,
-        StatisticsPanelComponent,
-        TableComponent
-    ],
+    FormComponent,
+    InternalizationPipe,
+    MatIcon,
+    MatIconButton,
+    MatSidenav,
+    MatSidenavContainer,
+    MatSidenavContent,
+    StatisticsPanelComponent,
+    TableComponent
+],
     standalone: true,
     changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [

@@ -36,32 +36,4 @@ jobs:
         working-directory: build
         run: |
           chmod +x createImage.sh
-          ./createImage.sh -t ${{ inputs.tag }} -r 100.92.117.108 -p      
-
-  #build-backend:
-  #  name: Build & Push Backend
-  #  runs-on: [self-hosted, unraid, linux]
-  #  needs: tag
-  #  defaults:
-  #    run:
-  #      working-directory: src/backend
-  #  steps:
-  #    - uses: actions/checkout@v4
-  #      with:
-  #        ref: v${{ inputs.tag }}    # ← checkout the tag we just created
-#
-  #    - uses: actions/setup-java@v4
-  #      with:
-  #        java-version: 21
-  #        distribution: temurin
-  #        cache: maven
-#
-  #    - name: Build backend
-  #      run: ./mvnw package -DskipTests
-#
-  #    - name: Build & Push Docker image
-  #      run: |
-  #        chmod +x build/createimage.sh
-  #        ./build/createimage.sh \
-  #          --tag ${{ inputs.tag }} \
-  #          --registry localhost:5000
+          ./createImage.sh -t ${{ inputs.tag }} -r 100.92.117.108 -p
