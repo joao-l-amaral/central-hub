@@ -24,7 +24,7 @@ import { StatisticsPanelService } from '../ui/statistics-panel/statistics-panel.
 import { ToastrService } from 'ngx-toastr';
 import { MatDialog } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
-import { ConfirmationModalComponent, I18nService, InternalizationPipe, MF_FRONTEND } from '@portal/library';
+import { ConfirmationModalComponent, I18nService, InternalizationPipe, MF_FRONTEND, LoggingService } from '@portal/library';
 import { SelectionModel } from '@angular/cdk/collections';
 import { ShelveProduct } from '../interface/shelve-product.interface';
 
@@ -62,6 +62,7 @@ export class ShelveProductsComponent implements OnDestroy {
     readonly #dialog = inject(MatDialog);
     readonly #i18nService = inject(I18nService);
     readonly #mf = inject(MF_FRONTEND);
+    readonly #logger = inject(LoggingService);
 
     @ViewChild('sidenav') sidenav!: MatSidenav;
 
@@ -77,7 +78,7 @@ export class ShelveProductsComponent implements OnDestroy {
     readonly deletionDisable = signal<boolean>(true);
 
     constructor() {
-        console.info('--- ShelveProductsComponent initialized ---');
+        this.#logger.log('--- ShelveProductsComponent initialized ---');
         this.sub = this.#sideNavService.toggleSidenavSource.subscribe(() => {
             if (!this.sidenav.opened) {
                 this.sidenav.toggle();
