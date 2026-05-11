@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ShelveProductsComponent } from './shelve-products.component';
 import { provideToastr } from 'ngx-toastr';
-import { ApplicationConfigurations } from '@portal/library';
+import {ApplicationConfigurations, LoggingService} from '@portal/library';
 
 describe('ShelveProductsComponent', () => {
     let component: ShelveProductsComponent;
@@ -17,6 +17,7 @@ describe('ShelveProductsComponent', () => {
                     preventDuplicates: true,
                 }),
                 ApplicationConfigurations,
+                LoggingService
             ],
         }).compileComponents();
 

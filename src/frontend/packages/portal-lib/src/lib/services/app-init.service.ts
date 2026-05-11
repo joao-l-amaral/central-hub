@@ -3,26 +3,28 @@ import { inject, Injectable } from '@angular/core';
 import { I18nService } from './i18n.service';
 import { firstValueFrom, shareReplay } from 'rxjs';
 import { ApplicationConfigurations } from './application-configurations.service';
+import {LoggingService} from "./logging/logging";
 
 type MapEntry = Record<string, string>;
 
 @Injectable()
 export class AppInitService {
 
-    private readonly i18nService = inject(I18nService);
-    private readonly httpClient = inject(HttpClient);
-    private readonly applicationConfigurations = inject(ApplicationConfigurations);
+    readonly #i18nService = inject(I18nService);
+    readonly #httpClient = inject(HttpClient);
+    readonly #applicationConfigurations = inject(ApplicationConfigurations);
+    readonly #logger = inject(LoggingService);
 
     private checkLanguage(language: string): string {
         return language === 'pt' || language === 'en' ? language : 'en';
     }
 
     private getLanguageDic(language: string, namespace: string) {
-        return firstValueFrom(this.httpClient.get<MapEntry>(`./assets/${namespace}/i18n/messages-${language}.json`).pipe(shareReplay(1)));
+        return firstValueFrom(this.#httpClient.get<MapEntry>(`./assets/${namespace}/i18n/messages-${language}.json`).pipe(shareReplay(1)));
     }
 
     private getApplicationConfiguration() {
-        return firstValueFrom(this.httpClient.get<MapEntry>(`./assets/bff.config.json`).pipe(shareReplay(1)));
+        return firstValueFrom(this.#httpClient.get<MapEntry>(`./assets/bff.config.json`).pipe(shareReplay(1)));
     }
 
     async fetchI18nData(namespace: string) {
@@ -34,11 +36,11 @@ export class AppInitService {
             tempMap.set(key, data[key]);
         });
 
-        this.i18nService.addMap(tempMap, namespace);
+        this.#i18nService.addMap(tempMap, namespace);
     }
 
     async fetchApplicationConfiguration() {
-        console.log("Fetch bff token from portal configuration.");
+        this.#logger.log("Fetch bff token from portal configuration.");
 
         const applicationConfiguration = await this.getApplicationConfiguration();
 
@@ -47,13 +49,13 @@ export class AppInitService {
         if(bffBasicAuthPass && bffBasicAuthPass.length > 0) {
             const applicationConfigurationAuthPass = btoa(bffBasicAuthPass);
 
-            this.applicationConfigurations.basicAuthenticationToken.set(applicationConfigurationAuthPass);
+            this.#applicationConfigurations.basicAuthenticationToken.set(applicationConfigurationAuthPass);
         }
     }
 
     fetchPortalInternalization() {
         this.fetchI18nData('').then(() => {
-            console.info('Fetched i18n data from portal');
+            this.#logger.log('Fetched i18n data from portal');
         })
     }
 
