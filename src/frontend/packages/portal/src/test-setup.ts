@@ -4,7 +4,13 @@ import 'zone.js/testing';
 import { getTestBed } from '@angular/core/testing';
 import {BrowserTestingModule, platformBrowserTesting} from "@angular/platform-browser/testing";
 
-getTestBed().initTestEnvironment(
-    BrowserTestingModule,
-    platformBrowserTesting()
-);
+beforeEach(() => {
+    getTestBed().initTestEnvironment(
+        BrowserTestingModule,
+        platformBrowserTesting(),
+    );
+});
+
+afterEach(() => {
+    getTestBed().resetTestEnvironment();
+});
