@@ -1,5 +1,5 @@
 {
-    "name": "@portal/library",
+    "name": "@portal-library",
     "$schema": "../../node_modules/nx/schemas/project-schema.json",
     "sourceRoot": "packages/portal-lib/src",
     "prefix": "lib",
@@ -14,6 +14,46 @@
             "outputs": ["{options.reportsDirectory}"],
             "options": {
                 "reportsDirectory": "coverage/packages/portal-lib"
+            }
+        },
+        "storybook": {
+            "executor": "@storybook/angular:start-storybook",
+            "options": {
+                "port": 4400,
+                "configDir": "packages/portal-lib/.storybook",
+                "browserTarget": "@portal-library:build-storybook",
+                "compodoc": false,
+                "styles": [
+                    "node_modules/bootstrap-icons/font/bootstrap-icons.css",
+                    "packages/portal/src/styles.scss"
+                ]
+            },
+            "configurations": {
+                "ci": {
+                    "quiet": true
+                }
+            }
+        },
+        "build-storybook": {
+            "executor": "@storybook/angular:build-storybook",
+            "options": {
+                "configDir": "packages/portal-lib/.storybook",
+                "browserTarget": "@portal-library:build-storybook",
+                "outputDir": "dist/storybook/portal-lib"
+            }
+        },
+        "static-storybook": {
+            "executor": "@nx/web:file-server",
+            "dependsOn": ["build-storybook"],
+            "options": {
+                "buildTarget": "@portal-library:build-storybook",
+                "staticFilePath": "dist/storybook/@portal-library",
+                "spa": true,
+            },
+            "configurations": {
+                "ci": {
+                    "buildTarget": "@portal-library:build-storybook:ci"
+                }
             }
         }
     }

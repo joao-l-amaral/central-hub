@@ -10,7 +10,7 @@ import {
   withInterceptorsFromDi,
   withRequestsMadeViaParent
 } from '@angular/common/http';
-import { I18nService } from '@portal/library';
+import { I18nService } from '@portal-library';
 
 export const appConfig: ApplicationConfig = {
   providers: [

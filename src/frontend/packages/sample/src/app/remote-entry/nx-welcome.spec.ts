@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NxWelcome } from './nx-welcome';
-import {ApplicationConfigurations} from "@portal/library";
+import {ApplicationConfigurations} from "@portal-library";
 
 describe('NxWelcome', () => {
   let component: NxWelcome;

@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RemoteEntry } from './entry';
-import {ApplicationConfigurations} from "@portal/library";
+import {ApplicationConfigurations} from "@portal-library";
 
 describe('RemoteEntry', () => {
   let component: RemoteEntry;
