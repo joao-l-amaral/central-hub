@@ -13,7 +13,7 @@ export default defineConfig(() => ({
     //   plugins: () => [ nxViteTsPaths() ],
     // },
     test: {
-        name: '@portal/library',
+        name: '@portal-library',
         watch: false,
         globals: true,
         environment: 'jsdom',

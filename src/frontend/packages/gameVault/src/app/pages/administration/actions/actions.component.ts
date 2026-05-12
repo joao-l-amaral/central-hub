@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
-import { I18nService, InternalizationPipe, LibCustomButtonDirective, MF_FRONTEND } from '@portal/library';
+import { I18nService, InternalizationPipe, LibCustomButtonDirective, MF_FRONTEND } from '@portal-library';
 import { GamePlatformApiService } from '../../../data-source/game-platform-api.service';
 import { ToastrService } from 'ngx-toastr';
 import { MatButton } from '@angular/material/button';

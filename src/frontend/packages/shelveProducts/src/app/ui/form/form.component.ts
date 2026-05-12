@@ -13,7 +13,7 @@ import { TableService } from '../table/table.service';
 import { ToastrService } from 'ngx-toastr';
 import { SideNavService } from '../../services/side-nav.service';
 import { StatisticsPanelService } from '../statistics-panel/statistics-panel.service';
-import { InternalizationPipe, LibCustomButtonDirective } from '@portal/library';
+import { InternalizationPipe, LibCustomButtonDirective } from '@portal-library';
 import { MatAutocomplete, MatAutocompleteSelectedEvent, MatAutocompleteTrigger } from '@angular/material/autocomplete';
 import { Subscription } from 'rxjs';
 
