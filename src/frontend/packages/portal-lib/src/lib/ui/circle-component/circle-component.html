@@ -2,11 +2,11 @@
     class="circle-container {{ selectionStyle() }}"
     [ngClass]="{'hover-enabled': selected()}"
     [attr.tabindex]="selected() ? 0 : null"
-    (click)="action()"
+    (click)="onAction()"
     (keydown)="onKeyDown($event)"
 >
     <i [ngClass]="icon()"></i>
-    @if(label) {
+    @if(label()) {
         <span>{{ label() }}</span>
     }
 </div>

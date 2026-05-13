@@ -35,16 +35,21 @@ describe('CircleComponent', () => {
   })
 
   it('Should trigger the function if selected', async () => {
-      const onActionSpy = vi.fn();
+      const onActionFn = vi.spyOn(component, 'onAction');
+      let clickedEmitted = "";
 
-      fixture.componentRef.setInput('onAction', onActionSpy as () => void);
+      fixture.componentRef.setInput('id', "batatas");
       fixture.componentRef.setInput('selected', true);
 
+      component.clicked.subscribe(value => {
+          clickedEmitted = value;
+      });
+
+      fixture.componentInstance.onAction();
       fixture.detectChanges();
 
-      fixture.componentInstance.action();
-      fixture.detectChanges();
+      expect(clickedEmitted).toBe('batatas');
 
-      expect(onActionSpy).toHaveBeenCalledTimes(1);
+      expect(onActionFn).toHaveBeenCalledTimes(1);
   });
 });
