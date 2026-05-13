@@ -10,7 +10,7 @@ import { appRoutes } from './app.routes';
 import { provideHttpClient, withInterceptors, withInterceptorsFromDi } from '@angular/common/http';
 import { provideToastr } from 'ngx-toastr';
 import config from '../../module-federation.config';
-import { AppInitService, ApplicationConfigurations, AuthApi, MF_FRONTEND, providerOidcAuth, LoggingService } from '@portal/library';
+import { AppInitService, ApplicationConfigurations, AuthApi, MF_FRONTEND, providerOidcAuth, LoggingService } from '@portal-library';
 import { httpErrorInterceptor } from './commons/interceptors/httperror-interceptor';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { BreadcrumbStateService } from './features/breadcrumb/breadcrumb-state';

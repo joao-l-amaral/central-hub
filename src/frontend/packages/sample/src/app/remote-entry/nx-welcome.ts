@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, Component, inject} from '@angular/core';
 
-import { I18nService, MF_FRONTEND } from '@portal/library';
+import { I18nService, MF_FRONTEND } from '@portal-library';
 
 @Component({
   selector: 'sample-nx-welcome',

@@ -5,7 +5,7 @@ import {SideNavService} from "../../services/side-nav.service";
 import {provideToastr} from "ngx-toastr";
 import {StatisticsPanelService} from "../statistics-panel/statistics-panel.service";
 import {ShelveProductService} from "../../data-source/shelve-product.service";
-import {ApplicationConfigurations, MF_FRONTEND} from "@portal/library";
+import {ApplicationConfigurations, MF_FRONTEND} from "@portal-library";
 
 describe('FormComponent', () => {
   let component: FormComponent;

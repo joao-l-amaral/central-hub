@@ -5,7 +5,7 @@ import {
     inject,
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { AuthApi, AuthState } from '@portal/library';
+import { AuthApi, AuthState } from '@portal-library';
 import { MatIcon } from '@angular/material/icon';
 
 @Component({

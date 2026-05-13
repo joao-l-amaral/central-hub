@@ -14,7 +14,7 @@ import {
   InternalizationPipe,
   LibCustomButtonDirective,
   MF_FRONTEND
-} from '@portal/library';
+} from '@portal-library';
 import { MatDialog } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 

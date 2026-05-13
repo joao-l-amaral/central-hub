@@ -5,7 +5,7 @@ import {ShelveProductService} from "../../data-source/shelve-product.service";
 import {TableService} from "./table.service";
 import {SideNavService} from "../../services/side-nav.service";
 import {provideToastr} from "ngx-toastr";
-import {ApplicationConfigurations, MF_FRONTEND} from "@portal/library";
+import {ApplicationConfigurations, MF_FRONTEND} from "@portal-library";
 
 describe('TableComponent', () => {
   let component: TableComponent;

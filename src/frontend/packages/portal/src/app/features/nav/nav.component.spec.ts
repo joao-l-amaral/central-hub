@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NavComponent } from './nav.component';
-import {AuthApi, AuthState} from "@portal/library";
+import {AuthApi, AuthState} from "@portal-library";
 import { provideRouter } from '@angular/router';
 
 describe('NavComponent', () => {

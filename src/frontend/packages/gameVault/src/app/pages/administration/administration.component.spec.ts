@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { AdministrationComponent } from './administration.component';
-import {ApplicationConfigurations} from "@portal/library";
+import {ApplicationConfigurations} from "@portal-library";
 import {provideToastr} from "ngx-toastr";
 
 describe('AdministrationComponent', () => {

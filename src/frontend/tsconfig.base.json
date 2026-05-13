@@ -1,25 +1,33 @@
 {
-  "compileOnSave": true,
-  "compilerOptions": {
-    "rootDir": ".",
-    "sourceMap": true,
-    "declaration": false,
-    "moduleResolution": "node",
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "importHelpers": true,
-    "target": "es2015",
-    "module": "esnext",
-    "lib": ["es2020", "dom"],
-    "skipLibCheck": true,
-    "skipDefaultLibCheck": true,
-    "baseUrl": ".",
-    "paths": {
-      "sample/Routes": ["packages/sample/src/app/remote-entry/entry.routes.ts"],
-      "shelveProducts/Routes": ["packages/shelveProducts/src/app/remote-entry/entry.routes.ts"],
-      "gameVault/Routes": ["packages/gameVault/src/app/remote-entry/entry.routes.ts"],
-      "@portal/library": ["packages/portal-lib/src/public-api.ts"]
-    }
-  },
-  "exclude": ["node_modules", "tmp"]
+    "compileOnSave": true,
+    "compilerOptions": {
+        "rootDir": ".",
+        "sourceMap": true,
+        "declaration": false,
+        "moduleResolution": "node",
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "importHelpers": true,
+        "target": "es2015",
+        "module": "esnext",
+        "lib": ["es2020", "dom"],
+        "skipLibCheck": true,
+        "skipDefaultLibCheck": true,
+        "baseUrl": ".",
+        "paths": {
+            "sample/Routes": [
+                "packages/sample/src/app/remote-entry/entry.routes.ts"
+            ],
+            "shelveProducts/Routes": [
+                "packages/shelveProducts/src/app/remote-entry/entry.routes.ts"
+            ],
+            "gameVault/Routes": [
+                "packages/gameVault/src/app/remote-entry/entry.routes.ts"
+            ],
+            "@portal-library": ["packages/portal-lib/src/public-api.ts"],
+            "@central-hub/storybook": ["./packages/storybook/src/index.ts"]
+        }
+    },
+    "exclude": ["node_modules", "tmp"],
+    "include": ["packages/**/*"]
 }
