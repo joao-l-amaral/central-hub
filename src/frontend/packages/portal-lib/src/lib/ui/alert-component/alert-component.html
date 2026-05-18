@@ -1,0 +1,23 @@
+@if(visible()) {
+    <div class="alert" [ngClass]="status()">
+        <i class="alert__icon" [ngClass]="icon()"></i>
+        <div class="alert__body">
+            <ng-container class="alert__title"> {{ title() }} </ng-container>
+            @if(subtitle()) {
+                <div class="has-subtitle alert__subtitle">
+                    {{ subtitle() }}
+                </div>
+            }
+        </div>
+        @if(dismissible()) {
+            <button
+                mat-button
+                libCustomButton
+                [type]="'text'"
+                class="alert__dismiss bi bi-x"
+                (click)="onClose()"
+            >
+            </button>
+        }
+    </div>
+}
