@@ -1,0 +1,87 @@
+:host {
+    display: block;
+    width: 100%;
+
+    .info {
+        background-color: #ededf8;
+        border-color: #c5c5ee;
+        color: #3b3b8a;
+    }
+
+    .warning {
+        background-color: #fdf8e1;
+        border-color: #f0d98a;
+        color: #7a5800;
+    }
+
+    .danger {
+        background-color: #fdecea;
+        border-color: #f5b8b4;
+        color: #8b1a14;
+    }
+
+    .alert {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        padding: 0.875rem 1rem;
+        border-radius: 0.5rem;
+        border: 1px solid transparent;
+        transition: opacity 180ms ease, transform 180ms ease;
+
+        &.has-subtitle {
+            align-items: flex-start;
+
+            .alert__icon {
+                margin-top: 0.125rem;
+            }
+        }
+    }
+
+    .alert__icon {
+        flex-shrink: 0;
+        width: 1.125rem;
+        height: 1.125rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 22px;
+    }
+
+    .alert__body {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+    }
+
+    .alert__title {
+        font-size: 0.9375rem;
+        font-weight: 500;
+        line-height: 1.4;
+        margin: 0;
+    }
+
+    .alert__subtitle {
+        font-size: 0.875rem;
+        font-weight: 400;
+        line-height: 1.5;
+        margin: 0;
+        opacity: 0.85;
+    }
+
+    .alert__dismiss {
+        flex-shrink: 0;
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 0.25rem;
+        border-radius: 0.25rem;
+        opacity: 0.6;
+        transition: opacity 180ms ease;
+        margin-left: auto;
+        font-size: 25px;
+
+        &:hover { opacity: 1; }
+    }
+}

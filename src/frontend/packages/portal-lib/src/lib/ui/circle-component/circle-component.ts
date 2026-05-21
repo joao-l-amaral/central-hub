@@ -5,7 +5,6 @@ import {NgClass} from "@angular/common";
     selector: 'lib-circle-component',
     templateUrl: './circle-component.html',
     styleUrls: ['./circle-component.scss'],
-    standalone: true,
     changeDetection: ChangeDetectionStrategy.OnPush,
     imports: [NgClass],
 })
