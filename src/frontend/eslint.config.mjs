@@ -5,7 +5,7 @@ export default [
   ...nx.configs['flat/typescript'],
   ...nx.configs['flat/javascript'],
   {
-    ignores: ['**/dist', '**/out-tsc'],
+      ignores: ['**/dist', '**/out-tsc', '**/federation.config.js', '**/eslint.config.mjs', '**/proxy-local.config.js'],
   },
   {
     files: ['**/*.ts', '**/*.tsx', '**/*.js', '**/*.jsx'],

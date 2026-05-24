@@ -2,7 +2,7 @@
   "name": "gameVault",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
-  "prefix": "gameVault",
+  "prefix": "game-vault",
   "sourceRoot": "packages/gameVault/src",
   "tags": ["scope:gameVault", "type:app"],
   "targets": {
