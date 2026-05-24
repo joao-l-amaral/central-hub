@@ -1,0 +1,56 @@
+<h3>{{ 'game.vault.catconfig.configuration.title' | translate }}</h3>
+
+<div class="mb-2 catconfig-configuration-actions">
+    <div>
+        @if(!catConfigConfigurationEdit()) {
+            <button
+                mat-button
+                libCustomButton
+                [label]="'game.vault.catconfig.edit' | translate"
+                [type]="'primary'"
+                (click)="onChangeEditState()"
+            >
+            </button>
+        }
+        @else {
+            <button
+                mat-button
+                libCustomButton
+                class="ml-2"
+                [label]="'game.vault.catconfig.cancel' | translate"
+                [type]="'secondary'"
+                (click)="onChangeEditState()"
+            >
+            </button>
+            <button
+                mat-button
+                libCustomButton
+                class="ml-2"
+                [label]="'game.vault.catconfig.save' | translate"
+                [type]="'primary'"
+                (click)="onSaveConfiguration()"
+            >
+            </button>
+        }
+    </div>
+</div>
+
+<mat-card>
+    <form [formGroup]="form" class="w-100">
+        <mat-form-field appearance="fill" subscriptSizing="dynamic" class="w-100">
+            <mat-label>{{ 'game.vault.catconfig.configuration' | translate }}</mat-label>
+
+            <textarea
+                matInput
+                cdkTextareaAutosize
+                cdkAutosizeMinRows="5"
+                cdkAutosizeMaxRows="50"
+                formControlName="configurationData"
+                placeholder="Edit configuration..."
+            ></textarea>
+
+            <mat-hint align="start"><b>keyWordsToLookFor:</b> {{ 'game.vault.catconfig.keyWordsToLookFor' | translate }}</mat-hint>
+            <mat-hint align="end"><b>keyWordsToIgnore:</b> {{ 'game.vault.catconfig.keyWordsToIgnore' | translate }}</mat-hint>
+        </mat-form-field>
+    </form>
+</mat-card>

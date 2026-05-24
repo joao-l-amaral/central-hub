@@ -1,0 +1,39 @@
+:host {
+    .container-flex{
+        padding: 15px;
+    }
+
+    .controls {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        padding: 10px;
+    }
+
+    .right-sidenav {
+        border-left: 1px solid #1976D2;
+        box-shadow: -2px 0 4px rgba(0, 0, 0, 0.1);
+        border-radius: 0px;
+    }
+
+    .sidenav-container {
+        height: 100%;
+    }
+
+    .header {
+        justify-content: space-between;
+        display: flex;
+        align-items: center;
+        padding: 1rem;
+
+        button {
+            position: relative;
+            bottom: 6px;
+        }
+
+        h5 {
+            padding: 0 20px;
+        }
+    }
+
+}

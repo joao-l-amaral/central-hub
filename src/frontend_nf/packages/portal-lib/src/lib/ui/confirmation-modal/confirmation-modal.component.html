@@ -1,0 +1,15 @@
+<h2 mat-dialog-title>{{ data.title }}</h2>
+<mat-dialog-content>
+    <p>{{ data.message }}</p>
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button
+        mat-button
+        libCustomButton
+        [label]="cancelTranslation"
+        [type]="'secondary'"
+        (click)="onNoClick()"
+    >
+    </button>
+    <button mat-flat-button [mat-dialog-close]="product()" cdkFocusInitial>{{ okTranslation }}</button>
+</mat-dialog-actions>

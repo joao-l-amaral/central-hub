@@ -1,0 +1,12 @@
+:host {
+    .custom-toggle .mat-button-toggle:hover {
+        background-color: var(--color-accent);
+        color: var(--color-text);
+    }
+
+    .actions {
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+    }
+}

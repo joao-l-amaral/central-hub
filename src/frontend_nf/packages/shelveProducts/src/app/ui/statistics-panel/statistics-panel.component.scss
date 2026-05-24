@@ -1,0 +1,26 @@
+:host {
+    mat-expansion-panel {
+        border-left: 3px solid var(--mat-sys-secondary-container);
+
+        mat-expansion-panel-header {
+            background-color: var(--mat-sys-secondary-container);
+            padding: 0 20px;
+            border-radius: unset;
+        }
+    }
+
+    .body {
+        padding-top: 16px;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        gap: 15px;
+        flex-wrap: wrap;
+    }
+
+    @media (max-width: 400px) {
+        .body {
+            display: unset;
+        }
+    }
+}

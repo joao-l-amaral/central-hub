@@ -1,0 +1,143 @@
+/* You can add global styles to this file, and also import other style files */
+@import 'ngx-toastr/toastr';
+@import "@angular/material/prebuilt-themes/azure-blue.css";
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+@import "bootstrap/dist/css/bootstrap.min.css";
+
+html, body { height: 100%; margin: 0; padding: 0; }
+body { margin: 0; font-family: 'Inter', sans-serif; }
+
+.force-white-color {
+  color: var(--color-text)
+}
+
+:root {
+  --color-primary-dark: #1A1A1A;
+  --color-primary: #FF6900;
+  --color-secondary: color-mix(in srgb, var(--color-primary) 70%, white);
+  --color-accent: #FF8533;
+  --color-highlight: #FFFFFF;
+  --color-text: #FFFFFF;
+  --color-background: #FFFFFF;
+  --color-border: #333333;
+  --color-neutral-variant: #5C5C5C;
+  --color-light-neutral-variant: #dfd3d3;
+  --color-light-neutral: #EBEDEF;
+  --color-neutral-border-color: #C4C8CF;
+  --font-family: 'Inter', sans-serif;
+
+  --mat-sys-title-medium-font: var(--font-family);
+  --mat-sys-label-large-font: var(--font-family);
+  --mat-button-filled-label-text-font: var(--font-family);
+  --mat-form-field-filled-label-text-font: var(--font-family);
+  --mat-form-field-subscript-text-font: var(--font-family);
+
+  // Collapsable Component
+  //--mat-expansion-container-text-font: 'Inter', sans-serif;
+  //--mat-expansion-header-text-font: 'Inter', sans-serif;
+  --mat-expansion-container-shape: 0px;
+  --mat-expansion-header-expanded-state-height: 48px;
+  --mat-expansion-header-hover-state-layer-color: var(--color-secondary);
+  --mat-expansion-header-text-color: var(--color-highlight);
+  --mat-expansion-row-item-container-height: 20px;
+
+  // Button group
+  --mat-button-toggle-selected-state-text-color: var(--color-highlight);
+
+  .mat-mdc-row {
+    height: 20px;
+  }
+
+  // Button Component
+  --mat-button-outlined-outline-color: var(--color-primary);
+  --mat-icon-button-state-layer-size: 36px;
+  --mat-icon-button-icon-size: 22px;
+  --mat-button-filled-container-shape: 8px;
+  --mat-button-outlined-container-shape: 8px;
+  .mat-mdc-icon-button:hover .mat-mdc-button-persistent-ripple::before {
+    background-color: var(--color-accent);
+  }
+
+  --mat-sys-body-medium-font: var(--font-family);
+  --mat-sys-body-large-font: var(--font-family);
+  --mat-sys-background: var(--color-background);
+  --mat-sys-surface: var(--color-background);
+  --mat-sys-surface-bright: var(--color-background);
+  --mat-sys-surface-dim: var(--color-primary-dark);
+  --mat-sys-surface-container: var(--color-background);
+  --mat-sys-surface-container-low: var(--color-background);
+  --mat-sys-surface-container-lowest: var(--color-background);
+  --mat-sys-surface-container-high: var(--color-background);
+  --mat-sys-surface-container-highest: var(--color-background);
+
+  --mat-sys-primary: var(--color-primary);
+  --mat-sys-primary-container: var(--color-accent);
+  --mat-sys-on-primary: var(--color-text);
+  --mat-sys-on-primary-container: var(--color-primary-dark);
+  --mat-sys-primary-fixed: var(--color-primary);
+  --mat-sys-primary-fixed-dim: var(--color-accent);
+  --mat-sys-on-primary-fixed: var(--color-text);
+  --mat-sys-on-primary-fixed-variant: var(--color-text);
+
+  --mat-sys-secondary: var(--color-accent);
+  --mat-sys-secondary-container: var(--color-secondary);
+
+  --mat-sys-tertiary: var(--color-primary-dark);
+  --mat-sys-tertiary-container: var(--color-border);
+  --mat-sys-on-tertiary: var(--color-text);
+  --mat-sys-on-tertiary-container: var(--color-text);
+  --mat-sys-tertiary-fixed: var(--color-primary-dark);
+  --mat-sys-tertiary-fixed-dim: var(--color-border);
+  --mat-sys-on-tertiary-fixed: var(--color-text);
+  --mat-sys-on-tertiary-fixed-variant: var(--color-text);
+
+  --mat-sys-on-background: var(--color-primary-dark);
+  --mat-sys-on-surface: var(--color-primary-dark);
+  --mat-sys-on-surface-variant: var(--color-neutral-variant);
+
+  --mat-sys-inverse-surface: var(--color-primary-dark);
+  --mat-sys-inverse-on-surface: var(--color-text);
+  --mat-sys-inverse-primary: var(--color-accent);
+
+  --mat-sys-outline: var(--color-border);
+  --mat-sys-outline-variant: var(--color-border);
+
+  --mat-sys-error: #ba1a1a;
+  --mat-sys-error-container: #ffdad6;
+  --mat-sys-on-error: #ffffff;
+  --mat-sys-on-error-container: #93000a;
+
+  --mat-sys-shadow: #000000;
+  --mat-sys-scrim: #000000;
+
+  --mat-sys-body-large: 400 1rem / 1.5rem var(--font-family);
+  --mat-sys-body-large-line-height: 1.5rem;
+  --mat-sys-body-large-size: 1rem;
+  --mat-sys-body-large-tracking: 0.031rem;
+  --mat-sys-body-large-weight: 400;
+
+  --mat-sys-on-secondary: var(--color-primary-dark);
+  --mat-sys-on-secondary-container: var(--color-primary-dark);
+  --mat-sys-secondary-fixed: var(--color-accent);
+  --mat-sys-secondary-fixed-dim: var(--color-primary);
+  --mat-sys-on-secondary-fixed: var(--color-primary-dark);
+  --mat-sys-on-secondary-fixed-variant: var(--color-primary-dark);
+
+
+  .mat-mdc-table,
+  .mat-mdc-header-cell,
+  .mat-mdc-cell,
+  .mat-table,
+  .mat-header-cell,
+  .mat-cell,
+  .mat-mdc-button,
+  .mat-mdc-form-field,
+  .mat-mdc-input-element,
+  .mat-mdc-select,
+  .mat-mdc-option,
+  .mat-mdc-dialog-title,
+  .mat-mdc-dialog-content,
+  .mat-typography, {
+    font-family: 'Inter', sans-serif !important;
+  }
+}

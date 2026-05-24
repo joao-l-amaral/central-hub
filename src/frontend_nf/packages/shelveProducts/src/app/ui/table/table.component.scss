@@ -1,0 +1,104 @@
+:host {
+    mat-icon {
+        padding-top: 4px;
+        padding-left: 4px;
+        font-size: 16px;
+    }
+
+    .example-container {
+        position: relative;
+    }
+
+    .example-table-container {
+        position: relative;
+        overflow: auto;
+    }
+
+    table {
+        width: 100%;
+    }
+
+    .example-loading-shade {
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 56px;
+        right: 0;
+        background: rgba(0, 0, 0, 0.15);
+        z-index: 1000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+    }
+
+
+    .loading-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 200px;
+    }
+    .expired {
+        background-color: #f8d7da;
+        color: #721c24;
+    }
+    .warning {
+        background-color: #fff3cd;
+        color: #856404;
+    }
+
+    .loading-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 300px;
+    }
+
+    .search-input-area {
+        float: right;
+    }
+
+    .products-row {
+        &:nth-child(odd)  { background-color: #ffffff; }
+        &:nth-child(even) { background-color: #f5f5f5; }
+
+        &:hover {
+            background-color: var(--mat-sys-primary-fixed-dim);
+            color: var(--color-highlight);
+        }
+
+        &:has(td.action-cell:hover) {
+            &:nth-child(odd):hover  { background-color: #ffffff; }
+            &:nth-child(even):hover { background-color: #f5f5f5; }
+            color: inherit;
+        }
+
+        mat-icon {
+            &:hover {
+                color: var(--color-primary);
+                cursor: pointer;
+            }
+        }
+    }
+
+    .active {
+        background-color: var(--color-secondary) !important;
+        color: var(--color-highlight) !important;
+    }
+
+    @media (max-width: 780px) {
+        .hide-on-small {
+            display: none;
+        }
+        .search-input-area {
+            width: 100%;
+
+            mat-form-field {
+                width: 100%;
+            }
+        }
+    }
+
+
+}

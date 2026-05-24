@@ -1,0 +1,140 @@
+{
+  "name": "gameVault",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "prefix": "gameVault",
+  "sourceRoot": "packages/gameVault/src",
+  "tags": ["scope:gameVault", "type:app"],
+  "targets": {
+    "build": {
+      "executor": "@angular-architects/native-federation:build",
+      "options": {
+        "assets": [
+          {
+            "glob": "**/*",
+            "input": "packages/gameVault/src/assets",
+            "output": "assets"
+          },
+          {
+            "glob": "**/*",
+            "input": "packages/gameVault/public"
+          }
+        ]
+      },
+      "configurations": {
+        "production": {
+          "target": "gameVault:esbuild:production"
+        },
+        "development": {
+          "target": "gameVault:esbuild:development",
+          "dev": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "executor": "@angular-architects/native-federation:build",
+      "options": {
+        "target": "gameVault:serve-original:development",
+        "rebuildDelay": 500,
+        "dev": true,
+        "cacheExternalArtifacts": false,
+        "port": 4202
+      },
+      "continuous": true
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    },
+    "test": {
+      "executor": "@angular/build:unit-test",
+      "options": {
+        "watch": false
+      }
+    },
+    "serve-static": {
+      "continuous": true,
+      "executor": "@nx/web:file-server",
+      "options": {
+        "buildTarget": "gameVault:build",
+        "port": 4200,
+        "staticFilePath": "dist/packages/gameVault/browser",
+        "spa": true
+      }
+    },
+    "esbuild": {
+      "executor": "@angular/build:application",
+      "outputs": [
+        "{options.outputPath}"
+      ],
+      "options": {
+        "outputPath": "dist/packages/gameVault",
+        "browser": "packages/gameVault/src/main.ts",
+        "tsConfig": "packages/gameVault/tsconfig.app.json",
+        "inlineStyleLanguage": "scss",
+        "assets": [
+          {
+            "glob": "**/*",
+            "input": "packages/gameVault/src/assets",
+            "output": "assets"
+          },
+          {
+            "glob": "**/*",
+            "input": "packages/gameVault/public"
+          }
+        ],
+        "styles": [
+          "packages/gameVault/src/styles.scss",
+          "@angular/material/prebuilt-themes/azure-blue.css",
+          "node_modules/bootstrap/dist/css/bootstrap.min.css",
+          "node_modules/ngx-toastr/toastr.css"
+        ],
+        "scripts": [
+          "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
+        ],
+        "polyfills": [
+          "es-module-shims"
+        ]
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "4kb",
+              "maximumError": "8kb"
+            }
+          ],
+          "outputHashing": "all"
+        },
+        "development": {
+          "optimization": false,
+          "extractLicenses": false,
+          "sourceMap": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve-original": {
+      "continuous": true,
+      "executor": "@angular/build:dev-server",
+      "configurations": {
+        "production": {
+          "buildTarget": "gameVault:esbuild:production"
+        },
+        "development": {
+          "buildTarget": "gameVault:esbuild:development"
+        }
+      },
+      "defaultConfiguration": "development",
+      "options": {
+        "port": 4202
+      }
+    }
+  }
+}

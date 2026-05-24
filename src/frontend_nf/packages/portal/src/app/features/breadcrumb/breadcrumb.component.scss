@@ -1,0 +1,23 @@
+.breadcrumb {
+    font-size: 0.9rem;
+}
+
+.breadcrumb-link {
+    color: var(--color-primary);
+    font-weight: 500;
+}
+
+.breadcrumb-link:hover {
+    text-decoration: underline;
+    color: var(--color-accent);
+}
+
+.breadcrumb-item + .breadcrumb-item::before {
+    content: "›";
+    color: var(--color-neutral-border-color);
+}
+
+.breadcrumb-item.active {
+    color: var(--color-neutral-variant);
+    font-weight: 600;
+}

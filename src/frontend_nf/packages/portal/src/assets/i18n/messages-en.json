@@ -1,0 +1,16 @@
+{
+    "commons.ok": "Ok",
+    "commons.cancel": "Cancel",
+    "game.vault.administrator": "Administrator",
+    "game.vault.administrator.page": "Administrator Page",
+    "game.vault.platform.selector": "Platform selector",
+    "game.vault.catconfig.configuration.title": "Main configurations",
+    "game.vault.catconfig.configuration": "Configuration",
+    "game.vault.catconfig.keyWordsToLookFor": "Key words to look for in the platforms name.",
+    "game.vault.catconfig.keyWordsToIgnore": "Key works to ignore in the platforms name.",
+    "game.vault.catconfig.edit": "Edit",
+    "game.vault.catconfig.save": "Save",
+    "game.vault.catconfig.cancel": "Cancel",
+    "title.gameVault": "GameVault",
+    "title.shelveProducts": "Shelve Prodcuts"
+}

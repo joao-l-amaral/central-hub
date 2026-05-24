@@ -1,0 +1,138 @@
+{
+  "name": "portal",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "prefix": "portal",
+  "sourceRoot": "packages/portal/src",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@angular-architects/native-federation:build",
+      "options": {
+        "assets": [
+          "packages/portal/src/assets",
+          {
+            "glob": "**/*",
+            "input": "packages/portal/public"
+          }
+        ],
+        "styles": [
+          "node_modules/bootstrap/dist/css/bootstrap.css",
+          "packages/portal/src/styles.scss"
+        ],
+        "scripts": [],
+        "polyfills": ["zone.js"]
+      },
+      "configurations": {
+        "production": {
+          "target": "portal:esbuild:production"
+        },
+        "development": {
+          "target": "portal:esbuild:development",
+          "dev": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "executor": "@angular-architects/native-federation:build",
+      "options": {
+        "target": "portal:serve-original:development",
+        "rebuildDelay": 500,
+        "dev": true,
+        "port": 4200,
+        "viteConfigFile": "packages/portal/vite.config.ts"
+      },
+      "continuous": true
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    },
+    "test": {
+      "executor": "@angular/build:unit-test",
+      "options": {
+        "watch": false
+      }
+    },
+    "serve-static": {
+      "continuous": true,
+      "executor": "@nx/vite:preview-server",
+      "options": {
+        "buildTarget": "portal:build",
+        "port": 4200,
+        "staticFilePath": "dist/packages/portal/browser",
+        "spa": true,
+        "proxyConfig": "packages/portal/proxy-local.config.js"
+      }
+    },
+    "esbuild": {
+      "executor": "@angular/build:application",
+      "outputs": [
+        "{options.outputPath}"
+      ],
+      "options": {
+        "outputPath": "dist/packages/portal",
+        "browser": "packages/portal/src/main.ts",
+        "tsConfig": "packages/portal/tsconfig.app.json",
+        "inlineStyleLanguage": "scss",
+        "assets": [
+          "packages/portal/src/assets",
+          {
+            "glob": "**/*",
+            "input": "packages/portal/public"
+          }
+        ],
+        "styles": [
+          "node_modules/bootstrap/dist/css/bootstrap.css",
+          "packages/portal/src/styles.scss"
+        ],
+        "scripts": [
+          "node_modules/bootstrap/dist/js/bootstrap.bundle.js"
+        ],
+        "polyfills": [
+          "es-module-shims"
+        ]
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "4kb",
+              "maximumError": "8kb"
+            }
+          ],
+          "outputHashing": "all"
+        },
+        "development": {
+          "optimization": false,
+          "extractLicenses": false,
+          "sourceMap": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve-original": {
+      "continuous": true,
+      "executor": "@angular/build:dev-server",
+      "configurations": {
+        "production": {
+          "buildTarget": "portal:esbuild:production"
+        },
+        "development": {
+          "buildTarget": "portal:esbuild:development"
+        }
+      },
+      "defaultConfiguration": "development",
+      "options": {
+        "port": 4200,
+        "proxyConfig": "packages/portal/proxy-local.config.js"
+      }
+    }
+  }
+}

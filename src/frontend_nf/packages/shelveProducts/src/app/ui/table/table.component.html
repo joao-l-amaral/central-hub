@@ -1,0 +1,99 @@
+<div class="example-container mat-elevation-z8">
+    @if (isLoadingResults()) {
+        <div class="example-loading-shade">
+            <mat-spinner/>
+        </div>
+    }
+
+    <div class="example-table-container">
+
+        <div class="search-input-area">
+            <mat-form-field>
+                <mat-label>{{ 'table.search.placeholder' | translate }}</mat-label>
+                <input matInput (keyup)="applyFilter($event)" #input/>
+            </mat-form-field>
+        </div>
+        <table mat-table [dataSource]="dataSource()" class="mat-elevation-z8" matSort (matSortChange)="sortData($event)">
+            <ng-container matColumnDef="select">
+                <th mat-header-cell *matHeaderCellDef>
+                    <mat-checkbox (change)="$event ? masterToggle() : null" [checked]="selection().hasValue() && isAllSelected()"/>
+                </th>
+                <td mat-cell *matCellDef="let row">
+                    <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection().toggle(row) : null" [checked]="selection().isSelected(row)"/>
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Name">
+                <th mat-sort-header="Name" mat-header-cell *matHeaderCellDef> <b>{{ "table.column.name" | translate }}</b> </th>
+                <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="BarCode">
+                <th mat-sort-header="BarCode" mat-header-cell *matHeaderCellDef> <b>{{ "table.column.bar.code" | translate }}</b> </th>
+                <td mat-cell *matCellDef="let element"> {{element.barCode}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="ShelveCode">
+                <th mat-sort-header="ShelveCode"  mat-header-cell *matHeaderCellDef> <b>{{ "table.column.shelveCode" | translate }}</b> </th>
+                <td mat-cell *matCellDef="let element"> {{element.shelveCode}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Calories">
+                <th mat-sort-header="Calories" mat-header-cell *matHeaderCellDef>
+                    <b>{{ "table.column.calories" | translate }} (kCal)</b>
+                </th>
+                <td mat-cell *matCellDef="let element"> {{element.calories}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Weight">
+                <th mat-sort-header="Weight" mat-header-cell *matHeaderCellDef>
+                    <b>{{ "table.column.weight" | translate }} (g)</b>
+                    <mat-icon
+                        [matTooltip]="'table.column.weight.tooltip' | translate"
+                        matTooltipPosition="above"
+                        matTooltipShowDelay="200"
+                    >info</mat-icon>
+                </th>
+                <td mat-cell *matCellDef="let element"> {{element.weight}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="InsertDate">
+                <th mat-header-cell *matHeaderCellDef> <b>{{ "table.column.insert.date" | translate }}</b> </th>
+                <td mat-cell *matCellDef="let element"> {{element.date}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="ExpiryDate">
+                <th mat-header-cell *matHeaderCellDef> <b>{{ "table.column.expiry.date" | translate }}</b> </th>
+                <td mat-cell *matCellDef="let element"> {{element.expiryDate}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="daysLeft">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header="ExpiryDate"> <b>{{ "table.column.days.left" | translate }}</b> </th>
+                <td
+                    mat-cell
+                    *matCellDef="let element"
+                    [ngClass]="{ 'expired': element.daysLeft < 0, 'warning': element.daysLeft >= 0 && element.daysLeft < 60}"
+                > {{element.daysLeft}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="actions">
+                <th mat-header-cell *matHeaderCellDef>-</th>
+                <td mat-cell *matCellDef="let element" class="action-cell">
+                    <mat-icon (click)="removeProduct($event, element)">delete</mat-icon>
+                    <mat-icon (click)="cloneProduct($event, element)">file_copy</mat-icon>
+                </td>
+            </ng-container>
+
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr class="products-row" mat-row *matRowDef="let row; columns: displayedColumns;" (click)="editProduct(row)"
+                [class.active]="isActiveRow(row)"></tr>
+
+            <tr mat-row *matNoDataRow>
+                <td class="mat-cell" [attr.colspan]="displayedColumns.length">
+                    {{ "table.no.data" | translate }}
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>

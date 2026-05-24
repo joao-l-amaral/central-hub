@@ -1,0 +1,96 @@
+<div class="col-md-12 actions">
+
+    @if(isEditMode()){
+        <button
+            mat-button
+            libCustomButton
+            [label]="'Update'"
+            [type]="'primary'"
+            [icon]="'update'"
+            (click)="updateProduct()"
+        >
+        </button>
+    }
+    @else {
+        <button
+            mat-button
+            libCustomButton
+            [label]="'Clear'"
+            [type]="'secondary'"
+            [icon]="'clear'"
+            (click)="clearForm()"
+        >
+        </button>
+        <button
+            mat-button
+            libCustomButton
+            [label]="'Save'"
+            [type]="'primary'"
+            [icon]="'save'"
+            (click)="submitForm()"
+        >
+        </button>
+    }
+</div>
+<div class="col-md-12">
+    <form [formGroup]="myForm">
+
+        <mat-form-field appearance="fill">
+            <mat-label>{{ 'form.bar.code' | translate }}</mat-label>
+            <input
+                matInput
+                formControlName="barCode"
+                type="text"
+                [matAutocomplete]="auto"
+            />
+            @if(myForm.get('barCode')?.hasError('required')) {
+                <mat-error>{{ 'form.bar.code.error' | translate }}</mat-error>
+            }
+
+            <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onSelect($event)">
+                @for(barCode of filteredProductsByBarCode; track barCode) {
+                    <mat-option [value]="barCode">
+                        {{ barCode }}
+                    </mat-option>
+                }
+            </mat-autocomplete>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>{{ 'form.name' | translate }}</mat-label>
+            <input matInput formControlName="name" type="text" />
+            @if(myForm.get('name')?.hasError('required')) {
+                <mat-error>{{ 'form.name.error' | translate }}</mat-error>
+            }
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>{{ 'form.shelve.code' | translate }}</mat-label>
+            <input matInput formControlName="shelveCode" type="text" />
+            @if(myForm.get('shelveCode')?.hasError('required')) {
+                <mat-error>{{ 'form.shelve.code.error' | translate }}</mat-error>
+            }
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>{{ 'form.weight' | translate }}</mat-label>
+            <input matInput formControlName="weight" type="number" />
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>{{ 'form.calories' | translate }} (kCal)</mat-label>
+            <input matInput formControlName="calories" type="number" />
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>{{ 'form.expiry.date' | translate }}</mat-label>
+            <input matInput [matDatepicker]="picker" [min]="today" formControlName="expiryDate" />
+            <mat-datepicker-toggle matIconSuffix [for]="picker"/>
+            <mat-datepicker #picker/>
+            @if(myForm.get('expiryDate')?.hasError('required')) {
+                <mat-error>{{ 'form.expiry.date.error' | translate }}</mat-error>
+            }
+        </mat-form-field>
+    </form>
+
+</div>

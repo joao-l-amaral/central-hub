@@ -1,0 +1,48 @@
+.circle-container {
+    border-radius: 50%;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    flex-direction: column;
+
+    &.hover-enabled:hover {
+        @if selected {
+            &:hover {
+                cursor: pointer;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            }
+        }
+    }
+
+    i {
+        font-size: min(2.5vw, 2em);
+        transition: color 0.3s ease;
+        margin-bottom: 5px;
+        align-items: center;
+        align-content: center;
+        align-self: center;
+    }
+
+    span {
+        font-size: min(1vw, 0.8em);
+        text-align: center;
+        line-height: 1;
+    }
+}
+
+.selected {
+    background-color: var(--color-secondary);
+
+    i, span {
+        color: var(--color-text)
+    }
+}
+
+.unselected {
+    background-color: var(--color-light-neutral-variant);
+}

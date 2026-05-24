@@ -1,0 +1,25 @@
+<mat-accordion>
+    <mat-expansion-panel (opened)="panelOpenState.set(true)" (closed)="panelOpenState.set(false)">
+        <mat-expansion-panel-header>
+            <mat-panel-title> {{ 'statistic.header' | translate}} </mat-panel-title>
+        </mat-expansion-panel-header>
+        <ng-template matExpansionPanelContent>
+            <div class="body">
+                <lib-key-value
+                    [key]="'statistic.panel.total' | translate"
+                    [subKey]="'statistic.panel.description' | translate"
+                    [value]="totalCalories()"
+                    [clazz]="totalCaloriesStatus()"
+                />
+                @for(statistic of statistics(); track statistic.productName) {
+                    <lib-key-value
+                        [key]="statistic.productName"
+                        subKey="{{ statistic.barCode + ' - ' + statistic.calories + '(kcal)' }}"
+                        [value]="statistic.productCount"
+                    />
+                }
+            </div>
+        </ng-template>
+    </mat-expansion-panel>
+</mat-accordion>
+

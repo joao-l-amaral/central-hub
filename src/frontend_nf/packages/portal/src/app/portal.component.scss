@@ -1,0 +1,12 @@
+.portal-wrapper {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.portal-body {
+    flex-grow: 1;
+    display: block;
+    min-height: 0;
+    overflow: visible;
+}

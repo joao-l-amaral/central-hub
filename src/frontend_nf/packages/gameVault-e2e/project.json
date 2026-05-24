@@ -1,0 +1,11 @@
+{
+  "name": "gameVault-e2e",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "packages/gameVault-e2e/src",
+  "implicitDependencies": [
+    "gameVault"
+  ],
+  "// targets": "to see all targets run: nx show project gameVault-e2e --web",
+  "targets": {}
+}
