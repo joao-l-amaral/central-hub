@@ -1,4 +1,4 @@
-// apps/portal/eslint.config.mjs  (same structure for all MFEs and portal-lib)
+import nx from '@nx/eslint-plugin';
 import baseConfig from '../../eslint.config.mjs';
 import angular from 'angular-eslint';
 import tseslint from 'typescript-eslint';

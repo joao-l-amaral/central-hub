@@ -20,7 +20,10 @@ export class AppInitService {
     }
 
     private getLanguageDic(language: string, namespace: string) {
-        return firstValueFrom(this.#httpClient.get<MapEntry>(`./assets/${namespace}/i18n/messages-${language}.json`).pipe(shareReplay(1)));
+        const url = (namespace === '') ?
+          `./assets/i18n/messages-${language}.json` :
+          `./assets/${namespace}/i18n/messages-${language}.json`;
+        return firstValueFrom(this.#httpClient.get<MapEntry>(url).pipe(shareReplay(1)));
     }
 
     private getApplicationConfiguration() {

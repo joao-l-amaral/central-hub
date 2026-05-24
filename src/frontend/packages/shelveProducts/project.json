@@ -1,121 +1,126 @@
 {
-    "name": "shelveProducts",
-    "$schema": "../../node_modules/nx/schemas/project-schema.json",
-    "projectType": "application",
-    "prefix": "shelveProdcuts",
-    "sourceRoot": "packages/shelveProducts/src",
-    "tags": ["scope:shelveProducts", "type:app"],
-    "targets": {
-        "build": {
-            "executor": "@nx/angular:webpack-browser",
-            "outputs": ["{options.outputPath}"],
-            "options": {
-                "outputPath": "dist/packages/shelveProducts",
-                "index": "packages/shelveProducts/src/index.html",
-                "main": "packages/shelveProducts/src/main.ts",
-                "polyfills": ["zone.js"],
-                "tsConfig": "packages/shelveProducts/tsconfig.app.json",
-                "inlineStyleLanguage": "scss",
-                "assets": [
-                    "packages/shelveProducts/src/assets",
-                    {
-                        "glob": "**/*",
-                        "input": "packages/shelveProducts/public"
-                    }
-                ],
-                "styles": [
-                    "packages/shelveProducts/src/styles.scss",
-                    "@angular/material/prebuilt-themes/azure-blue.css",
-                    "node_modules/bootstrap/dist/css/bootstrap.min.css",
-                    "node_modules/ngx-toastr/toastr.css"
-                ],
-                "scripts": [
-                    "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
-                ],
-                "customWebpackConfig": {
-                    "path": "packages/shelveProducts/webpack.config.ts"
-                }
-            },
-            "configurations": {
-                "production": {
-                    "budgets": [
-                        {
-                            "type": "initial",
-                            "maximumWarning": "500kb",
-                            "maximumError": "1mb"
-                        },
-                        {
-                            "type": "anyComponentStyle",
-                            "maximumWarning": "4kb",
-                            "maximumError": "8kb"
-                        }
-                    ],
-                    "outputHashing": "all",
-                    "customWebpackConfig": {
-                        "path": "packages/shelveProducts/webpack.prod.config.ts"
-                    }
-                },
-                "development": {
-                    "buildOptimizer": false,
-                    "optimization": false,
-                    "vendorChunk": true,
-                    "extractLicenses": false,
-                    "sourceMap": true,
-                    "namedChunks": true
-                }
-            },
-            "defaultConfiguration": "production"
+  "name": "shelveProducts",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "prefix": "shelve-products",
+  "sourceRoot": "packages/shelveProducts/src",
+  "tags": ["scope:shelveProducts", "type:app"],
+  "targets": {
+    "build": {
+      "executor": "@angular-architects/native-federation:build",
+      "options": {
+        "assets": [
+          "packages/shelveProducts/src/assets",
+          {
+            "glob": "**/*",
+            "input": "packages/shelveProducts/public"
+          }
+        ]
+      },
+      "configurations": {
+        "production": {
+          "target": "shelveProducts:esbuild:production"
         },
-        "serve": {
-            "continuous": true,
-            "executor": "@nx/angular:module-federation-dev-server",
-            "options": {
-                "port": 4201,
-                "publicHost": "http://localhost:4201"
-            },
-            "configurations": {
-                "production": {
-                    "buildTarget": "shelveProducts:build:production"
-                },
-                "development": {
-                    "buildTarget": "shelveProducts:build:development"
-                }
-            },
-            "defaultConfiguration": "development"
-        },
-        "extract-i18n": {
-            "executor": "@angular-devkit/build-angular:extract-i18n",
-            "options": {
-                "buildTarget": "shelveProducts:build"
-            }
-        },
-        "lint": {
-            "executor": "@nx/eslint:lint"
-        },
-        "serve-static": {
-            "continuous": true,
-            "executor": "@nx/web:file-server",
-            "defaultConfiguration": "production",
-            "options": {
-                "buildTarget": "shelveProducts:build",
-                "port": 4201,
-                "watch": false
-            },
-            "configurations": {
-                "development": {
-                    "buildTarget": "shelveProducts:build:development"
-                },
-                "production": {
-                    "buildTarget": "shelveProducts:build:production"
-                }
-            }
-        },
-        "test": {
-            "executor": "@nx/vitest:test",
-            "outputs": ["{options.reportsDirectory}"],
-            "options": {
-                "reportsDirectory": "coverage/packages/shelveProducts"
-            }
+        "development": {
+          "target": "shelveProducts:esbuild:development",
+          "dev": true
         }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "executor": "@angular-architects/native-federation:build",
+      "options": {
+        "target": "shelveProducts:serve-original:development",
+        "rebuildDelay": 500,
+        "dev": true,
+        "cacheExternalArtifacts": false,
+        "port": 4201
+      },
+      "continuous": true
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    },
+    "test": {
+      "executor": "@angular/build:unit-test",
+      "options": {
+        "watch": false
+      }
+    },
+    "serve-static": {
+      "continuous": true,
+      "executor": "@nx/web:file-server",
+      "options": {
+        "buildTarget": "shelveProducts:build",
+        "port": 4200,
+        "staticFilePath": "dist/packages/shelveProducts/browser",
+        "spa": true
+      }
+    },
+    "esbuild": {
+      "executor": "@angular/build:application",
+      "outputs": [
+        "{options.outputPath}"
+      ],
+      "options": {
+        "outputPath": "dist/packages/shelveProducts",
+        "browser": "packages/shelveProducts/src/main.ts",
+        "tsConfig": "packages/shelveProducts/tsconfig.app.json",
+        "inlineStyleLanguage": "scss",
+        "assets": [
+          "packages/shelveProducts/src/assets",
+          {
+            "glob": "**/*",
+            "input": "packages/shelveProducts/public"
+          }
+        ],
+        "styles": [
+          "packages/shelveProducts/src/styles.scss"
+        ],
+        "polyfills": [
+          "es-module-shims"
+        ]
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "4kb",
+              "maximumError": "8kb"
+            }
+          ],
+          "outputHashing": "all"
+        },
+        "development": {
+          "optimization": false,
+          "extractLicenses": false,
+          "sourceMap": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve-original": {
+      "continuous": true,
+      "executor": "@angular/build:dev-server",
+      "configurations": {
+        "production": {
+          "buildTarget": "shelveProducts:esbuild:production"
+        },
+        "development": {
+          "buildTarget": "shelveProducts:esbuild:development"
+        }
+      },
+      "defaultConfiguration": "development",
+      "options": {
+        "port": 4201
+      }
     }
+  }
 }

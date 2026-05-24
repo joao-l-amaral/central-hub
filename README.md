@@ -5,6 +5,8 @@ This is just my little playground — a personal pet project where I get to mess
 Tried the open project route, but... yeah, doesn’t give me a 100% perfect solution.
 So here we go — time to build things my way! 🛠️💥🛠️
 
+//TODO com native federation is v3!
+
 # 📦 Patch Notes
 ## v2.1.0 (2025-12-05)
 

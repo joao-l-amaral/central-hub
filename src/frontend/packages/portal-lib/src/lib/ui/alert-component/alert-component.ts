@@ -39,6 +39,3 @@ export class AlertComponent {
         this.visibleChange.emit(true);
     }
 }
-
-// TODO:
-// Adicionar os testes unitarios

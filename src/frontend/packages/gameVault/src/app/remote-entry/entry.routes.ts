@@ -1,4 +1,6 @@
 import { Route } from '@angular/router';
-import { RemoteEntry } from './entry';
+import { GameVaultComponent } from '../pages/game-vault/game-vault.component';
 
-export const remoteRoutes: Route[] = [{ path: '', component: RemoteEntry }];
+export const remoteRoutes: Route[] = [
+  { path: '', component: GameVaultComponent },
+];

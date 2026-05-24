@@ -9,7 +9,7 @@ import { InternalizationPipe, MF_FRONTEND } from '@portal-library';
 import { ActionsComponent } from './actions/actions.component';
 
 @Component({
-    selector: 'gameq-administration-administration',
+    selector: 'gameVault-administration-administration',
     templateUrl: './administration.component.html',
     styleUrl: './administration.component.scss',
     imports: [

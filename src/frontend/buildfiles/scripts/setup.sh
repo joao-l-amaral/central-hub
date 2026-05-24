@@ -2,7 +2,7 @@
 set -eu -o pipefail
 
 # Check if env variable BASIC_TOKEN is defined
-if [ -z "BASIC_TOKEN" ]; then
+if [ -z "${BASIC_TOKEN}" ]; then
     echo "BASIC_TOKEN is not defined. Stopping script."
     exit 1
 fi

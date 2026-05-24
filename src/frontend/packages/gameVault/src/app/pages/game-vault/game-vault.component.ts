@@ -11,7 +11,7 @@ import { Subscription } from 'rxjs';
 import { InternalizationPipe, MF_FRONTEND } from '@portal-library';
 
 @Component({
-    selector: 'gameq-vault-home',
+    selector: 'gameVault-vault-home',
     templateUrl: './game-vault.component.html',
     styleUrl: './game-vault.component.scss',
     imports: [
