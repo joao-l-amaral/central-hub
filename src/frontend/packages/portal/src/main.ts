@@ -9,4 +9,5 @@ fetch('/assets/federation.manifest.json')
     return initFederation(manifest);
   })
   .then(() => import('./bootstrap'))
+    // eslint-disable-next-line no-console
   .catch(err => console.error(err));

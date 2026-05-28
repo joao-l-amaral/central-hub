@@ -4,14 +4,18 @@ import {
   HttpRequest,
 } from '@angular/common/http';
 import { catchError, throwError } from 'rxjs';
+import {inject} from "@angular/core";
+import {LoggingService} from "@portal-library";
 
 export function httpErrorInterceptor(
   req: HttpRequest<unknown>,
   next: HttpHandlerFn
 ) {
+  const logger = inject(LoggingService);
+
   return next(req).pipe(
     catchError((error: HttpErrorResponse) => {
-      return throwError(() => console.error(error));
+      return throwError(() => logger.error(error.message));
     })
   );
 }
