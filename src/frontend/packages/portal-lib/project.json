@@ -27,10 +27,11 @@
       "defaultConfiguration": "production"
     },
     "test": {
-      "executor": "@nx/angular:unit-test",
-      "options": {
-        "reportsDirectory": "coverage/packages/portal-lib"
-      }
+        "executor": "@nx/vitest:test",
+        "outputs": ["{options.reportsDirectory}"],
+        "options": {
+            "reportsDirectory": "coverage/packages/portal-lib"
+        }
     },
     "storybook": {
       "executor": "@storybook/angular:start-storybook",

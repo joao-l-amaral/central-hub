@@ -5,9 +5,15 @@ This is just my little playground — a personal pet project where I get to mess
 Tried the open project route, but... yeah, doesn’t give me a 100% perfect solution.
 So here we go — time to build things my way! 🛠️💥🛠️
 
-//TODO com native federation is v3!
-
 # 📦 Patch Notes
+## v3.0.0
+
+### 🧩 Angular Frontend
+- Migration from **Module Federation** to **Native Federation**.
+
+### 🧬 Quarkus API
+- Integrate **Keycloak** to provide advanced authorization capabilities and role management.
+
 ## v2.1.0 (2025-12-05)
 
 ### 🧩 Angular Frontend
@@ -47,7 +53,3 @@ So here we go — time to build things my way! 🛠️💥🛠️
 - Added Basic Authorization to secure the endpoints.
 - Integrated with Discord to send notifications to a personal bot.
 - Created a REST API to manage grocery products.
-
-## 🔜 TODO
-### 🧬 Quarkus API
-- Integrate **Keycloak** to provide advanced authorization capabilities and role management.

@@ -9,13 +9,22 @@ describe('StatisticsPanelComponent', () => {
   let fixture: ComponentFixture<StatisticsPanelComponent>;
 
   beforeEach(async () => {
+    const mockShelveProductService = {
+        getShelveProduct: vi.fn(() => Promise.resolve([]))
+    };
+    const mockStatisticsPanelService = {
+        getStatistics: vi.fn(() => {
+            /* no return */
+        })
+    };
+
     await TestBed.configureTestingModule({
         imports: [StatisticsPanelComponent],
         providers: [
-            StatisticsPanelService,
-            ShelveProductService,
             ApplicationConfigurations,
-            { provide: MF_FRONTEND, useValue: 'shelveProducts' }
+            { provide: MF_FRONTEND, useValue: 'shelveProducts' },
+            { provide: ShelveProductService, useValue: mockShelveProductService },
+            { provide: StatisticsPanelService, useValue: mockStatisticsPanelService }
         ]
     }).compileComponents();
 
