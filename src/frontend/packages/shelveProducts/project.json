@@ -35,7 +35,8 @@
         "rebuildDelay": 500,
         "dev": true,
         "cacheExternalArtifacts": false,
-        "port": 4201
+        "port": 4201,
+        "viteConfigFile": "packages/portal/vite.config.ts"
       },
       "continuous": true
     },
@@ -55,7 +56,8 @@
         "buildTarget": "shelveProducts:build",
         "port": 4200,
         "staticFilePath": "dist/packages/shelveProducts/browser",
-        "spa": true
+        "spa": true,
+        "proxyConfig": "packages/shelveProducts/proxy-local.config.js"
       }
     },
     "esbuild": {
@@ -119,7 +121,8 @@
       },
       "defaultConfiguration": "development",
       "options": {
-        "port": 4201
+        "port": 4201,
+        "proxyConfig": "packages/shelveProducts/proxy-local.config.js"
       }
     }
   }

@@ -5,7 +5,7 @@ import {ShelveProductService} from "../../data-source/shelve-product.service";
 import {TableService} from "./table.service";
 import {SideNavService} from "../../services/side-nav.service";
 import {provideToastr} from "ngx-toastr";
-import {ApplicationConfigurations, MF_FRONTEND} from "@portal-library";
+import {SharedApplicationConfigurations, MF_FRONTEND} from "@portal-library";
 import {provideHttpClient} from "@angular/common/http";
 import {provideHttpClientTesting} from "@angular/common/http/testing";
 
@@ -26,7 +26,7 @@ describe('TableComponent', () => {
                 positionClass: 'toast-top-right',
                 preventDuplicates: true,
             }),
-            ApplicationConfigurations,
+            SharedApplicationConfigurations,
             { provide: MF_FRONTEND, useValue: 'shelveProducts' },
             provideHttpClient(),
             provideHttpClientTesting()

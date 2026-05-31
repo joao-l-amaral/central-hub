@@ -1,18 +1,18 @@
 import {inject, Injectable} from "@angular/core";
-import { ApplicationConfigurations } from './application-configurations.service';
+import { SharedApplicationConfigurations } from './application-configurations.service';
 
 @Injectable({
     providedIn: 'root'
 })
 export class I18nService {
 
-    private readonly applicationConfigurations = inject(ApplicationConfigurations);
+    readonly #sharedApplicationConfigurations = inject(SharedApplicationConfigurations);
 
-    private readonly i18n = this.applicationConfigurations.i18nDictionary;
+    readonly #i18n = this.#sharedApplicationConfigurations.i18nDictionary;
 
     addMap(dictionary: Map<string, string>, namespace: string) {
 
-        const i18nData = [...this.i18n()];
+        const i18nData = [...this.#i18n()];
 
         namespace = (namespace.length > 0) ? namespace : 'portal';
 
@@ -23,12 +23,12 @@ export class I18nService {
 
         i18nData.push(namespaceDictionary);
 
-        this.i18n.set(i18nData);
+        this.#i18n.set(i18nData);
     }
 
     translate(namespace: string | null, value: string, arg?: string) {
 
-        const i18nData = this.i18n().find(item => item.namespace === namespace);
+        const i18nData = this.#i18n().find(item => item.namespace === namespace);
 
         if (i18nData && i18nData.namespace === namespace) {
           if(arg) {

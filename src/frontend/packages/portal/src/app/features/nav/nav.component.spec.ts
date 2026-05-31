@@ -2,6 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NavComponent } from './nav.component';
 import {AuthApi, AuthState} from "@portal-library";
 import { provideRouter } from '@angular/router';
+import { ApplicationConfigurationService } from '../../commons/services/application-configuration-service';
 
 describe('NavComponent', () => {
   let component: NavComponent;
@@ -13,7 +14,8 @@ describe('NavComponent', () => {
         providers: [
             AuthApi,
             AuthState,
-            provideRouter([])
+            provideRouter([]),
+            ApplicationConfigurationService
         ]
     }).compileComponents();
 

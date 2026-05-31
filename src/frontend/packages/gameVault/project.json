@@ -55,7 +55,8 @@
         "buildTarget": "gameVault:build",
         "port": 4200,
         "staticFilePath": "dist/packages/gameVault/browser",
-        "spa": true
+        "spa": true,
+        "proxyConfig": "packages/gameVault/proxy-local.config.js"
       }
     },
     "esbuild": {
@@ -125,7 +126,8 @@
       },
       "defaultConfiguration": "development",
       "options": {
-        "port": 4202
+        "port": 4202,
+        "proxyConfig": "packages/gameVault/proxy-local.config.js"
       }
     }
   }
