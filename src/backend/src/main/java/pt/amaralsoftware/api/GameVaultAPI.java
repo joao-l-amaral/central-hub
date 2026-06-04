@@ -1,6 +1,5 @@
 package pt.amaralsoftware.api;
 
-import io.quarkus.security.Authenticated;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.PATCH;
@@ -17,8 +16,7 @@ import pt.amaralsoftware.service.CatGamePlatformService;
 
 import java.io.IOException;
 
-@Path("/games/api")
-@Authenticated
+@Path("/games")
 public class GameVaultAPI {
     private final Logger log = LoggerFactory.getLogger(GameVaultAPI.class);
 

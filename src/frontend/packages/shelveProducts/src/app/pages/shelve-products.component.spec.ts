@@ -1,7 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ShelveProductsComponent } from './shelve-products.component';
 import { provideToastr } from 'ngx-toastr';
-import {ApplicationConfigurations, LoggingService} from '@portal-library';
+import {SharedApplicationConfigurations, LoggingService} from '@portal-library';
+import {provideHttpClient} from "@angular/common/http";
+import {provideHttpClientTesting} from "@angular/common/http/testing";
 
 describe('ShelveProductsComponent', () => {
     let component: ShelveProductsComponent;
@@ -16,8 +18,10 @@ describe('ShelveProductsComponent', () => {
                     positionClass: 'toast-top-right',
                     preventDuplicates: true,
                 }),
-                ApplicationConfigurations,
-                LoggingService
+                SharedApplicationConfigurations,
+                LoggingService,
+                provideHttpClient(),
+                provideHttpClientTesting()
             ],
         }).compileComponents();
 

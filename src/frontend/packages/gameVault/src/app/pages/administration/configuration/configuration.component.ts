@@ -19,7 +19,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
-    selector: 'gameq-configuration-administration',
+    selector: 'game-vault-configuration-administration',
     templateUrl: './configuration.component.html',
     styleUrl: './configuration.component.scss',
   imports: [

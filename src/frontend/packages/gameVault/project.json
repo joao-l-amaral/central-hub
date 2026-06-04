@@ -1,121 +1,134 @@
 {
-    "name": "gameVault",
-    "$schema": "../../node_modules/nx/schemas/project-schema.json",
-    "projectType": "application",
-    "prefix": "gameVault",
-    "sourceRoot": "packages/gameVault/src",
-    "tags": ["scope:gameVault", "type:app"],
-    "targets": {
-        "build": {
-            "executor": "@nx/angular:webpack-browser",
-            "outputs": ["{options.outputPath}"],
-            "options": {
-                "outputPath": "dist/packages/gameVault",
-                "index": "packages/gameVault/src/index.html",
-                "main": "packages/gameVault/src/main.ts",
-                "polyfills": ["zone.js"],
-                "tsConfig": "packages/gameVault/tsconfig.app.json",
-                "inlineStyleLanguage": "scss",
-                "assets": [
-                    "packages/gameVault/src/assets",
-                    {
-                        "glob": "**/*",
-                        "input": "packages/gameVault/public"
-                    }
-                ],
-                "styles": [
-                    "packages/gameVault/src/styles.scss",
-                    "@angular/material/prebuilt-themes/azure-blue.css",
-                    "node_modules/bootstrap/dist/css/bootstrap.min.css",
-                    "node_modules/ngx-toastr/toastr.css"
-                ],
-                "scripts": [
-                    "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
-                ],
-                "customWebpackConfig": {
-                    "path": "packages/gameVault/webpack.config.ts"
-                }
-            },
-            "configurations": {
-                "production": {
-                    "budgets": [
-                        {
-                            "type": "initial",
-                            "maximumWarning": "500kb",
-                            "maximumError": "1mb"
-                        },
-                        {
-                            "type": "anyComponentStyle",
-                            "maximumWarning": "4kb",
-                            "maximumError": "8kb"
-                        }
-                    ],
-                    "outputHashing": "all",
-                    "customWebpackConfig": {
-                        "path": "packages/gameVault/webpack.prod.config.ts"
-                    }
-                },
-                "development": {
-                    "buildOptimizer": false,
-                    "optimization": false,
-                    "vendorChunk": true,
-                    "extractLicenses": false,
-                    "sourceMap": true,
-                    "namedChunks": true
-                }
-            },
-            "defaultConfiguration": "production"
+  "name": "gameVault",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "prefix": "game-vault",
+  "sourceRoot": "packages/gameVault/src",
+  "tags": ["scope:gameVault", "type:app"],
+  "targets": {
+    "build": {
+      "executor": "@angular-architects/native-federation:build",
+      "options": {
+        "assets": [
+          "packages/gameVault/src/assets",
+          {
+            "glob": "**/*",
+            "input": "packages/gameVault/public"
+          }
+        ]
+      },
+      "configurations": {
+        "production": {
+          "target": "gameVault:esbuild:production"
         },
-        "serve": {
-            "continuous": true,
-            "executor": "@nx/angular:module-federation-dev-server",
-            "options": {
-                "port": 4202,
-                "publicHost": "http://localhost:4202"
-            },
-            "configurations": {
-                "production": {
-                    "buildTarget": "gameVault:build:production"
-                },
-                "development": {
-                    "buildTarget": "gameVault:build:development"
-                }
-            },
-            "defaultConfiguration": "development"
-        },
-        "extract-i18n": {
-            "executor": "@angular-devkit/build-angular:extract-i18n",
-            "options": {
-                "buildTarget": "gameVault:build"
-            }
-        },
-        "lint": {
-            "executor": "@nx/eslint:lint"
-        },
-        "serve-static": {
-            "continuous": true,
-            "executor": "@nx/web:file-server",
-            "defaultConfiguration": "production",
-            "options": {
-                "buildTarget": "gameVault:build",
-                "port": 4203,
-                "watch": false
-            },
-            "configurations": {
-                "development": {
-                    "buildTarget": "gameVault:build:development"
-                },
-                "production": {
-                    "buildTarget": "gameVault:build:production"
-                }
-            }
-        },
-        "test": {
-            "executor": "@nx/vitest:test",
-            "outputs": ["{options.reportsDirectory}"],
-            "options": {
-                "reportsDirectory": "coverage/packages/gameVault"
-            }
+        "development": {
+          "target": "gameVault:esbuild:development",
+          "dev": true
         }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "executor": "@angular-architects/native-federation:build",
+      "options": {
+        "target": "gameVault:serve-original:development",
+        "rebuildDelay": 500,
+        "dev": true,
+        "cacheExternalArtifacts": false,
+        "port": 4202
+      },
+      "continuous": true
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    },
+    "test": {
+      "executor": "@angular/build:unit-test",
+      "options": {
+        "watch": false
+      }
+    },
+    "serve-static": {
+      "continuous": true,
+      "executor": "@nx/web:file-server",
+      "options": {
+        "buildTarget": "gameVault:build",
+        "port": 4200,
+        "staticFilePath": "dist/packages/gameVault/browser",
+        "spa": true,
+        "proxyConfig": "packages/gameVault/proxy-local.config.js"
+      }
+    },
+    "esbuild": {
+      "executor": "@angular/build:application",
+      "outputs": [
+        "{options.outputPath}"
+      ],
+      "options": {
+        "outputPath": "dist/packages/gameVault",
+        "browser": "packages/gameVault/src/main.ts",
+        "tsConfig": "packages/gameVault/tsconfig.app.json",
+        "inlineStyleLanguage": "scss",
+        "assets": [
+          "packages/gameVault/src/assets",
+          {
+            "glob": "**/*",
+            "input": "packages/gameVault/public"
+          }
+        ],
+        "styles": [
+          "packages/gameVault/src/styles.scss",
+          "@angular/material/prebuilt-themes/azure-blue.css",
+          "node_modules/bootstrap/dist/css/bootstrap.min.css",
+          "node_modules/ngx-toastr/toastr.css"
+        ],
+        "scripts": [
+          "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
+        ],
+        "polyfills": [
+          "es-module-shims"
+        ]
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "4kb",
+              "maximumError": "8kb"
+            }
+          ],
+          "outputHashing": "all"
+        },
+        "development": {
+          "optimization": false,
+          "extractLicenses": false,
+          "sourceMap": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve-original": {
+      "continuous": true,
+      "executor": "@angular/build:dev-server",
+      "configurations": {
+        "production": {
+          "buildTarget": "gameVault:esbuild:production"
+        },
+        "development": {
+          "buildTarget": "gameVault:esbuild:development"
+        }
+      },
+      "defaultConfiguration": "development",
+      "options": {
+        "port": 4202,
+        "proxyConfig": "packages/gameVault/proxy-local.config.js"
+      }
     }
+  }
 }

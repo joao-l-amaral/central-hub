@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { AdministrationComponent } from './administration.component';
-import {ApplicationConfigurations} from "@portal-library";
+import {SharedApplicationConfigurations} from "@portal-library";
 import {provideToastr} from "ngx-toastr";
 
 describe('AdministrationComponent', () => {
@@ -11,7 +11,7 @@ describe('AdministrationComponent', () => {
     await TestBed.configureTestingModule({
         imports: [AdministrationComponent],
         providers: [
-            ApplicationConfigurations,
+            SharedApplicationConfigurations,
             provideToastr({
                 timeOut: 3000,
                 positionClass: 'toast-top-right',

@@ -1,77 +1,76 @@
-// apps/portal/eslint.config.mjs  (same structure for all MFEs and portal-lib)
 import baseConfig from '../../eslint.config.mjs';
 import angular from 'angular-eslint';
 import tseslint from 'typescript-eslint';
 import eslintConfigPrettier from 'eslint-config-prettier';
 
 export default tseslint.config(
-    {
-        ignores: [
-            'module-federation.config.ts',
-            'webpack.config.ts',
-            'webpack.prod.config.ts',
-            'src/test-setup.ts',
-        ],
-    },
-    ...baseConfig,
+  ...baseConfig,
 
-    // ── TypeScript ─────────────────────────────────────
-    {
-        files: ['**/*.ts'],
-        languageOptions: {
-            parserOptions: {
-                projectService: true,
-                tsconfigRootDir: import.meta.dirname,
-            },
+  // ── TypeScript ─────────────────────────────────────
+  {
+    files: ['**/*.ts'],
+    extends: [
+      ...tseslint.configs.recommended,
+      ...tseslint.configs.stylistic,
+      ...angular.configs.tsRecommended,
+      eslintConfigPrettier,
+    ],
+    processor: angular.processInlineTemplates,
+    rules: {
+      '@angular-eslint/component-selector': [
+        'error',
+        {
+          type: 'element',
+          prefix: 'game-vault',
+          style: 'kebab-case',
         },
-        extends: [
-            ...tseslint.configs.recommended,
-            ...tseslint.configs.stylistic,
-            ...angular.configs.tsRecommended,
-            eslintConfigPrettier,
-        ],
-        processor: angular.processInlineTemplates,
-        rules: {
-            '@angular-eslint/component-selector': ['error', {
-                type: 'element', prefix: 'gameq', style: 'kebab-case',
-            }],
-            '@angular-eslint/directive-selector': ['error', {
-                type: 'attribute', prefix: 'gameq', style: 'camelCase',
-            }],
-            '@angular-eslint/prefer-on-push-component-change-detection': 'warn',
-            '@angular-eslint/prefer-signals': 'warn',
-            '@angular-eslint/prefer-standalone': 'warn',
-            '@angular-eslint/no-empty-lifecycle-method': 'warn',
-
-            '@typescript-eslint/no-explicit-any': 'error',
-            '@typescript-eslint/no-unused-vars': ['error', {
-                argsIgnorePattern: '^_',
-                varsIgnorePattern: '^_',
-                caughtErrorsIgnorePattern: '^_'
-            }],
-            '@typescript-eslint/explicit-function-return-type': 'off',
-            '@typescript-eslint/explicit-module-boundary-types': 'off',
-
-            'no-console':   'warn',
-            'prefer-const': 'error',
-            'eqeqeq':       'error',
-            'no-var':       'error',
+      ],
+      '@angular-eslint/directive-selector': [
+        'error',
+        {
+          type: 'attribute',
+          prefix: 'game-vault',
+          style: 'camelCase',
         },
-    },
+      ],
+      '@angular-eslint/prefer-on-push-component-change-detection': 'warn',
+      '@angular-eslint/prefer-signals': 'warn',
+      '@angular-eslint/prefer-standalone': 'warn',
+      '@angular-eslint/no-empty-lifecycle-method': 'warn',
 
-    // ── HTML Templates ─────────────────────────────────
-    {
-        files: ['**/*.html'],
-        extends: [
-            ...angular.configs.templateRecommended,
-            ...angular.configs.templateAccessibility,
-        ],
-        rules: {
-            '@angular-eslint/template/prefer-control-flow':      'error',
-            '@angular-eslint/template/eqeqeq':                   'error',
-            '@angular-eslint/template/button-has-type':          'warn',
-            '@angular-eslint/template/use-track-by-function':    'warn',
-            '@angular-eslint/template/prefer-self-closing-tags': 'warn',
+      '@typescript-eslint/no-explicit-any': 'error',
+      '@typescript-eslint/no-unused-vars': [
+        'error',
+        {
+          argsIgnorePattern: '^_',
+          varsIgnorePattern: '^_',
+          caughtErrorsIgnorePattern: '^_',
         },
+      ],
+
+      '@typescript-eslint/explicit-function-return-type': 'off',
+      '@typescript-eslint/explicit-module-boundary-types': 'off',
+
+      'no-console': 'warn',
+      'prefer-const': 'error',
+      eqeqeq: 'error',
+      'no-var': 'error',
     },
+  },
+
+  // ── HTML Templates ─────────────────────────────────
+  {
+    files: ['**/*.html'],
+    extends: [
+      ...angular.configs.templateRecommended,
+      ...angular.configs.templateAccessibility,
+    ],
+    rules: {
+      '@angular-eslint/template/prefer-control-flow': 'error',
+      '@angular-eslint/template/eqeqeq': 'error',
+      '@angular-eslint/template/button-has-type': 'warn',
+      '@angular-eslint/template/use-track-by-function': 'warn',
+      '@angular-eslint/template/prefer-self-closing-tags': 'warn',
+  },
+  },
 );

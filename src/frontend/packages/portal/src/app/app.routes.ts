@@ -1,21 +1,14 @@
 import { Route } from '@angular/router';
+import {loadRemoteModule} from "@angular-architects/native-federation";
 
 export const appRoutes: Route[] = [
   {
-    path: 'sample',
-    loadChildren: () => import('sample/Routes').then((m) => m.remoteRoutes),
+    path: 'shelveProducts',
+    loadChildren: () => loadRemoteModule('shelveProducts', './Routes').then(m => m.remoteRoutes)
   },
   {
     path: 'gameVault',
-    loadChildren: () => import('gameVault/Routes').then((m) => m.remoteRoutes),
-  },
-  {
-    path: 'shelveProducts',
-    loadChildren: () => import('shelveProducts/Routes').then((m) => m.remoteRoutes),
-  },
-  {
-    path: '',
-    loadChildren: () => import('sample/Routes').then((m) => m.remoteRoutes),
+    loadChildren: () => loadRemoteModule('gameVault', './Routes').then(m => m.remoteRoutes)
   }
 ];
 

@@ -3,6 +3,7 @@ import { PortalComponent } from './portal.component';
 import {BreadcrumbStateService} from "./features/breadcrumb/breadcrumb-state";
 import {AuthApi, AuthState} from "@portal-library";
 import {provideRouter} from "@angular/router";
+import {ApplicationConfigurationService} from "./commons/services/application-configuration-service";
 
 describe('PortalComponent', () => {
   let component: PortalComponent;
@@ -15,7 +16,8 @@ describe('PortalComponent', () => {
             BreadcrumbStateService,
             AuthApi,
             AuthState,
-            provideRouter([])
+            provideRouter([]),
+            ApplicationConfigurationService
         ]
     }).compileComponents();
 

@@ -24,46 +24,44 @@
                   >Game Vault</a
                   >
               </li>
-              <li class="nav-item">
-                  <a
-                      class="nav-link"
-                      routerLink="sample"
-                      routerLinkActive="active-link"
-                  >Sample</a
-                  >
-              </li>
           </ul>
 
-          <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-              @if(!authState().isLoggedIn) {
-                  <button class="nav-link icon-text-wrapper" (click)="onLogin()">
-                      <mat-icon>login</mat-icon>
-                      <span class="link-label">Login</span>
-                  </button>
-              }
-              @else {
-                  <li class="nav-item dropdown">
-                      <a
-                          class="nav-link dropdown-toggle"
-                          href="#"
-                          id="navbarDropdown"
-                          role="button"
-                          data-bs-toggle="dropdown"
-                          aria-expanded="false"
+          @if (isAuthActivate) {
+              <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                  @if(!authState().isLoggedIn) {
+                      <button
+                          class="nav-link icon-text-wrapper"
+                          (click)="onLogin()"
+                          [disabled]="isAuthActivate"
                       >
-                          {{ authState().userName }}
-                      </a>
-                      <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                          <li class="nav-item">
-                              <button class="dropdown-item icon-text-wrapper" (click)="onLogout()">
-                                  <mat-icon>logout</mat-icon>
-                                  <span class="link-label">Logout</span>
-                              </button>
-                          </li>
-                      </ul>
-                  </li>
-              }
-          </ul>
+                          <mat-icon>login</mat-icon>
+                          <span class="link-label">Login</span>
+                      </button>
+                  }
+                  @else {
+                      <li class="nav-item dropdown">
+                          <a
+                              class="nav-link dropdown-toggle"
+                              href="#"
+                              id="navbarDropdown"
+                              role="button"
+                              data-bs-toggle="dropdown"
+                              aria-expanded="false"
+                          >
+                              {{ authState().userName }}
+                          </a>
+                          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                              <li class="nav-item">
+                                  <button class="dropdown-item icon-text-wrapper" (click)="onLogout()">
+                                      <mat-icon>logout</mat-icon>
+                                      <span class="link-label">Logout</span>
+                                  </button>
+                              </li>
+                          </ul>
+                      </li>
+                  }
+              </ul>
+          }
       </div>
   </div>
 </nav>

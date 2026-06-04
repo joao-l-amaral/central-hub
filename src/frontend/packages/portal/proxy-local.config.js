@@ -20,19 +20,19 @@ module.exports = {
         "logLevel": "debug",
         "pathRewrite": { "^/assets/sample": "/assets" }
     },
-    "/**/api/*": {
+    "/api": {
         "target": "http://localhost:8088",
         "secure": false,
         "changeOrigin": true,
         "logLevel": "debug"
     },
-    "/auth/*": {
+    "/auth": {
         "target": "http://localhost:8088",
         "secure": false,
         "changeOrigin": true,
         "logLevel": "debug"
     },
-    "/realms/*": {
+    "/realms": {
         "target": "http://localhost:8080",
         "secure": false,
         "changeOrigin": true,

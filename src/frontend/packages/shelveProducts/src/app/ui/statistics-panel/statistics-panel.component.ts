@@ -11,10 +11,10 @@ import { InternalizationPipe, KeyValueComponent } from '@portal-library';
     standalone: true,
     changeDetection: ChangeDetectionStrategy.OnPush,
     imports: [
-    MatExpansionModule,
-    InternalizationPipe,
-    KeyValueComponent
-],
+        MatExpansionModule,
+        InternalizationPipe,
+        KeyValueComponent
+    ],
     providers: []
 })
 export class StatisticsPanelComponent {

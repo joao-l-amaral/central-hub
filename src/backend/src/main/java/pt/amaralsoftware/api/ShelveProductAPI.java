@@ -18,8 +18,7 @@ import pt.amaralsoftware.util.JSONSerializer;
 import java.io.IOException;
 import java.util.List;
 
-@Path("/shelve/api")
-@Authenticated
+@Path("/shelve")
 public class ShelveProductAPI {
     private final Logger log = LoggerFactory.getLogger(ShelveProductAPI.class);
 

@@ -17,6 +17,7 @@ export default defineConfig(() => ({
         watch: false,
         globals: true,
         environment: 'jsdom',
+        passWithNoTests: true,
         include: [
             '{src,tests}/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}',
         ],
@@ -25,6 +26,7 @@ export default defineConfig(() => ({
         coverage: {
             reportsDirectory: '../../coverage/packages/shelveProducts',
             provider: 'v8' as const,
+            enabled: true,
         },
     },
     optimizeDeps: {

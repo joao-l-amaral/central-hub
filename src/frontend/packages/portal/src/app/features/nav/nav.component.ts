@@ -7,6 +7,7 @@ import {
 import { RouterModule } from '@angular/router';
 import { AuthApi, AuthState } from '@portal-library';
 import { MatIcon } from '@angular/material/icon';
+import {ApplicationConfigurationService} from "../../commons/services/application-configuration-service";
 
 @Component({
     imports: [RouterModule, MatIcon],
@@ -20,6 +21,9 @@ export class NavComponent {
 
     readonly #authApi = inject(AuthApi);
     readonly #authState = inject(AuthState);
+    readonly #applicationConfigurationService = inject(ApplicationConfigurationService);
+
+    isAuthActivate = this.#applicationConfigurationService.isAuthActivate();
 
     readonly authState = computed(() => this.#authState.state());
 

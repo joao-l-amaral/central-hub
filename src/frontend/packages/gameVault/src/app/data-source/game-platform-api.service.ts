@@ -9,22 +9,22 @@ export class GamePlatformApiService {
     private readonly httpClient = inject(HttpClient);
 
     public getPlatforms() {
-        return firstValueFrom(this.httpClient.get<Platforms>("/games/api/listOfPlatforms").pipe(shareReplay(1)));
+        return firstValueFrom(this.httpClient.get<Platforms>("/api/games/listOfPlatforms").pipe(shareReplay(1)));
     }
 
     public updatePlatform(platformsToUpdate: string[]) {
-        return firstValueFrom(this.httpClient.patch("/games/api/updatePlatforms", platformsToUpdate));
+        return firstValueFrom(this.httpClient.patch("/api/games/updatePlatforms", platformsToUpdate));
     }
 
     public getConfigurations() {
-        return firstValueFrom(this.httpClient.get<string>("/games/api/configuration"));
+        return firstValueFrom(this.httpClient.get<string>("/api/games/configuration"));
     }
 
     public updatePlatformConfiguration(configuration: string) {
-        return firstValueFrom(this.httpClient.put("/games/api/updatePlatformConfiguration", configuration));
+        return firstValueFrom(this.httpClient.put("/api/games/updatePlatformConfiguration", configuration));
     }
 
     public forceGameSynchronization() {
-        return firstValueFrom(this.httpClient.get<string>("/games/api/forceLoadGameVaultDatabase"));
+        return firstValueFrom(this.httpClient.get<string>("/api/games/forceLoadGameVaultDatabase"));
     }
 }

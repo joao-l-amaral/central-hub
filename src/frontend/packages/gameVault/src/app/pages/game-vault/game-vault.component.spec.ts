@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { GameVaultComponent } from './game-vault.component';
-import {ApplicationConfigurations} from "@portal-library";
+import {SharedApplicationConfigurations} from "@portal-library";
 
 describe('GameVaultComponent', () => {
   let component: GameVaultComponent;
@@ -10,7 +10,7 @@ describe('GameVaultComponent', () => {
     await TestBed.configureTestingModule({
         imports: [GameVaultComponent],
         providers: [
-            ApplicationConfigurations
+            SharedApplicationConfigurations
         ]
     }).compileComponents();
 
