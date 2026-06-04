@@ -6,14 +6,14 @@ import { nxCopyAssetsPlugin } from '@nx/vite/plugins/nx-copy-assets.plugin';
 
 export default defineConfig(() => ({
     root: __dirname,
-    cacheDir: '../../node_modules/.vite/packages/portal-lib',
+    cacheDir: '../../node_modules/.vite/packages/gameVault',
     plugins: [angular(), nxViteTsPaths(), nxCopyAssetsPlugin(['*.md'])],
     // Uncomment this if you are using workers.
     // worker: {
     //   plugins: () => [ nxViteTsPaths() ],
     // },
     test: {
-        name: '@portal-library',
+        name: 'gameVault',
         watch: false,
         globals: true,
         environment: 'jsdom',
@@ -24,7 +24,7 @@ export default defineConfig(() => ({
         setupFiles: ['src/test-setup.ts'],
         reporters: ['default'],
         coverage: {
-            reportsDirectory: '../../coverage/packages/portal-lib',
+            reportsDirectory: '../../coverage/packages/gameVault',
             provider: 'v8' as const,
             enabled: true,
         },
@@ -36,3 +36,4 @@ export default defineConfig(() => ({
         ],
     },
 }));
+

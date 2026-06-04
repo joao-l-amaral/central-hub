@@ -36,7 +36,7 @@
         "dev": true,
         "cacheExternalArtifacts": false,
         "port": 4201,
-        "viteConfigFile": "packages/portal/vite.config.ts"
+        "viteConfigFile": "packages/portal/vite.config.mts"
       },
       "continuous": true
     },

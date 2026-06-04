@@ -38,7 +38,7 @@ jobs:
           cache: npm
           cache-dependency-path: src/frontend/package-lock.json
       - run: npm ci
-      - run: npx nx run-many -t test --coverage --passWithNoTests
+      - run: npx nx run-many -t test --coverage
 
   e2e:
     name: E2E Tests

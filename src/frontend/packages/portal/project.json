@@ -41,7 +41,7 @@
         "rebuildDelay": 500,
         "dev": true,
         "port": 4200,
-        "viteConfigFile": "packages/portal/vite.config.ts"
+        "viteConfigFile": "packages/portal/vite.config.mts"
       },
       "continuous": true
     },
