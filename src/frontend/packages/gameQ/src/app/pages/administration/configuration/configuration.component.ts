@@ -83,8 +83,8 @@ export class ConfigurationComponent implements OnInit {
 
         this.#gamePlatformApi.updatePlatformConfiguration(configuration).then(() => {
 
-            const successTitle = this.#i18nService.translate(this.#mf, "game.vault.catconfig.configuration.title");
-            const successMessage = this.#i18nService.translate(this.#mf, "game.vault.catconfig.updated");
+            const successTitle = this.#i18nService.translate(this.#mf, "gameq.catconfig.configuration.title");
+            const successMessage = this.#i18nService.translate(this.#mf, "gameq.catconfig.updated");
 
             this.#toastr.success(successMessage, successTitle, {
                 positionClass: 'toast-bottom-left'
@@ -96,10 +96,10 @@ export class ConfigurationComponent implements OnInit {
     }
 
     onSaveConfiguration() {
-        const modalMsg = this.#i18nService.translate(this.#mf, "game.vault.catconfig.edit.description");
+        const modalMsg = this.#i18nService.translate(this.#mf, "gameq.catconfig.edit.description");
 
         const dialogRef = this.#dialog.open(ConfirmationModalComponent, {
-            data: {title: this.#i18nService.translate(this.#mf, "game.vault.catconfig.edit.title"), message: modalMsg},
+            data: {title: this.#i18nService.translate(this.#mf, "gameq.catconfig.edit.title"), message: modalMsg},
             position: { top: '100px' }
         });
 

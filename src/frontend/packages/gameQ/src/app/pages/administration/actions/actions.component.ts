@@ -32,7 +32,7 @@ export class ActionsComponent {
         this.#gamePlatformApiService.forceGameSynchronization()
             .then(() => {
                 this.isLoading.set(false);
-                const successMsg = this.#i18nService.translate(this.#mf, "game.vault.game.sync.success");
+                const successMsg = this.#i18nService.translate(this.#mf, "gameq.game.sync.success");
                 this.#toastr.success(successMsg);
             });
     }
