@@ -2,7 +2,7 @@
   "name": "shelveProducts",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
-  "prefix": "shelve-products",
+  "prefix": "sp",
   "sourceRoot": "packages/shelveProducts/src",
   "tags": ["scope:shelveProducts", "type:app"],
   "targets": {
