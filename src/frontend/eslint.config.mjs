@@ -44,7 +44,7 @@ export default [
                   onlyDependOnLibsWithTags: ['scope:shared'],
               },
               {
-                  sourceTag: 'scope:gameVault',
+                  sourceTag: 'scope:gameQ',
                   onlyDependOnLibsWithTags: ['scope:shared'],
               },
 

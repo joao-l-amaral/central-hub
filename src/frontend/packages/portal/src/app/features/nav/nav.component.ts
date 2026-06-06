@@ -11,7 +11,7 @@ import {ApplicationConfigurationService} from "../../commons/services/applicatio
 
 @Component({
     imports: [RouterModule, MatIcon],
-    selector: 'portal-nav-bar',
+    selector: 'ch-nav-bar',
     templateUrl: './nav.component.html',
     styleUrl: './nav.component.scss',
     changeDetection: ChangeDetectionStrategy.OnPush,

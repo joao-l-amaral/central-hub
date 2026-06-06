@@ -12,7 +12,7 @@ import { BreadcrumbStateService } from './features/breadcrumb/breadcrumb-state';
 
 @Component({
   imports: [RouterModule, NavComponent, BreadcrumbComponent],
-  selector: 'portal-root',
+  selector: 'ch-root',
   templateUrl: './portal.component.html',
   styleUrl: './portal.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

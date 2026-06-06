@@ -1,0 +1,19 @@
+{
+    "gameq.catalog": "Catálogo",
+    "gameq.administrator": "Administrador",
+    "gameq.administrator.page": "Página do Administrador",
+    "gameq.platform.selector": "Selector de plataforma",
+    "gameq.catconfig.configuration.title": "Configurações principais",
+    "gameq.catconfig.configuration": "Configuração",
+    "gameq.catconfig.keyWordsToLookFor": "Palavras-chave a procurar no nome das plataformas.",
+    "gameq.catconfig.keyWordsToIgnore": "Palavras-chave a ignorar no nome das plataformas.",
+    "gameq.catconfig.updated": "Configuração das plataformas atualizadas",
+    "gameq.catconfig.edit": "Editar",
+    "gameq.catconfig.save": "Guardar",
+    "gameq.catconfig.cancel": "Cancelar",
+    "gameq.catconfig.edit.title": "Editar configuração",
+    "gameq.catconfig.edit.description": "A configuração está prestes a ser alterada. Tem a certeza?",
+    "gameq.actions": "Acções",
+    "gameq.actions.force.update": "Forçar actualização de jogos",
+    "gameq.game.sync.success": "Sincronização dos jogos efetuada."
+}

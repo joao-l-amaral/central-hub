@@ -1,4 +1,5 @@
 {
+    "gameq.catalog": "Catalog",
     "gameq.administrator": "Administrator",
     "gameq.administrator.page": "Administrator Page",
     "gameq.platform.selector": "Platform selector",
@@ -6,9 +7,13 @@
     "gameq.catconfig.configuration": "Configuration",
     "gameq.catconfig.keyWordsToLookFor": "Key words to look for in the platforms name.",
     "gameq.catconfig.keyWordsToIgnore": "Key works to ignore in the platforms name.",
+    "gameq.catconfig.updated": "Platform configuration updated.",
     "gameq.catconfig.edit": "Edit",
     "gameq.catconfig.save": "Save",
     "gameq.catconfig.cancel": "Cancel",
-    "title.gameVault": "GameVault",
-    "title.shelveProducts": "Shelve Prodcuts"
+    "gameq.catconfig.edit.title": "Edit configuration",
+    "gameq.catconfig.edit.description": "Configuration is about to be changed. Are you sure?",
+    "gameq.actions": "Actions",
+    "gameq.actions.force.update": "Force Update Games",
+    "gameq.game.sync.success": "Game Updated successfully."
 }

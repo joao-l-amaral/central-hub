@@ -1,28 +1,28 @@
 {
-  "name": "shelveProducts",
+  "name": "gameQ",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
-  "prefix": "sp",
-  "sourceRoot": "packages/shelveProducts/src",
-  "tags": ["scope:shelveProducts", "type:app"],
+  "prefix": "gameq",
+  "sourceRoot": "packages/gameQ/src",
+  "tags": ["scope:gameQ", "type:app"],
   "targets": {
     "build": {
       "executor": "@angular-architects/native-federation:build",
       "options": {
         "assets": [
-          "packages/shelveProducts/src/assets",
+          "packages/gameQ/src/assets",
           {
             "glob": "**/*",
-            "input": "packages/shelveProducts/public"
+            "input": "packages/gameQ/public"
           }
         ]
       },
       "configurations": {
         "production": {
-          "target": "shelveProducts:esbuild:production"
+          "target": "gameQ:esbuild:production"
         },
         "development": {
-          "target": "shelveProducts:esbuild:development",
+          "target": "gameQ:esbuild:development",
           "dev": true
         }
       },
@@ -31,12 +31,11 @@
     "serve": {
       "executor": "@angular-architects/native-federation:build",
       "options": {
-        "target": "shelveProducts:serve-original:development",
+        "target": "gameQ:serve-original:development",
         "rebuildDelay": 500,
         "dev": true,
         "cacheExternalArtifacts": false,
-        "port": 4201,
-        "viteConfigFile": "packages/portal/vite.config.mts"
+        "port": 4202
       },
       "continuous": true
     },
@@ -53,11 +52,11 @@
       "continuous": true,
       "executor": "@nx/web:file-server",
       "options": {
-        "buildTarget": "shelveProducts:build",
+        "buildTarget": "gameQ:build",
         "port": 4200,
-        "staticFilePath": "dist/packages/shelveProducts/browser",
+        "staticFilePath": "dist/packages/gameQ/browser",
         "spa": true,
-        "proxyConfig": "packages/shelveProducts/proxy-local.config.js"
+        "proxyConfig": "packages/gameQ/proxy-local.config.js"
       }
     },
     "esbuild": {
@@ -66,19 +65,25 @@
         "{options.outputPath}"
       ],
       "options": {
-        "outputPath": "dist/packages/shelveProducts",
-        "browser": "packages/shelveProducts/src/main.ts",
-        "tsConfig": "packages/shelveProducts/tsconfig.app.json",
+        "outputPath": "dist/packages/gameQ",
+        "browser": "packages/gameQ/src/main.ts",
+        "tsConfig": "packages/gameQ/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
         "assets": [
-          "packages/shelveProducts/src/assets",
+          "packages/gameQ/src/assets",
           {
             "glob": "**/*",
-            "input": "packages/shelveProducts/public"
+            "input": "packages/gameQ/public"
           }
         ],
         "styles": [
-          "packages/shelveProducts/src/styles.scss"
+          "packages/gameQ/src/styles.scss",
+          "@angular/material/prebuilt-themes/azure-blue.css",
+          "node_modules/bootstrap/dist/css/bootstrap.min.css",
+          "node_modules/ngx-toastr/toastr.css"
+        ],
+        "scripts": [
+          "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
         ],
         "polyfills": [
           "es-module-shims"
@@ -113,16 +118,16 @@
       "executor": "@angular/build:dev-server",
       "configurations": {
         "production": {
-          "buildTarget": "shelveProducts:esbuild:production"
+          "buildTarget": "gameQ:esbuild:production"
         },
         "development": {
-          "buildTarget": "shelveProducts:esbuild:development"
+          "buildTarget": "gameQ:esbuild:development"
         }
       },
       "defaultConfiguration": "development",
       "options": {
-        "port": 4201,
-        "proxyConfig": "packages/shelveProducts/proxy-local.config.js"
+        "port": 4202,
+        "proxyConfig": "packages/gameQ/proxy-local.config.js"
       }
     }
   }

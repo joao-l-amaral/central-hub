@@ -3,7 +3,7 @@ import { BreadcrumbStateService } from './breadcrumb-state';
 import { InternalizationPipe } from '@portal-library';
 
 @Component({
-    selector: 'portal-breadcrumb',
+    selector: 'ch-breadcrumb',
     templateUrl: './breadcrumb.component.html',
     styleUrl: './breadcrumb.component.scss',
     imports: [

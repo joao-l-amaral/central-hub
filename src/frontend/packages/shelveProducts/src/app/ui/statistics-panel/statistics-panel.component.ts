@@ -5,7 +5,7 @@ import { StatisticsPanelService } from './statistics-panel.service';
 import { InternalizationPipe, KeyValueComponent } from '@portal-library';
 
 @Component({
-    selector: 'shelve-products-statistics-panel-component',
+    selector: 'sp-statistics-panel-component',
     templateUrl: './statistics-panel.component.html',
     styleUrl: './statistics-panel.component.scss',
     standalone: true,

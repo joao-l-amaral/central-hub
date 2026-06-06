@@ -18,7 +18,7 @@ import { MatAutocomplete, MatAutocompleteSelectedEvent, MatAutocompleteTrigger }
 import { Subscription } from 'rxjs';
 
 @Component({
-    selector: 'shelve-products-form-component',
+    selector: 'sp-form-component',
     templateUrl: './form.component.html',
     styleUrl: './form.component.scss',
     standalone: true,

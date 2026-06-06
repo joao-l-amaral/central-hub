@@ -10,17 +10,16 @@ import { CommonModule, NgClass } from '@angular/common';
 import { MatSortModule, Sort } from '@angular/material/sort';
 import { MatInput } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { I18nService, InternalizationPipe, MF_FRONTEND } from '@portal-library';
+import { I18nService, InternalizationPipe, MF_FRONTEND, ConfirmationModalComponent } from '@portal-library';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatIconModule } from '@angular/material/icon';
-import { ConfirmationModalComponent } from '@portal-library';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatDialog } from '@angular/material/dialog';
 import { StatisticsPanelService } from '../statistics-panel/statistics-panel.service';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
-    selector: 'shelve-products-table-component',
+    selector: 'sp-table-component',
     templateUrl: './table.component.html',
     styleUrl: './table.component.scss',
     standalone: true,

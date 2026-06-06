@@ -1,0 +1,30 @@
+<h1>{{ 'gameq.administrator' | translate }}</h1>
+
+<div class="row">
+    <div class="col-md-4">
+        <h3>{{ 'gameq.platform.selector' | translate }}</h3>
+
+        <mat-button-toggle-group
+            name="platforms"
+            aria-label="platforms"
+            [hideMultipleSelectionIndicator]="hideMultipleSelectionIndicator()"
+            [vertical]="true"
+            multiple
+            (change)="onValChange($event)"
+            class="custom-toggle"
+        >
+            @for(platform of platforms(); track platform) {
+                <mat-button-toggle
+                    [value]="platform.platformName"
+                    [checked]="platform.isSelected"
+                >{{ platform.platformName }}</mat-button-toggle>
+            }
+        </mat-button-toggle-group>
+    </div>
+    <div class="col-md-4">
+        <gameq-configuration-administration/>
+    </div>
+    <div class="col-md-4 actions">
+        <gameq-actions-administration/>
+    </div>
+</div>

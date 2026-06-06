@@ -29,7 +29,7 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { ShelveProduct } from '../interface/shelve-product.interface';
 
 @Component({
-    selector: 'shelve-products-root',
+    selector: 'sp-root',
     templateUrl: './shelve-products.component.html',
     styleUrl: './shelve-products.component.scss',
     imports: [
