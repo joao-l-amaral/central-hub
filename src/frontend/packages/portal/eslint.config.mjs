@@ -21,7 +21,7 @@ export default tseslint.config(
         'error',
         {
           type: 'element',
-          prefix: 'portal',
+          prefix: 'ch',
           style: 'kebab-case',
         },
       ],
@@ -29,7 +29,7 @@ export default tseslint.config(
         'error',
         {
           type: 'attribute',
-          prefix: 'portal',
+          prefix: 'ch',
           style: 'camelCase',
         },
       ],
