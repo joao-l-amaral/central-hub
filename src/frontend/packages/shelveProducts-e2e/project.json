@@ -3,6 +3,7 @@
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
   "sourceRoot": "packages/shelveProducts-e2e/src",
+  "tags": ["scope:shelveProducts-e2e", "type:app"],
   "implicitDependencies": [
     "shelveProducts"
   ],

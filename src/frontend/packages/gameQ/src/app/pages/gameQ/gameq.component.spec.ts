@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import {SharedApplicationConfigurations} from "@portal-library";
 import {GameQComponent} from "./gameq.component";
 
-describe('GameVaultComponent', () => {
+describe('GameQComponent', () => {
   let component: GameQComponent;
   let fixture: ComponentFixture<GameQComponent>;
 
