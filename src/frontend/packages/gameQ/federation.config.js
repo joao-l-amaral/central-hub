@@ -1,10 +1,10 @@
 const { withNativeFederation, shareAll } = require('@angular-architects/native-federation/config');
 
 module.exports = withNativeFederation({
-  name: 'gameVault',
+  name: 'gameQ',
 
   exposes: {
-    './Routes': 'packages/gameVault/src/app/remote-entry/entry.routes.ts',
+    './Routes': 'packages/gameQ/src/app/remote-entry/entry.routes.ts',
   },
 
   shared: {

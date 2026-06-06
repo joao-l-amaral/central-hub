@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { GameVaultComponent } from './game-vault.component';
 import {SharedApplicationConfigurations} from "@portal-library";
+import {GameQComponent} from "./gameq.component";
 
 describe('GameVaultComponent', () => {
-  let component: GameVaultComponent;
-  let fixture: ComponentFixture<GameVaultComponent>;
+  let component: GameQComponent;
+  let fixture: ComponentFixture<GameQComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-        imports: [GameVaultComponent],
+        imports: [GameQComponent],
         providers: [
             SharedApplicationConfigurations
         ]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(GameVaultComponent);
+    fixture = TestBed.createComponent(GameQComponent);
     component = fixture.componentInstance;
   });
 

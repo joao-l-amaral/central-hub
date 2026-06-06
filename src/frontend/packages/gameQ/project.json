@@ -1,28 +1,28 @@
 {
-  "name": "gameVault",
+  "name": "gameQ",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
   "prefix": "game-vault",
-  "sourceRoot": "packages/gameVault/src",
-  "tags": ["scope:gameVault", "type:app"],
+  "sourceRoot": "packages/gameQ/src",
+  "tags": ["scope:gameQ", "type:app"],
   "targets": {
     "build": {
       "executor": "@angular-architects/native-federation:build",
       "options": {
         "assets": [
-          "packages/gameVault/src/assets",
+          "packages/gameQ/src/assets",
           {
             "glob": "**/*",
-            "input": "packages/gameVault/public"
+            "input": "packages/gameQ/public"
           }
         ]
       },
       "configurations": {
         "production": {
-          "target": "gameVault:esbuild:production"
+          "target": "gameQ:esbuild:production"
         },
         "development": {
-          "target": "gameVault:esbuild:development",
+          "target": "gameQ:esbuild:development",
           "dev": true
         }
       },
@@ -31,7 +31,7 @@
     "serve": {
       "executor": "@angular-architects/native-federation:build",
       "options": {
-        "target": "gameVault:serve-original:development",
+        "target": "gameQ:serve-original:development",
         "rebuildDelay": 500,
         "dev": true,
         "cacheExternalArtifacts": false,
@@ -52,11 +52,11 @@
       "continuous": true,
       "executor": "@nx/web:file-server",
       "options": {
-        "buildTarget": "gameVault:build",
+        "buildTarget": "gameQ:build",
         "port": 4200,
-        "staticFilePath": "dist/packages/gameVault/browser",
+        "staticFilePath": "dist/packages/gameQ/browser",
         "spa": true,
-        "proxyConfig": "packages/gameVault/proxy-local.config.js"
+        "proxyConfig": "packages/gameQ/proxy-local.config.js"
       }
     },
     "esbuild": {
@@ -65,19 +65,19 @@
         "{options.outputPath}"
       ],
       "options": {
-        "outputPath": "dist/packages/gameVault",
-        "browser": "packages/gameVault/src/main.ts",
-        "tsConfig": "packages/gameVault/tsconfig.app.json",
+        "outputPath": "dist/packages/gameQ",
+        "browser": "packages/gameQ/src/main.ts",
+        "tsConfig": "packages/gameQ/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
         "assets": [
-          "packages/gameVault/src/assets",
+          "packages/gameQ/src/assets",
           {
             "glob": "**/*",
-            "input": "packages/gameVault/public"
+            "input": "packages/gameQ/public"
           }
         ],
         "styles": [
-          "packages/gameVault/src/styles.scss",
+          "packages/gameQ/src/styles.scss",
           "@angular/material/prebuilt-themes/azure-blue.css",
           "node_modules/bootstrap/dist/css/bootstrap.min.css",
           "node_modules/ngx-toastr/toastr.css"
@@ -118,16 +118,16 @@
       "executor": "@angular/build:dev-server",
       "configurations": {
         "production": {
-          "buildTarget": "gameVault:esbuild:production"
+          "buildTarget": "gameQ:esbuild:production"
         },
         "development": {
-          "buildTarget": "gameVault:esbuild:development"
+          "buildTarget": "gameQ:esbuild:development"
         }
       },
       "defaultConfiguration": "development",
       "options": {
         "port": 4202,
-        "proxyConfig": "packages/gameVault/proxy-local.config.js"
+        "proxyConfig": "packages/gameQ/proxy-local.config.js"
       }
     }
   }

@@ -5,7 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { MatButton } from '@angular/material/button';
 
 @Component({
-    selector: 'game-vault-actions-administration',
+    selector: 'gameq-actions-administration',
     templateUrl: './actions.component.html',
     styleUrl: './actions.component.scss',
     imports: [

@@ -21,7 +21,7 @@ export default tseslint.config(
         'error',
         {
           type: 'element',
-          prefix: 'game-vault',
+          prefix: 'gameq',
           style: 'kebab-case',
         },
       ],
@@ -29,7 +29,7 @@ export default tseslint.config(
         'error',
         {
           type: 'attribute',
-          prefix: 'game-vault',
+          prefix: 'gameq',
           style: 'camelCase',
         },
       ],
