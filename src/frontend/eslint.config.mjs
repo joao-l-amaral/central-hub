@@ -16,7 +16,6 @@ export default [
       ...tseslint.configs.recommended,
       ...tseslint.configs.stylistic,
       ...angular.configs.tsRecommended,
-      ...angular.configs.templateAccessibility,
       eslintConfigPrettier,
     ],
   }),
@@ -96,7 +95,10 @@ export default [
   },
   {
     files: ['**/*.html'],
-    extends: [...angular.configs.templateRecommended],
+    extends: [
+      ...angular.configs.templateRecommended,
+      ...angular.configs.templateAccessibility
+    ],
     rules: {
       '@angular-eslint/template/no-negated-async': 'error',
       '@angular-eslint/template/prefer-control-flow': 'error',
