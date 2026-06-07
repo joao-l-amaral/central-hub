@@ -1,6 +1,7 @@
 import nx from '@nx/eslint-plugin';
 import angular from 'angular-eslint';
 import tseslint from 'typescript-eslint';
+import eslintConfigPrettier from "eslint-config-prettier";
 
 export default [
   ...nx.configs['flat/base'],
@@ -13,11 +14,15 @@ export default [
     files: ['**/*.ts', '**/*.tsx'],
     extends: [
       ...tseslint.configs.recommended,
+      ...tseslint.configs.stylistic,
       ...angular.configs.tsRecommended,
+      ...angular.configs.templateAccessibility,
+      eslintConfigPrettier,
     ],
   }),
   {
     files: ['**/*.ts', '**/*.tsx', '**/*.js', '**/*.jsx'],
+    processor: angular.processInlineTemplates,
     rules: {
       '@nx/enforce-module-boundaries': [
         'error',
@@ -67,8 +72,8 @@ export default [
       ],
       '@angular-eslint/prefer-on-push-component-change-detection': 'warn',
       '@angular-eslint/prefer-signals': 'warn',
-      '@angular-eslint/prefer-standalone': 'warn',
-      '@angular-eslint/no-empty-lifecycle-method': 'warn',
+      '@angular-eslint/prefer-standalone': 'error',
+      '@angular-eslint/no-empty-lifecycle-method': 'error',
 
       '@typescript-eslint/no-explicit-any': 'error',
       '@typescript-eslint/no-unused-vars': [
