@@ -1,4 +1,4 @@
 {
   "shelveProducts": "http://localhost:4201/remoteEntry.json",
-  "gameVault": "http://localhost:4202/remoteEntry.json"
+  "gameQ": "http://localhost:4202/remoteEntry.json"
 }
