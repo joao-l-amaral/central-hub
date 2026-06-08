@@ -3,31 +3,31 @@ import {
   inject,
   provideAppInitializer,
   provideBrowserGlobalErrorListeners,
-  provideZoneChangeDetection,
+  provideZonelessChangeDetection,
 } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { appRoutes } from './app.routes';
 import {
-    HttpClient,
-    provideHttpClient,
-    withInterceptors,
-    withInterceptorsFromDi,
+  HttpClient,
+  provideHttpClient,
+  withInterceptors,
+  withInterceptorsFromDi,
 } from '@angular/common/http';
 import { provideToastr } from 'ngx-toastr';
 import {
   AppInitService,
-  SharedApplicationConfigurations,
   AuthApi,
   LoggingService,
   MF_FRONTEND,
   providerOidcAuth,
+  SharedApplicationConfigurations,
 } from '@portal-library';
 import { httpErrorInterceptor } from './commons/interceptors/httperror-interceptor';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { BreadcrumbStateService } from './features/breadcrumb/breadcrumb-state';
-import {firstValueFrom} from "rxjs";
-import {ApplicationConfiguration} from "./commons/models/application-configuration";
-import {ApplicationConfigurationService} from "./commons/services/application-configuration-service";
+import { firstValueFrom } from 'rxjs';
+import { ApplicationConfiguration } from './commons/models/application-configuration';
+import { ApplicationConfigurationService } from './commons/services/application-configuration-service';
 
 function processSharedApplicationConfigurations() {
   const logger = inject(LoggingService);
@@ -48,25 +48,28 @@ function processSharedApplicationConfigurations() {
 }
 
 function processApplicationConfigurations() {
-    const httpClient = inject(HttpClient);
-    const applicationConfigurationService = inject(ApplicationConfigurationService);
-    const authApi = inject(AuthApi);
+  const httpClient = inject(HttpClient);
+  const applicationConfigurationService = inject(
+    ApplicationConfigurationService,
+  );
+  const authApi = inject(AuthApi);
 
-    firstValueFrom(httpClient.get<ApplicationConfiguration>('/api/configurations'))
-        .then(config => {
-            const isAuthActivate = config.isAuthActivate;
-            applicationConfigurationService.isAuthActivate.set(isAuthActivate);
+  firstValueFrom(
+    httpClient.get<ApplicationConfiguration>('/api/configurations'),
+  ).then((config) => {
+    const isAuthActivate = config.isAuthActivate;
+    applicationConfigurationService.isAuthActivate.set(isAuthActivate);
 
-            if(isAuthActivate) {
-                authApi.doAutoLogin();
-            }
-        })
+    if (isAuthActivate) {
+      authApi.doAutoLogin();
+    }
+  });
 }
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
-    provideZoneChangeDetection({ eventCoalescing: true }),
+    provideZonelessChangeDetection(),
     provideRouter(appRoutes),
     provideHttpClient(
       withInterceptorsFromDi(),

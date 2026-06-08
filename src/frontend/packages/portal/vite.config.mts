@@ -29,11 +29,5 @@ export default defineConfig(() => ({
             enabled: true,
         },
     },
-    optimizeDeps: {
-        include: [
-            'zone.js',
-            'zone.js/testing',
-        ],
-    },
 }));
 
