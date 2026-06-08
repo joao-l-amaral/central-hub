@@ -28,12 +28,6 @@ export default defineConfig(() => ({
             provider: 'v8' as const,
             enabled: true,
         },
-    },
-    optimizeDeps: {
-        include: [
-            'zone.js',
-            'zone.js/testing',
-        ],
-    },
+    }
 }));
 
