@@ -1,4 +1,7 @@
 import nx from '@nx/eslint-plugin';
+import angular from 'angular-eslint';
+import tseslint from 'typescript-eslint';
+import eslintConfigPrettier from "eslint-config-prettier";
 
 export default [
   ...nx.configs['flat/base'],
@@ -7,8 +10,18 @@ export default [
   {
       ignores: ['**/dist', '**/out-tsc', '**/federation.config.js', '**/eslint.config.mjs', '**/proxy-local.config.js'],
   },
+  ...tseslint.config({
+    files: ['**/*.ts', '**/*.tsx'],
+    extends: [
+      ...tseslint.configs.recommended,
+      ...tseslint.configs.stylistic,
+      ...angular.configs.tsRecommended,
+      eslintConfigPrettier,
+    ],
+  }),
   {
     files: ['**/*.ts', '**/*.tsx', '**/*.js', '**/*.jsx'],
+    processor: angular.processInlineTemplates,
     rules: {
       '@nx/enforce-module-boundaries': [
         'error',
@@ -56,7 +69,44 @@ export default [
           ],
         },
       ],
+      '@angular-eslint/prefer-on-push-component-change-detection': 'warn',
+      '@angular-eslint/prefer-signals': 'warn',
+      '@angular-eslint/prefer-standalone': 'error',
+      '@angular-eslint/no-empty-lifecycle-method': 'error',
+
+      '@typescript-eslint/no-explicit-any': 'error',
+      '@typescript-eslint/no-unused-vars': [
+        'error',
+        {
+          argsIgnorePattern: '^_',
+          varsIgnorePattern: '^_',
+          caughtErrorsIgnorePattern: '^_',
+        },
+      ],
+
+      '@typescript-eslint/explicit-function-return-type': 'off',
+      '@typescript-eslint/explicit-module-boundary-types': 'off',
+
+      'no-console': 'warn',
+      'prefer-const': 'error',
+      eqeqeq: 'error',
+      'no-var': 'error',
     },
+  },
+  {
+    files: ['**/*.html'],
+    extends: [
+      ...angular.configs.templateRecommended,
+      ...angular.configs.templateAccessibility
+    ],
+    rules: {
+      '@angular-eslint/template/no-negated-async': 'error',
+      '@angular-eslint/template/prefer-control-flow': 'error',
+      '@angular-eslint/template/eqeqeq': 'error',
+      '@angular-eslint/template/button-has-type': 'warn',
+      '@angular-eslint/template/use-track-by-function': 'warn',
+      '@angular-eslint/template/prefer-self-closing-tags': 'warn',
+    }
   },
   {
     files: [
