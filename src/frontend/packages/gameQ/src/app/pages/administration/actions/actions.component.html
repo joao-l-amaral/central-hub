@@ -1,11 +1,11 @@
 <h3>{{ 'gameq.actions' | translate }}</h3>
 
 <button
-    mat-button
-    libCustomButton
+    chButton
+    type="button"
     [label]="'gameq.actions.force.update' | translate"
-    [isLoading]="isLoading()"
-    [type]="'primary'"
+    [loading]="isLoading()"
+    [variant]="'primary'"
     (click)="onForceGamesUpdate()"
 >
 </button>

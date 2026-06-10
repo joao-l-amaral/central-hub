@@ -22,16 +22,16 @@ export const Button: Story = {
     `,
   }),
   args: {
-    label: 'asdsdadsada',
+    label: 'label test',
     icon: 'bi bi-playstation',
-    type: 'primary',
+    variant: 'primary',
     size: 'md',
     disabled: false,
     loading: false,
     fullWidth: false,
   },
   argTypes: {
-    type: {
+    variant: {
       control: { type: 'select' },
       options: ['primary', 'secondary', 'tertiary'],
     },

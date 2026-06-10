@@ -4,30 +4,30 @@
     <div>
         @if(!catConfigConfigurationEdit()) {
             <button
-                mat-button
-                libCustomButton
+                chButton
+                type="button"
                 [label]="'gameq.catconfig.edit' | translate"
-                [type]="'primary'"
+                [variant]="'primary'"
                 (click)="onChangeEditState()"
             >
             </button>
         }
         @else {
             <button
-                mat-button
-                libCustomButton
+                chButton
+                type="button"
                 class="ml-2"
                 [label]="'gameq.catconfig.cancel' | translate"
-                [type]="'secondary'"
+                [variant]="'secondary'"
                 (click)="onChangeEditState()"
             >
             </button>
             <button
-                mat-button
-                libCustomButton
+                chButton
+                type="button"
                 class="ml-2"
                 [label]="'gameq.catconfig.save' | translate"
-                [type]="'primary'"
+                [variant]="'primary'"
                 (click)="onSaveConfiguration()"
             >
             </button>

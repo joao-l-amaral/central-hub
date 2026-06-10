@@ -2,10 +2,10 @@
 
     @if(isEditMode()){
         <button
-            mat-button
-            libCustomButton
+            chButton
+            type="button"
             [label]="'Update'"
-            [type]="'primary'"
+            [variant]="'primary'"
             [icon]="'update'"
             (click)="updateProduct()"
         >
@@ -13,20 +13,20 @@
     }
     @else {
         <button
-            mat-button
-            libCustomButton
+            chButton
+            type="button"
             [label]="'Clear'"
-            [type]="'secondary'"
-            [icon]="'clear'"
+            [variant]="'secondary'"
+            [icon]="'bi bi-x-circle'"
             (click)="clearForm()"
         >
         </button>
         <button
-            mat-button
-            libCustomButton
+            chButton
+            type="button"
             [label]="'Save'"
-            [type]="'primary'"
-            [icon]="'save'"
+            [variant]="'primary'"
+            [icon]="'bi bi-floppy'"
             (click)="submitForm()"
         >
         </button>
