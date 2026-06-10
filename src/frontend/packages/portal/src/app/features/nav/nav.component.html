@@ -30,6 +30,7 @@
               <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                   @if(!authState().isLoggedIn) {
                       <button
+                          type="button"
                           class="nav-link icon-text-wrapper"
                           (click)="onLogin()"
                           [disabled]="isAuthActivate"
@@ -52,7 +53,7 @@
                           </a>
                           <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                               <li class="nav-item">
-                                  <button class="dropdown-item icon-text-wrapper" (click)="onLogout()">
+                                  <button type="button" class="dropdown-item icon-text-wrapper" (click)="onLogout()">
                                       <mat-icon>logout</mat-icon>
                                       <span class="link-label">Logout</span>
                                   </button>

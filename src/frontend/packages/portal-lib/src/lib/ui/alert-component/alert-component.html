@@ -11,9 +11,9 @@
         </div>
         @if(dismissible()) {
             <button
-                mat-button
-                libCustomButton
-                [type]="'text'"
+                chButton
+                type="button"
+                [variant]="'tertiary'"
                 class="alert__dismiss bi bi-x"
                 (click)="onClose()"
             >

@@ -2,31 +2,31 @@
 
     @if(isEditMode()){
         <button
-            mat-button
-            libCustomButton
+            chButton
+            type="button"
             [label]="'Update'"
-            [type]="'primary'"
-            [icon]="'update'"
+            [variant]="'primary'"
+            [icon]="'bi bi-cloud-upload'"
             (click)="updateProduct()"
         >
         </button>
     }
     @else {
         <button
-            mat-button
-            libCustomButton
+            chButton
+            type="button"
             [label]="'Clear'"
-            [type]="'secondary'"
-            [icon]="'clear'"
+            [variant]="'secondary'"
+            [icon]="'bi bi-x-circle'"
             (click)="clearForm()"
         >
         </button>
         <button
-            mat-button
-            libCustomButton
+            chButton
+            type="button"
             [label]="'Save'"
-            [type]="'primary'"
-            [icon]="'save'"
+            [variant]="'primary'"
+            [icon]="'bi bi-floppy'"
             (click)="submitForm()"
         >
         </button>
