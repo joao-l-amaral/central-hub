@@ -13,7 +13,6 @@ import {
   MatDialogRef,
   MatDialogTitle,
 } from '@angular/material/dialog';
-import { MatButton } from '@angular/material/button';
 import { FormsModule } from '@angular/forms';
 import { MF_FRONTEND } from '../../pipes';
 import { I18nService } from '../../services';
@@ -31,7 +30,6 @@ export interface DialogData {
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     MatDialogContent,
-    MatButton,
     MatDialogActions,
     FormsModule,
     MatDialogClose,

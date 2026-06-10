@@ -31,7 +31,7 @@ import { NgClass } from '@angular/common';
   imports: [NgClass],
 })
 export class ButtonComponent {
-  readonly variant = input.required<'primary' | 'secondary' | 'tertiary'>();
+  readonly variant = input<'primary' | 'secondary' | 'tertiary'>('primary');
   readonly size = input<'sm' | 'md' | 'lg'>('md');
   readonly label = input<string>();
   readonly disabled = input<boolean>(false);

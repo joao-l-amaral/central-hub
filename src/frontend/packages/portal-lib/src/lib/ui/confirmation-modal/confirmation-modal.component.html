@@ -4,12 +4,19 @@
 </mat-dialog-content>
 <mat-dialog-actions>
     <button
-        chButton
-        type="button"
-        [label]="cancelTranslation"
-        [variant]="'secondary'"
-        (click)="onNoClick()"
+      chButton
+      type="button"
+      [label]="cancelTranslation"
+      [variant]="'secondary'"
+      (click)="onNoClick()"
     >
     </button>
-    <button type="button" mat-flat-button [mat-dialog-close]="product()" cdkFocusInitial>{{ okTranslation }}</button>
+    <button
+      chButton
+      type="button"
+      [variant]="'primary'"
+      [mat-dialog-close]="product()"
+      cdkFocusInitial>
+        {{ okTranslation }}
+    </button>
 </mat-dialog-actions>
