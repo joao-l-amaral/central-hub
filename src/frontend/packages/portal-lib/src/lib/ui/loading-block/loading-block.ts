@@ -11,7 +11,7 @@ import {LoadingBlockService} from "./loading-block-service";
 export class LoadingBlockComponent {
   readonly #loadingBlockService = inject(LoadingBlockService);
 
-  readonly loading = input.required<boolean>();
+  readonly loading = input<boolean>(false);
 
   readonly isLoading = computed(() => {
     return this.#loadingBlockService.loading() || this.loading();

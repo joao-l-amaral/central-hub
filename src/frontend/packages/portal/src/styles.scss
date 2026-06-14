@@ -26,6 +26,8 @@ body { margin: 0; font-family: 'Inter', sans-serif; }
   --color-light-neutral: #EBEDEF;
   --color-neutral-border-color: #C4C8CF;
   --font-family: 'Inter', sans-serif;
+  --loading-backdrop-color: 255 255 255;
+  --loading-backdrop-opacity: 0.5;
 
   --mat-sys-title-medium-font: var(--font-family);
   --mat-sys-label-large-font: var(--font-family);
