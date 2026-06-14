@@ -1,0 +1,6 @@
+<div class="loader-wrap" [class.ch-loading__on]="isLoading()">
+  @if (isLoading()) {
+    <span class="ch-loader__md"></span>
+  }
+  <ng-content />
+</div>
