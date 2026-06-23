@@ -28,6 +28,8 @@ body { margin: 0; font-family: 'Inter', sans-serif; }
   --font-family: 'Inter', sans-serif;
   --loading-backdrop-color: 255 255 255;
   --loading-backdrop-opacity: 0.5;
+  --color-surface-offset: #f8f6f6;
+  --color-text-faint: rgba(17,24,39,0.55);
 
   --mat-sys-title-medium-font: var(--font-family);
   --mat-sys-label-large-font: var(--font-family);
