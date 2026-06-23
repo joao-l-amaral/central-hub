@@ -7,7 +7,7 @@
     [placeholder]="placeholder()"
     name="search"
     class="ch-search-input__field"
-    [disabled]="disabled()"
+    [attr.disabled]="disabled() || null"
     [formControl]="searchForm"
     (keydown.enter)="onSearch($event)"
   >
