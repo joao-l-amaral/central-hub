@@ -41,7 +41,7 @@ export class SearchInputComponent {
     });
   }
 
-  onSearch(event: KeyboardEvent): void {
+  onSearch(event: Event) {
     event.preventDefault();
     this.searchValue.emit(this.searchForm.value);
   }
