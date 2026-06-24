@@ -3,5 +3,5 @@ export * from './button/button';
 export * from './circle-component/circle-component';
 export * from './confirmation-modal/confirmation-modal.component';
 export * from './keyValue/keyValue.component';
-export * from './loading-block/loading-block';
-export * from './loading-block/providers';
+export * from './loading-block/index';
+export * from './search-input/search-input';

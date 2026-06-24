@@ -1,0 +1,14 @@
+<div  class="ch-search-input">
+  <span class="ch-search-input__icon">
+    <i class="bi bi-search"></i>
+  </span>
+  <input
+    type="search"
+    [placeholder]="placeholder()"
+    name="search"
+    class="ch-search-input__field"
+    [attr.disabled]="disabled() || null"
+    [formControl]="searchForm"
+    (keydown.enter)="onSearch($event)"
+  >
+</div>
