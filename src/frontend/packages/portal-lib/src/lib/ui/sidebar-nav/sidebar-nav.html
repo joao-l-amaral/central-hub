@@ -1,0 +1,28 @@
+<div class="sidenav-container">
+  <nav class="fx-ico-nav">
+    <ul>
+      @for(option of dataResourcesOptions(); track option) {
+        <li
+          id="ico-nav-{{option.id}}"
+          class="ico-nav"
+          routerLinkActive="active-link"
+        >
+          <a
+            class="element"
+            (click)="optionHandler(option.component)"
+          >
+            <i [ngClass]="option.class"></i>
+            <span class="icon-text">{{ option.label }}</span>
+          </a>
+        </li>
+      }
+    </ul>
+  </nav>
+</div>
+
+@if(usingSideNav()) {
+  <ng-container #bodyArea/>
+}
+@else {
+  <router-outlet/>
+}

@@ -5,3 +5,5 @@ export * from './confirmation-modal/confirmation-modal.component';
 export * from './key-value/key-value.component';
 export * from './loading-block';
 export * from './search-input/search-input';
+export * from './loading-block/index';
+export * from './sidebar-nav/index';
