@@ -9,24 +9,20 @@ import {
   viewChild,
   ViewContainerRef,
 } from '@angular/core';
-import {
-  ActivatedRoute,
-  RouterLinkActive,
-  RouterOutlet,
-} from '@angular/router';
+import { ActivatedRoute, RouterOutlet } from '@angular/router';
 import {
   PageResourcesComponentConfig,
   ResourceConfig,
 } from './sidebar-interface';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { NgClass } from '@angular/common';
-import {TODO_NOTES} from "@schematics/angular/refactor/jasmine-vitest/utils/todo-notes";
+import { InternalizationPipe } from '../../pipes';
 
 @Component({
   selector: 'lib-nav-panel-module',
   templateUrl: 'sidebar-nav.html',
   styleUrls: ['sidebar-nav.scss'],
-  imports: [RouterOutlet, NgClass, RouterLinkActive],
+  imports: [RouterOutlet, NgClass, InternalizationPipe],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SideBarNavigationComponent {
@@ -61,13 +57,12 @@ export class SideBarNavigationComponent {
     return config.resources ?? [];
   });
 
+  readonly selectedOption = computed(() => {
+    return this.injectedComponent();
+  });
+
   optionHandler(component: Type<unknown>) {
     this.injectedComponent.set(component);
     this.usingSideNav.set(true);
   }
-
 }
-/*
-TODO:
-- Fix the CSS!!!!
- */

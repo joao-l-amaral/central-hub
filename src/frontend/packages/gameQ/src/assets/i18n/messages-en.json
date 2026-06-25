@@ -17,4 +17,6 @@
     "gameq.actions.force.update": "Force Update Games",
     "gameq.game.sync.success": "Game Updated successfully.",
     "title.gameQ": "GameQ"
+    "test.xbox": "Xbox",
+    "test.ps": "Playstation"
 }

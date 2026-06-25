@@ -16,5 +16,7 @@
     "gameq.actions": "Acções",
     "gameq.actions.force.update": "Forçar actualização de jogos",
     "gameq.game.sync.success": "Sincronização dos jogos efetuada.",
-    "title.gameQ": "GameQ"
+    "title.gameQ": "GameQ",
+    "test.xbox": "Xbox",
+    "test.ps": "Playstation"
 }

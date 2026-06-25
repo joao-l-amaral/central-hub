@@ -1,11 +1,9 @@
 import {Type} from "@angular/core";
 
 export interface ResourceConfig {
-  visible?: boolean;
   label: string;
-  id: string;
-  url?: string;
-  class: string;
+  href?: string;
+  icon: string;
   component: Type<unknown>
 }
 export interface PageResourcesComponentConfig {

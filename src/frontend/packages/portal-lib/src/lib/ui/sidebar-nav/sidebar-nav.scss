@@ -1,0 +1,81 @@
+:host {
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+  min-height: 0;
+  gap: 15px;
+
+  .sidenav {
+    flex-direction: column;
+    align-items: center;
+    background-color: var(--color-primary-dark);
+    gap: 0;
+    min-height: 0;
+    width: 91px;
+    overflow: auto;
+    border-right: 2px solid var(--color-primary);
+  }
+
+  .content {
+    padding-block: 0.5rem;
+    width: 100%;
+  }
+
+  .nav {
+    width: 100%;
+
+    ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      margin: 0;
+      padding: 0;
+      width: 100%;
+    }
+
+    .ico-nav {
+      width: 100%;
+    }
+
+    .element {
+      width: 100%;
+      min-height: 75px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      text-decoration: none;
+      cursor: pointer;
+      color: var(--color-text);
+      transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+
+      i {
+        font-size: 30px;
+        line-height: 1;
+      }
+    }
+
+    .icon-text {
+      font-size: 14px;
+      text-align: center;
+      line-height: 1.2;
+    }
+
+    .element:hover {
+      color: var(--color-primary);
+      transform: translateY(-2px);
+    }
+  }
+
+  .nav .ico-nav.active-link .element {
+    background: var(--color-primary);
+    color: var(--color-primary);
+  }
+
+  .nav .ico-nav.active-link .element i,
+  .nav .ico-nav.active-link .icon-text {
+    color: var(--color-text);
+  }
+}
