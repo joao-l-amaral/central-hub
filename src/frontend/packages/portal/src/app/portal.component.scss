@@ -1,12 +1,13 @@
 .portal-wrapper {
     display: flex;
     flex-direction: column;
-    height: 100vh;
+    min-height: 100vh;
 }
 
 .portal-body {
-    flex-grow: 1;
-    display: block;
+    flex: 1;
     min-height: 0;
-    overflow: visible;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden; /* or auto, depending on where you want scroll */
 }

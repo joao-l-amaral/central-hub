@@ -15,5 +15,7 @@
     "gameq.catconfig.edit.description": "Configuration is about to be changed. Are you sure?",
     "gameq.actions": "Actions",
     "gameq.actions.force.update": "Force Update Games",
-    "gameq.game.sync.success": "Game Updated successfully."
+    "gameq.game.sync.success": "Game Updated successfully.",
+    "test.xbox": "Xbox",
+    "test.ps": "Playstation"
 }

@@ -15,5 +15,7 @@
     "gameq.catconfig.edit.description": "A configuração está prestes a ser alterada. Tem a certeza?",
     "gameq.actions": "Acções",
     "gameq.actions.force.update": "Forçar actualização de jogos",
-    "gameq.game.sync.success": "Sincronização dos jogos efetuada."
+    "gameq.game.sync.success": "Sincronização dos jogos efetuada.",
+    "test.xbox": "Xbox",
+    "test.ps": "Playstation"
 }

@@ -1,18 +1,17 @@
-<div class="sidenav-container">
-  <nav class="fx-ico-nav">
+<div class="sidenav">
+  <nav class="nav">
     <ul>
       @for(option of dataResourcesOptions(); track option) {
         <li
-          id="ico-nav-{{option.id}}"
           class="ico-nav"
-          routerLinkActive="active-link"
+          [class.active-link]="selectedOption() === option.component"
         >
           <a
             class="element"
             (click)="optionHandler(option.component)"
           >
-            <i [ngClass]="option.class"></i>
-            <span class="icon-text">{{ option.label }}</span>
+            <i [ngClass]="option.icon"></i>
+            <span class="icon-text">{{ option.label  | translate }}</span>
           </a>
         </li>
       }
@@ -20,9 +19,11 @@
   </nav>
 </div>
 
-@if(usingSideNav()) {
-  <ng-container #bodyArea/>
-}
-@else {
-  <router-outlet/>
-}
+<div class="content">
+  @if(usingSideNav()) {
+    <ng-container #bodyArea/>
+  }
+  @else {
+    <router-outlet/>
+  }
+</div>
