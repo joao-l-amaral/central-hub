@@ -1,46 +1,43 @@
 import {
-    ChangeDetectionStrategy,
-    Component,
-    OnDestroy,
-    signal,
+  ChangeDetectionStrategy,
+  Component,
+  OnDestroy,
+  signal,
 } from '@angular/core';
 import { MatSlideToggle } from '@angular/material/slide-toggle';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { AdministrationComponent } from '../administration/administration.component';
 import { Subscription } from 'rxjs';
-import { InternalizationPipe, MF_FRONTEND } from '@portal-library';
+import { InternalizationPipe } from '@portal-library';
 
 @Component({
-    selector: 'gameq-vault-home',
-    templateUrl: './gameq.component.html',
-    styleUrl: './gameq.component.scss',
-    imports: [
-        MatSlideToggle,
-        ReactiveFormsModule,
-        AdministrationComponent,
-        InternalizationPipe,
-    ],
-    standalone: true,
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    providers: [{ provide: MF_FRONTEND, useValue: 'gameq' }],
+  selector: 'gameq-vault-home',
+  templateUrl: './gameq.component.html',
+  styleUrl: './gameq.component.scss',
+  imports: [
+    MatSlideToggle,
+    ReactiveFormsModule,
+    AdministrationComponent,
+    InternalizationPipe,
+  ],
+  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class GameQComponent implements OnDestroy {
-    readonly slideForm = new FormControl(false);
+  readonly slideForm = new FormControl(false);
 
-    readonly isAdministrator = signal(false);
-    readonly #adminstratorSub: Subscription;
+  readonly isAdministrator = signal(false);
+  readonly #adminstratorSub: Subscription;
 
-    constructor() {
-        this.#adminstratorSub = this.slideForm.valueChanges.subscribe(
-            (changes) => {
-                if (changes !== null) {
-                    this.isAdministrator.set(changes);
-                }
-            }
-        );
-    }
+  constructor() {
+    this.#adminstratorSub = this.slideForm.valueChanges.subscribe((changes) => {
+      if (changes !== null) {
+        this.isAdministrator.set(changes);
+      }
+    });
+  }
 
-    ngOnDestroy(): void {
-        this.#adminstratorSub.unsubscribe();
-    }
+  ngOnDestroy(): void {
+    this.#adminstratorSub.unsubscribe();
+  }
 }

@@ -5,7 +5,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { Platforms } from '../../interfaces/game-platforms.interface';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ConfigurationComponent } from './configuration/configuration.component';
-import { InternalizationPipe, MF_FRONTEND } from '@portal-library';
+import { InternalizationPipe } from '@portal-library';
 import { ActionsComponent } from './actions/actions.component';
 
 @Component({
@@ -23,8 +23,7 @@ import { ActionsComponent } from './actions/actions.component';
     standalone: true,
     changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [
-        GamePlatformApiService,
-        { provide: MF_FRONTEND, useValue: 'gameVault' }
+        GamePlatformApiService
     ]
 })
 export class AdministrationComponent implements OnInit {

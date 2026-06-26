@@ -15,12 +15,9 @@ import {
 } from '@angular/common/http';
 import { provideToastr } from 'ngx-toastr';
 import {
-  AppInitService,
   AuthApi,
-  LoggingService,
-  MF_FRONTEND,
-  providerOidcAuth,
-  SharedApplicationConfigurations,
+  LoggingService, providerInternalization,
+  providerOidcAuth
 } from '@portal-library';
 import { httpErrorInterceptor } from './commons/interceptors/httperror-interceptor';
 import { provideAnimations } from '@angular/platform-browser/animations';
@@ -29,23 +26,23 @@ import { firstValueFrom } from 'rxjs';
 import { ApplicationConfiguration } from './commons/models/application-configuration';
 import { ApplicationConfigurationService } from './commons/services/application-configuration-service';
 
-function processSharedApplicationConfigurations() {
-  const logger = inject(LoggingService);
-  const appInitService = inject(AppInitService);
-  const remotes = JSON.parse(
-    sessionStorage.getItem('federationManifest') ?? '{}',
-  ) as string[];
-  appInitService.fetchPortalInternalization();
-  if (remotes.length > 0) {
-    for (const remote of remotes) {
-      appInitService.fetchI18nData(remote).then(() => {
-        logger.log(`Fetched i18n data from remote: ${remote}`);
-      });
-    }
-  } else {
-    logger.log('Remotes not found in module-federation.config.ts');
-  }
-}
+// function processSharedApplicationConfigurations() {
+//   const logger = inject(LoggingService);
+//   const appInitService = inject(AppInitService);
+//   const remotes = JSON.parse(
+//     sessionStorage.getItem('federationManifest') ?? '{}',
+//   ) as string[];
+//   appInitService.fetchPortalInternalization();
+//   if (remotes.length > 0) {
+//     for (const remote of remotes) {
+//       appInitService.fetchI18nData(remote).then(() => {
+//         logger.log(`Fetched i18n data from remote: ${remote}`);
+//       });
+//     }
+//   } else {
+//     logger.log('Remotes not found in module-federation.config.ts');
+//   }
+// }
 
 function processApplicationConfigurations() {
   const httpClient = inject(HttpClient);
@@ -82,15 +79,13 @@ export const appConfig: ApplicationConfig = {
       positionClass: 'toast-top-right',
       preventDuplicates: true,
     }),
-    AppInitService,
+    providerInternalization(),
     ApplicationConfigurationService,
-    SharedApplicationConfigurations,
     LoggingService,
     provideAppInitializer(() => {
-      processSharedApplicationConfigurations();
+      // processSharedApplicationConfigurations(); //TODO para quando houver shared i18n
       processApplicationConfigurations();
     }),
-    BreadcrumbStateService,
-    { provide: MF_FRONTEND, useValue: 'portal' },
+    BreadcrumbStateService
   ],
 };

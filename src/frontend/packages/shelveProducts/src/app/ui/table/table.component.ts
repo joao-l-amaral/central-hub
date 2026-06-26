@@ -10,7 +10,7 @@ import { CommonModule, NgClass } from '@angular/common';
 import { MatSortModule, Sort } from '@angular/material/sort';
 import { MatInput } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { I18nService, InternalizationPipe, MF_FRONTEND, ConfirmationModalComponent } from '@portal-library';
+import { I18nService, InternalizationPipe, ConfirmationModalComponent } from '@portal-library';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatIconModule } from '@angular/material/icon';
 import { SelectionModel } from '@angular/cdk/collections';
@@ -51,7 +51,6 @@ export class TableComponent {
     readonly #toastr = inject(ToastrService);
     readonly #dialog = inject(MatDialog);
     readonly #i18nService = inject(I18nService);
-    readonly #mf = inject(MF_FRONTEND);
 
     displayedColumns: string[] = ['select', 'Name', 'BarCode', 'ShelveCode', 'Calories', 'Weight', 'InsertDate', 'ExpiryDate', 'daysLeft', 'actions'];
 
@@ -212,10 +211,10 @@ export class TableComponent {
     protected removeProduct($event: PointerEvent, product: ShelveProduct) {
         $event.stopPropagation();
 
-        const modalMsg = this.#i18nService.translate(this.#mf, "remove.single.product", `${product.name} (${product.shelveCode})`);
+        const modalMsg = this.#i18nService.translate("remove.single.product", `${product.name} (${product.shelveCode})`);
 
         const dialogRef = this.#dialog.open(ConfirmationModalComponent, {
-            data: {title: this.#i18nService.translate(this.#mf, "modal.title"), message: modalMsg},
+            data: {title: this.#i18nService.translate("modal.title"), message: modalMsg},
         });
 
         dialogRef.afterClosed().subscribe(result => {

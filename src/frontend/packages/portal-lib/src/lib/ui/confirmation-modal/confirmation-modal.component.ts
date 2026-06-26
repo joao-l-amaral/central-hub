@@ -14,9 +14,8 @@ import {
   MatDialogTitle,
 } from '@angular/material/dialog';
 import { FormsModule } from '@angular/forms';
-import { MF_FRONTEND } from '../../pipes';
-import { I18nService } from '../../services';
 import { ButtonComponent } from '../button/button';
+import { I18nService } from '../../util-i18n';
 
 export interface DialogData {
   title: string;
@@ -35,21 +34,16 @@ export interface DialogData {
     MatDialogClose,
     MatDialogTitle,
     ButtonComponent,
-  ],
-  providers: [{ provide: MF_FRONTEND, useValue: 'portal' }],
+  ]
 })
 export class ConfirmationModalComponent {
   readonly dialogRef = inject(MatDialogRef<ConfirmationModalComponent>);
   readonly data = inject<DialogData>(MAT_DIALOG_DATA);
   readonly product = model(this.data.message);
-  private readonly mf = inject(MF_FRONTEND);
   private readonly i18nService = inject(I18nService);
 
-  readonly okTranslation = this.i18nService.translate(this.mf, 'commons.ok');
-  readonly cancelTranslation = this.i18nService.translate(
-    this.mf,
-    'commons.cancel',
-  );
+  readonly okTranslation = this.i18nService.translate('commons.ok');
+  readonly cancelTranslation = this.i18nService.translate('commons.cancel');
 
   onNoClick(): void {
     this.dialogRef.close();

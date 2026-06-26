@@ -1,16 +1,3 @@
 {
-    "commons.ok": "Ok",
-    "commons.cancel": "Cancel",
-    "gameq.administrator": "Administrator",
-    "gameq.administrator.page": "Administrator Page",
-    "gameq.platform.selector": "Platform selector",
-    "gameq.catconfig.configuration.title": "Main configurations",
-    "gameq.catconfig.configuration": "Configuration",
-    "gameq.catconfig.keyWordsToLookFor": "Key words to look for in the platforms name.",
-    "gameq.catconfig.keyWordsToIgnore": "Key works to ignore in the platforms name.",
-    "gameq.catconfig.edit": "Edit",
-    "gameq.catconfig.save": "Save",
-    "gameq.catconfig.cancel": "Cancel",
-    "title.gameq": "GameQ",
-    "title.shelveProducts": "Shelve Products"
+  "shell.home": "Home"
 }

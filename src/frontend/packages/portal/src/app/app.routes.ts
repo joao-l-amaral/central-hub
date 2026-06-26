@@ -7,8 +7,8 @@ export const appRoutes: Route[] = [
     loadChildren: () => loadRemoteModule('shelveProducts', './Routes').then(m => m.remoteRoutes)
   },
   {
-    path: 'gameVault',
-    loadChildren: () => loadRemoteModule('gameVault', './Routes').then(m => m.remoteRoutes)
+    path: 'gameQ',
+    loadChildren: () => loadRemoteModule('gameQ', './Routes').then(m => m.remoteRoutes)
   }
 ];
 
