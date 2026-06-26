@@ -1,37 +1,42 @@
 import {
-    ChangeDetectionStrategy,
-    Component,
-    computed,
-    inject,
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  inject,
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { AuthApi, AuthState } from '@portal-library';
+import { AuthApi, AuthState, InternalizationPipe, SessionStorage } from '@portal-library';
 import { MatIcon } from '@angular/material/icon';
-import {ApplicationConfigurationService} from "../../commons/services/application-configuration-service";
+import { ApplicationConfigurationService } from '../../commons/services/application-configuration-service';
 
 @Component({
-    imports: [RouterModule, MatIcon],
-    selector: 'ch-nav-bar',
-    templateUrl: './nav.component.html',
-    styleUrl: './nav.component.scss',
-    changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [RouterModule, MatIcon, InternalizationPipe],
+  selector: 'ch-nav-bar',
+  templateUrl: './nav.component.html',
+  styleUrl: './nav.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NavComponent {
-    protected title = 'Central-hub';
+  protected title = 'Central-hub';
 
-    readonly #authApi = inject(AuthApi);
-    readonly #authState = inject(AuthState);
-    readonly #applicationConfigurationService = inject(ApplicationConfigurationService);
+  readonly #authApi = inject(AuthApi);
+  readonly #authState = inject(AuthState);
+  readonly #applicationConfigurationService = inject(
+    ApplicationConfigurationService,
+  );
+  readonly #sessionStorage = inject(SessionStorage);
 
-    isAuthActivate = this.#applicationConfigurationService.isAuthActivate();
+  readonly remotes = this.#sessionStorage.getRemotes();
 
-    readonly authState = computed(() => this.#authState.state());
+  isAuthActivate = this.#applicationConfigurationService.isAuthActivate();
 
-    onLogin() {
-        this.#authApi.doManualLogin();
-    }
+  readonly authState = computed(() => this.#authState.state());
 
-    onLogout() {
-        this.#authApi.doManualLogout(this.authState().idToken);
-    }
+  onLogin() {
+    this.#authApi.doManualLogin();
+  }
+
+  onLogout() {
+    this.#authApi.doManualLogout(this.authState().idToken);
+  }
 }

@@ -9,8 +9,6 @@ export class InternalizationPipe implements PipeTransform {
   private readonly i18nService = inject(I18nService);
 
   transform(value: string) {
-    console.log(value)
-
     return this.i18nService.translate(value);
   }
 }

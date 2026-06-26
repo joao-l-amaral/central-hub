@@ -9,7 +9,7 @@ import {
   provideHttpClient,
   withInterceptorsFromDi,
 } from '@angular/common/http';
-import { LoggingService, providerInternalization } from '@portal-library';
+import { LoggingService, providerInternalization, SessionStorage } from '@portal-library';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { provideAnimations } from '@angular/platform-browser/animations';
@@ -31,5 +31,6 @@ export const appConfig: ApplicationConfig = {
     LoggingService,
     MatButtonModule,
     MatIconModule,
+    SessionStorage
   ],
 };
