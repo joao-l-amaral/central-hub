@@ -1,3 +1,5 @@
 {
-  "shell.home": "Home"
+  "shell.home": "Home",
+  "commons.ok": "Ok",
+  "commons.cancel": "Cancel"
 }

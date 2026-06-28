@@ -4,8 +4,8 @@ import { InternalizationPipe } from '@portal-library';
 
 @Component({
     selector: 'ch-breadcrumb',
-    templateUrl: './breadcrumb.component.html',
-    styleUrl: './breadcrumb.component.scss',
+    templateUrl: './breadcrumb.html',
+    styleUrl: './breadcrumb.scss',
     imports: [
         InternalizationPipe
     ],

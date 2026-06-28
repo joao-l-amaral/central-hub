@@ -1,13 +1,19 @@
 import { initFederation } from '@angular-architects/native-federation';
-import 'bootstrap/dist/js/bootstrap.bundle';
 
-fetch('/assets/federation.manifest.json')
-  .then(res => res.json())
-  .then(manifest => {
-    const manigestKeys = Object.keys(manifest);
-    sessionStorage.setItem('federationManifest', JSON.stringify(manigestKeys))
-    return initFederation(manifest);
-  })
-  .then(() => import('./bootstrap'))
-    // eslint-disable-next-line no-console
-  .catch(err => console.error(err));
+async function startApplication() {
+  const remoteConfigurations = await fetch('/api/remotes').then(res => res.json());
+
+  const manifest: Record<string, string> = {};
+
+  for(const remoteConfiguration of remoteConfigurations) {
+    manifest[remoteConfiguration.name] = remoteConfiguration.url;
+  }
+
+  await initFederation(manifest);
+
+  const { bootstrap } = await import('./bootstrap');
+  await bootstrap(remoteConfigurations);
+}
+
+// eslint-disable-next-line no-console
+startApplication().catch(err => console.error(err));

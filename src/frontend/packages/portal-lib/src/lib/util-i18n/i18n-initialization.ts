@@ -1,8 +1,7 @@
-import { computed, inject, Injectable, signal } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
 import { I18nService } from './i18n-service';
-import { SessionStorage } from '../util-session-storage';
 
 type MapEntry = Record<string, string>;
 
@@ -10,20 +9,6 @@ type MapEntry = Record<string, string>;
 export class I18nInitialization {
   readonly #i18n = inject(I18nService);
   readonly #httpClient = inject(HttpClient);
-  readonly #sessionStorage = inject(SessionStorage);
-
-  readonly remotes = this.#sessionStorage.getRemotes();
-
-  readonly loadedRemoteDictionary = signal(0);
-
-  readonly areAllDictionaryLoaded = computed(() => {
-    const number = this.loadedRemoteDictionary();
-    return this.remotes.length === number;
-  })
-
-  increaseNumberOfLoadedDictionary() {
-    this.loadedRemoteDictionary.update((prev) => prev + 1);
-  }
 
   private checkLanguage(language: string): string {
     return language === 'pt' || language === 'en' ? language : 'en';
@@ -46,7 +31,7 @@ export class I18nInitialization {
         dictionary.set(key, data[key]);
       });
 
-      this.#i18n.addToDictionary(dictionary);
+      this.#i18n.merge(dictionary);
     }
   }
 }

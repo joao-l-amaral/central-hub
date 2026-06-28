@@ -1,17 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { PortalComponent } from './portal.component';
-import {BreadcrumbStateService} from "./features/breadcrumb/breadcrumb-state";
+import { Portal } from './portal';
+import {BreadcrumbStateService} from "../features/breadcrumb/breadcrumb-state";
 import {AuthApi, AuthState} from "@portal-library";
 import {provideRouter} from "@angular/router";
-import {ApplicationConfigurationService} from "./commons/services/application-configuration-service";
+import {ApplicationConfigurationService} from "../utils-application/application-configuration-service";
 
 describe('PortalComponent', () => {
-  let component: PortalComponent;
-  let fixture: ComponentFixture<PortalComponent>;
+  let component: Portal;
+  let fixture: ComponentFixture<Portal>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-        imports: [PortalComponent],
+        imports: [Portal],
         providers: [
             BreadcrumbStateService,
             AuthApi,
@@ -21,7 +21,7 @@ describe('PortalComponent', () => {
         ]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(PortalComponent);
+    fixture = TestBed.createComponent(Portal);
     component = fixture.componentInstance;
   });
 

@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { NavComponent } from './nav.component';
+import { Navbar } from './navbar';
 import {AuthApi, AuthState} from "@portal-library";
 import { provideRouter } from '@angular/router';
-import { ApplicationConfigurationService } from '../../commons/services/application-configuration-service';
+import { ApplicationConfigurationService } from '../utils-application/application-configuration-service';
 
 describe('NavComponent', () => {
-  let component: NavComponent;
-  let fixture: ComponentFixture<NavComponent>;
+  let component: Navbar;
+  let fixture: ComponentFixture<Navbar>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-        imports: [NavComponent],
+        imports: [Navbar],
         providers: [
             AuthApi,
             AuthState,
@@ -19,7 +19,7 @@ describe('NavComponent', () => {
         ]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(NavComponent);
+    fixture = TestBed.createComponent(Navbar);
     component = fixture.componentInstance;
   });
 

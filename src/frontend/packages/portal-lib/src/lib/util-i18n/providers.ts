@@ -1,4 +1,8 @@
-import { inject, makeEnvironmentProviders, provideAppInitializer } from '@angular/core';
+import {
+  inject,
+  makeEnvironmentProviders,
+  provideAppInitializer,
+} from '@angular/core';
 import { I18nService } from './i18n-service';
 import { I18nInitialization } from './i18n-initialization';
 

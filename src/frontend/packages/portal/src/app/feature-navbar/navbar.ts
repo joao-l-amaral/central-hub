@@ -5,18 +5,19 @@ import {
   inject,
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { AuthApi, AuthState, InternalizationPipe, SessionStorage } from '@portal-library';
+import { AuthApi, AuthState } from '@portal-library';
 import { MatIcon } from '@angular/material/icon';
-import { ApplicationConfigurationService } from '../../commons/services/application-configuration-service';
+import { ApplicationConfigurationService } from '../utils-application/application-configuration-service';
+import { REMOTES_CONFIG } from '../utils-application/application-remotes-token';
 
 @Component({
-  imports: [RouterModule, MatIcon, InternalizationPipe],
+  imports: [RouterModule, MatIcon],
   selector: 'ch-nav-bar',
-  templateUrl: './nav.component.html',
-  styleUrl: './nav.component.scss',
+  templateUrl: './navbar.html',
+  styleUrl: './navbar.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class NavComponent {
+export class NavbarComponent {
   protected title = 'Central-hub';
 
   readonly #authApi = inject(AuthApi);
@@ -24,9 +25,7 @@ export class NavComponent {
   readonly #applicationConfigurationService = inject(
     ApplicationConfigurationService,
   );
-  readonly #sessionStorage = inject(SessionStorage);
-
-  readonly remotes = this.#sessionStorage.getRemotes();
+  readonly remotes = inject(REMOTES_CONFIG);
 
   isAuthActivate = this.#applicationConfigurationService.isAuthActivate();
 
