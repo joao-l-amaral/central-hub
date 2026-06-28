@@ -1,4 +1,4 @@
-package pt.amaralsoftware.models;
+package pt.amaralsoftware.models.configuration;
 
 public class Remotes {
     private String name;

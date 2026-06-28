@@ -2,18 +2,18 @@ import { Injectable, signal } from '@angular/core';
 
 @Injectable()
 export class I18nService {
-  readonly i18n = signal<Map<string, string> | undefined>(undefined);
+  readonly #i18n = signal<Map<string, string> | undefined>(undefined);
 
 
 
   merge(dictionary: Map<string, string>) {
-    this.i18n.update((prev) => {
+    this.#i18n.update((prev) => {
       return prev ? new Map([...prev, ...dictionary]) : dictionary;
     });
   }
 
   translate(value: string, arg?: string) {
-    const i18nData = this.i18n();
+    const i18nData = this.#i18n();
 
     if (i18nData) {
       if (arg) {

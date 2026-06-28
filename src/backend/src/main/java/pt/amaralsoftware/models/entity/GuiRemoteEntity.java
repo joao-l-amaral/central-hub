@@ -9,7 +9,6 @@ import java.io.Serializable;
 @Table(name = "gui_remote")
 public class GuiRemoteEntity extends PanacheEntityBase implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String name;
     private String url;
     private String title;

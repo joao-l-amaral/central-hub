@@ -18,7 +18,7 @@ public class GuiRemoteService {
     public List<RemoteDTO> getEnabledGuiRemotes() {
         List<RemoteDTO> remotes = new ArrayList<>();
 
-        List<GuiRemoteEntity> enableRemotes = guiRemoteRepository.find("WHERE enable is TRUE").list();
+        List<GuiRemoteEntity> enableRemotes = guiRemoteRepository.find("enable = true").list();
 
         for(GuiRemoteEntity remote : enableRemotes ) {
             RemoteDTO remoteDTO = new RemoteDTO(
