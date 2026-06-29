@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ConfirmationModalComponent } from './confirmation-modal.component';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { vi } from 'vitest';
-import { I18nService } from '@portal-library';
+import { I18nService } from '../../util-i18n';
 
 describe('ConfirmationModalComponent', () => {
   let component: ConfirmationModalComponent;
