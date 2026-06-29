@@ -7,8 +7,8 @@ import {
 import { RouterModule } from '@angular/router';
 import { AuthApi, AuthState } from '@portal-library';
 import { MatIcon } from '@angular/material/icon';
-import { ApplicationConfigurationService } from '../utils-application/application-configuration-service';
-import { REMOTES_CONFIG } from '../utils-application/application-remotes-token';
+import { ApplicationConfigurationService } from '../../shared/util-application/application-configuration-service';
+import { REMOTES_CONFIG } from '../../shared/util-application/application-remotes-token';
 
 @Component({
   imports: [RouterModule, MatIcon],

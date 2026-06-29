@@ -2,7 +2,7 @@ import { Route } from '@angular/router';
 import { loadRemoteModule } from '@angular-architects/native-federation';
 import { I18nInitialization } from '@portal-library';
 import { inject } from '@angular/core';
-import { RemotesConfig } from '../utils-application/application-remotes-token';
+import { RemotesConfig } from '../shared/util-application/application-remotes-token';
 
 function createRemoteI18nResolver(remoteName: string) {
   return () => {

@@ -17,7 +17,7 @@ import { BreadcrumbComponent } from '../feature-breadcrumb/breadcrumb';
   styleUrl: './portal.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class Portal implements OnDestroy {
+export class PortalComponent implements OnDestroy {
   protected title = 'CentralHub';
   readonly #routerTracker: Subscription;
 

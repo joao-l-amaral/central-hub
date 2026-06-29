@@ -1,10 +1,10 @@
 import { inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { ApplicationConfigurationService } from './application-configuration-service';
+import { ApplicationConfigurationService } from '../shared/util-application/application-configuration-service';
 import { AuthApi } from '@portal-library';
 import { firstValueFrom } from 'rxjs';
 
-export interface ApplicationConfiguration {
+export interface AppConfiguration {
     isAuthActivate: boolean
 }
 
@@ -16,7 +16,7 @@ export function processApplicationConfigurations() {
   const authApi = inject(AuthApi);
 
   firstValueFrom(
-    httpClient.get<ApplicationConfiguration>('/api/configurations'),
+    httpClient.get<AppConfiguration>('/api/configurations'),
   ).then((config) => {
     const isAuthActivate = config.isAuthActivate;
     applicationConfigurationService.isAuthActivate.set(isAuthActivate);

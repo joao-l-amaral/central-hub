@@ -5,7 +5,7 @@ import {SideNavService} from "../../services/side-nav.service";
 import {provideToastr} from "ngx-toastr";
 import {StatisticsPanelService} from "../statistics-panel/statistics-panel.service";
 import {ShelveProductService} from "../../data-source/shelve-product.service";
-import {SharedApplicationConfigurations, MF_FRONTEND} from "@portal-library";
+import { I18nService } from '@portal-library';
 
 describe('FormComponent', () => {
   let component: FormComponent;
@@ -24,8 +24,10 @@ describe('FormComponent', () => {
             }),
             StatisticsPanelService,
             ShelveProductService,
-            SharedApplicationConfigurations,
-            { provide: MF_FRONTEND, useValue: 'shelveProducts' }
+            {
+              provide: I18nService,
+              useValue: { translate: vi.fn().mockReturnValue('translated') }
+            }
         ]
     }).compileComponents();
 

@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import {SharedApplicationConfigurations} from "@portal-library";
 import {GameQComponent} from "./gameq.component";
+import { I18nService } from '@portal-library';
 
 describe('GameQComponent', () => {
   let component: GameQComponent;
@@ -10,7 +10,10 @@ describe('GameQComponent', () => {
     await TestBed.configureTestingModule({
         imports: [GameQComponent],
         providers: [
-            SharedApplicationConfigurations
+          {
+            provide: I18nService,
+            useValue: { translate: vi.fn().mockReturnValue('translated') }
+          }
         ]
     }).compileComponents();
 

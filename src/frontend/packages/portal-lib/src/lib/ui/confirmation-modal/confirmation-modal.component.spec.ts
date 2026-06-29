@@ -1,9 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ConfirmationModalComponent } from './confirmation-modal.component';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { I18nService } from '../../services';
-import { MF_FRONTEND } from '../../pipes';
 import { vi } from 'vitest';
+import { I18nService } from '@portal-library';
 
 describe('ConfirmationModalComponent', () => {
   let component: ConfirmationModalComponent;
@@ -24,10 +23,6 @@ describe('ConfirmationModalComponent', () => {
         {
           provide: I18nService,
           useValue: { translate: vi.fn().mockReturnValue('translated') }
-        },
-        {
-          provide: MF_FRONTEND,
-          useValue: 'portal'
         }
       ]
     }).compileComponents();

@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ShelveProductsComponent } from './shelve-products.component';
 import { provideToastr } from 'ngx-toastr';
-import {SharedApplicationConfigurations, LoggingService} from '@portal-library';
+import { I18nService, LoggingService } from '@portal-library';
 import {provideHttpClient} from "@angular/common/http";
 import {provideHttpClientTesting} from "@angular/common/http/testing";
 
@@ -18,10 +18,13 @@ describe('ShelveProductsComponent', () => {
                     positionClass: 'toast-top-right',
                     preventDuplicates: true,
                 }),
-                SharedApplicationConfigurations,
                 LoggingService,
                 provideHttpClient(),
-                provideHttpClientTesting()
+                provideHttpClientTesting(),
+                {
+                  provide: I18nService,
+                  useValue: { translate: vi.fn().mockReturnValue('translated') }
+                }
             ],
         }).compileComponents();
 

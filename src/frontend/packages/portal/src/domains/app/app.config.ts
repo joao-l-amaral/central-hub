@@ -17,12 +17,12 @@ import {
   providerInternalization,
   providerOidcAuth,
 } from '@portal-library';
-import { httpErrorInterceptor } from './utils-interceptors/httperror-interceptor';
+import { httpErrorInterceptor } from './util-interceptors/httperror-interceptor';
 import { provideAnimations } from '@angular/platform-browser/animations';
-import { processApplicationConfigurations } from './utils-application/application-configuration';
-import { ApplicationConfigurationService } from './utils-application/application-configuration-service';
-import { BreadcrumbStateService } from './feature-breadcrumb/breadcrumb-state';
-import { REMOTES_CONFIG, RemotesConfig } from './utils-application/application-remotes-token';
+import { processApplicationConfigurations } from './app-configuration';
+import { ApplicationConfigurationService } from '../shared/util-application/application-configuration-service';
+import { BreadcrumbStateService } from '../layout/feature-breadcrumb/breadcrumb-state';
+import { REMOTES_CONFIG, RemotesConfig } from '../shared/util-application/application-remotes-token';
 
 export function appConfigProviders(routes: Route[], remotesConfig: RemotesConfig): ApplicationConfig {
   return {
