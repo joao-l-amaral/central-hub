@@ -1,8 +1,12 @@
 import { bootstrapApplication } from '@angular/platform-browser';
-import { appConfig } from './app/app.config';
-import { PortalComponent } from './app/portal.component';
+import { appConfigProviders } from './domains/app/app.config';
+import { PortalComponent } from './domains/layout/feature-portal/portal';
+import { createDynamicRoutes } from './domains/app/app.routes';
+import { RemotesConfig } from './domains/shared/util-application/application-remotes-token';
 
-bootstrapApplication(PortalComponent, appConfig).catch((err) =>
-  // eslint-disable-next-line no-console
-  console.error(err),
-);
+export function bootstrap(remotesConfig: RemotesConfig) {
+  const routes = createDynamicRoutes(remotesConfig);
+  const appConfig = appConfigProviders(routes, remotesConfig);
+
+  return bootstrapApplication(PortalComponent, appConfig);
+}

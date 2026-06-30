@@ -1,9 +1,20 @@
-import { ChangeDetectionStrategy, Component, inject, OnInit, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  OnInit,
+  signal,
+} from '@angular/core';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatCard } from '@angular/material/card';
 import { MatFormField, MatHint, MatLabel } from '@angular/material/form-field';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { GamePlatformApiService } from '../../../data-source/game-platform-api.service';
 import { MatInput } from '@angular/material/input';
 import { CdkTextareaAutosize } from '@angular/cdk/text-field';
@@ -12,7 +23,6 @@ import {
   ConfirmationModalComponent,
   I18nService,
   InternalizationPipe,
-  MF_FRONTEND
 } from '@portal-library';
 import { MatDialog } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
@@ -43,7 +53,6 @@ export class ConfigurationComponent implements OnInit {
   readonly #i18nService = inject(I18nService);
   readonly #toastr = inject(ToastrService);
   readonly #dialog = inject(MatDialog);
-  readonly #mf = inject(MF_FRONTEND);
 
   readonly configuration = signal('');
 
@@ -82,11 +91,9 @@ export class ConfigurationComponent implements OnInit {
       .updatePlatformConfiguration(configuration)
       .then(() => {
         const successTitle = this.#i18nService.translate(
-          this.#mf,
           'gameq.catconfig.configuration.title',
         );
         const successMessage = this.#i18nService.translate(
-          this.#mf,
           'gameq.catconfig.updated',
         );
 
@@ -101,16 +108,12 @@ export class ConfigurationComponent implements OnInit {
 
   onSaveConfiguration() {
     const modalMsg = this.#i18nService.translate(
-      this.#mf,
       'gameq.catconfig.edit.description',
     );
 
     const dialogRef = this.#dialog.open(ConfirmationModalComponent, {
       data: {
-        title: this.#i18nService.translate(
-          this.#mf,
-          'gameq.catconfig.edit.title',
-        ),
+        title: this.#i18nService.translate('gameq.catconfig.edit.title'),
         message: modalMsg,
       },
       position: { top: '100px' },

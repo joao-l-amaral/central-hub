@@ -1,0 +1,61 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" routerLink="/">
+      <img src="assets/images/brand.svg" alt="CentralHub">
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              @for(remote of remotes; track remote) {
+                <li class="nav-item">
+                    <a
+                        class="nav-link"
+                        [routerLink]="remote.name"
+                        routerLinkActive="active-link"
+                    > {{ remote.title }}</a>
+                </li>
+              }
+          </ul>
+
+          @if (isAuthActivate) {
+              <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                  @if(!authState().isLoggedIn) {
+                      <button
+                          type="button"
+                          class="nav-link icon-text-wrapper"
+                          (click)="onLogin()"
+                          [disabled]="isAuthActivate"
+                      >
+                          <mat-icon>login</mat-icon>
+                          <span class="link-label">Login</span>
+                      </button>
+                  }
+                  @else {
+                      <li class="nav-item dropdown">
+                          <a
+                              class="nav-link dropdown-toggle"
+                              href="#"
+                              id="navbarDropdown"
+                              role="button"
+                              data-bs-toggle="dropdown"
+                              aria-expanded="false"
+                          >
+                              {{ authState().userName }}
+                          </a>
+                          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                              <li class="nav-item">
+                                  <button type="button" class="dropdown-item icon-text-wrapper" (click)="onLogout()">
+                                      <mat-icon>logout</mat-icon>
+                                      <span class="link-label">Logout</span>
+                                  </button>
+                              </li>
+                          </ul>
+                      </li>
+                  }
+              </ul>
+          }
+      </div>
+  </div>
+</nav>

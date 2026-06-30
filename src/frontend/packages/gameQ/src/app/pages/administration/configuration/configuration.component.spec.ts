@@ -1,8 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ConfigurationComponent } from './configuration.component';
 import {GamePlatformApiService} from "../../../data-source/game-platform-api.service";
-import {SharedApplicationConfigurations, MF_FRONTEND} from "@portal-library";
 import {provideToastr} from "ngx-toastr";
+import { I18nService } from '@portal-library';
 
 describe('ConfigurationComponent', () => {
   let component: ConfigurationComponent;
@@ -13,13 +13,15 @@ describe('ConfigurationComponent', () => {
         imports: [ConfigurationComponent],
         providers: [
             GamePlatformApiService,
-            SharedApplicationConfigurations,
             provideToastr({
                 timeOut: 3000,
                 positionClass: 'toast-top-right',
                 preventDuplicates: true,
             }),
-            { provide: MF_FRONTEND, useValue: 'gameVault' }
+            {
+              provide: I18nService,
+              useValue: { translate: vi.fn().mockReturnValue('translated') }
+            }
         ]
     }).compileComponents();
 

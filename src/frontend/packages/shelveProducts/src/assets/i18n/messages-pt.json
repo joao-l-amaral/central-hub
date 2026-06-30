@@ -36,5 +36,6 @@
     "statistic.header": "Contadores Produtos",
     "statistic.panel.total": "Total de calorias",
     "statistic.panel.description": "Calorias para duas pessoas",
-    "refresh.products": "Atualizar lista"
+    "refresh.products": "Atualizar lista",
+    "title.shelveProducts": "Shelve Products"
 }

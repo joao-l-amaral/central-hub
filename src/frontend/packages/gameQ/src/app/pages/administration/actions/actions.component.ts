@@ -5,10 +5,9 @@ import {
   signal,
 } from '@angular/core';
 import {
+  ButtonComponent,
   I18nService,
   InternalizationPipe,
-  MF_FRONTEND,
-  ButtonComponent
 } from '@portal-library';
 import { GamePlatformApiService } from '../../../data-source/game-platform-api.service';
 import { ToastrService } from 'ngx-toastr';
@@ -26,7 +25,6 @@ export class ActionsComponent {
   readonly #gamePlatformApiService = inject(GamePlatformApiService);
   readonly #i18nService = inject(I18nService);
   readonly #toastr = inject(ToastrService);
-  readonly #mf = inject(MF_FRONTEND);
 
   readonly isLoading = signal(false);
 
@@ -34,10 +32,7 @@ export class ActionsComponent {
     this.isLoading.set(true);
     this.#gamePlatformApiService.forceGameSynchronization().then(() => {
       this.isLoading.set(false);
-      const successMsg = this.#i18nService.translate(
-        this.#mf,
-        'gameq.game.sync.success',
-      );
+      const successMsg = this.#i18nService.translate('gameq.game.sync.success');
       this.#toastr.success(successMsg);
     });
   }

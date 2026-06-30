@@ -24,7 +24,7 @@ import { StatisticsPanelService } from '../ui/statistics-panel/statistics-panel.
 import { ToastrService } from 'ngx-toastr';
 import { MatDialog } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
-import { ConfirmationModalComponent, I18nService, InternalizationPipe, MF_FRONTEND, LoggingService } from '@portal-library';
+import { ConfirmationModalComponent, I18nService, InternalizationPipe, LoggingService } from '@portal-library';
 import { SelectionModel } from '@angular/cdk/collections';
 import { ShelveProduct } from '../interface/shelve-product.interface';
 
@@ -49,8 +49,7 @@ import { ShelveProduct } from '../interface/shelve-product.interface';
         TableService,
         ShelveProductService,
         SideNavService,
-        StatisticsPanelService,
-        { provide: MF_FRONTEND, useValue: 'shelveProducts' },
+        StatisticsPanelService
     ],
 })
 export class ShelveProductsComponent implements OnDestroy {
@@ -61,7 +60,6 @@ export class ShelveProductsComponent implements OnDestroy {
     readonly #toastr = inject(ToastrService);
     readonly #dialog = inject(MatDialog);
     readonly #i18nService = inject(I18nService);
-    readonly #mf = inject(MF_FRONTEND);
     readonly #logger = inject(LoggingService);
 
     @ViewChild('sidenav') sidenav!: MatSidenav;
@@ -124,17 +122,16 @@ export class ShelveProductsComponent implements OnDestroy {
         const modalMsg =
             selectedProducts?.length > 1
                 ? this.#i18nService.translate(
-                      this.#mf,
                       'remove.multi.product',
                       selectedProducts
                           .map((product) => product.shelveCode)
                           .join(', ')
                   )
-                : this.#i18nService.translate(this.#mf, 'remove.one.product');
+                : this.#i18nService.translate('remove.one.product');
 
         const dialogRef = this.#dialog.open(ConfirmationModalComponent, {
             data: {
-                title: this.#i18nService.translate(this.#mf, 'modal.title'),
+                title: this.#i18nService.translate('modal.title'),
                 message: modalMsg,
             },
         });

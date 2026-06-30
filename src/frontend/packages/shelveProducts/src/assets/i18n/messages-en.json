@@ -36,5 +36,6 @@
     "statistic.header": "Products Counter",
     "statistic.panel.total": "Total of calories",
     "statistic.panel.description": "Calories for two people",
-    "refresh.products": "Update list"
+    "refresh.products": "Update list",
+    "title.shelveProducts": "Shelve Products"
 }
