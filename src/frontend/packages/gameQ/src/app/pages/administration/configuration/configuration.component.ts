@@ -23,7 +23,7 @@ import {
   ConfirmationModalComponent,
   I18nService,
   InternalizationPipe,
-} from '@portal-library';
+} from '@central-hub/library';
 import { MatDialog } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 

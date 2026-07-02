@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { TestbedHarnessEnvironment } from '@angular/cdk/testing/testbed';
 import { expect } from 'vitest';
-import { ButtonHarness } from '../../../../../../libs/testing/src/lib/button/button.harness';
+import { ButtonHarness } from '@central-hub/testing';
 import { ButtonComponent } from './button';
 
 describe('ButtonComponent', () => {

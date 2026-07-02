@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ShelveProductsComponent } from './shelve-products.component';
 import { provideToastr } from 'ngx-toastr';
-import { I18nService, LoggingService } from '@portal-library';
+import { I18nService, LoggingService } from '@central-hub/library';
 import {provideHttpClient} from "@angular/common/http";
 import {provideHttpClientTesting} from "@angular/common/http/testing";
 

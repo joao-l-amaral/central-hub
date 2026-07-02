@@ -5,7 +5,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { Platforms } from '../../interfaces/game-platforms.interface';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ConfigurationComponent } from './configuration/configuration.component';
-import { InternalizationPipe } from '@portal-library';
+import { InternalizationPipe } from '@central-hub/library';
 import { ActionsComponent } from './actions/actions.component';
 
 @Component({

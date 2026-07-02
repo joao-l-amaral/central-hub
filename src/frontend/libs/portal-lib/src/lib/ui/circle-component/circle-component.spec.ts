@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { CircleComponent } from './circle-component';
 import { TestbedHarnessEnvironment } from '@angular/cdk/testing/testbed';
-import { CircleComponentHarness } from '../../../../../../libs/testing/src/lib/circle-component/circle-component.harness';
+import { CircleComponentHarness } from '@central-hub/testing';
 import {expect} from "vitest";
 
 describe('CircleComponent', () => {

@@ -16,7 +16,7 @@ import {
   LoggingService,
   providerInternalization,
   providerOidcAuth,
-} from '@portal-library';
+} from '@central-hub/library';
 import { httpErrorInterceptor } from './util-interceptors/httperror-interceptor';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { processApplicationConfigurations } from './app-configuration';

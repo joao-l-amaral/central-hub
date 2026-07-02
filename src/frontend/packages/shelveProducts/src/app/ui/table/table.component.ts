@@ -10,7 +10,7 @@ import { CommonModule, NgClass } from '@angular/common';
 import { MatSortModule, Sort } from '@angular/material/sort';
 import { MatInput } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { I18nService, InternalizationPipe, ConfirmationModalComponent } from '@portal-library';
+import { I18nService, InternalizationPipe, ConfirmationModalComponent } from '@central-hub/library';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatIconModule } from '@angular/material/icon';
 import { SelectionModel } from '@angular/cdk/collections';

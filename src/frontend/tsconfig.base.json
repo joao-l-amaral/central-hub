@@ -15,7 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@portal-library": ["packages/portal-lib/src/public-api.ts"],
+      "@central-hub/library": ["./libs/portal-lib/src/public-api.ts"],
       "@central-hub/testing": ["./libs/testing/src/index.ts"]
     }
   },

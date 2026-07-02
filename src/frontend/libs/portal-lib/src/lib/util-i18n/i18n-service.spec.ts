@@ -1,4 +1,4 @@
-import {I18nService} from "@portal-library";
+import {I18nService} from "../../public-api";
 import {TestBed} from "@angular/core/testing";
 import {expect} from "vitest";
 

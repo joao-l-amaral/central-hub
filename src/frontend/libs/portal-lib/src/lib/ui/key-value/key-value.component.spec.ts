@@ -1,7 +1,7 @@
   import { ComponentFixture, TestBed } from '@angular/core/testing';
   import { KeyValueComponent } from './key-value.component';
   import { TestbedHarnessEnvironment } from '@angular/cdk/testing/testbed';
-  import { KeyValueHarness } from '../../../../../../libs/testing/src/lib/key-value/key-value.harness';
+  import { KeyValueHarness } from '@central-hub/testing';
   import {expect} from "vitest";
 
   describe('KeyValueComponent', () => {

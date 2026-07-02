@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ActionsComponent } from './actions.component';
 import {GamePlatformApiService} from "../../../data-source/game-platform-api.service";
 import {provideToastr} from "ngx-toastr";
-import { I18nService } from '@portal-library';
+import { I18nService } from '@central-hub/library';
 
 describe('ActionsComponent', () => {
   let component: ActionsComponent;

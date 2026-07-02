@@ -8,7 +8,7 @@ import {
   ButtonComponent,
   I18nService,
   InternalizationPipe,
-} from '@portal-library';
+} from '@central-hub/library';
 import { GamePlatformApiService } from '../../../data-source/game-platform-api.service';
 import { ToastrService } from 'ngx-toastr';
 

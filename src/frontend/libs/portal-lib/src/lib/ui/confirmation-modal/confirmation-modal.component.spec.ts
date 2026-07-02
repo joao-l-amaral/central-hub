@@ -4,7 +4,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { expect, vi } from 'vitest';
 import { I18nService } from '../../util-i18n';
 import { TestbedHarnessEnvironment } from '@angular/cdk/testing/testbed';
-import { ConfirmationModalHarness } from '../../../../../../libs/testing/src/lib/confirmation-modal/confirmation-modal.harness';
+import { ConfirmationModalHarness } from '@central-hub/testing';
 
 describe('ConfirmationModalComponent', () => {
   let component: ConfirmationModalComponent;

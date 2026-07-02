@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { signal } from '@angular/core';
 import { BreadcrumbComponent } from './breadcrumb';
 import { BreadcrumbStateService } from './breadcrumb-state';
-import { I18nService } from '@portal-library';
+import { I18nService } from '@central-hub/library';
 import { vi } from 'vitest';
 
 describe('BreadcrumbComponent', () => {

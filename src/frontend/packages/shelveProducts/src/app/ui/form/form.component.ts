@@ -12,7 +12,7 @@ import { TableService } from '../table/table.service';
 import { ToastrService } from 'ngx-toastr';
 import { SideNavService } from '../../services/side-nav.service';
 import { StatisticsPanelService } from '../statistics-panel/statistics-panel.service';
-import { ButtonComponent, InternalizationPipe } from '@portal-library';
+import { ButtonComponent, InternalizationPipe } from '@central-hub/library';
 import { MatAutocomplete, MatAutocompleteSelectedEvent, MatAutocompleteTrigger } from '@angular/material/autocomplete';
 import { Subscription } from 'rxjs';
 
