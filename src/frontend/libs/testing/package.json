@@ -2,8 +2,7 @@
   "name": "@central-hub/testing",
   "version": "0.0.1",
   "peerDependencies": {
-    "@angular/common": "^21.2.0",
-    "@angular/core": "^21.2.0"
+    "@angular/cdk": "^21.2.9"
   },
   "sideEffects": false
 }
