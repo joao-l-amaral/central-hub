@@ -9,15 +9,15 @@ interface State {
 @Injectable()
 export class AuthState {
 
-    private readonly defaultState = {
+    readonly #defaultState = {
         isLoggedIn: false,
         userName: "",
         idToken: "",
     }
 
-    readonly state = signal<State>(this.defaultState)
+    readonly state = signal<State>(this.#defaultState)
 
     restoreState() {
-        this.state.set(this.defaultState);
+        this.state.set(this.#defaultState);
     }
 }

@@ -27,11 +27,16 @@
       "defaultConfiguration": "production"
     },
     "test": {
-        "executor": "@nx/vitest:test",
-        "outputs": ["{options.reportsDirectory}"],
-        "options": {
-            "reportsDirectory": "coverage/packages/portal-lib"
-        }
+      "executor": "@angular/build:unit-test",
+      "options": {
+        "buildTarget": "portal:build:development",
+        "watch": false,
+        "coverage": true,
+        "coverageReporters": ["text", "html", "lcov"],
+        "coverageExclude": [
+          "**/*.harness.ts"
+        ]
+      }
     },
     "storybook": {
       "executor": "@storybook/angular:start-storybook",

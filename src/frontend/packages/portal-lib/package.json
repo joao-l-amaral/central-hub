@@ -4,7 +4,8 @@
   "peerDependencies": {
     "@angular/common": "^21.2.0",
     "@angular/core": "^21.2.0",
-    "vite": "^5.0.0"
+    "vite": "^6.0.0",
+    "vitest": "^4.0.8"
   },
   "sideEffects": false
 }

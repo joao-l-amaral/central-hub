@@ -1,18 +1,21 @@
 import {Injectable, isDevMode} from "@angular/core";
 import {LoggingLevelEnum} from "./logging-enum";
 
+type LogHandler = (message: string, ...args: unknown[]) => void;
+
 @Injectable()
 export class LoggingService {
 
-    //For unit testing purpose
-    isDevMode(): boolean {
-        return isDevMode();
-    }
+    readonly #handlers: Record<LoggingLevelEnum, LogHandler> = {
+      /* eslint-disable no-console */
+      [LoggingLevelEnum.INFO]: (message, ...args) => console.log(message, ...args),
+      [LoggingLevelEnum.ERROR]: (message, ...args) => console.error(message, ...args),
+      [LoggingLevelEnum.WARN]: (message, ...args) => console.warn(message, ...args)
+      /* eslint-enable no-console */
+    };
 
     log(message: string, ...args: unknown[]): void {
-        if (this.isDevMode()) {
-            this.#message(LoggingLevelEnum.INFO, message, ...args);
-        }
+        this.#message(LoggingLevelEnum.INFO, message, ...args);
     }
 
     warn(message: string, ...args: unknown[]): void {
@@ -24,19 +27,6 @@ export class LoggingService {
     }
 
     #message(level: LoggingLevelEnum, message: string, ...args: unknown[]): void {
-        /* eslint-disable no-console */
-        switch (level) {
-            case LoggingLevelEnum.INFO:
-                console.log(`${message}`, ...args);
-                break;
-            case LoggingLevelEnum.ERROR:
-                console.error(`${message}`, ...args);
-                break;
-            case LoggingLevelEnum.WARN:
-                console.warn(`${message}`, ...args);
-                break;
-            default:
-        }
-        /* eslint-enable no-console */
+        this.#handlers[level](message, ...args);
     }
 }

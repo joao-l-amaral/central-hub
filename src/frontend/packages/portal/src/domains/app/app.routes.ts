@@ -1,4 +1,3 @@
-import { Route } from '@angular/router';
 import { loadRemoteModule } from '@angular-architects/native-federation';
 import { I18nInitialization } from '@portal-library';
 import { inject } from '@angular/core';
@@ -12,16 +11,10 @@ function createRemoteI18nResolver(remoteName: string) {
 }
 
 export function createDynamicRoutes(remotesConfig: RemotesConfig) {
-  const routes: Route[] = [];
-
-  for (const remote of remotesConfig) {
-    routes.push({
-      path: remote.name,
-      resolve: { i18n: createRemoteI18nResolver(remote.name) },
-      loadChildren: () =>
-        loadRemoteModule(remote.name, './Routes').then((m) => m.remoteRoutes),
-    });
-  }
-
-  return routes;
+  return remotesConfig.map((remote) => ({
+    path: remote.name,
+    resolve: { i18n: createRemoteI18nResolver(remote.name) },
+    loadChildren: () =>
+      loadRemoteModule(remote.name, './Routes').then((m) => m.remoteRoutes),
+  }));
 }

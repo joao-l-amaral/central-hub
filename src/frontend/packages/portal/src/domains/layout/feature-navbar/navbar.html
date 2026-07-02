@@ -19,14 +19,13 @@
               }
           </ul>
 
-          @if (isAuthActivate) {
+          @if (isAuthActivate()) {
               <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                   @if(!authState().isLoggedIn) {
                       <button
                           type="button"
-                          class="nav-link icon-text-wrapper"
+                          class="nav-link icon-text-wrapper nav-login"
                           (click)="onLogin()"
-                          [disabled]="isAuthActivate"
                       >
                           <mat-icon>login</mat-icon>
                           <span class="link-label">Login</span>
@@ -35,7 +34,7 @@
                   @else {
                       <li class="nav-item dropdown">
                           <a
-                              class="nav-link dropdown-toggle"
+                              class="nav-link dropdown-toggle nav-logout-text"
                               href="#"
                               id="navbarDropdown"
                               role="button"
@@ -46,7 +45,7 @@
                           </a>
                           <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                               <li class="nav-item">
-                                  <button type="button" class="dropdown-item icon-text-wrapper" (click)="onLogout()">
+                                  <button type="button" class="dropdown-item icon-text-wrapper nav-logout" (click)="onLogout()">
                                       <mat-icon>logout</mat-icon>
                                       <span class="link-label">Logout</span>
                                   </button>

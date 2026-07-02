@@ -4,7 +4,9 @@ import { Injectable, signal } from '@angular/core';
 export class I18nService {
   readonly #i18n = signal<Map<string, string> | undefined>(undefined);
 
-
+  get i18n() {
+    return this.#i18n();
+  }
 
   merge(dictionary: Map<string, string>) {
     this.#i18n.update((prev) => {

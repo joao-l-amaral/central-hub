@@ -37,4 +37,21 @@ describe('SearchInputComponent', () => {
 
     expect(spy).toHaveBeenCalledWith('test query');
   });
+
+  it('should emit searchValue on search with on press keydown', () => {
+    vi.useFakeTimers();
+    const spy = vi.spyOn(component.searchValue, 'emit');
+    fixture.componentRef.setInput('onKeySearch', true);
+    fixture.detectChanges();
+
+    component.searchForm.setValue('test query');
+
+    vi.advanceTimersByTime(300);
+    fixture.detectChanges();
+
+    expect(spy).toHaveBeenCalledWith('test query');
+
+    vi.useRealTimers();
+  });
+
 });

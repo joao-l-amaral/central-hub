@@ -13,7 +13,7 @@ export class CircleComponent {
     readonly id = input.required<string>();
     readonly icon = input<string>();
     readonly label = input<string>();
-    readonly selected = input.required<boolean>();
+    readonly selected = input<boolean>(false);
     readonly clicked = output<string>()
 
     readonly selectionStyle = computed(() => {
@@ -23,13 +23,6 @@ export class CircleComponent {
     onAction() {
         if (this.selected()) {
             this.clicked.emit(this.id())
-        }
-    }
-
-    onKeyDown(event: KeyboardEvent) {
-        if (event.key === 'Enter' || event.key === ' ') {
-            event.preventDefault();
-            this.onAction();
         }
     }
 }

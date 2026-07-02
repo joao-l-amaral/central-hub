@@ -1,10 +1,8 @@
 package pt.amaralsoftware.api;
 
-import io.quarkus.security.Authenticated;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
-
 import org.apache.commons.collections4.CollectionUtils;
 import org.jboss.resteasy.reactive.RestResponse;
 import org.slf4j.Logger;

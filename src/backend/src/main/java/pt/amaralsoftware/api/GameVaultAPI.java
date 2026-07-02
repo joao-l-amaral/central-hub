@@ -10,7 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pt.amaralsoftware.config.LoadGameDatabaseSchedule;
 import pt.amaralsoftware.models.DTO.gamevault.GameVaultPlatformDTO;
-import pt.amaralsoftware.models.GameVaultConfiguration;
+import pt.amaralsoftware.models.configuration.GameVaultConfiguration;
 import pt.amaralsoftware.service.CatConfigService;
 import pt.amaralsoftware.service.CatGamePlatformService;
 

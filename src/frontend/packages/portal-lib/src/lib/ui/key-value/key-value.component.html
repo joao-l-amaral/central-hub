@@ -1,0 +1,17 @@
+<div class="element">
+    <div
+        class="element_label col-{{ colArea() }}"
+        title="{{ label() }}"
+    >
+        {{ label() }}
+        @if (subLabel()) {
+            <span>{{ subLabel() }}</span>
+        }
+    </div>
+    <div
+        class="element_value col-{{colArea()}} {{ clazz() }}"
+        title="{{ value() }}"
+    >
+        {{ value() }}
+    </div>
+</div>

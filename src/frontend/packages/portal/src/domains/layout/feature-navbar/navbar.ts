@@ -27,7 +27,7 @@ export class NavbarComponent {
   );
   readonly remotes = inject(REMOTES_CONFIG);
 
-  isAuthActivate = this.#applicationConfigurationService.isAuthActivate();
+  isAuthActivate = this.#applicationConfigurationService.isAuthActivate;
 
   readonly authState = computed(() => this.#authState.state());
 

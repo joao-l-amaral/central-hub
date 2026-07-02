@@ -12,31 +12,15 @@ describe('LoggingService', () => {
         service = TestBed.inject(LoggingService);
     });
 
+
     it('logs info messages in dev mode', () => {
         const spy = vi.spyOn(console, 'log').mockImplementation(() => {
             // noop
         });
-        const devModeSpy = vi.spyOn(service, 'isDevMode').mockReturnValue(true);
 
         service.log(LoggingLevelEnum.INFO, 'hello', 1, 2);
 
         expect(spy).toHaveBeenCalledWith('LOG', 'hello', 1, 2);
-
-        devModeSpy.mockRestore();
-        spy.mockRestore();
-    });
-
-    it('logs info messages in prod mode', () => {
-        const spy = vi.spyOn(console, 'log').mockImplementation(() => {
-            // noop
-        });
-        const devModeSpy = vi.spyOn(service, 'isDevMode').mockReturnValue(false);
-
-        service.log(LoggingLevelEnum.INFO, 'hello', 1, 2);
-
-        expect(spy).not.toHaveBeenCalled();
-
-        devModeSpy.mockRestore();
         spy.mockRestore();
     });
 

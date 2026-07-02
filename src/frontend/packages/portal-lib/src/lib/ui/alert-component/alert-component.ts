@@ -23,21 +23,14 @@ export class AlertComponent {
   readonly visible = input(true);
   readonly visibleChange = output<boolean>();
 
+  readonly #iconClassHandler = {
+    ["warning"]: "bi bi-exclamation-triangle",
+    ["danger"]: "bi bi-x-circle",
+    ["info"]: "bi bi-info-circle"
+  }
+
   readonly icon = computed(() => {
-    let icon: string;
-
-    switch (this.status()) {
-      case 'warning':
-        icon = 'bi bi-exclamation-triangle';
-        break;
-      case 'danger':
-        icon = 'bi bi-x-circle';
-        break;
-      default:
-        icon = 'bi bi-info-circle';
-    }
-
-    return icon;
+    return this.#iconClassHandler[this.status()];
   });
 
   onClose() {
