@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { AlertComponent } from './alert-component';
 import { TestbedHarnessEnvironment } from '@angular/cdk/testing/testbed';
-import { AlertComponentHarness } from './alert-component.harness';
+import { AlertComponentHarness } from '../../../../../../libs/testing/src/lib/alert-component/alert-component.harness';
 import {expect} from "vitest";
 
 describe('AlertComponent', () => {

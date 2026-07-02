@@ -6,7 +6,7 @@ import { ApplicationConfigurationService } from '../../shared/util-application/a
 import { REMOTES_CONFIG } from '../../shared/util-application/application-remotes-token';
 import { expect } from 'vitest';
 import { TestbedHarnessEnvironment } from '@angular/cdk/testing/testbed';
-import { NavbarHarness } from './navbar.harness';
+import { NavbarHarness } from '../../../../../../libs/testing/src/lib/navbar/navbar.harness';
 import { signal, WritableSignal } from '@angular/core';
 
 describe('NavComponent', () => {
