@@ -1,7 +1,5 @@
 package pt.amaralsoftware.models.configuration;
 
-import java.util.List;
-
 public class ApplicationConfiguration {
     Boolean isAuthActivate;
 

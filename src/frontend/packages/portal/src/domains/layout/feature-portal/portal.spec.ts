@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { PortalComponent } from './portal';
-import { AuthApi, AuthState, I18nService } from '@portal-library';
+import { AuthApi, AuthState, I18nService } from '@central-hub/library';
 import { provideRouter, Router } from '@angular/router';
 import { BreadcrumbStateService } from '../feature-breadcrumb/breadcrumb-state';
 import { ApplicationConfigurationService } from '../../shared/util-application/application-configuration-service';

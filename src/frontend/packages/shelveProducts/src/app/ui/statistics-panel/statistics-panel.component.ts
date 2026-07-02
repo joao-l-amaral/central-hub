@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@a
 
 import { MatExpansionModule } from '@angular/material/expansion';
 import { StatisticsPanelService } from './statistics-panel.service';
-import { InternalizationPipe, KeyValueComponent } from '@portal-library';
+import { InternalizationPipe, KeyValueComponent } from '@central-hub/library';
 
 @Component({
     selector: 'sp-statistics-panel-component',

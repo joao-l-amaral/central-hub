@@ -24,7 +24,7 @@ import { StatisticsPanelService } from '../ui/statistics-panel/statistics-panel.
 import { ToastrService } from 'ngx-toastr';
 import { MatDialog } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
-import { ConfirmationModalComponent, I18nService, InternalizationPipe, LoggingService } from '@portal-library';
+import { ConfirmationModalComponent, I18nService, InternalizationPipe, LoggingService } from '@central-hub/library';
 import { SelectionModel } from '@angular/cdk/collections';
 import { ShelveProduct } from '../interface/shelve-product.interface';
 

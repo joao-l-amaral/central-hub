@@ -1,0 +1,11 @@
+<div
+    class="circle-container {{ selectionStyle() }}"
+    [ngClass]="{'hover-enabled': selected()}"
+    [attr.tabindex]="selected() ? 0 : null"
+    (click)="onAction()"
+>
+    <i [ngClass]="icon()"></i>
+    @if(label()) {
+        <span>{{ label() }}</span>
+    }
+</div>

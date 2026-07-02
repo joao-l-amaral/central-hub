@@ -5,7 +5,7 @@ import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import pt.amaralsoftware.models.GameVaultConfiguration;
+import pt.amaralsoftware.models.configuration.GameVaultConfiguration;
 import pt.amaralsoftware.models.entity.CatConfigEntity;
 import pt.amaralsoftware.repository.CatConfigRepository;
 import pt.amaralsoftware.util.JSONSerializer;

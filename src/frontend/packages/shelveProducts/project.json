@@ -46,7 +46,14 @@
     "test": {
       "executor": "@angular/build:unit-test",
       "options": {
-        "watch": false
+        "buildTarget": "portal:build:development",
+        "watch": false,
+        "coverage": true,
+        "coverageReporters": ["text", "html", "lcov"],
+        "coverageExclude": [
+          "**/*.harness.ts",
+          "**/portal-lib/*"
+        ]
       }
     },
     "serve-static": {

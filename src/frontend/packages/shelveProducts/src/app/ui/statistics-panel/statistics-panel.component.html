@@ -6,15 +6,15 @@
         <ng-template matExpansionPanelContent>
             <div class="body">
                 <lib-key-value
-                    [key]="'statistic.panel.total' | translate"
-                    [subKey]="'statistic.panel.description' | translate"
+                    [label]="'statistic.panel.total' | translate"
+                    [subLabel]="'statistic.panel.description' | translate"
                     [value]="totalCalories()"
                     [clazz]="totalCaloriesStatus()"
                 />
                 @for(statistic of statistics(); track statistic.productName) {
                     <lib-key-value
-                        [key]="statistic.productName"
-                        subKey="{{ statistic.barCode + ' - ' + statistic.calories + '(kcal)' }}"
+                        [label]="statistic.productName"
+                        subLabel="{{ statistic.barCode + ' - ' + statistic.calories + '(kcal)' }}"
                         [value]="statistic.productCount"
                     />
                 }

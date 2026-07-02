@@ -1,7 +1,7 @@
 import { inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ApplicationConfigurationService } from '../shared/util-application/application-configuration-service';
-import { AuthApi } from '@portal-library';
+import { AuthApi } from '@central-hub/library';
 import { firstValueFrom } from 'rxjs';
 
 export interface AppConfiguration {

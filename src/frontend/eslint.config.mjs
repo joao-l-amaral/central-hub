@@ -106,6 +106,7 @@ export default [
       '@angular-eslint/template/button-has-type': 'warn',
       '@angular-eslint/template/use-track-by-function': 'warn',
       '@angular-eslint/template/prefer-self-closing-tags': 'warn',
+      "@angular-eslint/template/click-events-have-key-events": "off"
     }
   },
   {

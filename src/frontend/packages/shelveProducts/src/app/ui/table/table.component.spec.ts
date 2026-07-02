@@ -7,7 +7,7 @@ import {SideNavService} from "../../services/side-nav.service";
 import {provideToastr} from "ngx-toastr";
 import {provideHttpClient} from "@angular/common/http";
 import {provideHttpClientTesting} from "@angular/common/http/testing";
-import { I18nService } from '@portal-library';
+import { I18nService } from '@central-hub/library';
 
 describe('TableComponent', () => {
   let component: TableComponent;

@@ -1,0 +1,80 @@
+{
+  "name": "@portal-library",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/portal-lib/src",
+  "prefix": "lib",
+  "projectType": "library",
+  "tags": ["scope:shared", "type:lib"],
+  "targets": {
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    },
+    "build": {
+      "executor": "@angular/build:ng-packagr",
+      "options": {
+        "project": "libs/portal-lib/ng-package.json",
+        "tsConfig": "libs/portal-lib/tsconfig.lib.json"
+      },
+      "configurations": {
+        "production": {
+          "tsConfig": "libs/portal-lib/tsconfig.lib.prod.json"
+        },
+        "development": {}
+      },
+      "defaultConfiguration": "production"
+    },
+    "test": {
+      "executor": "@angular/build:unit-test",
+      "options": {
+        "buildTarget": "@portal-library:build",
+        "watch": false,
+        "coverage": true,
+        "coverageReporters": ["text", "html", "lcov"],
+        "coverageExclude": [
+          "**/*.harness.ts"
+        ]
+      }
+    },
+    "storybook": {
+      "executor": "@storybook/angular:start-storybook",
+      "options": {
+        "port": 4400,
+          "configDir": "libs/portal-lib/.storybook",
+        "browserTarget": "@portal-library:build-storybook",
+        "compodoc": false,
+        "styles": [
+          "@angular/material/prebuilt-themes/azure-blue.css",
+          "node_modules/bootstrap-icons/font/bootstrap-icons.css",
+          "libs/portal/src/styles.scss"
+        ]
+      },
+      "configurations": {
+        "ci": {
+          "quiet": true
+        }
+      }
+    },
+    "build-storybook": {
+      "executor": "@storybook/angular:build-storybook",
+      "options": {
+        "configDir": "libs/portal-lib/.storybook",
+        "browserTarget": "@portal-library:build-storybook",
+        "outputDir": "dist/storybook/portal-lib"
+      }
+    },
+    "static-storybook": {
+      "executor": "@nx/web:file-server",
+      "dependsOn": ["build-storybook"],
+      "options": {
+        "buildTarget": "@portal-library:build-storybook",
+        "staticFilePath": "dist/storybook/@portal-library",
+        "spa": true
+      },
+      "configurations": {
+        "ci": {
+          "buildTarget": "@portal-library:build-storybook:ci"
+        }
+      }
+    }
+  }
+}

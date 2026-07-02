@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { StatisticsPanelComponent } from './statistics-panel.component';
 import {StatisticsPanelService} from "./statistics-panel.service";
 import {ShelveProductService} from "../../data-source/shelve-product.service";
-import { I18nService } from '@portal-library';
+import { I18nService } from '@central-hub/library';
 
 describe('StatisticsPanelComponent', () => {
   let component: StatisticsPanelComponent;

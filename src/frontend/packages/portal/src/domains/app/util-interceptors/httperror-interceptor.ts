@@ -5,7 +5,7 @@ import {
 } from '@angular/common/http';
 import { catchError, throwError } from 'rxjs';
 import {inject} from "@angular/core";
-import {LoggingService} from "@portal-library";
+import {LoggingService} from "@central-hub/library";
 
 export function httpErrorInterceptor(
   req: HttpRequest<unknown>,

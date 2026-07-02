@@ -9,10 +9,7 @@ import org.jboss.resteasy.reactive.RestResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pt.amaralsoftware.models.DTO.application.RemoteDTO;
-import pt.amaralsoftware.models.DTO.auth.UserInfoDTO;
-import pt.amaralsoftware.models.Remotes;
 import pt.amaralsoftware.models.configuration.ApplicationConfiguration;
-import pt.amaralsoftware.repository.GuiRemoteRepository;
 import pt.amaralsoftware.service.ApplicationService;
 import pt.amaralsoftware.service.GuiRemoteService;
 

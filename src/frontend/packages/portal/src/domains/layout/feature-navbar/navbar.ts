@@ -5,7 +5,7 @@ import {
   inject,
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { AuthApi, AuthState } from '@portal-library';
+import { AuthApi, AuthState } from '@central-hub/library';
 import { MatIcon } from '@angular/material/icon';
 import { ApplicationConfigurationService } from '../../shared/util-application/application-configuration-service';
 import { REMOTES_CONFIG } from '../../shared/util-application/application-remotes-token';
@@ -27,7 +27,7 @@ export class NavbarComponent {
   );
   readonly remotes = inject(REMOTES_CONFIG);
 
-  isAuthActivate = this.#applicationConfigurationService.isAuthActivate();
+  isAuthActivate = this.#applicationConfigurationService.isAuthActivate;
 
   readonly authState = computed(() => this.#authState.state());
 

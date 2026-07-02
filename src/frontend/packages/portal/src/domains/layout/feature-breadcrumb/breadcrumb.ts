@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, Component, inject} from '@angular/core';
 import { BreadcrumbStateService } from './breadcrumb-state';
-import { InternalizationPipe } from '@portal-library';
+import { InternalizationPipe } from '@central-hub/library';
 
 @Component({
     selector: 'ch-breadcrumb',

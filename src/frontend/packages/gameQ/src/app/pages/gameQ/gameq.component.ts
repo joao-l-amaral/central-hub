@@ -8,7 +8,7 @@ import { MatSlideToggle } from '@angular/material/slide-toggle';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { AdministrationComponent } from '../administration/administration.component';
 import { Subscription } from 'rxjs';
-import { InternalizationPipe } from '@portal-library';
+import { InternalizationPipe } from '@central-hub/library';
 
 @Component({
   selector: 'gameq-vault-home',

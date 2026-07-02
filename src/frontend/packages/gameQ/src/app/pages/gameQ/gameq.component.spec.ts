@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import {GameQComponent} from "./gameq.component";
-import { I18nService } from '@portal-library';
+import { I18nService } from '@central-hub/library';
 
 describe('GameQComponent', () => {
   let component: GameQComponent;

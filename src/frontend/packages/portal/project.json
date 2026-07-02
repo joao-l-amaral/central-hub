@@ -40,8 +40,7 @@
         "target": "portal:serve-original:development",
         "rebuildDelay": 500,
         "dev": true,
-        "port": 4200,
-        "viteConfigFile": "packages/portal/vite.config.mts"
+        "port": 4200
       },
       "continuous": true
     },
@@ -51,7 +50,14 @@
     "test": {
       "executor": "@angular/build:unit-test",
       "options": {
-        "watch": false
+        "buildTarget": "portal:build:development",
+        "watch": false,
+        "coverage": true,
+        "coverageReporters": ["text", "html", "lcov"],
+        "coverageExclude": [
+          "**/*.harness.ts",
+          "**/portal-lib/*"
+        ]
       }
     },
     "serve-static": {
