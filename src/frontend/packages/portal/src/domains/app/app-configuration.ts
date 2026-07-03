@@ -1,8 +1,8 @@
 import { inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ApplicationConfigurationService } from '../shared/util-application/application-configuration-service';
-import { AuthApi } from '@central-hub/library';
 import { firstValueFrom } from 'rxjs';
+import {AuthApi} from "@central-hub/library";
 
 export interface AppConfiguration {
     isAuthActivate: boolean
