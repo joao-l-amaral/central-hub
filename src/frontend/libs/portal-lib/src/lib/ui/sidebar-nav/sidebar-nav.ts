@@ -16,13 +16,13 @@ import {
 } from './sidebar-interface';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { NgClass } from '@angular/common';
-import { InternalizationPipe } from '../../pipes';
+import { InternalizationPipe } from '../../util-i18n';
 
 @Component({
   selector: 'lib-nav-panel-module',
   templateUrl: 'sidebar-nav.html',
   styleUrls: ['sidebar-nav.scss'],
-  imports: [RouterOutlet, NgClass, InternalizationPipe],
+  imports: [RouterOutlet, NgClass, InternalizationPipe, InternalizationPipe],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SideBarNavigationComponent {
