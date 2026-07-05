@@ -1,6 +1,6 @@
 import { ActivatedRouteSnapshot, Route } from '@angular/router';
 import { GameQComponent } from '../pages/gameQ/gameq.component';
-import { I18nService, PageResourcesComponentConfig } from '@central-hub/library';
+import {I18nService, PageResourcesComponentConfig, SideBarNavigationComponent} from '@central-hub/library';
 import { AdministrationComponent } from '../pages/administration/administration.component';
 import { PageSampleComponent } from '../pages/pageSample/page-sample.component';
 import { inject } from '@angular/core';
@@ -32,7 +32,7 @@ function resolverFn(
 export const remoteRoutes: Route[] = [
   {
     path: '',
-    loadComponent: () => import('@central-hub/library').then((m) => m.SideBarNavigationComponent),
+    component: SideBarNavigationComponent,
     // data: {
     //     config: {
     //         resources: [

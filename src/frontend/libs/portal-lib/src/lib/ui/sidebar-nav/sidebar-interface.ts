@@ -9,3 +9,5 @@ export interface ResourceConfig {
 export interface PageResourcesComponentConfig {
   resources: ResourceConfig[];
 }
+
+export type ResourceConfigurations = ResourceConfig[];

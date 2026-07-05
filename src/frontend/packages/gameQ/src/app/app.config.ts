@@ -9,10 +9,10 @@ import {
   provideHttpClient,
   withInterceptorsFromDi,
 } from '@angular/common/http';
-import { LoggingService } from '@central-hub/library';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { provideToastr } from 'ngx-toastr';
+import {LoggingService} from "@central-hub/library";
 
 export const appConfig: ApplicationConfig = {
   providers: [

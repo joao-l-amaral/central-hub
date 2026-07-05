@@ -31,7 +31,9 @@
         "coverage": true,
         "coverageReporters": ["text", "html", "lcov"],
         "coverageExclude": [
-          "**/*.harness.ts"
+          "**/*.harness.ts",
+          "**/*.stories.ts",
+          "**/*.pipe.ts"
         ]
       }
     },
@@ -45,7 +47,7 @@
         "styles": [
           "@angular/material/prebuilt-themes/azure-blue.css",
           "node_modules/bootstrap-icons/font/bootstrap-icons.css",
-          "libs/portal/src/styles.scss"
+          "packages/portal/src/styles.scss"
         ]
       },
       "configurations": {

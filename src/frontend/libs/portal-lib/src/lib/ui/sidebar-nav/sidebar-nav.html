@@ -9,6 +9,8 @@
           <a
             class="element"
             (click)="optionHandler(option.component)"
+            role="button"
+            tabIndex={0}
           >
             <i [ngClass]="option.icon"></i>
             <span class="icon-text">{{ option.label  | translate }}</span>
