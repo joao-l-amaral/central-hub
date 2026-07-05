@@ -1,0 +1,31 @@
+<div class="sidenav">
+  <nav class="nav">
+    <ul>
+      @for(option of dataResourcesOptions(); track option) {
+        <li
+          class="ico-nav"
+          [class.active-link]="selectedOption() === option.component"
+        >
+          <a
+            class="element"
+            (click)="optionHandler(option.component)"
+            role="button"
+            tabIndex={0}
+          >
+            <i [ngClass]="option.icon"></i>
+            <span class="icon-text">{{ option.label  | translate }}</span>
+          </a>
+        </li>
+      }
+    </ul>
+  </nav>
+</div>
+
+<div class="content">
+  @if(usingSideNav()) {
+    <ng-container #bodyArea/>
+  }
+  @else {
+    <router-outlet/>
+  }
+</div>
