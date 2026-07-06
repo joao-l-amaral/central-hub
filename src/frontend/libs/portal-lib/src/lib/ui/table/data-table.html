@@ -1,0 +1,14 @@
+<table class="table">
+  <thead>
+    <tr>
+        @for(col of columns(); track col.header()) {
+          <ng-container
+            *ngTemplateOutlet="col.headerTemplate()?.template;  context: { $implicit: col.key() }"
+          ></ng-container>
+        }
+    </tr>
+  </thead>
+  <tbody>
+
+  </tbody>
+</table>
