@@ -1,6 +1,6 @@
-import {ChangeDetectionStrategy, Component, contentChildren, effect} from '@angular/core';
-import {DataTableCol} from "./col/data-table-col";
+import {ChangeDetectionStrategy, Component, contentChildren, input} from '@angular/core';
 import {NgTemplateOutlet} from "@angular/common";
+import {DataTableCell} from "./feature-data-table-cell/data-table-cell";
 
 @Component({
   selector: 'lib-table-dt',
@@ -13,16 +13,17 @@ import {NgTemplateOutlet} from "@angular/common";
 export class TableDtComponent<RECORD> {
   // TODO
   //1º fase -> columns [DONE]
-  //2º fase -> rows
-  //3º fase -> static
-  //4º fase -> remote
+  //2º fase -> rows  [DONE]
+  //3º fase -> staticDataSource
+  //4º fase -> remoteDataSource
+  //5º fase -> pagination
+  //6º fase -> search
+  //7º fase -> actions column
 
-  readonly columns = contentChildren(DataTableCol<RECORD>);
+  readonly rows = input.required<readonly TRow[]>();
 
-  constructor() {
-    effect(()=> {
-      console.log(this.columns())
-    })
-  }
+  readonly columns = contentChildren(DataTableCell, {
+    descendants: true,
+  });
 
 }

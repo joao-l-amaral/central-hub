@@ -1,14 +1,39 @@
 <table class="table">
   <thead>
-    <tr>
-        @for(col of columns(); track col.header()) {
-          <ng-container
-            *ngTemplateOutlet="col.headerTemplate()?.template;  context: { $implicit: col.key() }"
-          ></ng-container>
-        }
-    </tr>
+  <tr>
+    <!-- TODO: Exportar isto para um component de header -->
+    @for (col of columns(); track col.key()) {
+      <th scope="col">
+        {{ col.header() }}
+      </th>
+    }
+  </tr>
   </thead>
-  <tbody>
 
+  <tbody>
+    @for (row of rows(); track $index) {
+      <tr>
+        @for (col of columns(); track col.key()) {
+          <td>
+            <!-- TODO: Exportar isto para um component de cell -->
+            @if (col.cellTemplate(); as tpl) {
+              <ng-container
+                *ngTemplateOutlet="
+                  tpl.template;
+                  context: {
+                    $implicit: row[col.key()],
+                    row: row,
+                    value: row[col.key()],
+                    key: col.key()
+                  }
+                "
+              ></ng-container>
+            } @else {
+              {{ row[col.key()] }}
+            }
+          </td>
+        }
+      </tr>
+    }
   </tbody>
 </table>

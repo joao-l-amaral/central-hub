@@ -13,3 +13,5 @@ export interface ChTablePaginator {
   pageSizeOptions?: number[];  //  [10, 25, 50]
   total: number;
 } */
+
+type TRow = Record<string, unknown>;
