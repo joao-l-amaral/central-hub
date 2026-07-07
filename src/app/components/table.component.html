@@ -1,13 +1,13 @@
-@if (col.cellTemplate; as tpl) {
-  <ng-container
-    *ngTemplateOutlet="
-      tpl.template;
-      context: {
-        $implicit: row[col.key()],
-        row: row,
-        value: row[col.key()],
-        key: col.key()
-      }
-    "
-  ></ng-container>
-}
+@if (col.cellTemplate(); as tpl) {
+              <ng-container
+                *ngTemplateOutlet="
+                  tpl.template;
+                  context: {
+                    $implicit: row[col.key()],
+                    row: row,
+                    value: row[col.key()],
+                    key: col.key()
+                  }
+                "
+              ></ng-container>
+            }
