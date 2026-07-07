@@ -1,10 +1,11 @@
 <table class="table">
   <thead>
   <tr>
-    <!-- TODO: Exportar isto para um component de header -->
     @for (col of columns(); track col.key()) {
       <th scope="col">
-        {{ col.header() }}
+        <lib-table-dt-header
+          [value]="col.header()"
+        ></lib-table-dt-header>
       </th>
     }
   </tr>
@@ -15,7 +16,6 @@
       <tr>
         @for (col of columns(); track col.key()) {
           <td>
-            <!-- TODO: Exportar isto para um component de cell -->
             @if (col.cellTemplate(); as tpl) {
               <ng-container
                 *ngTemplateOutlet="
@@ -28,8 +28,6 @@
                   }
                 "
               ></ng-container>
-            } @else {
-              {{ row[col.key()] }}
             }
           </td>
         }

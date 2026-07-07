@@ -1,5 +1,5 @@
 export interface DataTableCellContext<
-  TRow extends Record<string, unknown> = Record<string, unknown>,
+  TRow = Record<string, unknown>,
   TValue = unknown,
 > {
   $implicit: TValue;
