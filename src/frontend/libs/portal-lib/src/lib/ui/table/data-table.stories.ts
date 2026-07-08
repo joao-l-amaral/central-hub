@@ -66,6 +66,7 @@ export const SideBarNavInput: Story = {
       { name: 'aaa', age: 45, role: 'aaa' },
       { name: 'bbbb', age: 45, role: 'bbb' },
       { name: 'zzzzz', age: 45, role: 'bbb', function: '---' },
+      { name: '<<<zzzzz>>>', age: 11, role: '<<bbb>>', function: '<<--->>' },
     ]
   },
   argTypes: {

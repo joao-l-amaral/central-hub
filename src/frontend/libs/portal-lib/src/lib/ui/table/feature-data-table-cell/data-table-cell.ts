@@ -10,5 +10,5 @@ export class DataTableCol<TRow extends Record<string, unknown>> {
   readonly header = input.required<string>();
   readonly key = input.required<keyof TRow & string>();
 
-  readonly cellTemplate = contentChild(DtCellTemplateDirective);
+  readonly cellTemplate = contentChild(DtCellTemplateDirective<TRow, TRow[keyof TRow & string]>);
 }
