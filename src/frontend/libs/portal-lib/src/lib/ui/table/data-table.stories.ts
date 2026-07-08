@@ -7,6 +7,8 @@ import {
 import {TableDtComponent} from "./data-table";
 import {DataTableCol} from "./feature-data-table-cell/data-table-cell";
 import {DtCellTemplateDirective} from "./util-data-table-commons/data-table-cell-template-directive";
+import {StaticDataSource} from "./util-datasource/static-data-source";
+import {TRow} from './data-table.types';
 
 const meta: Meta<TableDtComponent> = {
   component: TableDtComponent,
@@ -60,13 +62,14 @@ export const TableDataTableInput: Story = {
     `,
   }),
   args: {
-    rows: [
+    dataSource: new StaticDataSource<TRow>([
       { name: 'Chris', age: 22, role: 'Author' },
       { name: 'Dennis', age: 45, role: 'Reviewer' },
       { name: 'aaa', age: 45, role: 'aaa' },
       { name: 'bbbb', age: 45, role: 'bbb' },
       { name: 'zzzzz', age: 45, role: 'bbb', function: '---' },
-    ]
+      { name: '1adada', age: 45, role: '2adasda', function: '21' },
+    ])
   },
   argTypes: {
 

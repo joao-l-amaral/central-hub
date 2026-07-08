@@ -14,4 +14,4 @@ export interface ChTablePaginator {
   total: number;
 } */
 
-type TRow = Record<string, unknown>;
+export type TRow = Record<string, unknown>;

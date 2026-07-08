@@ -33,6 +33,10 @@ export class RemoteDataSource<T> extends DataSource<T> {
     });
   }
 
+  getData(): T[] {
+    return this.#data.getValue();
+  }
+
   connect(): Observable<T[]> {
     return this.#data.asObservable();
   }

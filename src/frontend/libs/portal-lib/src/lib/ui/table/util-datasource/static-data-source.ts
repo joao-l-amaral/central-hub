@@ -13,6 +13,10 @@ export class StaticDataSource<T> extends DataSource<T> {
     this.#data.next(data);
   }
 
+  getData(): T[] {
+    return this.#data.getValue();
+  }
+
   connect(): Observable<T[]> {
     return this.#data.asObservable();
   }

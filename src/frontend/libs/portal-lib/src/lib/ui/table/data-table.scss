@@ -1,11 +1,3 @@
 .table-hover > tbody > tr:hover {
-  --bs-table-hover-bg: var(--color-accent)
-}
-
-:host {
-  @media (max-width: 780px) {
-    .hide-on-small {
-      display: none;
-    }
-  }
+  --bs-table-hover-bg: var(--color-accent);
 }
