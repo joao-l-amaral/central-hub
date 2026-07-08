@@ -6,7 +6,7 @@ import {TableDtHeaderComponent} from "./feature-data-table-cell/header/header";
 @Component({
   selector: 'lib-table-dt',
   templateUrl: 'data-table.html',
-  standalone: true,
+  styleUrl: 'data-table.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     NgTemplateOutlet,
@@ -16,8 +16,8 @@ import {TableDtHeaderComponent} from "./feature-data-table-cell/header/header";
 export class TableDtComponent {
   // TODO
   //1º fase -> columns [DONE]
-  //2º fase -> rows  [DONE]
-  //3º fase -> bootstrap table styles
+  //2º fase -> rows [DONE]
+  //3º fase -> bootstrap table styles [DONE]
   //4º fase -> staticDataSource
   //5º fase -> remoteDataSource
   //6º fase -> pagination

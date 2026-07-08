@@ -24,7 +24,7 @@ export default meta;
 
 type Story = StoryObj<TableDtComponent>;
 
-export const SideBarNavInput: Story = {
+export const TableDataTableInput: Story = {
   render: (args) => ({
     props: {
       ...args,
@@ -33,13 +33,13 @@ export const SideBarNavInput: Story = {
         <lib-table-dt
           ${argsToTemplate(args)}
         >
-          <lib-dt-col header="Name" key="name">
+          <lib-dt-col header="Name" key="name" class="hide-on-small">
             <ng-template dtTemplate let-value="value">
               {{ value }}
             </ng-template>
           </lib-dt-col>
 
-          <lib-dt-col header="Age" key="age">
+          <lib-dt-col header="Age" key="age" class="hide-on-small">
             <ng-template dtTemplate let-value="value">
               {{ value }}
             </ng-template>
@@ -66,7 +66,6 @@ export const SideBarNavInput: Story = {
       { name: 'aaa', age: 45, role: 'aaa' },
       { name: 'bbbb', age: 45, role: 'bbb' },
       { name: 'zzzzz', age: 45, role: 'bbb', function: '---' },
-      { name: '<<<zzzzz>>>', age: 11, role: '<<bbb>>', function: '<<--->>' },
     ]
   },
   argTypes: {
