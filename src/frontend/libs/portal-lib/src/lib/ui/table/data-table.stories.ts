@@ -62,6 +62,7 @@ export const TableDataTableInput: Story = {
     `,
   }),
   args: {
+    search: true,
     dataSource: new StaticDataSource<TRow>([
       { name: 'Chris', age: 22, role: 'Author' },
       { name: 'Dennis', age: 45, role: 'Reviewer' },
@@ -72,6 +73,8 @@ export const TableDataTableInput: Story = {
     ])
   },
   argTypes: {
-
+    search: {
+      control: { type: 'boolean' }
+    }
   },
 };

@@ -1,6 +1,6 @@
 import {BehaviorSubject, finalize, Observable} from 'rxjs';
-import { DataSource } from '@angular/cdk/collections';
-import { signal } from '@angular/core';
+import {DataSource} from '@angular/cdk/collections';
+import {signal} from '@angular/core';
 import {ChRemoteDataSourceOptions, ChTableParams} from "./data-source.types";
 
 /*
@@ -21,6 +21,8 @@ export class RemoteDataSource<T> extends DataSource<T> {
   readonly loading = signal(false);
   readonly total = signal(0);
 
+  data$ = this.#data.asObservable();
+
   constructor(readonly options: ChRemoteDataSourceOptions<T>) { super(); }
 
   load(params: ChTableParams): void {
@@ -33,8 +35,8 @@ export class RemoteDataSource<T> extends DataSource<T> {
     });
   }
 
-  getData(): T[] {
-    return this.#data.getValue();
+  filter(searchInput: string) {
+    return "TO BE IMPLEMENTED"
   }
 
   connect(): Observable<T[]> {
