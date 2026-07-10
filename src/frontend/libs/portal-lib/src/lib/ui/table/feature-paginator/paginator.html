@@ -1,0 +1,31 @@
+<div class="paginator-bar">
+  <div class="rows-per-page">
+    <label for="pageSizeSelect" class="form-label mb-0">{{ 'table-dt-paginator-label' | translate }}:</label>
+    <select
+      id="pageSizeSelect"
+      class="form-select form-select-sm"
+      [formField]="paginatorForm.paginatorPageSize"
+      (change)="onPageSizeChange($event)">
+      @for (size of pageSize(); track size) {
+        <option [value]="size">{{ size }}</option>
+      }
+      <option value="-1">{{ 'table-dt-paginator-all' | translate }}</option>
+    </select>
+  </div>
+
+  <span class="page-info" id="pageInfo">{{ centralLabel }}</span>
+
+  <!-- Navegação de páginas -->
+  <nav aria-label="Navegação de páginas">
+    <ul class="pagination pagination-sm mb-0" id="paginationList">
+      <li class="page-item" id="prevBtn">
+        <a class="page-link" href="#" aria-label="Anterior">&laquo;</a>
+      </li>
+      <!-- páginas numeradas geradas via JS -->
+      <li class="page-item" id="nextBtn">
+        <a class="page-link" href="#" aria-label="Seguinte">&raquo;</a>
+      </li>
+    </ul>
+  </nav>
+
+</div>

@@ -35,7 +35,15 @@ export class RemoteDataSource<T> extends DataSource<T> {
     });
   }
 
-  filter(searchInput: string) {
+  filter(searchInput: string, rowLimit?: number) {
+    return "TO BE IMPLEMENTED"
+  }
+
+  spliceData(spliceBy: number) {
+    return "TO BE IMPLEMENTED"
+  }
+
+  getTotalRecords() {
     return "TO BE IMPLEMENTED"
   }
 

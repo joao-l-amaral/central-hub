@@ -7,3 +7,4 @@ export interface DataTableCellContext<
   value: TValue;
   key: keyof TRow & string;
 }
+
