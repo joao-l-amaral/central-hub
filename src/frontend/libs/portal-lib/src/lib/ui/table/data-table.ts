@@ -27,11 +27,12 @@ export class TableDtComponent {
   //4º fase -> staticDataSource [DONE]
   //5º fase -> remoteDataSource // TODO metodos deviam estar num abstract
   //6º fase -> pagination [DONE]
-  //7º fase -> search [Almost DONE] //TODO search small css
+  //7º fase -> search [DONE]
   //8º fase -> select row
   //9º fase -> actions column
   //10ª fase -> row action
   //11ª fase -> select boxes
+  //12ª fase -> adicionar loading no remoteDataSource
 
   readonly dataSource = input.required<DataSource>();
   readonly search = input(false);

@@ -1,9 +1,9 @@
-import {DataSource} from '@angular/cdk/collections';
 import {BehaviorSubject, combineLatest, debounceTime, Observable, of, switchMap} from 'rxjs';
+import {CHDataSource} from "./data-source";
 
 //TODO estes metodos deviam estar num abstract
 
-export class StaticDataSource<T> extends DataSource<T> {
+export class StaticDataSource<T> extends CHDataSource<T> {
   readonly #originalData = new BehaviorSubject<T[]>([]);
   readonly #data = new BehaviorSubject<T[]>([]);
   readonly #search = new BehaviorSubject<string>("");
@@ -22,19 +22,19 @@ export class StaticDataSource<T> extends DataSource<T> {
       this.#pageSize,
       this.#page,
     ]).pipe(
-      switchMap(([search, pageSize, page]) => this.#applyFiltersAndPagination(search, pageSize, page))
+      switchMap(([search, pageSize, page]) => this.applyFiltersAndPagination(search, pageSize, page))
     ).subscribe(filteredData => {
       this.#data.next(filteredData);
     });
   }
 
-  #applyFiltersAndPagination(search: string, pageSize: number, page: number): Observable<T[]> {
+  applyFiltersAndPagination(search: string, pageSize: number, page: number) {
     const data = this.#originalData.getValue();
 
     let filtered = data;
     if (search.trim()) {
       const searchLower = search.trim().toLowerCase();
-      filtered = data.filter(item => this.#matchesSearch(item, searchLower));
+      filtered = data.filter(item => this.matchesSearch(item, searchLower));
     }
 
     if (pageSize > 0 && pageSize < filtered.length) {
@@ -45,7 +45,7 @@ export class StaticDataSource<T> extends DataSource<T> {
     return of(filtered);
   }
 
-  #matchesSearch(item: T, searchTerm: string): boolean {
+  matchesSearch(item: T, searchTerm: string) {
     return JSON.stringify(item).toLowerCase().includes(searchTerm);
   }
 
@@ -68,6 +68,7 @@ export class StaticDataSource<T> extends DataSource<T> {
       this.#page.next(prevPage);
     }
   }
+
 
   connect(): Observable<T[]> {
     return this.#data.asObservable();

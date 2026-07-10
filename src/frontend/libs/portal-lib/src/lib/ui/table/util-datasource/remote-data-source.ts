@@ -2,6 +2,7 @@ import {BehaviorSubject, finalize, Observable} from 'rxjs';
 import {DataSource} from '@angular/cdk/collections';
 import {signal} from '@angular/core';
 import {ChRemoteDataSourceOptions, ChTableParams} from "./data-source.types";
+import {CHDataSource} from "./data-source";
 
 /*
   private requestSubject = new BehaviorSubject(
@@ -15,7 +16,7 @@ import {ChRemoteDataSourceOptions, ChTableParams} from "./data-source.types";
 
 // TODO Finnish this.
 
-export class RemoteDataSource<T> extends DataSource<T> {
+export class RemoteDataSource<T> extends CHDataSource<T> {
 
   readonly #data = new BehaviorSubject<T[]>([]);
   readonly loading = signal(false);
@@ -35,16 +36,21 @@ export class RemoteDataSource<T> extends DataSource<T> {
     });
   }
 
+  applyFiltersAndPagination(search: string, pageSize: number, page: number): Observable<T[]> {
+    throw new Error("Method not implemented.");
+  }
+
+  matchesSearch(item: T, searchTerm: string) {
+    return false;
+    //TO BE IMPLEMENTED
+  }
+
   setSearch(searchInput: string) {
     //TO BE IMPLEMENTED
   }
 
   setPageSize(pageSize: number) {
     //TO BE IMPLEMENTED
-  }
-
-  getTotalRecords() {
-    return "TO BE IMPLEMENTED"
   }
 
   increasePageNumber() {

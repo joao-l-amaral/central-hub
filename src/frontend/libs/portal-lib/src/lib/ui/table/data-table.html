@@ -2,6 +2,7 @@
   @if(search()) {
     <lib-search-input
       [onKeySearch]="true"
+      [smallOptions]="true"
       (searchValue)="onSearch($event)"
     ></lib-search-input>
   }

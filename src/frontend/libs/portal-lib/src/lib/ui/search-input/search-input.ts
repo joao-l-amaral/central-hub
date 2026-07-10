@@ -20,6 +20,7 @@ export class SearchInputComponent {
   readonly placeholder = input('Search...');
   readonly disabled = input(false);
   readonly onKeySearch = input(false);
+  readonly smallOptions = input(false);
 
   readonly searchValue = output<string>();
 
