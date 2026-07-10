@@ -29,10 +29,6 @@
       border-bottom: 1px solid rgba(0, 0, 0, 0.08);
       overflow-wrap: anywhere;
     }
-
-    tr:hover {
-      background-color: var(--table-row-hover, rgba(0, 0, 0, 0.04));
-    }
   }
 
   &.table-responsive {
@@ -53,6 +49,7 @@
 
 .table-hover > tbody > tr:hover {
   --bs-table-hover-bg: var(--color-accent);
+  color: red;
 }
 
 lib-search-input {

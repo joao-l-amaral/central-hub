@@ -35,16 +35,24 @@ export class RemoteDataSource<T> extends DataSource<T> {
     });
   }
 
-  filter(searchInput: string, rowLimit?: number) {
-    return "TO BE IMPLEMENTED"
+  setSearch(searchInput: string) {
+    //TO BE IMPLEMENTED
   }
 
-  spliceData(spliceBy: number) {
-    return "TO BE IMPLEMENTED"
+  setPageSize(pageSize: number) {
+    //TO BE IMPLEMENTED
   }
 
   getTotalRecords() {
     return "TO BE IMPLEMENTED"
+  }
+
+  increasePageNumber() {
+    //TO BE IMPLEMENTED
+  }
+
+  decreasePageNumber() {
+    //TO BE IMPLEMENTED
   }
 
   connect(): Observable<T[]> {

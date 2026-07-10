@@ -25,12 +25,13 @@ export class TableDtComponent {
   //2º fase -> rows [DONE]
   //3º fase -> bootstrap table styles [DONE]
   //4º fase -> staticDataSource [DONE]
-  //5º fase -> remoteDataSource
-  //6º fase -> pagination [Almost DONE //TODO falta os botões de avançar e retroceder pagia]
-  //7º fase -> search [Almost DONE] //TODO search small css e filtrar tendo em consideração o page size.
-  //8º fase -> actions column
-  //9º fase -> select row
+  //5º fase -> remoteDataSource // TODO metodos deviam estar num abstract
+  //6º fase -> pagination [DONE]
+  //7º fase -> search [Almost DONE] //TODO search small css
+  //8º fase -> select row
+  //9º fase -> actions column
   //10ª fase -> row action
+  //11ª fase -> select boxes
 
   readonly dataSource = input.required<DataSource>();
   readonly search = input(false);
@@ -41,7 +42,7 @@ export class TableDtComponent {
 
   readonly rows = derivedAsync(() => this.dataSource().data$, { initialValue: [] });
 
-  async onSearch(search: string, rowLimit?: number) {
-    await this.dataSource().filter(search, rowLimit);
+  onSearch(search: string) {
+    this.dataSource().setSearch(search);
   }
 }

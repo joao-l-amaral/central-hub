@@ -28,3 +28,24 @@
 .table-responsive {
   margin-bottom: 1rem;
 }
+
+.page-link {
+  color: var(--color-primary);
+  border-color: var(--color-primary);
+
+  &:hover {
+    background-color: var(--color-primary);
+    color: var(--color-text);
+  }
+}
+
+select[multiple]:focus, option:checked, option:hover {
+  color: var(--color-text);
+  background: var(--color-accent) linear-gradient(0deg, var(--color-accent) 0%, var(--color-accent) 100%);
+}
+
+.form-select:focus {
+  border-color: var(--color-primary);
+  outline: 0;
+  box-shadow: 0 0 0 .05rem var(--color-primary);
+}
