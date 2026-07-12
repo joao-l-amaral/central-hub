@@ -16,4 +16,3 @@ export interface ChPagedResult<T> {
   data: T[];
   total: number;
 }
-

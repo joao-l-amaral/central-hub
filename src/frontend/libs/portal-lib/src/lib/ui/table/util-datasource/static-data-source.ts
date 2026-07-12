@@ -14,8 +14,10 @@ export class StaticDataSource<T> extends CHDataSource<T> {
 
   constructor(initialData: T[] = []) {
     super();
-    this.#originalData.next(initialData);
-    this.#data.next(initialData);
+
+    const dataWithId = this.#processDataIds(initialData);
+    this.#originalData.next(dataWithId);
+    this.#data.next(dataWithId);
 
     combineLatest([
       this.#search.pipe(debounceTime(300)),
@@ -26,6 +28,12 @@ export class StaticDataSource<T> extends CHDataSource<T> {
     ).subscribe(filteredData => {
       this.#data.next(filteredData);
     });
+  }
+
+  #processDataIds(initialData: T[]) {
+    return initialData.map((item, index) =>
+      (item as Record<string, any>)['id'] ? item : {...item, id: index}
+    );
   }
 
   applyFiltersAndPagination(search: string, pageSize: number, page: number) {

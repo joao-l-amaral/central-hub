@@ -2,13 +2,11 @@ import {ChangeDetectionStrategy, Component, contentChildren, input, output, sign
 import {NgTemplateOutlet} from "@angular/common";
 import {DataTableCol} from "./feature-data-table-cell/data-table-cell";
 import {TableDtHeaderComponent} from "./feature-data-table-cell/header/header";
-import {DataSource} from './data-table.types';
+import {DataSource, TRow} from './data-table.types';
 import {derivedAsync} from "ngxtension/derived-async";
 import {SearchInputComponent} from "@central-hub/library";
 import {PaginatorComponent} from "./feature-paginator/paginator";
 import {DtRowSelectionDirective} from "./util-row-selector/row-directive";
-
-type TRow = Record<string, unknown>;
 
 @Component({
   selector: 'lib-table-dt',
@@ -34,7 +32,7 @@ export class TableDtComponent {
   //7º fase -> search [DONE]
   //8º fase -> select row [DONE]
   //9º fase -> actions column
-  //10ª fase -> row action
+  //10ª fase -> row action [DONE]
   //11ª fase -> select boxes
   //12ª fase -> adicionar loading no remoteDataSource
 
