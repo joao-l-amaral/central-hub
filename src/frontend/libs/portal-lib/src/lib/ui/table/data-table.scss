@@ -5,6 +5,12 @@
   font-size: 14px;
   color: rgba(0, 0, 0, 0.87);
 
+  --bs-table-active-bg: var(--color-primary);
+  --bs-table-active-color: var(--color-text);
+
+  --bs-table-hover-bg: var(--color-accent);
+  --bs-table-hover-color: var(--color-text);
+
   thead {
     th {
       background-color: var(--table-header-bg, #fafafa);
@@ -22,6 +28,7 @@
   }
 
   tbody {
+
     td {
       padding: 12px 16px;
       font-size: 14px;
@@ -47,10 +54,10 @@
   }
 }
 
-.table-hover > tbody > tr:hover {
+/* .table-hover > tbody > tr:hover {
   --bs-table-hover-bg: var(--color-accent);
-  color: red;
-}
+  --bs-table-hover-color: var(--color-text);
+} */
 
 lib-search-input {
   padding-bottom: 10px;

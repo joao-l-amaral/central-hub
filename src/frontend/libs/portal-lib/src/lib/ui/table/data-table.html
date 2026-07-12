@@ -8,7 +8,7 @@
   }
   <table class="table table-striped table-hover">
     <thead>
-      <tr class="table-secondary">
+      <tr>
         @for (col of columns(); track col.key()) {
           <th scope="col">
             <lib-table-dt-header
@@ -21,7 +21,7 @@
 
     <tbody>
       @for (row of rows(); track $index) {
-        <tr>
+        <tr dataRowSelection [row]="row" [selectedRow]="rowSelected()" (rowClicked)="rowClickedFn($event)" >
           @for (col of columns(); track col.key()) {
             <td>
               @if (col.cellTemplate(); as tpl) {

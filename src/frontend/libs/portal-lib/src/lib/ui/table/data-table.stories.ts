@@ -31,10 +31,14 @@ export const TableDataTableInput: Story = {
   render: (args) => ({
     props: {
       ...args,
+      rowClicked: (value: any) => {
+        console.log(value);
+      },
     },
     template: `
         <lib-table-dt
-          ${argsToTemplate(args)}
+          ${argsToTemplate(args)},
+          (rowClicked)="rowClicked($event)"
         >
           <lib-dt-col header="Name" key="name" class="hide-on-small">
             <ng-template dtTemplate let-value="value">
