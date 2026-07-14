@@ -6,7 +6,7 @@ import {DtCellTemplateDirective} from "../util-data-table-commons/data-table-cel
   template: `<ng-content />`,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DataTableCol<TRow extends Record<string, unknown>> {
+export class DataTableCell<TRow extends Record<string, unknown>> {
   readonly header = input.required<string>();
   readonly key = input.required<keyof TRow & string>();
 
