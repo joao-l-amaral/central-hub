@@ -1,8 +1,6 @@
 import {BehaviorSubject, combineLatest, debounceTime, Observable, of, switchMap} from 'rxjs';
 import {CHDataSource} from "./data-source";
 
-//TODO estes metodos deviam estar num abstract
-
 export class StaticDataSource<T> extends CHDataSource<T> {
   readonly #originalData = new BehaviorSubject<T[]>([]);
   readonly #data = new BehaviorSubject<T[]>([]);

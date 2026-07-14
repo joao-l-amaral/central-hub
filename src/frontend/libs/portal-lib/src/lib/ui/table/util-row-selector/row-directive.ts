@@ -7,7 +7,7 @@ import {computed, Directive, input, output} from '@angular/core';
     '[class.table-active]': 'isRowSelected()'
   }
 })
-export class DtRowSelectionDirective<T extends {id: number}> {
+export class DtRowSelectionDirective<T extends {id?: number}> {
 
   readonly row = input.required<T>();
   readonly selectedRow = input<T | undefined>();

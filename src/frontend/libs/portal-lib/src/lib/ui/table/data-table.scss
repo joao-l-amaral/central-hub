@@ -54,13 +54,26 @@
   }
 }
 
-/* .table-hover > tbody > tr:hover {
-  --bs-table-hover-bg: var(--color-accent);
-  --bs-table-hover-color: var(--color-text);
-} */
-
 lib-search-input {
   padding-bottom: 10px;
   float: right;
   width: 250px;
+}
+
+.table.table-hover {
+  cursor: pointer !important;
+}
+
+.action-cell {
+  display: flex;
+  gap: 10px;
+
+  .action-element {
+    cursor: pointer !important;
+    font-size: 20px;
+
+    &:hover {
+      color: black !important;
+    }
+  }
 }

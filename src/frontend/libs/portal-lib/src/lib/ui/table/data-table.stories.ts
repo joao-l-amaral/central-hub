@@ -5,11 +5,12 @@ import {
   StoryObj,
 } from '@storybook/angular';
 import {TableDtComponent} from "./data-table";
-import {DataTableCol} from "./feature-data-table-cell/data-table-cell";
+import {DataTableCell} from "./feature-data-table-cell/ui-cell/data-table-cell";
 import {DtCellTemplateDirective} from "./util-data-table-commons/data-table-cell-template-directive";
 import {StaticDataSource} from "./util-datasource/static-data-source";
 import {TRow} from './data-table.types';
 import {I18nService} from "../../util-i18n/i18n-service";
+import {ActionCell} from "./feature-data-table-cell/ui-action/action-cell";
 
 const meta: Meta<TableDtComponent> = {
   component: TableDtComponent,
@@ -19,7 +20,7 @@ const meta: Meta<TableDtComponent> = {
       providers: [I18nService],
     }),
     moduleMetadata({
-      imports: [TableDtComponent, DataTableCol, DtCellTemplateDirective],
+      imports: [TableDtComponent, DataTableCell, ActionCell, DtCellTemplateDirective],
     }),
   ],
 };
@@ -34,6 +35,9 @@ export const TableDataTableInput: Story = {
       rowClicked: (value: any) => {
         console.log(value);
       },
+      buttonClick: (context: string) => {
+        console.log(context);
+      }
     },
     template: `
         <lib-table-dt
@@ -63,6 +67,19 @@ export const TableDataTableInput: Story = {
               {{ value }}
             </ng-template>
           </lib-dt-col>
+
+          <lib-dt-action-col header="Action" key="action">
+            <ng-template dtTemplate>
+              <a>
+                <i class="bi bi-pencil" (click)="buttonClick('teste1')"></i>
+              </a>
+            </ng-template>
+            <ng-template dtTemplate>
+              <a>
+                <i class="bi bi-trash" (click)="buttonClick('teste2')"></i>
+              </a>
+            </ng-template>
+          </lib-dt-action-col>
         </lib-table-dt>
     `,
   }),

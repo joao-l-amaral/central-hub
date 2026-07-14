@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component, contentChild, input,} from '@angular/core';
-import {DtCellTemplateDirective} from "../util-data-table-commons/data-table-cell-template-directive";
+import {DtCellTemplateDirective} from "../../util-data-table-commons/data-table-cell-template-directive";
 
 @Component({
   selector: 'lib-dt-col',

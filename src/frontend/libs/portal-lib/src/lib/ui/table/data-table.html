@@ -22,7 +22,7 @@
     <tbody>
       @for (row of rows(); track $index) {
         <tr dataRowSelection [row]="row" [selectedRow]="rowSelected()" (rowClicked)="rowClickedFn($event)" >
-          @for (col of columns(); track col.key()) {
+          @for (col of dataColumns(); track col.key()) {
             <td>
               @if (col.cellTemplate(); as tpl) {
                 <ng-container
@@ -36,6 +36,27 @@
                     }
                   "
                 ></ng-container>
+              }
+            </td>
+          }
+          @for (col of actionColumns(); track col.key()) {
+            <td class="action-cell">
+              @for (action of col.actions(); track $index) {
+                @if (action.template; as actionTpl) {
+                  <span class="action-element" stopPropagation>
+                    <ng-container
+                      *ngTemplateOutlet="
+                         actionTpl;
+                         context: {
+                           $implicit: row,
+                         row: row,
+                         value: row[col.key()],
+                         key: col.key()
+                       }
+                       "
+                    ></ng-container>
+                  </span>
+                }
               }
             </td>
           }
