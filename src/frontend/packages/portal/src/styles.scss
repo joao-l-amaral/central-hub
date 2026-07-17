@@ -15,6 +15,7 @@ body { margin: 0; font-family: 'Inter', sans-serif; }
 :root {
   --color-primary-dark: #1A1A1A;
   --color-primary: #FF6900;
+  --color-primary-danger: #ec2212;
   --color-secondary: color-mix(in srgb, var(--color-primary) 70%, white);
   --color-accent: #FF8533;
   --color-highlight: #FFFFFF;

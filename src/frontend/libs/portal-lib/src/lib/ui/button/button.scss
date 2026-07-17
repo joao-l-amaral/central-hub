@@ -116,6 +116,16 @@
   --btn-focus-ring: color-mix(in srgb, var(--color-primary) 22%, white);
 }
 
+/* Danger */
+:host(.ch-btn__danger) {
+  --btn-bg: var(--color-primary-danger);
+  --btn-fg: var(--color-text);
+  --btn-border: var(--color-primary-danger);
+  --btn-hover-bg: color-mix(in srgb, var(--color-primary-danger) 88%, black);
+  --btn-active-bg: color-mix(in srgb, var(--color-primary-danger) 76%, black);
+  --btn-focus-ring: color-mix(in srgb, var(--color-primary-danger) 30%, white);
+}
+
 /* Optional neutral disabled border consistency */
 :host(.is-disabled) {
   border-color: color-mix(in srgb, var(--color-border) 35%, white);

@@ -5,7 +5,7 @@ import {ActionCell} from "./feature-data-table-cell/ui-action/action-cell";
 import {TableDtHeaderComponent} from "./feature-data-table-cell/ui-header/header";
 import {DataSource, TRow} from './data-table.types';
 import {derivedAsync} from "ngxtension/derived-async";
-import {SearchInputComponent} from "@central-hub/library";
+import {ButtonComponent, InternalizationPipe, SearchInputComponent} from "@central-hub/library";
 import {PaginatorComponent} from "./feature-paginator/paginator";
 import {DtRowSelectionDirective} from "./util-row-selector/row-directive";
 import {StopPropagationDirective} from "./util-data-table-commons/data-table-stop-progrataion-directive";
@@ -21,7 +21,9 @@ import {StopPropagationDirective} from "./util-data-table-commons/data-table-sto
     SearchInputComponent,
     PaginatorComponent,
     DtRowSelectionDirective,
-    StopPropagationDirective
+    StopPropagationDirective,
+    ButtonComponent,
+    InternalizationPipe
   ]
 })
 export class TableDtComponent {
@@ -37,11 +39,12 @@ export class TableDtComponent {
    // TODO IT IS BETTER TO FIX LINT ERRORS
   //9º fase -> actions column [DONE]
   //10ª fase -> row action [DONE]
-  //11ª fase -> select boxes
+  //11ª fase -> select boxes (mass deletions) [DONE]
   //12ª fase -> adicionar loading no remoteDataSource
 
   readonly dataSource = input.required<DataSource>();
   readonly search = input(false);
+  readonly removeRecords = input(false)
 
   readonly rowSelected = signal<TRow>({});
 
@@ -59,6 +62,8 @@ export class TableDtComponent {
 
   readonly rows = derivedAsync(() => this.dataSource().data$, { initialValue: [] });
 
+  readonly #selectedRowsToRemove: TRow[] = [];
+
   onSearch(search: string) {
     this.dataSource().setSearch(search);
   }
@@ -71,5 +76,30 @@ export class TableDtComponent {
       this.rowSelected.set($event);
       this.rowClicked.emit($event);
     }
+  }
+
+  onRemoveRecords() {
+    this.dataSource().removeRecords(this.#selectedRowsToRemove);
+    this.selectAllVisibleRows();
+  }
+
+  selectRowToRemove(row: TRow) {
+    this.#selectedRowsToRemove.push(row);
+  }
+
+  protected isRowChecked(row: TRow) {
+    return this.#selectedRowsToRemove.includes(row);
+  }
+
+  protected selectAllVisibleRows() {
+    const allSelected = this.#selectedRowsToRemove.length === this.rows().length;
+    this.#selectedRowsToRemove.splice(0, this.#selectedRowsToRemove.length);
+    if (!allSelected) {
+      this.#selectedRowsToRemove.push(...this.rows());
+    }
+  }
+
+  protected isAllVisibleRowsChecked() {
+    return this.#selectedRowsToRemove.length === this.rows().length && this.rows().length > 0;
   }
 }

@@ -2,6 +2,7 @@ import {BehaviorSubject, combineLatest, debounceTime, Observable, of, switchMap}
 import {CHDataSource} from "./data-source";
 
 export class StaticDataSource<T> extends CHDataSource<T> {
+
   readonly #originalData = new BehaviorSubject<T[]>([]);
   readonly #data = new BehaviorSubject<T[]>([]);
   readonly #search = new BehaviorSubject<string>("");
@@ -21,8 +22,9 @@ export class StaticDataSource<T> extends CHDataSource<T> {
       this.#search.pipe(debounceTime(300)),
       this.#pageSize,
       this.#page,
+      this.#originalData
     ]).pipe(
-      switchMap(([search, pageSize, page]) => this.applyFiltersAndPagination(search, pageSize, page))
+      switchMap(([search, pageSize, page, data]) => this.applyFiltersAndPagination(data, search, pageSize, page))
     ).subscribe(filteredData => {
       this.#data.next(filteredData);
     });
@@ -34,9 +36,7 @@ export class StaticDataSource<T> extends CHDataSource<T> {
     );
   }
 
-  applyFiltersAndPagination(search: string, pageSize: number, page: number) {
-    const data = this.#originalData.getValue();
-
+  applyFiltersAndPagination(data: T[], search: string, pageSize: number, page: number) {
     let filtered = data;
     if (search.trim()) {
       const searchLower = search.trim().toLowerCase();
@@ -75,6 +75,10 @@ export class StaticDataSource<T> extends CHDataSource<T> {
     }
   }
 
+  removeRecords(data: T[]): void {
+    this.#originalData.next(this.#originalData.getValue().filter(item => !data.includes(item)));
+    this.#data.next(this.#data.getValue().filter(item => !data.includes(item)));
+  }
 
   connect(): Observable<T[]> {
     return this.#data.asObservable();

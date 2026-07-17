@@ -8,7 +8,8 @@ export abstract class CHDataSource<T> extends DataSource<T> {
   abstract setPageSize(pageSize: number): void;
   abstract increasePageNumber(): void;
   abstract decreasePageNumber(): void;
+  abstract removeRecords(data: T[]): void;
 
-  protected abstract applyFiltersAndPagination(search: string, pageSize: number, page: number): Observable<T[]>;
+  protected abstract applyFiltersAndPagination(data: T[], search: string, pageSize: number, page: number): Observable<T[]>;
   protected abstract matchesSearch(item: T, searchTerm: string): boolean;
 }

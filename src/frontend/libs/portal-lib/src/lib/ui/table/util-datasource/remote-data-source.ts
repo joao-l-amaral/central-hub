@@ -36,7 +36,7 @@ export class RemoteDataSource<T> extends CHDataSource<T> {
     });
   }
 
-  applyFiltersAndPagination(search: string, pageSize: number, page: number): Observable<T[]> {
+  applyFiltersAndPagination(data: T[], search: string, pageSize: number, page: number): Observable<T[]> {
     throw new Error("Method not implemented.");
   }
 
@@ -58,6 +58,10 @@ export class RemoteDataSource<T> extends CHDataSource<T> {
   }
 
   decreasePageNumber() {
+    //TO BE IMPLEMENTED
+  }
+
+  override removeRecords(data: T[]): void {
     //TO BE IMPLEMENTED
   }
 

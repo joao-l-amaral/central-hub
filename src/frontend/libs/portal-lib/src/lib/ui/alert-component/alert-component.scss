@@ -17,7 +17,7 @@
     .danger {
         background-color: #fdecea;
         border-color: #f5b8b4;
-        color: #8b1a14;
+        color: var(--color-primary-danger);
     }
 
     .alert {

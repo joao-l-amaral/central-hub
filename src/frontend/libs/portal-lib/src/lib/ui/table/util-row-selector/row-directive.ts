@@ -4,7 +4,7 @@ import {computed, Directive, input, output} from '@angular/core';
   selector: '[dataRowSelection]',
   host: {
     '(click)': 'onClick()',
-    '[class.table-active]': 'isRowSelected()'
+    '[class.dt-active]': 'isRowSelected()'
   }
 })
 export class DtRowSelectionDirective<T extends {id?: number}> {

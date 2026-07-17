@@ -1,49 +1,58 @@
-.table {
+.dt-table {
   width: 100%;
   border-collapse: collapse;
   font-family: Roboto, "Helvetica Neue", Arial, sans-serif;
   font-size: 14px;
   color: rgba(0, 0, 0, 0.87);
 
-  --bs-table-active-bg: var(--color-primary);
-  --bs-table-active-color: var(--color-text);
-
-  --bs-table-hover-bg: var(--color-accent);
-  --bs-table-hover-color: var(--color-text);
-
-  thead {
-    th {
-      background-color: var(--table-header-bg, #fafafa);
-      color: var(--table-header-color, rgba(0, 0, 0, 0.87));
-      font-weight: 500;
-      font-size: 13px;
-      letter-spacing: 0.010rem;
-      text-transform: none;
-      padding: 12px 16px;
-      vertical-align: middle;
-      border-bottom: 1px solid rgba(0, 0, 0, 0.12);
-      text-align: left;
-      white-space: nowrap;
-    }
+  thead th {
+    background-color: var(--table-header-bg, #fafafa);
+    color: var(--table-header-color, rgba(0, 0, 0, 0.87));
+    font-weight: 500;
+    font-size: 13px;
+    letter-spacing: 0.010rem;
+    text-transform: none;
+    padding: 12px 16px;
+    vertical-align: middle;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+    text-align: left;
+    white-space: nowrap;
   }
 
-  tbody {
-
-    td {
-      padding: 12px 16px;
-      font-size: 14px;
-      vertical-align: middle;
-      border-bottom: 1px solid rgba(0, 0, 0, 0.08);
-      overflow-wrap: anywhere;
-    }
+  tbody td {
+    padding: 12px 16px;
+    font-size: 14px;
+    vertical-align: middle;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    overflow-wrap: anywhere;
   }
 
-  &.table-responsive {
+  td.td-select-cell {
+    width: 10px;
+    background-color: var(--table-select-bg, #fff) !important;
+    color: inherit;
+  }
+
+  &.dt-responsive {
     overflow: auto;
   }
 
-  &.table-striped tbody tr:nth-of-type(odd) {
+  &.dt-striped tbody tr:nth-of-type(odd) {
     background-color: rgba(0, 0, 0, 0.02);
+  }
+
+  &.dt-hover tbody tr {
+    cursor: pointer;
+
+    &:hover:not(:has(:is(.action-cell, .td-select-cell):hover)) {
+      background-color: var(--color-accent);
+      color: var(--color-text);
+    }
+  }
+
+  tbody tr.dt-active {
+    background-color: var(--color-primary) !important;
+    color: var(--color-text);
   }
 
   @media (max-width: 576px) {
@@ -60,20 +69,26 @@ lib-search-input {
   width: 250px;
 }
 
-.table.table-hover {
-  cursor: pointer !important;
-}
-
 .action-cell {
   display: flex;
   gap: 10px;
+  background-color: transparent !important;
 
   .action-element {
-    cursor: pointer !important;
+    cursor: pointer;
     font-size: 20px;
 
     &:hover {
-      color: black !important;
+      color: var(--color-accent);
     }
   }
+}
+
+tr.dt-active .action-cell .action-element:hover {
+  color: black;
+}
+
+.form-check-input:checked {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
 }
