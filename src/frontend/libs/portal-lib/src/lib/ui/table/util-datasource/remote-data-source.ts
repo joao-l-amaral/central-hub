@@ -1,5 +1,4 @@
 import {BehaviorSubject, finalize, Observable} from 'rxjs';
-import {DataSource} from '@angular/cdk/collections';
 import {signal} from '@angular/core';
 import {ChRemoteDataSourceOptions, ChTableParams} from "./data-source.types";
 import {CHDataSource} from "./data-source";

@@ -41,6 +41,7 @@ export class TableDtComponent {
   //10ª fase -> row action [DONE]
   //11ª fase -> select boxes (mass deletions) [DONE]
   //12ª fase -> adicionar loading no remoteDataSource
+  //13ª fase -> implement order in remote and static
 
   readonly dataSource = input.required<DataSource>();
   readonly search = input(false);
