@@ -1,7 +1,7 @@
 import {BehaviorSubject, finalize, Observable} from 'rxjs';
 import {signal} from '@angular/core';
-import {ChRemoteDataSourceOptions, ChTableParams} from "./data-source.types";
 import {CHDataSource} from "./data-source";
+import {PaginationPage} from '../util-request/request-factory.types';
 
 /*
   private requestSubject = new BehaviorSubject(
@@ -16,22 +16,22 @@ import {CHDataSource} from "./data-source";
 // TODO Finnish this.
 
 export class RemoteDataSource<T> extends CHDataSource<T> {
-
-  readonly #data = new BehaviorSubject<T[]>([]);
   readonly loading = signal(false);
   readonly total = signal(0);
 
-  data$ = this.#data.asObservable();
+  constructor(readonly request: Observable<PaginationPage<T>>) {
+    super();
 
-  constructor(readonly options: ChRemoteDataSourceOptions<T>) { super(); }
+    this.#load(this.request);
+  }
 
-  load(params: ChTableParams): void {
+  #load(request: Observable<PaginationPage<T>>): void {
     this.loading.set(true);
-    this.options.fetch(params).pipe(
+    request.pipe(
       finalize(() => this.loading.set(false))
     ).subscribe(result => {
-      this.#data.next(result.data);
-      this.total.set(result.total);
+      this.setData(result.items);
+      this.total.set(result.totalCount);
     });
   }
 
@@ -65,10 +65,10 @@ export class RemoteDataSource<T> extends CHDataSource<T> {
   }
 
   connect(): Observable<T[]> {
-    return this.#data.asObservable();
+    return this.data.asObservable();
   }
 
   disconnect(): void {
-    this.#data.complete();
+    this.data.complete();
   }
 }
