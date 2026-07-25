@@ -1,54 +1,46 @@
-package com.alticelabs.netq.models.application;
+package pt.amaralsoftware.models;
 
 import java.util.List;
 
 public class RemoteDataSourceResult<T> {
-    private List<T> records;
-    private Integer top;
-    private Integer skip;
-    private Long totalRecordCount;
-    private Integer totalDistinctRecordCount;
+    private List<T> items;
+    private Integer pageSize;
+    private Integer page;
+    private Long totalCount;
 
     public RemoteDataSourceResult() {
     }
 
-    public List<T> getRecords() {
-        return records;
+    public List<T> getItems() {
+        return items;
     }
 
-    public void setRecords(List<T> records) {
-        this.records = records;
+    public void setItems(List<T> items) {
+        this.items = items;
     }
 
-    public Integer getTop() {
-        return top;
+    public Integer getPageSize() {
+        return pageSize;
     }
 
-    public void setTop(Integer top) {
-        this.top = top;
+    public void setPageSize(Integer pageSize) {
+        this.pageSize = pageSize;
     }
 
-    public Integer getSkip() {
-        return skip;
+    public Integer getPage() {
+        return page;
     }
 
-    public void setSkip(Integer skip) {
-        this.skip = skip;
+    public void setPage(Integer page) {
+        this.page = page;
     }
 
-    public Long getTotalRecordCount() {
-        return totalRecordCount;
+    public Long getTotalCount() {
+        return totalCount;
     }
 
-    public void setTotalRecordCount(Long totalRecordCount) {
-        this.totalRecordCount = totalRecordCount;
+    public void setTotalCount(Long totalCount) {
+        this.totalCount = totalCount;
     }
 
-    public Integer getTotalDistinctRecordCount() {
-        return totalDistinctRecordCount;
-    }
-
-    public void setTotalDistinctRecordCount(Integer totalDistinctRecordCount) {
-        this.totalDistinctRecordCount = totalDistinctRecordCount;
-    }
 }
