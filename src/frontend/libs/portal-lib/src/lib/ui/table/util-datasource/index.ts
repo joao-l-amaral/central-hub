@@ -1,2 +1,2 @@
-export * from './request-factory'
-export * from './request-factory.types'
+export * from './remote-data-source'
+export * from './static-data-source'

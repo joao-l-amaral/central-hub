@@ -21,7 +21,6 @@ export class RemoteDataSource<T> extends CHDataSource<T> {
 
   constructor(readonly request: Observable<PaginationPage<T>>) {
     super();
-
     this.#load(this.request);
   }
 

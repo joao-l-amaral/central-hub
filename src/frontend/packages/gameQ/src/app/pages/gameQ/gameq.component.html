@@ -8,7 +8,37 @@
                 <gameq-administration-administration/>
             }
             @else {
-                <h1>{{ 'gameq.catalog' | translate }}</h1>
+              <h1>{{ 'gameq.catalog' | translate }}</h1>
+
+               <lib-table-dt
+                  [search]="true"
+                  [removeRecords]="true"
+                  [dataSource]="dataSource"
+               >
+                  <lib-dt-col header="Name" key="name" class="hide-on-small">
+                    <ng-template dtTemplate let-value="value">
+                      {{ value }}
+                    </ng-template>
+                  </lib-dt-col>
+
+                  <lib-dt-col header="Age" key="age" class="hide-on-small">
+                    <ng-template dtTemplate let-value="value">
+                      {{ value }}
+                    </ng-template>
+                  </lib-dt-col>
+
+                  <lib-dt-col header="Role" key="role">
+                    <ng-template dtTemplate let-value="value">
+                      {{ value }}
+                    </ng-template>
+                  </lib-dt-col>
+
+                  <lib-dt-col header="Function" key="function">
+                    <ng-template dtTemplate let-value="value">
+                      {{ value }}
+                    </ng-template>
+                  </lib-dt-col>
+               </lib-table-dt>
             }
         </div>
     </div>

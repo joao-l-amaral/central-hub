@@ -1,2 +1,2 @@
-export * from './util-request/request-factory'
-export * from './data-table'
+export * from './request-factory'
+export * from './request-factory.types'

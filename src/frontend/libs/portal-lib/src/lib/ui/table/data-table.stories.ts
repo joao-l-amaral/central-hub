@@ -1,9 +1,4 @@
-import {
-  applicationConfig,
-  argsToTemplate,
-  Meta, moduleMetadata,
-  StoryObj,
-} from '@storybook/angular';
+import {applicationConfig, argsToTemplate, Meta, moduleMetadata, StoryObj,} from '@storybook/angular';
 import {TableDtComponent} from "./data-table";
 import {DataTableCell} from "./feature-data-table-cell/ui-cell/data-table-cell";
 import {DtCellTemplateDirective} from "./util-data-table-commons/data-table-cell-template-directive";
@@ -11,13 +6,14 @@ import {StaticDataSource} from "./util-datasource/static-data-source";
 import {TRow} from './data-table.types';
 import {I18nService} from "../../util-i18n/i18n-service";
 import {ActionCell} from "./feature-data-table-cell/ui-action/action-cell";
+import {RequestFactory} from "./util-request/request-factory";
 
 const meta: Meta<TableDtComponent> = {
   component: TableDtComponent,
   title: 'DataTableComponent',
   decorators: [
     applicationConfig({
-      providers: [I18nService],
+      providers: [I18nService, RequestFactory],
     }),
     moduleMetadata({
       imports: [TableDtComponent, DataTableCell, ActionCell, DtCellTemplateDirective],
@@ -28,7 +24,7 @@ export default meta;
 
 type Story = StoryObj<TableDtComponent>;
 
-export const TableDataTableInput: Story = {
+export const TableDataStaticDataSource: Story = {
   render: (args) => ({
     props: {
       ...args,

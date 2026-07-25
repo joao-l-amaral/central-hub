@@ -2,21 +2,17 @@ import {BehaviorSubject, combineLatest, debounceTime, Observable, of, switchMap}
 import {CHDataSource} from "./data-source";
 
 export class StaticDataSource<T> extends CHDataSource<T> {
-
   readonly #originalData = new BehaviorSubject<T[]>([]);
-  readonly #data = new BehaviorSubject<T[]>([]);
   readonly #search = new BehaviorSubject<string>("");
   readonly #pageSize = new BehaviorSubject<number>(0);
   readonly #page = new BehaviorSubject<number>(1);
 
-  data$ = this.#data.asObservable();
-
   constructor(initialData: T[] = []) {
     super();
 
-    const dataWithId = this.#processDataIds(initialData);
+    const dataWithId = this.processDataIds(initialData);
     this.#originalData.next(dataWithId);
-    this.#data.next(dataWithId);
+    this.setData(initialData);
 
     combineLatest([
       this.#search.pipe(debounceTime(300)),
@@ -26,14 +22,8 @@ export class StaticDataSource<T> extends CHDataSource<T> {
     ]).pipe(
       switchMap(([search, pageSize, page, data]) => this.applyFiltersAndPagination(data, search, pageSize, page))
     ).subscribe(filteredData => {
-      this.#data.next(filteredData);
+      this.data.next(filteredData);
     });
-  }
-
-  #processDataIds(initialData: T[]) {
-    return initialData.map((item, index) =>
-      (item as Record<string, any>)['id'] ? item : {...item, id: index}
-    );
   }
 
   applyFiltersAndPagination(data: T[], search: string, pageSize: number, page: number) {
@@ -77,15 +67,15 @@ export class StaticDataSource<T> extends CHDataSource<T> {
 
   removeRecords(data: T[]): void {
     this.#originalData.next(this.#originalData.getValue().filter(item => !data.includes(item)));
-    this.#data.next(this.#data.getValue().filter(item => !data.includes(item)));
+    this.data.next(this.data.getValue().filter(item => !data.includes(item)));
   }
 
   connect(): Observable<T[]> {
-    return this.#data.asObservable();
+    return this.data.asObservable();
   }
 
   disconnect(): void {
-    this.#data.complete();
+    this.data.complete();
     this.#search.complete();
     this.#pageSize.complete();
     this.#page.complete();

@@ -5,6 +5,7 @@
       [title]="'data-table-remove-record' | translate"
       [icon]="'bi bi-trash'"
       [variant]="'danger'"
+      [disabled]="!haveSelectedRowsToRemote()"
       [size]="'sm'"
       (click)="onRemoveRecords()"
     ></button>
@@ -14,7 +15,7 @@
       [onKeySearch]="true"
       [smallOptions]="true"
       (searchValue)="onSearch($event)"
-    ></lib-search-input>
+    />
   }
   <table class="dt-table dt-striped dt-hover">
     <thead>
@@ -33,7 +34,7 @@
           <th scope="col">
             <lib-table-dt-header
               [value]="col.header()"
-            ></lib-table-dt-header>
+            />
           </th>
         }
       </tr>
@@ -67,7 +68,7 @@
                       key: col.key()
                     }
                   "
-                ></ng-container>
+                />
               }
             </td>
           }
@@ -86,7 +87,7 @@
                          key: col.key()
                        }
                        "
-                    ></ng-container>
+                    />
                   </span>
                 }
               }
@@ -102,4 +103,4 @@
   [dataSource]="dataSource()"
   [pageSize]="[1, 5, 10, 25, 50]"
   [pageSizeSelector]="5"
-></lib-table-dt-paginator>
+/>
