@@ -1,65 +1,51 @@
-import {BehaviorSubject, finalize, Observable} from 'rxjs';
+import {combineLatest, debounceTime, filter, Observable, switchMap} from 'rxjs';
 import {signal} from '@angular/core';
 import {CHDataSource} from "./data-source";
 import {PaginationPage} from '../util-request/request-factory.types';
 
-/*
-  private requestSubject = new BehaviorSubject(
-    this.odataRequestFactory.post<PaginationPage<DiagnosticMessage>>(
-      Route.APPLICATION_GET_HISTORIC_OPERATIONS_TABLE,
-      { identifiers: Array.from(this.identifiers).join(',') }
-    )
-  );
-  dataSource = new RemoteDataSource(this.requestSubject.asObservable());
- */
-
-// TODO Finnish this.
-
-export class RemoteDataSource<T> extends CHDataSource<T> {
+class RemoteDataSource<T> extends CHDataSource<T> {
   readonly loading = signal(false);
   readonly total = signal(0);
+  readonly pageSize = signal(0);
+  readonly page = signal(0);
 
-  constructor(readonly request: Observable<PaginationPage<T>>) {
+  constructor(private readonly requestFn: (search: string, page: number, pageSize: number) => Observable<PaginationPage<T>>) {
     super();
-    this.#load(this.request);
-  }
 
-  #load(request: Observable<PaginationPage<T>>): void {
-    this.loading.set(true);
-    request.pipe(
-      finalize(() => this.loading.set(false))
+    combineLatest([
+      this.search.pipe(debounceTime(300)),
+      this.pageSizeSub,
+      this.pageSub
+    ]).pipe(
+      filter(([search, pageSize]) => pageSize !== 0),
+      //tap(() => this.loading.set(true)),
+      switchMap(([search, pageSize, page]) => {
+        return this.requestFn(search, page, pageSize);
+        /*.pipe(
+          finalize(() => this.loading.set(false))
+        )*/
+      })
     ).subscribe(result => {
       this.setData(result.items);
+      this.pageSize.set(result.pageSize);
+      this.page.set(result.page);
       this.total.set(result.totalCount);
     });
   }
 
-  applyFiltersAndPagination(data: T[], search: string, pageSize: number, page: number): Observable<T[]> {
-    throw new Error("Method not implemented.");
+  hasPreviousPage(): boolean {
+    return this.page() <= 1;
   }
 
-  matchesSearch(item: T, searchTerm: string) {
-    return false;
-    //TO BE IMPLEMENTED
+  hasNextPage(): boolean {
+    return this.page() * this.pageSize() >= this.total();
   }
 
   setSearch(searchInput: string) {
-    //TO BE IMPLEMENTED
+    this.search.next(searchInput);
   }
 
-  setPageSize(pageSize: number) {
-    //TO BE IMPLEMENTED
-  }
-
-  increasePageNumber() {
-    //TO BE IMPLEMENTED
-  }
-
-  decreasePageNumber() {
-    //TO BE IMPLEMENTED
-  }
-
-  override removeRecords(data: T[]): void {
+  removeRecords(data: T[]): void {
     //TO BE IMPLEMENTED
   }
 
@@ -69,5 +55,9 @@ export class RemoteDataSource<T> extends CHDataSource<T> {
 
   disconnect(): void {
     this.data.complete();
+    this.pageSizeSub.complete();
+    this.pageSub.complete();
   }
 }
+
+export default RemoteDataSource

@@ -11,9 +11,9 @@ public interface NtfyClient {
     @Path("/{topic}")
     @Consumes(MediaType.TEXT_PLAIN)
     void send(
-            @PathParam("topic") String topic,
-            @HeaderParam("Authorization") String auth,
-            String message
+        @PathParam("topic") String topic,
+        @HeaderParam("Authorization") String auth,
+        String message
     );
 
 }

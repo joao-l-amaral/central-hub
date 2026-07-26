@@ -1,7 +1,7 @@
-import {ChangeDetectionStrategy, Component, effect, input, signal} from "@angular/core";
+import {ChangeDetectionStrategy, Component, computed, effect, input, signal} from "@angular/core";
 import {DataSource} from "../data-table.types";
 import {form, FormField} from "@angular/forms/signals";
-import { InternalizationPipe } from '../../../util-i18n';
+import {InternalizationPipe} from '../../../util-i18n';
 
 interface PaginatorData {
   paginatorPageSize: string;
@@ -27,6 +27,9 @@ export class PaginatorComponent {
   })
 
   readonly paginatorForm = form(this.paginatorModel);
+
+  readonly hasPreviousPage = computed(() => this.dataSource().hasPreviousPage());
+  readonly hasNextPage = computed(() => this.dataSource().hasNextPage());
 
   constructor() {
 

@@ -59,9 +59,8 @@ export class GameQComponent implements OnDestroy {
     this.#adminstratorSub.unsubscribe();
   }
 
-  readonly #requestSubject$ = this.#requestFactory.get<PaginationPage<DummyResponse>>(
-    "/api/games/test"
-  )
+  readonly #requestSubject$ = (search: string, page: number, pageSize: number) =>
+    this.#requestFactory.get<PaginationPage<DummyResponse>>('/api/games/test', { params: { search, page, pageSize } });
 
   readonly dataSource = new RemoteDataSource<DummyResponse>(this.#requestSubject$);
 

@@ -3,9 +3,6 @@ import {CHDataSource} from "./data-source";
 
 export class StaticDataSource<T> extends CHDataSource<T> {
   readonly #originalData = new BehaviorSubject<T[]>([]);
-  readonly #search = new BehaviorSubject<string>("");
-  readonly #pageSize = new BehaviorSubject<number>(0);
-  readonly #page = new BehaviorSubject<number>(1);
 
   constructor(initialData: T[] = []) {
     super();
@@ -15,19 +12,20 @@ export class StaticDataSource<T> extends CHDataSource<T> {
     this.setData(initialData);
 
     combineLatest([
-      this.#search.pipe(debounceTime(300)),
-      this.#pageSize,
-      this.#page,
+      this.search.pipe(debounceTime(300)),
+      this.pageSizeSub,
+      this.pageSub,
       this.#originalData
     ]).pipe(
-      switchMap(([search, pageSize, page, data]) => this.applyFiltersAndPagination(data, search, pageSize, page))
+      switchMap(([search, pageSize, page, data]) => this.#applyFiltersAndPagination(data, search, pageSize, page))
     ).subscribe(filteredData => {
       this.data.next(filteredData);
     });
   }
 
-  applyFiltersAndPagination(data: T[], search: string, pageSize: number, page: number) {
+  #applyFiltersAndPagination(data: T[], search: string, pageSize: number, page: number) {
     let filtered = data;
+
     if (search.trim()) {
       const searchLower = search.trim().toLowerCase();
       filtered = data.filter(item => this.matchesSearch(item, searchLower));
@@ -46,23 +44,7 @@ export class StaticDataSource<T> extends CHDataSource<T> {
   }
 
   setSearch(searchInput: string) {
-    this.#search.next(searchInput);
-  }
-
-  setPageSize(pageSize: number) {
-    this.#pageSize.next(Math.trunc(pageSize));
-  }
-
-  increasePageNumber() {
-    const nextPage = this.#page.getValue() + 1
-    this.#page.next(Math.trunc(nextPage));
-  }
-
-  decreasePageNumber() {
-    const prevPage = this.#page.getValue() - 1
-    if( prevPage > 0 ) {
-      this.#page.next(prevPage);
-    }
+    this.search.next(searchInput);
   }
 
   removeRecords(data: T[]): void {
@@ -74,11 +56,18 @@ export class StaticDataSource<T> extends CHDataSource<T> {
     return this.data.asObservable();
   }
 
+  hasPreviousPage() {
+    return true;
+  }
+  override hasNextPage() {
+    return true;
+  }
+
   disconnect(): void {
     this.data.complete();
-    this.#search.complete();
-    this.#pageSize.complete();
-    this.#page.complete();
+    this.search.complete();
+    this.pageSizeSub.complete();
+    this.pageSub.complete();
     this.#originalData.complete();
   }
 }

@@ -1,10 +1,8 @@
 package pt.amaralsoftware.api;
 
 import jakarta.inject.Inject;
-import jakarta.ws.rs.GET;
-import jakarta.ws.rs.PATCH;
-import jakarta.ws.rs.PUT;
-import jakarta.ws.rs.Path;
+import jakarta.ws.rs.*;
+import jakarta.ws.rs.core.MediaType;
 import org.jboss.resteasy.reactive.RestResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,6 +17,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 class DummyResponse {
     private String name;
@@ -135,7 +134,12 @@ public class GameVaultAPI {
 
     @GET
     @Path("/test")
-    public RestResponse<RemoteDataSourceResult<DummyResponse>> test() {
+    @Produces(MediaType.APPLICATION_JSON)
+    public RestResponse<RemoteDataSourceResult<DummyResponse>> test(
+        @QueryParam("search") String search,
+        @QueryParam("page") Integer page,
+        @QueryParam("pageSize") Integer pageSize
+    ) {
         List<DummyResponse> dummyResponses = new ArrayList<>(
             Arrays.asList(
                 new DummyResponse("Chris", 22, "Author", "Manager"),
@@ -147,16 +151,41 @@ public class GameVaultAPI {
                 new DummyResponse("Grace", 31, "Developer", "Senior"),
                 new DummyResponse("Henry", 29, "DevOps", "Engineer"),
                 new DummyResponse("Ivy", 26, "Intern", "Junior"),
-                new DummyResponse("Jack", 41, "Manager", "Director")
+                new DummyResponse("Jack", 41, "Manager", "Director"),
+                new DummyResponse("Chris1", 22, "Author", "Manager"),
+                new DummyResponse("Dennis2", 45, "Reviewer", "Lead"),
+                new DummyResponse("Alice3", 38, "Developer", "Senior"),
+                new DummyResponse("Bob4", 35, "QA", "Team Lead"),
+                new DummyResponse("Eve5", 28, "Designer", "Specialist"),
+                new DummyResponse("Frank6", 52, "Architect", "Director"),
+                new DummyResponse("Grace7", 31, "Developer", "Senior"),
+                new DummyResponse("Henry8", 29, "DevOps", "Engineer"),
+                new DummyResponse("Ivy9", 26, "Intern", "Junior"),
+                new DummyResponse("Jack10", 41, "Manager", "Director")
             )
         );
 
-        RemoteDataSourceResult<DummyResponse> dummyResponseRemoteDataSourceResult = new RemoteDataSourceResult<>();
-        dummyResponseRemoteDataSourceResult.setItems(dummyResponses);
-        dummyResponseRemoteDataSourceResult.setPage(0);
-        dummyResponseRemoteDataSourceResult.setPageSize(10);
-        dummyResponseRemoteDataSourceResult.setTotalCount(Long.valueOf(dummyResponses.size()));
+        // apply search filter: include only items whose name starts with the search text
+        if (search != null && !search.trim().isEmpty()) {
+            final String lowerSearch = search.trim().toLowerCase();
+            dummyResponses = dummyResponses.stream()
+                .filter(d -> d.getName() != null && d.getName().toLowerCase().startsWith(lowerSearch))
+                .collect(Collectors.toList());
+        }
 
+        int resolvedPage = page != null ? page : 1;
+        int resolvedPageSize = pageSize != null ? pageSize : dummyResponses.size();
+
+        int fromIndex = Math.min((resolvedPage - 1) * resolvedPageSize, dummyResponses.size());
+        int toIndex = Math.min(resolvedPage * resolvedPageSize, dummyResponses.size());
+
+        List<DummyResponse> dummyResponsesList = dummyResponses.subList(fromIndex, toIndex);
+
+        RemoteDataSourceResult<DummyResponse> dummyResponseRemoteDataSourceResult = new RemoteDataSourceResult<>();
+        dummyResponseRemoteDataSourceResult.setItems(dummyResponsesList);
+        dummyResponseRemoteDataSourceResult.setPage(resolvedPage);
+        dummyResponseRemoteDataSourceResult.setPageSize(resolvedPageSize);
+        dummyResponseRemoteDataSourceResult.setTotalCount((long) dummyResponses.size());
 
         return RestResponse.ok(dummyResponseRemoteDataSourceResult);
     }

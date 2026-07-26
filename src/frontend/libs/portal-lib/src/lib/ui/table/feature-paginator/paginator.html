@@ -16,22 +16,26 @@
   <nav>
     <ul class="pagination pagination-sm mb-0">
       <li class="page-item" id="prevBtn">
-        <a
+        <button
           class="page-link"
+          [class.disabled]="hasPreviousPage()"
+          type="button"
           aria-label="previous"
           (click)="prevPage()"
         >
           <i class="bi bi-chevron-double-left"></i>
-        </a>
+        </button>
       </li>
       <li class="page-item" id="nextBtn">
-        <a
+        <button
           class="page-link"
+          type="button"
+          [class.disabled]="hasNextPage()"
           aria-label="next"
           (click)="nextPage()"
         >
           <i class="bi bi-chevron-double-right"></i>
-        </a>
+        </button>
       </li>
     </ul>
   </nav>
