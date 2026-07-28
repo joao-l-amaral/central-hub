@@ -59,7 +59,7 @@ export class StaticDataSource<T> extends CHDataSource<T> {
   hasPreviousPage() {
     return true;
   }
-  override hasNextPage() {
+  hasNextPage() {
     return true;
   }
 

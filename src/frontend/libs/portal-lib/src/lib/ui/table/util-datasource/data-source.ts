@@ -5,6 +5,7 @@ export abstract class CHDataSource<T> extends DataSource<T> {
   protected readonly data = new BehaviorSubject<T[]>([]);
   readonly data$ = this.data.asObservable();
 
+  loading = false;
 
   readonly search = new BehaviorSubject<string>("");
   readonly pageSizeSub = new BehaviorSubject<number>(0);
@@ -36,8 +37,12 @@ export abstract class CHDataSource<T> extends DataSource<T> {
   }
 
   protected processDataIds(initialData: T[]) {
-    return initialData.map((item, index) =>
-      (item as Record<string, any>)['id'] ? item : {...item, id: index}
+    const a = initialData.map((item, index) =>
+      (item as Record<string, any>)['id'] ? item : {...item, id: (this.pageSub.getValue() - 1) * this.pageSizeSub.getValue() + index}
     );
+
+    console.log(a);
+
+    return a;
   }
 }

@@ -17,86 +17,95 @@
       (searchValue)="onSearch($event)"
     />
   }
-  <table class="dt-table dt-striped dt-hover">
-    <thead>
-      <tr>
-        @if (removeRecords()) {
-          <th>
-            <input
-              class="form-check-input"
-              type="checkbox"
-              [id]="'all-rows'"
-              [checked]="isAllVisibleRowsChecked()"
-              (change)="selectAllVisibleRows()">
-          </th>
-        }
-        @for (col of columns(); track col.key()) {
-          <th scope="col">
-            <lib-table-dt-header
-              [value]="col.header()"
-            />
-          </th>
-        }
-      </tr>
-    </thead>
-
-    <tbody>
-      @for (row of rows(); track $index) {
-        <tr dataRowSelection [row]="row" [selectedRow]="rowSelected()" (rowClicked)="rowClickedFn($event)" >
-
+  <lib-loading-block
+    [loading]="dataSource().loading"
+  >
+    <table class="dt-table dt-striped dt-hover">
+      <thead>
+        <tr>
           @if (removeRecords()) {
-            <td class="td-select-cell" stopPropagation>
+            <th>
               <input
                 class="form-check-input"
                 type="checkbox"
-                [id]="'row-' + row.id"
-                [checked]="isRowChecked(row)"
-                (change)="selectRowToRemove(row)">
-            </td>
+                [id]="'all-rows'"
+                [checked]="isAllVisibleRowsChecked()"
+                (change)="selectAllVisibleRows()">
+            </th>
           }
-
-          @for (col of dataColumns(); track col.key()) {
-            <td>
-              @if (col.cellTemplate(); as tpl) {
-                <ng-container
-                  *ngTemplateOutlet="
-                    tpl.template;
-                    context: {
-                      $implicit: row[col.key()],
-                      row: row,
-                      value: row[col.key()],
-                      key: col.key()
-                    }
-                  "
-                />
-              }
-            </td>
-          }
-          @for (col of actionColumns(); track col.key()) {
-            <td class="action-cell" stopPropagation>
-              @for (action of col.actions(); track $index) {
-                @if (action.template; as actionTpl) {
-                  <span class="action-element">
-                    <ng-container
-                      *ngTemplateOutlet="
-                         actionTpl;
-                         context: {
-                           $implicit: row,
-                         row: row,
-                         value: row[col.key()],
-                         key: col.key()
-                       }
-                       "
-                    />
-                  </span>
-                }
-              }
-            </td>
+          @for (col of columns(); track col.key()) {
+            <th scope="col">
+              <lib-table-dt-header
+                [value]="col.header()"
+              />
+            </th>
           }
         </tr>
-      }
-    </tbody>
-  </table>
+      </thead>
+
+      <tbody>
+          @for (row of rows(); track $index) {
+            <tr dataRowSelection [row]="row" [selectedRow]="rowSelected()" (rowClicked)="rowClickedFn($event)" >
+
+              @if (removeRecords()) {
+                <td class="td-select-cell" stopPropagation>
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    [id]="'row-' + row.id"
+                    [checked]="isRowChecked(row)"
+                    (change)="selectRowToRemove(row)">
+                </td>
+              }
+
+              @for (col of dataColumns(); track col.key()) {
+                <td>
+                  @if (col.cellTemplate(); as tpl) {
+                    <ng-container
+                      *ngTemplateOutlet="
+                        tpl.template;
+                        context: {
+                          $implicit: row[col.key()],
+                          row: row,
+                          value: row[col.key()],
+                          key: col.key()
+                        }
+                      "
+                    />
+                  }
+                </td>
+              }
+              @for (col of actionColumns(); track col.key()) {
+                <td class="action-cell" stopPropagation>
+                  @for (action of col.actions(); track $index) {
+                    @if (action.template; as actionTpl) {
+                      <span class="action-element">
+                        <ng-container
+                          *ngTemplateOutlet="
+                             actionTpl;
+                             context: {
+                               $implicit: row,
+                             row: row,
+                             value: row[col.key()],
+                             key: col.key()
+                           }
+                           "
+                        />
+                      </span>
+                    }
+                  }
+                </td>
+              }
+            </tr>
+          }
+          <!-- @if(rows().length> 0) {
+
+          } @else {
+
+          } -->
+      </tbody>
+    </table>
+  </lib-loading-block>
 </div>
 
 <lib-table-dt-paginator

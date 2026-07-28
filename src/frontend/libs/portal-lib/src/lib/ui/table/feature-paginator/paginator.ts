@@ -46,6 +46,7 @@ export class PaginatorComponent {
   }
 
   protected onPageSizeChange(pageSizeEvent: Event): void {
+    this.dataSource().loading = true;
     const rawValue = (pageSizeEvent.target as HTMLSelectElement).value;
     this.paginatorForm.paginatorPageSize().value.set(rawValue);
   }

@@ -1,4 +1,13 @@
-import {ChangeDetectionStrategy, Component, contentChildren, input, output, signal, computed} from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  contentChildren,
+  input,
+  output,
+  signal,
+  computed,
+  effect, inject
+} from '@angular/core';
 import {NgTemplateOutlet} from "@angular/common";
 import {DataTableCell} from "./feature-data-table-cell/ui-cell/data-table-cell";
 import {ActionCell} from "./feature-data-table-cell/ui-action/action-cell";
@@ -11,6 +20,8 @@ import {StopPropagationDirective} from "./util-data-table-commons/data-table-sto
 import {SearchInputComponent} from "../search-input";
 import {ButtonComponent} from "../button/button";
 import {InternalizationPipe} from "../../util-i18n/i18n.pipe";
+import {LoadingBlockComponent} from "../loading-block";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'lib-table-dt',
@@ -25,7 +36,8 @@ import {InternalizationPipe} from "../../util-i18n/i18n.pipe";
     DtRowSelectionDirective,
     StopPropagationDirective,
     ButtonComponent,
-    InternalizationPipe
+    InternalizationPipe,
+    LoadingBlockComponent
   ]
 })
 export class TableDtComponent {
@@ -34,17 +46,20 @@ export class TableDtComponent {
   //2º fase -> rows [DONE]
   //3º fase -> bootstrap table styles [DONE]
   //4º fase -> staticDataSource [DONE]
-  //5º fase -> remoteDataSource
+  //5º fase -> remoteDataSource [DONE]
   //6º fase -> pagination [DONE]
   //7º fase -> search [DONE]
   //8º fase -> select row [DONE]
-  // TODO IT IS BETTER TO FIX LINT ERRORS
   //9º fase -> actions column [DONE]
   //10ª fase -> row action [DONE]
   //11ª fase -> select boxes (mass deletions) [DONE]
-  //12ª fase -> adicionar remove items no remoteDataSource
-  //13ª fase -> adicionar loading no remoteDataSource
+  //12ª fase -> adicionar remove items no remoteDataSource [DONE]
+  //13ª fase -> adicionar loading no remoteDataSource [DONE]
+  //14º fase -> adicionar toastr notification [DONE]
   //14ª fase -> implement order in remote and static
+  //15ª fase -> fix remote datasource data id
+  //16º fase -> check lint
+  //17º fase -> check test
 
   readonly dataSource = input.required<DataSource>();
   readonly search = input(false);
@@ -95,7 +110,7 @@ export class TableDtComponent {
 
   selectRowToRemove(row: TRow) {
     this.selectedRowsToRemove.update((rows) => {
-      const exists = rows.includes(row);
+      const exists = rows.some((r) => r.id === row.id);
       return exists
         ? rows.filter((r) => r !== row)
         : [...rows, row];
@@ -103,7 +118,7 @@ export class TableDtComponent {
   }
 
   protected isRowChecked(row: TRow) {
-    return this.selectedRowsToRemove().includes(row);
+    return this.selectedRowsToRemove().some(selected => selected.id === row.id);
   }
 
   protected selectAllVisibleRows() {

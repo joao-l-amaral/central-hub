@@ -189,4 +189,10 @@ public class GameVaultAPI {
 
         return RestResponse.ok(dummyResponseRemoteDataSourceResult);
     }
+
+    @POST
+    @Path("/test")
+    public RestResponse deleteTest() {
+        return RestResponse.ok();
+    }
 }

@@ -1,15 +1,20 @@
-import {combineLatest, debounceTime, filter, Observable, switchMap} from 'rxjs';
-import {signal} from '@angular/core';
+import {combineLatest, debounceTime, filter, finalize, firstValueFrom, Observable, switchMap, tap} from 'rxjs';
+import {inject, signal} from '@angular/core';
 import {CHDataSource} from "./data-source";
 import {PaginationPage} from '../util-request/request-factory.types';
+import {ToastrService} from "ngx-toastr";
 
 class RemoteDataSource<T> extends CHDataSource<T> {
-  readonly loading = signal(false);
+  readonly #toastr = inject(ToastrService);
+
   readonly total = signal(0);
   readonly pageSize = signal(0);
   readonly page = signal(0);
 
-  constructor(private readonly requestFn: (search: string, page: number, pageSize: number) => Observable<PaginationPage<T>>) {
+  constructor(
+    private readonly requestFn: (search: string, page: number, pageSize: number) => Observable<PaginationPage<T>>,
+    private readonly deleteRequestFn?: (data: T[]) => Observable<T>
+  ) {
     super();
 
     combineLatest([
@@ -17,13 +22,12 @@ class RemoteDataSource<T> extends CHDataSource<T> {
       this.pageSizeSub,
       this.pageSub
     ]).pipe(
-      filter(([search, pageSize]) => pageSize !== 0),
-      //tap(() => this.loading.set(true)),
+      filter(([_search, pageSize]) => pageSize !== 0),
+      tap(() => this.loading = true),
       switchMap(([search, pageSize, page]) => {
-        return this.requestFn(search, page, pageSize);
-        /*.pipe(
-          finalize(() => this.loading.set(false))
-        )*/
+        return this.requestFn(search, page, pageSize).pipe(
+          finalize(() => this.loading = false)
+        )
       })
     ).subscribe(result => {
       this.setData(result.items);
@@ -46,7 +50,13 @@ class RemoteDataSource<T> extends CHDataSource<T> {
   }
 
   removeRecords(data: T[]): void {
-    //TO BE IMPLEMENTED
+    if (this.deleteRequestFn) {
+      firstValueFrom(this.deleteRequestFn(data)).then(r => {
+        this.#toastr.success("Remote data removed successfully.");
+      }).catch(err => {
+        this.#toastr.error("Failed to remove remote data.", err.message);
+      });
+    }
   }
 
   connect(): Observable<T[]> {

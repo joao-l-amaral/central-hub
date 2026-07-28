@@ -62,7 +62,14 @@ export class GameQComponent implements OnDestroy {
   readonly #requestSubject$ = (search: string, page: number, pageSize: number) =>
     this.#requestFactory.get<PaginationPage<DummyResponse>>('/api/games/test', { params: { search, page, pageSize } });
 
-  readonly dataSource = new RemoteDataSource<DummyResponse>(this.#requestSubject$);
+  readonly #removeRequestSubject$ = (data: DummyResponse[]) =>
+    this.#requestFactory.post<DummyResponse>('/api/games/test', { body: data });
+
+
+  readonly dataSource = new RemoteDataSource<DummyResponse>(
+    this.#requestSubject$,
+    this.#removeRequestSubject$
+  );
 
   protected onSearch($event: string) {
     console.log($event);
