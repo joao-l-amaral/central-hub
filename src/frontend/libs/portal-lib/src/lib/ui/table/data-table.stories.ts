@@ -7,13 +7,14 @@ import {TRow} from './data-table.types';
 import {I18nService} from "../../util-i18n/i18n-service";
 import {ActionCell} from "./feature-data-table-cell/ui-action/action-cell";
 import {RequestFactory} from "./util-request/request-factory";
+import { LoadingBlockService } from "../loading-block/loading-block-service";
 
 const meta: Meta<TableDtComponent> = {
   component: TableDtComponent,
   title: 'DataTableComponent',
   decorators: [
     applicationConfig({
-      providers: [I18nService, RequestFactory],
+      providers: [I18nService, LoadingBlockService, RequestFactory],
     }),
     moduleMetadata({
       imports: [TableDtComponent, DataTableCell, ActionCell, DtCellTemplateDirective],

@@ -1,3 +1,11 @@
 <ng-container>
-  <b>{{ value() }}</b>
+  <span>
+    <b>{{ field() }}</b>
+  </span>
+  <a>
+    <i
+      [class]="sortIcon()"
+      (click)="onSortClick($event)"
+    ></i>
+  </a>
 </ng-container>

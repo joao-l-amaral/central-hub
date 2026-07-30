@@ -10,6 +10,7 @@ import {
   PaginationPage,
   RemoteDataSource,
   RequestFactory,
+  SortCriterion,
   TableDtComponent
 } from '@central-hub/library';
 
@@ -59,8 +60,8 @@ export class GameQComponent implements OnDestroy {
     this.#adminstratorSub.unsubscribe();
   }
 
-  readonly #requestSubject$ = (search: string, page: number, pageSize: number) =>
-    this.#requestFactory.get<PaginationPage<DummyResponse>>('/api/games/test', { params: { search, page, pageSize } });
+  readonly #requestSubject$ = (search: string, page: number, pageSize: number, sortOrder: string) =>
+    this.#requestFactory.get<PaginationPage<DummyResponse>>('/api/games/test', { params: { search, page, pageSize, sortOrder } });
 
   readonly #removeRequestSubject$ = (data: DummyResponse[]) =>
     this.#requestFactory.post<DummyResponse>('/api/games/test', { body: data });

@@ -40,7 +40,9 @@ export class RequestFactory {
     if (!params) return undefined;
     let httpParams = new HttpParams();
     for (const [key, value] of Object.entries(params)) {
-      httpParams = httpParams.set(key, value as string);
+      if (value !== "") {
+        httpParams = httpParams.set(key, value as string);
+      }
     }
     return httpParams;
   }

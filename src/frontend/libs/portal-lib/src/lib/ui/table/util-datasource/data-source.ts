@@ -1,5 +1,6 @@
 import {BehaviorSubject} from "rxjs";
 import {DataSource} from "@angular/cdk/collections";
+import {SortCriterion} from "@central-hub/library";
 
 export abstract class CHDataSource<T> extends DataSource<T> {
   protected readonly data = new BehaviorSubject<T[]>([]);
@@ -8,10 +9,12 @@ export abstract class CHDataSource<T> extends DataSource<T> {
   loading = false;
 
   readonly search = new BehaviorSubject<string>("");
+  readonly sortOrder = new BehaviorSubject<string | SortCriterion>("");
   readonly pageSizeSub = new BehaviorSubject<number>(0);
   readonly pageSub = new BehaviorSubject<number>(1);
 
   abstract setSearch(searchInput: string): void;
+  abstract setSort(sortCriterion: SortCriterion): void;
   abstract removeRecords(data: T[]): void;
   abstract hasPreviousPage(): boolean;
   abstract hasNextPage(): boolean;
@@ -37,12 +40,8 @@ export abstract class CHDataSource<T> extends DataSource<T> {
   }
 
   protected processDataIds(initialData: T[]) {
-    const a = initialData.map((item, index) =>
+    return initialData.map((item, index) =>
       (item as Record<string, any>)['id'] ? item : {...item, id: (this.pageSub.getValue() - 1) * this.pageSizeSub.getValue() + index}
     );
-
-    console.log(a);
-
-    return a;
   }
 }

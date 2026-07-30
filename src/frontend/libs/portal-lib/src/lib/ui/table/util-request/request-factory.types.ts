@@ -1,6 +1,11 @@
 import {HttpContext, HttpParams} from "@angular/common/http";
 
-export type SortDirection = 'ASC' | 'DESC';
+export type SortDirection = 'ASC' | 'DESC' | null;
+
+export interface SortState {
+  icon: string;
+  next: SortDirection;
+}
 
 export type FilterOperator =
   | 'EQUALS' | 'NOT_EQUALS'
@@ -10,19 +15,6 @@ export type FilterOperator =
 export interface SortCriterion {
   field: string;
   direction: SortDirection;
-}
-
-export interface FilterCriterion {
-  field: string;
-  operator: FilterOperator;
-  value: unknown;
-}
-
-export interface SearchRequest {
-  page: number;
-  pageSize: number;
-  sort?: SortCriterion[];
-  filters?: FilterCriterion[];
 }
 
 export interface PaginationPage<T> {

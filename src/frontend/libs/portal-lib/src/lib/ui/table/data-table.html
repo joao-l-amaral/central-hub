@@ -36,7 +36,8 @@
           @for (col of columns(); track col.key()) {
             <th scope="col">
               <lib-table-dt-header
-                [value]="col.header()"
+                [field]="col.header()"
+                (sortColumnChanged)="onSortColumnChanged($event)"
               />
             </th>
           }

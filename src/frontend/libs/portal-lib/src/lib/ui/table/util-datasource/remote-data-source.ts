@@ -1,7 +1,7 @@
 import {combineLatest, debounceTime, filter, finalize, firstValueFrom, Observable, switchMap, tap} from 'rxjs';
 import {inject, signal} from '@angular/core';
 import {CHDataSource} from "./data-source";
-import {PaginationPage} from '../util-request/request-factory.types';
+import {PaginationPage, SortCriterion} from '../util-request/request-factory.types';
 import {ToastrService} from "ngx-toastr";
 
 class RemoteDataSource<T> extends CHDataSource<T> {
@@ -12,7 +12,7 @@ class RemoteDataSource<T> extends CHDataSource<T> {
   readonly page = signal(0);
 
   constructor(
-    private readonly requestFn: (search: string, page: number, pageSize: number) => Observable<PaginationPage<T>>,
+    private readonly requestFn: (search: string, page: number, pageSize: number, sortOrder: string) => Observable<PaginationPage<T>>,
     private readonly deleteRequestFn?: (data: T[]) => Observable<T>
   ) {
     super();
@@ -20,12 +20,13 @@ class RemoteDataSource<T> extends CHDataSource<T> {
     combineLatest([
       this.search.pipe(debounceTime(300)),
       this.pageSizeSub,
-      this.pageSub
+      this.pageSub,
+      this.sortOrder
     ]).pipe(
       filter(([_search, pageSize]) => pageSize !== 0),
       tap(() => this.loading = true),
-      switchMap(([search, pageSize, page]) => {
-        return this.requestFn(search, page, pageSize).pipe(
+      switchMap(([search, pageSize, page, sortOrder]) => {
+        return this.requestFn(search, page, pageSize, sortOrder as string).pipe(
           finalize(() => this.loading = false)
         )
       })
@@ -49,7 +50,16 @@ class RemoteDataSource<T> extends CHDataSource<T> {
     this.search.next(searchInput);
   }
 
-  removeRecords(data: T[]): void {
+  setSort(sortCriterion: SortCriterion) {
+
+    const flattened = (sortCriterion.direction === null) ? '' : Object.entries(sortCriterion)
+      .map(([key, value]) => `${key}:${value}`)
+      .join(',');
+
+    this.sortOrder.next(flattened);
+  }
+
+  removeRecords(data: T[]) {
     if (this.deleteRequestFn) {
       firstValueFrom(this.deleteRequestFn(data)).then(r => {
         this.#toastr.success("Remote data removed successfully.");
@@ -63,7 +73,7 @@ class RemoteDataSource<T> extends CHDataSource<T> {
     return this.data.asObservable();
   }
 
-  disconnect(): void {
+  disconnect() {
     this.data.complete();
     this.pageSizeSub.complete();
     this.pageSub.complete();

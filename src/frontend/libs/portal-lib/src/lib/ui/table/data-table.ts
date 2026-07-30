@@ -1,13 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  contentChildren,
-  input,
-  output,
-  signal,
-  computed,
-  effect, inject
-} from '@angular/core';
+import {ChangeDetectionStrategy, Component, computed, contentChildren, input, output, signal} from '@angular/core';
 import {NgTemplateOutlet} from "@angular/common";
 import {DataTableCell} from "./feature-data-table-cell/ui-cell/data-table-cell";
 import {ActionCell} from "./feature-data-table-cell/ui-action/action-cell";
@@ -21,7 +12,7 @@ import {SearchInputComponent} from "../search-input";
 import {ButtonComponent} from "../button/button";
 import {InternalizationPipe} from "../../util-i18n/i18n.pipe";
 import {LoadingBlockComponent} from "../loading-block";
-import {ToastrService} from "ngx-toastr";
+import {SortCriterion} from "./util-request";
 
 @Component({
   selector: 'lib-table-dt',
@@ -56,10 +47,11 @@ export class TableDtComponent {
   //12ª fase -> adicionar remove items no remoteDataSource [DONE]
   //13ª fase -> adicionar loading no remoteDataSource [DONE]
   //14º fase -> adicionar toastr notification [DONE]
-  //14ª fase -> implement order in remote and static
-  //15ª fase -> fix remote datasource data id
-  //16º fase -> check lint
-  //17º fase -> check test
+  //14ª fase -> implement order in remote and static [DONE]
+  //15ª fase -> Set a empty data
+  //16ª fase -> fix remote datasource data id
+  //17º fase -> check lint
+  //18º fase -> check test
 
   readonly dataSource = input.required<DataSource>();
   readonly search = input(false);
@@ -131,5 +123,9 @@ export class TableDtComponent {
 
   protected isAllVisibleRowsChecked() {
     return this.selectedRowsToRemove().length === this.rows().length && this.rows().length > 0;
+  }
+
+  protected onSortColumnChanged($event: SortCriterion) {
+    this.dataSource().setSort($event);
   }
 }
