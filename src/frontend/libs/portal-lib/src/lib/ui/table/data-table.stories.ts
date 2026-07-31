@@ -130,3 +130,73 @@ export const TableDataStaticDataSource: Story = {
     }
   },
 };
+
+export const TableDataStaticDataSourceEmpty: Story = {
+  render: (args) => ({
+    props: {
+      ...args,
+      rowClicked: (value: any) => {
+        console.log(value);
+      },
+      buttonClick: (context: string) => {
+        console.log(context);
+      }
+    },
+    template: `
+        <lib-table-dt
+          ${argsToTemplate(args)},
+          (rowClicked)="rowClicked($event)"
+        >
+          <lib-dt-col header="Name" key="name" class="hide-on-small">
+            <ng-template dtTemplate let-value="value">
+              {{ value }}
+            </ng-template>
+          </lib-dt-col>
+
+          <lib-dt-col header="Age" key="age" class="hide-on-small">
+            <ng-template dtTemplate let-value="value">
+              {{ value }}
+            </ng-template>
+          </lib-dt-col>
+
+          <lib-dt-col header="Role" key="role">
+            <ng-template dtTemplate let-value="value">
+              {{ value }}
+            </ng-template>
+          </lib-dt-col>
+
+          <lib-dt-col header="Function" key="function">
+            <ng-template dtTemplate let-value="value">
+              {{ value }}
+            </ng-template>
+          </lib-dt-col>
+
+          <lib-dt-action-col header="Action" key="action">
+            <ng-template dtTemplate>
+              <a>
+                <i class="bi bi-pencil" (click)="buttonClick('teste1')"></i>
+              </a>
+            </ng-template>
+            <ng-template dtTemplate>
+              <a>
+                <i class="bi bi-trash" (click)="buttonClick('teste2')"></i>
+              </a>
+            </ng-template>
+          </lib-dt-action-col>
+        </lib-table-dt>
+    `,
+  }),
+  args: {
+    search: true,
+    removeRecords: true,
+    dataSource: new StaticDataSource<TRow>([])
+  },
+  argTypes: {
+    search: {
+      control: { type: 'boolean' }
+    },
+    removeRecords: {
+      control: { type: 'boolean' }
+    }
+  },
+};
