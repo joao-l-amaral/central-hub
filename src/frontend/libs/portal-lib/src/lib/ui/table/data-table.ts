@@ -49,7 +49,7 @@ export class TableDtComponent {
   //14º fase -> adicionar toastr notification [DONE]
   //14ª fase -> implement order in remote and static [DONE]
   //15ª fase -> Set a empty data row if no data is present [DONE]
-  //16ª fase -> fix remote datasource data id
+  //16ª fase -> fix remote datasource data id [DONE]
   //17º fase -> check lint
   //18º fase -> check test
 

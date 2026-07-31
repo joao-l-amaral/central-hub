@@ -10,9 +10,9 @@ import {
   PaginationPage,
   RemoteDataSource,
   RequestFactory,
-  SortCriterion,
   TableDtComponent
 } from '@central-hub/library';
+import {TRow} from "../../../../../../libs/portal-lib/src/lib/ui/table/data-table.types";
 
 interface DummyResponse {
   name: string,
@@ -73,6 +73,10 @@ export class GameQComponent implements OnDestroy {
   );
 
   protected onSearch($event: string) {
+    console.log($event);
+  }
+
+  protected rowClicked($event: TRow) {
     console.log($event);
   }
 }

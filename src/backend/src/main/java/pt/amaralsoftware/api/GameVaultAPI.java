@@ -20,16 +20,26 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 class DummyResponse {
+    private String id;
     private String name;
     private Integer age;
     private String role;
     private String function;
 
-    public DummyResponse(String name, Integer age, String role, String function) {
+    public DummyResponse(String id, String name, Integer age, String role, String function) {
+        this.id = id;
         this.name = name;
         this.age = age;
         this.role = role;
         this.function = function;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -142,26 +152,26 @@ public class GameVaultAPI {
     ) {
         List<DummyResponse> dummyResponses = new ArrayList<>(
             Arrays.asList(
-                new DummyResponse("Chris", 22, "Author", "Manager"),
-                new DummyResponse("Dennis", 45, "Reviewer", "Lead"),
-                new DummyResponse("Alice", 38, "Developer", "Senior"),
-                new DummyResponse("Bob", 35, "QA", "Team Lead"),
-                new DummyResponse("Eve", 28, "Designer", "Specialist"),
-                new DummyResponse("Frank", 52, "Architect", "Director"),
-                new DummyResponse("Grace", 31, "Developer", "Senior"),
-                new DummyResponse("Henry", 29, "DevOps", "Engineer"),
-                new DummyResponse("Ivy", 26, "Intern", "Junior"),
-                new DummyResponse("Jack", 41, "Manager", "Director"),
-                new DummyResponse("Chris1", 22, "Author", "Manager"),
-                new DummyResponse("Dennis2", 45, "Reviewer", "Lead"),
-                new DummyResponse("Alice3", 38, "Developer", "Senior"),
-                new DummyResponse("Bob4", 35, "QA", "Team Lead"),
-                new DummyResponse("Eve5", 28, "Designer", "Specialist"),
-                new DummyResponse("Frank6", 52, "Architect", "Director"),
-                new DummyResponse("Grace7", 31, "Developer", "Senior"),
-                new DummyResponse("Henry8", 29, "DevOps", "Engineer"),
-                new DummyResponse("Ivy9", 26, "Intern", "Junior"),
-                new DummyResponse("Jack10", 41, "Manager", "Director")
+                new DummyResponse("11", "Chris", 22, "Author", "Manager"),
+                new DummyResponse("12", "Dennis", 45, "Reviewer", "Lead"),
+                new DummyResponse("13", "Alice", 38, "Developer", "Senior"),
+                new DummyResponse("14", "Bob", 35, "QA", "Team Lead"),
+                new DummyResponse("15", "Eve", 28, "Designer", "Specialist"),
+                new DummyResponse("16", "Frank", 52, "Architect", "Director"),
+                new DummyResponse("17", "Grace", 31, "Developer", "Senior"),
+                new DummyResponse("18", "Henry", 29, "DevOps", "Engineer"),
+                new DummyResponse("19", "Ivy", 26, "Intern", "Junior"),
+                new DummyResponse("20", "Jack", 41, "Manager", "Director"),
+                new DummyResponse("21", "Chris1", 22, "Author", "Manager"),
+                new DummyResponse("22", "Dennis2", 45, "Reviewer", "Lead"),
+                new DummyResponse("23", "Alice3", 38, "Developer", "Senior"),
+                new DummyResponse("24", "Bob4", 35, "QA", "Team Lead"),
+                new DummyResponse("25", "Eve5", 28, "Designer", "Specialist"),
+                new DummyResponse("26", "Frank6", 52, "Architect", "Director"),
+                new DummyResponse("27", "Grace7", 31, "Developer", "Senior"),
+                new DummyResponse("28", "Henry8", 29, "DevOps", "Engineer"),
+                new DummyResponse("29", "Ivy9", 26, "Intern", "Junior"),
+                new DummyResponse("30", "Jack10", 41, "Manager", "Director")
             )
         );
 

@@ -14,6 +14,7 @@
                   [search]="true"
                   [removeRecords]="true"
                   [dataSource]="dataSource"
+                  (rowClicked)="rowClicked($event)"
                >
                   <lib-dt-col header="Name" key="name" class="hide-on-small">
                     <ng-template dtTemplate let-value="value">
