@@ -61,7 +61,7 @@ class RemoteDataSource<T> extends CHDataSource<T> {
 
   removeRecords(data: T[]) {
     if (this.deleteRequestFn) {
-      firstValueFrom(this.deleteRequestFn(data)).then(r => {
+      firstValueFrom(this.deleteRequestFn(data)).then(() => {
         this.#toastr.success("Remote data removed successfully.");
       }).catch(err => {
         this.#toastr.error("Failed to remove remote data.", err.message);

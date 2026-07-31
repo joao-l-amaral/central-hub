@@ -10,9 +10,9 @@ import {
   PaginationPage,
   RemoteDataSource,
   RequestFactory,
-  TableDtComponent
+  TableDtComponent,
+  TRow
 } from '@central-hub/library';
-import {TRow} from "../../../../../../libs/portal-lib/src/lib/ui/table/data-table.types";
 
 interface DummyResponse {
   name: string,

@@ -1,13 +1,14 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { SideBarNavigationComponent } from './sidebar-nav';
 import { PageSampleComponent } from './sidebar-nav.stories';
-import {Component, Pipe, PipeTransform, Type} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Pipe, PipeTransform, Type} from '@angular/core';
 import { vi } from 'vitest';
 import { InternalizationPipe } from '../../util-i18n';
 
 @Component({
   selector: 'lib-dummy',
   template: `<span>dummy</span>`,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 class DummyComponent {}
 

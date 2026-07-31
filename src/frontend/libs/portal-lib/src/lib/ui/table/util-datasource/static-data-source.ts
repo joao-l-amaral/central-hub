@@ -35,8 +35,6 @@ export class StaticDataSource<T> extends CHDataSource<T> {
 
     filtered = this.#applySort(filtered, sortCriterion);
 
-    console.log(filtered);
-
     if (pageSize > 0 && pageSize < filtered.length) {
       const startIndex = (page - 1) * pageSize;
       filtered = filtered.slice(startIndex, startIndex + pageSize);

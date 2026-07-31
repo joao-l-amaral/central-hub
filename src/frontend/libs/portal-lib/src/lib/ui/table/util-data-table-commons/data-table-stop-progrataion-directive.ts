@@ -1,7 +1,7 @@
 import { Directive } from '@angular/core';
 
 @Directive({
-  selector: '[stopPropagation]',
+  selector: '[libStopPropagation]',
   host: {
     '(click)': 'onClick($event)'
   }

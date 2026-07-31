@@ -29,7 +29,7 @@ export const TableDataStaticDataSource: Story = {
   render: (args) => ({
     props: {
       ...args,
-      rowClicked: (value: any) => {
+      rowClicked: (value: unknown) => {
         console.log(value);
       },
       buttonClick: (context: string) => {
@@ -42,36 +42,36 @@ export const TableDataStaticDataSource: Story = {
           (rowClicked)="rowClicked($event)"
         >
           <lib-dt-col header="Name" key="name" class="hide-on-small">
-            <ng-template dtTemplate let-value="value">
+            <ng-template libDtTemplate let-value="value">
               {{ value }}
             </ng-template>
           </lib-dt-col>
 
           <lib-dt-col header="Age" key="age" class="hide-on-small">
-            <ng-template dtTemplate let-value="value">
+            <ng-template libDtTemplate let-value="value">
               {{ value }}
             </ng-template>
           </lib-dt-col>
 
           <lib-dt-col header="Role" key="role">
-            <ng-template dtTemplate let-value="value">
+            <ng-template libDtTemplate let-value="value">
               {{ value }}
             </ng-template>
           </lib-dt-col>
 
           <lib-dt-col header="Function" key="function">
-            <ng-template dtTemplate let-value="value">
+            <ng-template libDtTemplate let-value="value">
               {{ value }}
             </ng-template>
           </lib-dt-col>
 
           <lib-dt-action-col header="Action" key="action">
-            <ng-template dtTemplate>
+            <ng-template libDtTemplate>
               <a>
                 <i class="bi bi-pencil" (click)="buttonClick('teste1')"></i>
               </a>
             </ng-template>
-            <ng-template dtTemplate>
+            <ng-template libDtTemplate>
               <a>
                 <i class="bi bi-trash" (click)="buttonClick('teste2')"></i>
               </a>
@@ -135,7 +135,7 @@ export const TableDataStaticDataSourceEmpty: Story = {
   render: (args) => ({
     props: {
       ...args,
-      rowClicked: (value: any) => {
+      rowClicked: (value: unknown) => {
         console.log(value);
       },
       buttonClick: (context: string) => {
@@ -148,36 +148,36 @@ export const TableDataStaticDataSourceEmpty: Story = {
           (rowClicked)="rowClicked($event)"
         >
           <lib-dt-col header="Name" key="name" class="hide-on-small">
-            <ng-template dtTemplate let-value="value">
+            <ng-template libDtTemplate let-value="value">
               {{ value }}
             </ng-template>
           </lib-dt-col>
 
           <lib-dt-col header="Age" key="age" class="hide-on-small">
-            <ng-template dtTemplate let-value="value">
+            <ng-template libDtTemplate let-value="value">
               {{ value }}
             </ng-template>
           </lib-dt-col>
 
           <lib-dt-col header="Role" key="role">
-            <ng-template dtTemplate let-value="value">
+            <ng-template libDtTemplate let-value="value">
               {{ value }}
             </ng-template>
           </lib-dt-col>
 
           <lib-dt-col header="Function" key="function">
-            <ng-template dtTemplate let-value="value">
+            <ng-template libDtTemplate let-value="value">
               {{ value }}
             </ng-template>
           </lib-dt-col>
 
           <lib-dt-action-col header="Action" key="action">
-            <ng-template dtTemplate>
+            <ng-template libDtTemplate>
               <a>
                 <i class="bi bi-pencil" (click)="buttonClick('teste1')"></i>
               </a>
             </ng-template>
-            <ng-template dtTemplate>
+            <ng-template libDtTemplate>
               <a>
                 <i class="bi bi-trash" (click)="buttonClick('teste2')"></i>
               </a>

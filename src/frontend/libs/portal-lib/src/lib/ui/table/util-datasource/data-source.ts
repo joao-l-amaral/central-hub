@@ -1,6 +1,6 @@
 import {BehaviorSubject} from "rxjs";
 import {DataSource} from "@angular/cdk/collections";
-import {SortCriterion} from "@central-hub/library";
+import { SortCriterion } from "../util-request";
 
 export abstract class CHDataSource<T> extends DataSource<T> {
   protected readonly data = new BehaviorSubject<T[]>([]);
@@ -41,7 +41,7 @@ export abstract class CHDataSource<T> extends DataSource<T> {
 
   protected processDataIds(initialData: T[]) {
     return initialData.map((item, index) =>
-      (item as Record<string, any>)['id'] ? item : {...item, id: (this.pageSub.getValue() - 1) * this.pageSizeSub.getValue() + index}
+      (item as Record<string, unknown>)['id'] ? item : {...item, id: (this.pageSub.getValue() - 1) * this.pageSizeSub.getValue() + index}
     );
   }
 }

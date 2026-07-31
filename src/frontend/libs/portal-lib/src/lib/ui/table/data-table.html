@@ -47,10 +47,10 @@
       <tbody>
       @if(rows().length> 0) {
         @for (row of rows(); track $index) {
-          <tr dataRowSelection [row]="row" [selectedRow]="rowSelected()" (rowClicked)="rowClickedFn($event)" >
+          <tr libDataRowSelection [row]="row" [selectedRow]="rowSelected()" (rowClicked)="rowClickedFn($event)" >
 
             @if (removeRecords()) {
-              <td class="td-select-cell" stopPropagation>
+              <td class="td-select-cell" libStopPropagation>
                 <input
                   class="form-check-input"
                   type="checkbox"
@@ -78,7 +78,7 @@
               </td>
             }
             @for (col of actionColumns(); track col.key()) {
-              <td class="action-cell" stopPropagation>
+              <td class="action-cell" libStopPropagation>
                 @for (action of col.actions(); track $index) {
                   @if (action.template; as actionTpl) {
                     <span class="action-element">

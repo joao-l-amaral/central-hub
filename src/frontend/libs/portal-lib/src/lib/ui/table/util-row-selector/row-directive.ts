@@ -1,7 +1,7 @@
 import {computed, Directive, input, output} from '@angular/core';
 
 @Directive({
-  selector: '[dataRowSelection]',
+  selector: '[libDataRowSelection]',
   host: {
     '(click)': 'onClick()',
     '[class.dt-active]': 'isRowSelected()'
