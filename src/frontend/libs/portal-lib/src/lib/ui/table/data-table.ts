@@ -50,7 +50,7 @@ export class TableDtComponent {
   //14ª fase -> implement order in remote and static [DONE]
   //15ª fase -> Set a empty data row if no data is present [DONE]
   //16ª fase -> fix remote datasource data id [DONE]
-  //17º fase -> check lint
+  //17º fase -> check lint [DONE]
   //18º fase -> check test
 
   readonly dataSource = input.required<DataSource>();

@@ -3,4 +3,4 @@ export * from './util-data-table-commons'
 export * from './util-datasource'
 export * from './util-request'
 export * from './data-table'
-export { TRow } from './data-table.types';
+export * from './data-table.types';

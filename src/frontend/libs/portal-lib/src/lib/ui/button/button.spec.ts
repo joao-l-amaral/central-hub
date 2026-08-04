@@ -27,7 +27,7 @@ describe('ButtonComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('the button is in loading state', async () => {
+  it('The button is in loading state', async () => {
     fixture.componentRef.setInput("loading", true);
 
     const isLoading = await buttonHarness.isLoading();
