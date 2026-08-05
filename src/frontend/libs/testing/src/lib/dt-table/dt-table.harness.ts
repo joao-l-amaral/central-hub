@@ -10,7 +10,6 @@ export class DtTableHarness extends ComponentHarness {
   readonly #selectFirstRowToRemoveInput = this.locatorForAll('.table-responsive .td-select-cell .form-check-input');
   readonly #tableRowsList = this.locatorForAll('.dt-table tbody tr');
   readonly #tableColumnHeaders = this.locatorForAll('th[scope="col"]');
-  readonly #tableCells = this.locatorForAll('.dt-table tbody tr td');
 
   async isEmptyDataRowVisible() {
     return (await this.#emptyDataRow()) !== null;

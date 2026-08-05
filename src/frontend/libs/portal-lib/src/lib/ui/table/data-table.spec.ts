@@ -1,15 +1,16 @@
-import {ComponentFixture, TestBed, fakeAsync, tick} from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {TestbedHarnessEnvironment} from '@angular/cdk/testing/testbed';
 import {expect} from 'vitest';
-import { TableDtComponent } from "./data-table";
+import {TableDtComponent} from "./data-table";
 import {DtTableHarness} from "@central-hub/testing";
 import {LoadingBlockService} from "../loading-block/loading-block-service";
-import { I18nService } from "../../util-i18n";
-import {StaticDataSource, TRow} from "@central-hub/library";
-import {Component, computed} from "@angular/core";
+import {I18nService} from "../../util-i18n";
+import {Component} from "@angular/core";
 import {DataTableCell} from "./feature-data-table-cell/ui-cell/data-table-cell";
 import {DtCellTemplateDirective} from "./util-data-table-commons/data-table-cell-template-directive";
 import {ActionCell} from "./feature-data-table-cell/ui-action/action-cell";
+import {StaticDataSource} from "./util-datasource";
+import {DataSource, TRow} from "./data-table.types";
 
 @Component({
   selector: 'lib-test-table-with-actions',
@@ -45,40 +46,7 @@ import {ActionCell} from "./feature-data-table-cell/ui-action/action-cell";
   standalone: true
 })
 class TestTableWithActionsComponent {
-  dataSource: any;
-  constructor() {
-    this.dataSource = new StaticDataSource<TRow>([]);
-  }
-}
-
-@Component({
-  selector: 'lib-test-table-sorting',
-  template: `
-    <lib-table-dt [dataSource]="dataSource">
-      <lib-dt-col header="Name" key="name">
-        <ng-template libDtTemplate let-value="value">
-          {{ value }}
-        </ng-template>
-      </lib-dt-col>
-
-      <lib-dt-col header="Age" key="age">
-        <ng-template libDtTemplate let-value="value">
-          {{ value }}
-        </ng-template>
-      </lib-dt-col>
-
-      <lib-dt-col header="Role" key="role">
-        <ng-template libDtTemplate let-value="value">
-          {{ value }}
-        </ng-template>
-      </lib-dt-col>
-    </lib-table-dt>
-  `,
-  imports: [TableDtComponent, DataTableCell, DtCellTemplateDirective],
-  standalone: true
-})
-class TestTableSortingComponent {
-  dataSource: any;
+  dataSource: DataSource;
   constructor() {
     this.dataSource = new StaticDataSource<TRow>([]);
   }

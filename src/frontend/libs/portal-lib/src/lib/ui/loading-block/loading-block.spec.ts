@@ -4,7 +4,6 @@ import {expect} from 'vitest';
 import {LoadingBlockHarness} from "@central-hub/testing";
 import { LoadingBlockComponent } from "./loading-block";
 import {LoadingBlockService} from "./loading-block-service";
-import {inject} from "@angular/core";
 
 describe('LoadingBlockComponent', () => {
   let component: LoadingBlockComponent;
