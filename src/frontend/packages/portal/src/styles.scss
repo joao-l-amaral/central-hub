@@ -15,6 +15,7 @@ body { margin: 0; font-family: 'Inter', sans-serif; }
 :root {
   --color-primary-dark: #1A1A1A;
   --color-primary: #FF6900;
+  --color-primary-danger: #ec2212;
   --color-secondary: color-mix(in srgb, var(--color-primary) 70%, white);
   --color-accent: #FF8533;
   --color-highlight: #FFFFFF;
@@ -145,4 +146,11 @@ body { margin: 0; font-family: 'Inter', sans-serif; }
   .mat-typography, {
     font-family: 'Inter', sans-serif !important;
   }
+
+  .table-hover > tbody > tr.selected {
+    --bs-table-hover-bg: var(--color-accent);
+    background-color: var(--bs-table-hover-bg) !important;
+    color: white;  // optional: make text white for contrast
+  }
+
 }

@@ -23,7 +23,8 @@ export const SearchInput: Story = {
   args: {
     placeholder: "Placeholder test",
     disabled: false,
-    onKeySearch: false
+    onKeySearch: false,
+    smallOptions: false
   },
   argTypes: {
     placeholder: {
@@ -33,6 +34,9 @@ export const SearchInput: Story = {
       control: { type: 'boolean' }
     },
     onKeySearch: {
+      control: { type: 'boolean' }
+    },
+    smallOptions: {
       control: { type: 'boolean' }
     }
   },

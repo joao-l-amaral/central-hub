@@ -25,7 +25,7 @@ import { map } from 'rxjs';
   selector: 'lib-nav-panel',
   templateUrl: 'sidebar-nav.html',
   styleUrls: ['sidebar-nav.scss'],
-  imports: [RouterOutlet, NgClass, InternalizationPipe, InternalizationPipe],
+  imports: [RouterOutlet, NgClass, InternalizationPipe],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SideBarNavigationComponent {

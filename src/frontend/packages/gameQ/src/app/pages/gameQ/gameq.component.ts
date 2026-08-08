@@ -1,14 +1,25 @@
+import {ChangeDetectionStrategy, Component, inject, OnDestroy, signal,} from '@angular/core';
+import {MatSlideToggle} from '@angular/material/slide-toggle';
+import {FormControl, ReactiveFormsModule} from '@angular/forms';
+import {AdministrationComponent} from '../administration/administration.component';
+import {Subscription} from 'rxjs';
 import {
-  ChangeDetectionStrategy,
-  Component,
-  OnDestroy,
-  signal,
-} from '@angular/core';
-import { MatSlideToggle } from '@angular/material/slide-toggle';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { AdministrationComponent } from '../administration/administration.component';
-import { Subscription } from 'rxjs';
-import { InternalizationPipe } from '@central-hub/library';
+  DataTableCell,
+  DtCellTemplateDirective,
+  InternalizationPipe,
+  PaginationPage,
+  RemoteDataSource,
+  RequestFactory,
+  TableDtComponent,
+  TRow
+} from '@central-hub/library';
+
+interface DummyResponse {
+  name: string,
+  age: number,
+  role: string,
+  function: string
+}
 
 @Component({
   selector: 'gameq-vault-home',
@@ -19,6 +30,12 @@ import { InternalizationPipe } from '@central-hub/library';
     ReactiveFormsModule,
     AdministrationComponent,
     InternalizationPipe,
+    TableDtComponent,
+    DataTableCell,
+    DtCellTemplateDirective
+  ],
+  providers: [
+    RequestFactory
   ],
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -28,6 +45,8 @@ export class GameQComponent implements OnDestroy {
 
   readonly isAdministrator = signal(false);
   readonly #adminstratorSub: Subscription;
+
+  readonly #requestFactory = inject(RequestFactory);
 
   constructor() {
     this.#adminstratorSub = this.slideForm.valueChanges.subscribe((changes) => {
@@ -39,5 +58,25 @@ export class GameQComponent implements OnDestroy {
 
   ngOnDestroy(): void {
     this.#adminstratorSub.unsubscribe();
+  }
+
+  readonly #requestSubject$ = (search: string, page: number, pageSize: number, sortOrder: string) =>
+    this.#requestFactory.get<PaginationPage<DummyResponse>>('/api/games/test', { params: { search, page, pageSize, sortOrder } });
+
+  readonly #removeRequestSubject$ = (data: DummyResponse[]) =>
+    this.#requestFactory.post<DummyResponse>('/api/games/test', { body: data });
+
+
+  readonly dataSource = new RemoteDataSource<DummyResponse>(
+    this.#requestSubject$,
+    this.#removeRequestSubject$
+  );
+
+  protected onSearch($event: string) {
+    console.log($event);
+  }
+
+  protected rowClicked($event: TRow) {
+    console.log($event);
   }
 }

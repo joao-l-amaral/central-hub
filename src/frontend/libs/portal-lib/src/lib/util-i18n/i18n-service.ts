@@ -14,15 +14,21 @@ export class I18nService {
     });
   }
 
-  translate(value: string, arg?: string) {
+  translate(value: string, ...arg: string[]) {
     const i18nData = this.#i18n();
 
     if (i18nData) {
-      if (arg) {
-        const translate = i18nData.get(value) ?? value;
-        return translate.replace('%s', arg ?? '');
+      const translate = i18nData.get(value) ?? value;
+
+      if (arg && arg.length > 0) {
+        let result = translate;
+        for (const a of arg) {
+          result = result.replace('%s', a ?? '');
+        }
+        return result;
       }
-      return i18nData.get(value) ?? value;
+
+      return translate;
     }
 
     return value;
