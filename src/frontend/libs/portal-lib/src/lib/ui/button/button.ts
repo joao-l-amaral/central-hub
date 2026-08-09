@@ -25,6 +25,7 @@ import { NgClass } from '@angular/common';
     '[class.ch-btn__sm]': 'size() === "sm"',
     '[class.ch-btn__md]': 'size() === "md"',
     '[class.ch-btn__lg]': 'size() === "lg"',
+    '[class.ch-btn__icon_lg]': 'size() === "lg"',
     '[class.ch-btn__full]': 'fullWidth()',
     '[class.is-disabled]': 'isDisabled()',
     '[class.is-loading]': 'loading()',
@@ -32,7 +33,9 @@ import { NgClass } from '@angular/common';
   imports: [NgClass],
 })
 export class ButtonComponent {
-  readonly variant = input<'primary' | 'secondary' | 'tertiary' | 'danger'>('primary');
+  readonly variant = input<'primary' | 'secondary' | 'tertiary' | 'danger'>(
+    'primary',
+  );
   readonly size = input<'sm' | 'md' | 'lg'>('md');
   readonly label = input<string>();
   readonly title = input<string>();

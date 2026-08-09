@@ -1,4 +1,3 @@
-import { NgClass } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -13,7 +12,10 @@ import { ButtonComponent } from '../button/button';
   templateUrl: './alert-component.html',
   styleUrls: ['./alert-component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [NgClass, ButtonComponent],
+  imports: [ButtonComponent],
+  host: {
+    '[class.alert_small]': 'subtitle().length === 0',
+  },
 })
 export class AlertComponent {
   readonly status = input.required<'info' | 'warning' | 'danger'>();
@@ -24,16 +26,16 @@ export class AlertComponent {
   readonly visibleChange = output<boolean>();
 
   readonly #iconClassHandler = {
-    ["warning"]: "bi bi-exclamation-triangle",
-    ["danger"]: "bi bi-x-circle",
-    ["info"]: "bi bi-info-circle"
-  }
+    ['warning']: 'bi bi-exclamation-triangle',
+    ['danger']: 'bi bi-x-circle',
+    ['info']: 'bi bi-info-circle',
+  };
 
   readonly icon = computed(() => {
     return this.#iconClassHandler[this.status()];
   });
 
   onClose() {
-    this.visibleChange.emit(true);
+    this.visibleChange.emit(false);
   }
 }

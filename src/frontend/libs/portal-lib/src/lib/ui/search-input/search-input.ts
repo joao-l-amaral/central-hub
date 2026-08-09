@@ -21,6 +21,7 @@ export class SearchInputComponent {
   readonly disabled = input(false);
   readonly onKeySearch = input(false);
   readonly smallOptions = input(false);
+  readonly errorState = input(false);
 
   readonly searchValue = output<string>();
 

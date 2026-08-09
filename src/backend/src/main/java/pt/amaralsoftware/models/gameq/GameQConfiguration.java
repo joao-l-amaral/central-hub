@@ -1,4 +1,4 @@
-package pt.amaralsoftware.models.configuration;
+package pt.amaralsoftware.models.gameq;
 
 import java.util.List;
 

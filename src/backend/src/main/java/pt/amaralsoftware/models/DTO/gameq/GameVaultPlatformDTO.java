@@ -1,8 +1,9 @@
-package pt.amaralsoftware.models.DTO.gamevault;
+package pt.amaralsoftware.models.DTO.gameq;
 
 import java.io.Serializable;
 import java.util.List;
 
+@Deprecated
 public class GameVaultPlatformDTO implements Serializable {
     List<String> listOfPlatforms;
     List<String> listOfSelectedPlatforms;

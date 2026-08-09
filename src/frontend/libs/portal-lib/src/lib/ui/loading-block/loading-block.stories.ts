@@ -1,6 +1,6 @@
 import { applicationConfig, argsToTemplate, Meta, StoryObj } from '@storybook/angular';
 import { LoadingBlockComponent } from './loading-block';
-import { loadingBlockProviders } from "./providers";
+import { provideLoadingBlock } from "./providers";
 
 const meta: Meta<LoadingBlockComponent> = {
   component: LoadingBlockComponent,
@@ -8,7 +8,7 @@ const meta: Meta<LoadingBlockComponent> = {
   decorators: [
     applicationConfig({
       providers: [
-        loadingBlockProviders(),
+        provideLoadingBlock(),
       ],
     }),
   ],

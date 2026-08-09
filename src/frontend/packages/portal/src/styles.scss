@@ -150,7 +150,261 @@ body { margin: 0; font-family: 'Inter', sans-serif; }
   .table-hover > tbody > tr.selected {
     --bs-table-hover-bg: var(--color-accent);
     background-color: var(--bs-table-hover-bg) !important;
-    color: white;  // optional: make text white for contrast
+    color: white;
   }
 
+  .xbox360::before {
+    content: '';
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    background-color: currentColor;
+    mask-image: url('assets/images/platforms/xbox360.svg');
+    mask-repeat: no-repeat;
+    mask-size: contain;
+    -webkit-mask-image: url('assets/images/platforms/xbox360.svg');
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-size: contain;
+  }
+
+  .switch::before {
+    content: '';
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    background-color: currentColor;
+    mask-image: url('assets/images/platforms/nintendo-switch.svg');
+    mask-repeat: no-repeat;
+    mask-size: contain;
+    -webkit-mask-image: url('assets/images/platforms/nintendo-switch.svg');
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-size: contain;
+  }
+
+  .wii::before {
+    content: '';
+    display: inline-block;
+    width: 40px;
+    height: 21px;
+    background-color: currentColor;
+    mask-image: url('assets/images/platforms/nintendo-wii.svg');
+    mask-repeat: no-repeat;
+    mask-size: contain;
+    -webkit-mask-image: url('assets/images/platforms/nintendo-wii.svg');
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-size: contain;
+  }
+
+  .wiiu::before {
+    content: '';
+    display: inline-block;
+    width: 53px;
+    height: 21px;
+    background-color: currentColor;
+    mask-image: url('assets/images/platforms/nintendo-wiiu.svg');
+    mask-repeat: no-repeat;
+    mask-size: contain;
+    -webkit-mask-image: url('assets/images/platforms/nintendo-wiiu.svg');
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-size: contain;
+  }
+
+  .play2::before {
+    content: '';
+    display: inline-block;
+    width: 66px;
+    height: 14px;
+    background-color: currentColor;
+    mask-image: url('assets/images/platforms/sony-playstation2.svg');
+    mask-repeat: no-repeat;
+    mask-size: contain;
+    -webkit-mask-image: url('assets/images/platforms/sony-playstation2.svg');
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-size: contain;
+    background-repeat: no-repeat;
+  }
+
+
+  .dreamcast::before {
+    content: '';
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    background-color: currentColor;
+    mask-image: url('assets/images/platforms/sega-dreamcast.svg');
+    mask-repeat: no-repeat;
+    mask-size: contain;
+    -webkit-mask-image: url('assets/images/platforms/sega-dreamcast.svg');
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-size: contain;
+    background-repeat: no-repeat;
+  }
+
+  .switch2::before {
+    content: '';
+    display: inline-block;
+    width: 41px;
+    height: 22px;
+    background-color: currentColor;
+    mask-image: url('assets/images/platforms/nintendo-switch-2.svg');
+    mask-repeat: no-repeat;
+    mask-size: contain;
+    -webkit-mask-image: url('assets/images/platforms/nintendo-switch-2.svg');
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-size: contain;
+  }
+
+  .n64::before {
+    content: '';
+    display: inline-block;
+    width: 32px;
+    height: 31px;
+    background-color: currentColor;
+    mask-image: url('assets/images/platforms/nintendo-64.svg');
+    mask-repeat: no-repeat;
+    mask-size: contain;
+    -webkit-mask-image: url('assets/images/platforms/nintendo-64.svg');
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-size: contain;
+  }
+
+  .play4::before {
+    content: '';
+    display: inline-block;
+    width: 60px;
+    height: 14px;
+    background-color: currentColor;
+    mask-image: url('assets/images/platforms/sony-playstation4.svg');
+    mask-repeat: no-repeat;
+    mask-size: contain;
+    -webkit-mask-image: url('assets/images/platforms/sony-playstation4.svg');
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-size: contain;
+  }
+
+  .play::before {
+    content: '';
+    display: inline-block;
+    width: 30px;
+    height: 23px;
+    background-color: currentColor;
+    mask-image: url('assets/images/platforms/sony-playstation.svg');
+    mask-repeat: no-repeat;
+    mask-size: contain;
+    -webkit-mask-image: url('assets/images/platforms/sony-playstation.svg');
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-size: contain;
+  }
+
+  .xbox::before {
+    content: '';
+    display: inline-block;
+    width: 60px;
+    height: 13px;
+    background-color: currentColor;
+    mask-image: url('assets/images/platforms/xbox.svg');
+    mask-repeat: no-repeat;
+    mask-size: contain;
+    -webkit-mask-image: url('assets/images/platforms/xbox.svg');
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-size: contain;
+  }
+
+  .xboxone::before {
+    content: '';
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    background-color: currentColor;
+    mask-image: url('assets/images/platforms/xbox-one.svg');
+    mask-repeat: no-repeat;
+    mask-size: contain;
+    -webkit-mask-image: url('assets/images/platforms/xbox-one.svg');
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-size: contain;
+  }
+
+  .ea::before {
+    content: '';
+    display: inline-block;
+    width: 50px;
+    height: 25px;
+    background-color: currentColor;
+    mask-image: url('assets/images/platforms/ea.svg');
+    mask-repeat: no-repeat;
+    mask-size: contain;
+    -webkit-mask-image: url('assets/images/platforms/ea.svg');
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-size: contain;
+  }
+
+  .blizzard::before {
+    content: '';
+    display: inline-block;
+    width: 60px;
+    height: 32px;
+    background-color: currentColor;
+    mask-image: url('assets/images/platforms/blizzard.svg');
+    mask-repeat: no-repeat;
+    mask-size: contain;
+    -webkit-mask-image: url('assets/images/platforms/blizzard.svg');
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-size: contain;
+  }
+
+  .epic::before {
+    content: '';
+    display: inline-block;
+    width: 32px;
+    height: 37px;
+    background-color: currentColor;
+    mask-image: url('assets/images/platforms/epic-games.svg');
+    mask-repeat: no-repeat;
+    mask-size: contain;
+    -webkit-mask-image: url('assets/images/platforms/epic-games.svg');
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-size: contain;
+  }
+
+  .gog::before {
+    content: '';
+    display: inline-block;
+    width: 32px;
+    height: 37px;
+    background-color: currentColor;
+    mask-image: url('assets/images/platforms/gog.svg');
+    mask-repeat: no-repeat;
+    mask-size: contain;
+    -webkit-mask-image: url('assets/images/platforms/gog.svg');
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-size: contain;
+  }
+
+  .steam::before {
+    content: '';
+    display: inline-block;
+    width: 32px;
+    height: 37px;
+    background-color: currentColor;
+    mask-image: url('assets/images/platforms/steam.svg');
+    mask-repeat: no-repeat;
+    mask-size: contain;
+    -webkit-mask-image: url('assets/images/platforms/steam.svg');
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-size: contain;
+  }
+
+  .ubisoft::before {
+    content: '';
+    display: inline-block;
+    width: 32px;
+    height: 37px;
+    background-color: currentColor;
+    mask-image: url('assets/images/platforms/ubisoft.svg');
+    mask-repeat: no-repeat;
+    mask-size: contain;
+    -webkit-mask-image: url('assets/images/platforms/ubisoft.svg');
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-size: contain;
+  }
 }

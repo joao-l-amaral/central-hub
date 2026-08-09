@@ -1,8 +1,8 @@
 @if(visible()) {
-    <div class="alert" [ngClass]="status()">
-        <i class="alert__icon" [ngClass]="icon()"></i>
+    <div class="alert" [class]="status()" [class.alert_small]="subtitle().length === 0">
+        <i class="alert__icon" [class]="icon()"></i>
         <div class="alert__body">
-            <ng-container class="alert__title"> {{ title() }} </ng-container>
+            <span class="alert__title">{{ title() }}</span>
             @if(subtitle()) {
                 <div class="has-subtitle alert__subtitle">
                     {{ subtitle() }}

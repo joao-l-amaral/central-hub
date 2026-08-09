@@ -1,11 +1,9 @@
-import { ActivatedRouteSnapshot, Route } from '@angular/router';
-import { GameQComponent } from '../pages/gameQ/gameq.component';
-import {I18nService, PageResourcesComponentConfig, SideBarNavigationComponent} from '@central-hub/library';
-import { AdministrationComponent } from '../pages/administration/administration.component';
-import { PageSampleComponent } from '../pages/pageSample/page-sample.component';
-import { inject } from '@angular/core';
+import { Route } from '@angular/router';
+import { InitialSearchComponent } from '../../initial-search/initial-search';
+import { appConfig } from '../app.config';
+import { provideConfiguration } from '../../initial-search/util-configuration/providers';
 
-function resolverFn(
+/*function resolverFn(
   route: ActivatedRouteSnapshot,
 ): PageResourcesComponentConfig {
   const i18n = inject(I18nService);
@@ -27,10 +25,10 @@ function resolverFn(
 
   route.data = { config };
   return config;
-}
+}*/
 
 export const remoteRoutes: Route[] = [
-  {
+  /*{
     path: '',
     component: SideBarNavigationComponent,
     // data: {
@@ -58,5 +56,13 @@ export const remoteRoutes: Route[] = [
     resolve: {
       resolverFn,
     },
+  },*/
+  {
+    path: '',
+    component: InitialSearchComponent,
+    providers: [provideConfiguration()],
+    /* resolve: { //TODO add a resolver if a game/platform is selected it go to the dashboard page
+      resolverFn,
+    }, */
   },
 ];

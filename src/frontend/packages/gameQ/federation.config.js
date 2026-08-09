@@ -4,7 +4,7 @@ module.exports = withNativeFederation({
   name: 'gameQ',
 
   exposes: {
-    './Routes': 'packages/gameQ/src/app/remote-entry/entry.routes.ts',
+    './Routes': 'packages/gameQ/src/domains/app/remote-entry/entry.routes.ts',
   },
 
   shared: {
