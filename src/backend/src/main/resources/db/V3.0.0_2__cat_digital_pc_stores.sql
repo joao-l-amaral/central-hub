@@ -1,6 +1,5 @@
-CREATE TABLE gui_remote (
+CREATE TABLE cat_digital_pc_stores (
     name text PRIMARY KEY,
-    url text not null,
-    title text not null,
-    enable boolean
+    cooperationName text not null,
+    webSite text not null
 );

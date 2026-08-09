@@ -7,10 +7,12 @@ import org.jboss.resteasy.reactive.RestResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pt.amaralsoftware.config.LoadGameDatabaseSchedule;
-import pt.amaralsoftware.models.DTO.gamevault.GameVaultPlatformDTO;
 import pt.amaralsoftware.models.RemoteDataSourceResult;
-import pt.amaralsoftware.models.configuration.GameVaultConfiguration;
+import pt.amaralsoftware.models.DTO.gameq.GameQConfigurationDTO;
+import pt.amaralsoftware.models.gameq.GameQPlatform;
+import pt.amaralsoftware.models.gameq.GameVaultConfiguration;
 import pt.amaralsoftware.service.CatConfigService;
+import pt.amaralsoftware.service.CatDigitalPcStoresService;
 import pt.amaralsoftware.service.CatGamePlatformService;
 
 import java.io.IOException;
@@ -18,6 +20,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 class DummyResponse {
     private String id;
@@ -75,7 +78,7 @@ class DummyResponse {
     }
 }
 
-@Path("/games")
+@Path("/gameq")
 public class GameVaultAPI {
     private final Logger log = LoggerFactory.getLogger(GameVaultAPI.class);
 
@@ -85,12 +88,35 @@ public class GameVaultAPI {
     CatGamePlatformService catGamePlatformService;
     @Inject
     CatConfigService catConfigService;
+    @Inject
+    CatDigitalPcStoresService catDigitalPcStoresService;
 
     @GET
     @Path("/forceLoadGameVaultDatabase")
     public RestResponse<String> forceDatabaseLoad() {
         loadGameDatabaseSchedule.init();
         return RestResponse.ok("Data base sync forcefully loaded.");
+    }
+
+    @GET
+    @Path("/")
+    @Produces(MediaType.APPLICATION_JSON)
+    public RestResponse<GameQConfigurationDTO> getRoot() {
+        List<GameQPlatform> platforms = catGamePlatformService.getPlatformNames();
+        List<GameQPlatform> pcDigitalStoresPlatforms = catDigitalPcStoresService.getPCDigitalStoresNames();
+
+        List<GameQPlatform> mergedPlatforms = new ArrayList<>();
+        if (platforms != null) {
+            mergedPlatforms.addAll(platforms);
+        }
+        if (pcDigitalStoresPlatforms != null) {
+            mergedPlatforms.addAll(pcDigitalStoresPlatforms);
+        }
+
+        GameQConfigurationDTO gameQConfigurationDTO = new GameQConfigurationDTO();
+        gameQConfigurationDTO.setPlatforms(mergedPlatforms);
+
+        return RestResponse.ok(gameQConfigurationDTO);
     }
 
     @GET
@@ -107,19 +133,20 @@ public class GameVaultAPI {
         return RestResponse.noContent();
     }
 
-    @GET
+    /* @GET
     @Path("/listOfPlatforms")
+    @Deprecated
     public RestResponse<GameVaultPlatformDTO> getPlatforms() {
         log.debug("Get the list of platforms");
 
-        GameVaultPlatformDTO platforms = catGamePlatformService.getPlatformNames();
+        GameVaultPlatformDTO platforms = catGamePlatformService.getPlatformNamesOld();
 
         if(platforms == null) {
             return RestResponse.noContent();
         }
 
         return RestResponse.ok(platforms);
-    }
+    } */
 
     @PATCH
     @Path("/updatePlatforms")

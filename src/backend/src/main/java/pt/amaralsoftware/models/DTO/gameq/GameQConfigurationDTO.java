@@ -1,14 +1,16 @@
-package pt.amaralsoftware.models.gameq;
+package pt.amaralsoftware.models.DTO.gameq;
+
+import pt.amaralsoftware.models.gameq.GameQPlatform;
 
 import java.util.List;
 
-public class GameQConfiguration {
+public class GameQConfigurationDTO {
     List<GameQPlatform> platforms;
 
-    public GameQConfiguration() {
+    public GameQConfigurationDTO() {
     }
 
-    public GameQConfiguration(List<GameQPlatform> platforms) {
+    public GameQConfigurationDTO(List<GameQPlatform> platforms) {
         this.platforms = platforms;
     }
 

@@ -1,27 +1,23 @@
 package pt.amaralsoftware.models.gameq;
 
 import java.util.List;
+import java.util.Map;
 
-public class GameVaultConfiguration {
-    List<String> keyWordsToLookFor;
-    List<String> keyWordsToIgnore;
+public class GameQConfiguration {
+    List<Map<String, Object>> platforms;
 
-    public GameVaultConfiguration() {
+    public GameQConfiguration() {
     }
 
-    public List<String> getKeyWordsToLookFor() {
-        return keyWordsToLookFor;
+    public GameQConfiguration(List<Map<String, Object>> platforms) {
+        this.platforms = platforms;
     }
 
-    public void setKeyWordsToLookFor(List<String> keyWordsToLookFor) {
-        this.keyWordsToLookFor = keyWordsToLookFor;
+    public List<Map<String, Object>> getPlatforms() {
+        return platforms;
     }
 
-    public List<String> getKeyWordsToIgnore() {
-        return keyWordsToIgnore;
-    }
-
-    public void setKeyWordsToIgnore(List<String> keyWordsToIgnore) {
-        this.keyWordsToIgnore = keyWordsToIgnore;
+    public void setPlatforms(List<Map<String, Object>> platforms) {
+        this.platforms = platforms;
     }
 }
