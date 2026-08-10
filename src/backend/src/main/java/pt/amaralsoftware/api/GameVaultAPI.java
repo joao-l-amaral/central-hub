@@ -3,6 +3,7 @@ package pt.amaralsoftware.api;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
+import org.apache.commons.collections4.CollectionUtils;
 import org.jboss.resteasy.reactive.RestResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -106,12 +107,18 @@ public class GameVaultAPI {
         List<GameQPlatform> pcDigitalStoresPlatforms = catDigitalPcStoresService.getPCDigitalStoresNames();
 
         List<GameQPlatform> mergedPlatforms = new ArrayList<>();
-        if (platforms != null) {
+        if (CollectionUtils.isNotEmpty(platforms)) {
             mergedPlatforms.addAll(platforms);
         }
-        if (pcDigitalStoresPlatforms != null) {
+
+        if (CollectionUtils.isNotEmpty(pcDigitalStoresPlatforms)) {
             mergedPlatforms.addAll(pcDigitalStoresPlatforms);
         }
+
+        mergedPlatforms.sort(java.util.Comparator.comparing(
+                p -> p.getPlatformName() == null ? "" : p.getPlatformName(),
+                String.CASE_INSENSITIVE_ORDER
+        ));
 
         GameQConfigurationDTO gameQConfigurationDTO = new GameQConfigurationDTO();
         gameQConfigurationDTO.setPlatforms(mergedPlatforms);
