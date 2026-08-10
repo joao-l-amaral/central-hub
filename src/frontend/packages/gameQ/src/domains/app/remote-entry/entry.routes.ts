@@ -1,6 +1,5 @@
 import { Route } from '@angular/router';
 import { InitialSearchComponent } from '../../initial-search/initial-search';
-import { appConfig } from '../app.config';
 import { provideConfiguration } from '../../initial-search/util-configuration/providers';
 
 /*function resolverFn(
