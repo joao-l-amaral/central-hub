@@ -422,6 +422,8 @@ public class LoadGameDatabaseSchedule {
                 catGamePlatformService.savePlatforms(processedPlatform);
             }
         }
+
+
     }
 
     private String getTagValue(String tag, Element element) {

@@ -7,4 +7,6 @@ import pt.amaralsoftware.models.entity.CatConfigEntity;
 @ApplicationScoped
 public class CatConfigRepository implements PanacheRepository<CatConfigEntity> {
 
+
+
 }

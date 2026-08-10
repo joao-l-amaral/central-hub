@@ -20,7 +20,7 @@
     }
 
     i {
-        font-size: min(2.5vw, 2em);
+        font-size: min(6.5vw, 1em);
         transition: color 0.3s ease;
         margin-bottom: 5px;
         align-items: center;
@@ -29,16 +29,17 @@
     }
 
     span {
-        font-size: min(1vw, 0.8em);
+        font-size: min(3vw, 0.8em);
         text-align: center;
         line-height: 1;
+        width: 70%;
     }
 }
 
 .selected {
     background-color: var(--color-secondary);
 
-    i, span {
+    i::before, span {
         color: var(--color-text)
     }
 }

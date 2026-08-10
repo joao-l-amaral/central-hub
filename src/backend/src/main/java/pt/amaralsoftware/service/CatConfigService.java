@@ -5,7 +5,8 @@ import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import pt.amaralsoftware.models.configuration.GameVaultConfiguration;
+import pt.amaralsoftware.models.gameq.GameQConfiguration;
+import pt.amaralsoftware.models.gameq.GameVaultConfiguration;
 import pt.amaralsoftware.models.entity.CatConfigEntity;
 import pt.amaralsoftware.repository.CatConfigRepository;
 import pt.amaralsoftware.util.JSONSerializer;
@@ -24,10 +25,10 @@ public class CatConfigService {
         return JSONSerializer.fromJSON(catConfigEntity.getConfiguration(), GameVaultConfiguration.class);
     }
 
-    public GameVaultConfiguration getGameVaultPlatform() throws IOException {
+    public GameQConfiguration getGameQPlatform() throws IOException {
         CatConfigEntity catConfigEntity = catConfigRepository.find("WHERE module = 'GameVault'").firstResult();
         String configuration = catConfigEntity.getConfiguration();
-        return JSONSerializer.fromJSON(configuration, GameVaultConfiguration.class);
+        return JSONSerializer.fromJSON(configuration, GameQConfiguration.class);
     }
 
     @Transactional

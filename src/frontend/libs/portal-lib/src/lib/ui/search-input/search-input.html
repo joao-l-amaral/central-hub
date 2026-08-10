@@ -9,6 +9,8 @@
     class="ch-search-input__field"
     [attr.disabled]="disabled() || null"
     [formControl]="searchForm"
+    [class.ch-search-input__field-error]="errorState()"
     (keydown.enter)="onSearch($event)"
   >
+  <ng-content/>
 </div>

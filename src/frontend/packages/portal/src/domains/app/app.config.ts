@@ -12,7 +12,7 @@ import {
 } from '@angular/common/http';
 import { provideToastr } from 'ngx-toastr';
 import {
-  loadingBlockProviders,
+  provideLoadingBlock,
   LoggingService,
   providerInternalization,
   providerOidcAuth,
@@ -41,7 +41,7 @@ export function appConfigProviders(routes: Route[], remotesConfig: RemotesConfig
         positionClass: 'toast-top-right',
         preventDuplicates: true,
       }),
-      loadingBlockProviders(),
+      provideLoadingBlock(),
       providerInternalization(),
       ApplicationConfigurationService,
       LoggingService,
