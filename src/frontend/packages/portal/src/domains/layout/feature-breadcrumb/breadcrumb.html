@@ -1,14 +1,22 @@
 <nav aria-label="breadcrumb" class="bg-light border-bottom">
     <ol class="breadcrumb mb-0 px-3 py-2">
         <li class="breadcrumb-item">
-            <a href="/" class="text-decoration-none breadcrumb-link">
+            <a [routerLink]="'/'" class="text-decoration-none breadcrumb-link">
                {{ 'shell.home' | translate }}
             </a>
         </li>
-        @for(path of breadcrumbPath(); track path){
+      @for (path of breadcrumbPath(); track path; let last = $last) {
+          @if (last) {
             <li class="breadcrumb-item active" aria-current="page">
-                {{ 'title.'+path | translate }}
+              {{ 'title.'+path.split('?')[0] | translate }}
             </li>
+          } @else {
+            <li class="breadcrumb-item">
+              <a [routerLink]="path" class="text-decoration-none breadcrumb-link">
+                {{ 'title.'+path | translate }}
+              </a>
+            </li>
+          }
         }
     </ol>
 </nav>

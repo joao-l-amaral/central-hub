@@ -13,7 +13,7 @@ import {
 } from '@central-hub/library';
 import { GameQConfigurationState } from './util-configuration/configuration-state';
 import { TooltipDirective } from 'ngx-smart-tooltip';
-import {Platform} from "./util-configuration/configuration-interface";
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'gameq-initial-search',
@@ -27,11 +27,14 @@ import {Platform} from "./util-configuration/configuration-interface";
     InternalizationPipe,
     TooltipDirective,
     AlertComponent,
+    RouterLink,
   ],
 })
 export class InitialSearchComponent {
   showError = false;
   readonly #gameQConfigurationState = inject(GameQConfigurationState);
+  readonly #router = inject(Router);
+  readonly #route = inject(ActivatedRoute);
 
   readonly platforms = computed(() =>
     this.#gameQConfigurationState.platforms(),
@@ -41,18 +44,9 @@ export class InitialSearchComponent {
     alert('navegar para a pagina de navegação');
   }
 
-  protected onPlatformSelect(platform: Platform) {
-    alert(`Selecionou a plataforma: ${platform.platformName}`);
-  }
-
-  protected onSearchAll() {
-    alert(
-      'navegar para a pagina da tabela que irá apresentar todos os jogos disponiveis',
-    );
-  }
-
   protected onSearchGame($event: string) {
-    alert($event);
-    this.showError = !this.showError;
+    this.#router.navigate(['dashboard'], { relativeTo: this.#route });
+    console.log($event);
+    // this.showError = !this.showError;
   }
 }

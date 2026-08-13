@@ -1,25 +1,31 @@
 package pt.amaralsoftware.api;
 
+import io.quarkus.panache.common.Sort;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.jboss.resteasy.reactive.RestResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pt.amaralsoftware.config.LoadGameDatabaseSchedule;
+import pt.amaralsoftware.models.DTO.gameq.GameQGameDTO;
 import pt.amaralsoftware.models.RemoteDataSourceResult;
 import pt.amaralsoftware.models.DTO.gameq.GameQConfigurationDTO;
+import pt.amaralsoftware.models.entity.CatGameEntity;
 import pt.amaralsoftware.models.gameq.GameQPlatform;
 import pt.amaralsoftware.models.gameq.GameVaultConfiguration;
 import pt.amaralsoftware.service.CatConfigService;
 import pt.amaralsoftware.service.CatDigitalPcStoresService;
 import pt.amaralsoftware.service.CatGamePlatformService;
+import pt.amaralsoftware.service.CatGameService;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -91,6 +97,8 @@ public class GameVaultAPI {
     CatConfigService catConfigService;
     @Inject
     CatDigitalPcStoresService catDigitalPcStoresService;
+    @Inject
+    CatGameService catGameService;
 
     @GET
     @Path("/forceLoadGameVaultDatabase")
@@ -140,21 +148,6 @@ public class GameVaultAPI {
         return RestResponse.noContent();
     }
 
-    /* @GET
-    @Path("/listOfPlatforms")
-    @Deprecated
-    public RestResponse<GameVaultPlatformDTO> getPlatforms() {
-        log.debug("Get the list of platforms");
-
-        GameVaultPlatformDTO platforms = catGamePlatformService.getPlatformNamesOld();
-
-        if(platforms == null) {
-            return RestResponse.noContent();
-        }
-
-        return RestResponse.ok(platforms);
-    } */
-
     @PATCH
     @Path("/updatePlatforms")
     public RestResponse<String> updatePlatforms(String payload) {
@@ -174,6 +167,37 @@ public class GameVaultAPI {
         catConfigService.updateGameVaultConfiguration(payload);
 
         return RestResponse.ok();
+    }
+
+    @GET
+    @Path("/games")
+    @Produces(MediaType.APPLICATION_JSON)
+    public RestResponse<RemoteDataSourceResult<GameQGameDTO>> getGameByPlatform(
+        @QueryParam("platform") String platform,
+        @QueryParam("page") @DefaultValue("0") Integer page,
+        @QueryParam("pageSize") @DefaultValue("15") Integer pageSize,
+        @QueryParam("sortOrder") String sortOrder
+    ) {
+        List<CatGameEntity> games = (StringUtils.isBlank(platform)) ?
+                catGameService.getAllGames(page, pageSize, sortOrder) :
+                catGameService.getGamesByPlatform(platform, page, pageSize, sortOrder);
+
+        Long totalGames = (StringUtils.isBlank(platform)) ?
+                catGameService.getAllGamesCount() :
+                catGameService.getGamesByPlatformCount(platform);
+
+        List<GameQGameDTO> gamesDTO = games.subList(0, Math.min(games.size(), pageSize))
+                .stream()
+                .map(game -> new GameQGameDTO(game.getName(), game.getReleaseYear(), game.getCommunityRating(), game.getPlatform(), game.getEsrb(), game.getDeveloper(), game.getPublisher()))
+                .collect(Collectors.toList());
+
+        RemoteDataSourceResult<GameQGameDTO> result = new RemoteDataSourceResult<>();
+        result.setItems(gamesDTO);
+        result.setPage(page);
+        result.setPageSize(pageSize);
+        result.setTotalCount(totalGames);
+
+        return RestResponse.ok(result);
     }
 
     @GET

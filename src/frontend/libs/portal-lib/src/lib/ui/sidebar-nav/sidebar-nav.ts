@@ -39,6 +39,8 @@ export class SideBarNavigationComponent {
   readonly usingSideNav = signal<boolean>(false);
 
   constructor() {
+
+    this.injectedComponent.set(this.resourceConfigurations()[0]?.component);
     effect(() => {
       const container = this.container();
       const component = this.injectedComponent();

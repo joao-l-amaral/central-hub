@@ -1,0 +1,28 @@
+.game-selection__header {
+  padding: 20px;
+
+  &__title {
+    display: flex;
+    flex-direction: column !important;
+
+    h3 {
+      margin: 0;
+      font-size: 28px;
+      font-weight: 600;
+      color: #333;
+    }
+
+    .subtitle {
+      margin-top: 8px;
+      font-size: 14px;
+      color: #666;
+      font-weight: 500;
+    }
+  }
+
+  div {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+  }
+}

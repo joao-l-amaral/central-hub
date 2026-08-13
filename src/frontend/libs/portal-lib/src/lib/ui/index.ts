@@ -8,3 +8,4 @@ export * from './loading-block/index';
 export * from './search-input';
 export * from './sidebar-nav/index';
 export * from './table';
+export * from './header';

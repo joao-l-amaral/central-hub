@@ -1,0 +1,22 @@
+.header {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+
+  &__icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+
+  &__text {
+    h5 {
+      margin-bottom: -5px;
+    }
+
+    .subtitle {
+      font-size: 13px;
+    }
+  }
+}

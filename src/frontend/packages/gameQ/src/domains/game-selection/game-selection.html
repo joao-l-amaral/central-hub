@@ -1,0 +1,56 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12 game-selection__header">
+      <lib-header
+        [icon]="platformIcon()"
+        [text]="'gameq.game.list.header.title' | translate"
+        [subText]="platform()"
+      />
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <lib-table-dt
+        [dataSource]="dataSource"
+        [pageSize]="10"
+        (rowClicked)="rowClicked($event)"
+      >
+        <lib-dt-col [header]="'gameq.game.table.name' | translate" key="name" class="hide-on-small">
+          <ng-template libDtTemplate let-value="value">
+            {{ value }}
+          </ng-template>
+        </lib-dt-col>
+
+        <lib-dt-col [header]="'gameq.game.table.communityRating' | translate" key="communityRating" class="hide-on-small">
+          <ng-template libDtTemplate let-value="value">
+            {{ value }}
+          </ng-template>
+        </lib-dt-col>
+
+        <lib-dt-col [header]="'gameq.game.table.platform' | translate" key="platform" class="hide-on-small">
+          <ng-template libDtTemplate let-value="value">
+            {{ value }}
+          </ng-template>
+        </lib-dt-col>
+
+        <lib-dt-col [header]="'gameq.game.table.esrb' | translate" key="esrb" class="hide-on-small">
+          <ng-template libDtTemplate let-value="value">
+            {{ value }}
+          </ng-template>
+        </lib-dt-col>
+
+        <lib-dt-col [header]="'gameq.game.table.developer' | translate" key="developer" class="hide-on-small">
+          <ng-template libDtTemplate let-value="value">
+            {{ value }}
+          </ng-template>
+        </lib-dt-col>
+
+        <lib-dt-col [header]="'gameq.game.table.publisher' | translate" key="publisher" class="hide-on-small">
+          <ng-template libDtTemplate let-value="value">
+            {{ value }}
+          </ng-template>
+        </lib-dt-col>
+      </lib-table-dt>
+    </div>
+  </div>
+</div>

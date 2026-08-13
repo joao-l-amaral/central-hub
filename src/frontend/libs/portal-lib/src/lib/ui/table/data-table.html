@@ -37,6 +37,7 @@
             <th scope="col">
               <lib-table-dt-header
                 [field]="col.header()"
+                [key]="col.key()"
                 (sortColumnChanged)="onSortColumnChanged($event)"
               />
             </th>
@@ -117,6 +118,6 @@
 
 <lib-table-dt-paginator
   [dataSource]="dataSource()"
-  [pageSize]="[1, 5, 10, 25, 50]"
+  [pageSize]="[1, 5, 10, 15, 25, 50]"
   [pageSizeSelector]="pageSize()"
 />

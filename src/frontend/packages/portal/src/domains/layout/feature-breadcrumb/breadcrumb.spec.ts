@@ -4,6 +4,7 @@ import { BreadcrumbComponent } from './breadcrumb';
 import { BreadcrumbStateService } from './breadcrumb-state';
 import { I18nService } from '@central-hub/library';
 import { vi } from 'vitest';
+import { ActivatedRoute } from '@angular/router';
 
 describe('BreadcrumbComponent', () => {
   let component: BreadcrumbComponent;
@@ -22,6 +23,16 @@ describe('BreadcrumbComponent', () => {
         {
           provide: I18nService,
           useValue: { translate: vi.fn((value: string) => value) },
+        },
+        {
+          provide: ActivatedRoute,
+          useValue: {
+            snapshot: {
+              paramMap: {
+                get: vi.fn(),
+              },
+            },
+          },
         },
       ],
     }).compileComponents();

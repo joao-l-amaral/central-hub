@@ -1,67 +1,52 @@
 import { Route } from '@angular/router';
 import { InitialSearchComponent } from '../../initial-search/initial-search';
-import { provideConfiguration } from '../../initial-search/util-configuration/providers';
-
-/*function resolverFn(
-  route: ActivatedRouteSnapshot,
-): PageResourcesComponentConfig {
-  const i18n = inject(I18nService);
-
-  const config: PageResourcesComponentConfig = {
-    resources: [
-      {
-        icon: 'bi bi-playstation',
-        label: i18n.translate('test.ps'),
-        component: PageSampleComponent,
-      },
-      {
-        icon: 'bi bi-xbox',
-        label: i18n.translate('test.xbox'),
-        component: AdministrationComponent,
-      },
-    ],
-  };
-
-  route.data = { config };
-  return config;
-}*/
+import {
+  PageResourcesComponentConfig,
+  SideBarNavigationComponent,
+} from '@central-hub/library';
+import { PageSampleComponent } from '../../../app/pages/pageSample/page-sample.component';
+import { AdministrationComponent } from '../../../app/pages/administration/administration.component';
+import { GameSelectionComponent } from '../../game-selection/game-selection';
+import { appRemoteConfig } from './app-remote.config';
 
 export const remoteRoutes: Route[] = [
-  /*{
+  {
     path: '',
-    component: SideBarNavigationComponent,
-    // data: {
-    //     config: {
-    //         resources: [
-    //             {
-    //                 icon: "bi bi-playstation",
-    //                 label: "test.ps",
-    //                 component: PageSampleComponent
-    //             },
-    //             {
-    //                 icon: "bi bi-xbox",
-    //                 label: "test.xbox",
-    //                 component: AdministrationComponent
-    //             }
-    //         ]
-    //     } as PageResourcesComponentConfig
-    // },
+    providers: appRemoteConfig.providers,
     children: [
       {
         path: '',
-        component: GameQComponent,
+        component: InitialSearchComponent,
+      },
+      {
+        path: 'games',
+        component: GameSelectionComponent,
+      },
+      {
+        path: 'dashboard',
+        component: SideBarNavigationComponent,
+        data: {
+          config: {
+            resources: [
+              {
+                icon: 'bi bi-playstation',
+                label: 'test.ps',
+                component: PageSampleComponent,
+              },
+              {
+                icon: 'bi bi-list-ul',
+                label: 'gameq.game.list.header.title',
+                component: GameSelectionComponent,
+              },
+              {
+                icon: 'bi bi-xbox',
+                label: 'test.xbox',
+                component: AdministrationComponent,
+              },
+            ],
+          } as PageResourcesComponentConfig,
+        },
       },
     ],
-    resolve: {
-      resolverFn,
-    },
-  },*/
-  {
-    path: '',
-    component: InitialSearchComponent,
-    providers: [provideConfiguration()],
-    /* resolve: { //TODO add a resolver if a game/platform is selected it go to the dashboard page
-      resolverFn,
-    }, */
   },
 ];

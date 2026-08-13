@@ -20,7 +20,17 @@
   "gameq.search.videogame": "Pesquise por um jogo.",
   "gameq.search.error": "Erro ao pesquisar jogo.",
   "gameq.search.label.tooltip": "Apenas pesquisa por jogos na plataforma selecionada.",
+  "gameq.game.table.name": "Nome",
+  "gameq.game.table.communityRating": "Avaliação da Comunidade",
+  "gameq.game.table.platform": "Plataforma",
+  "gameq.game.table.esrb": "Classificação ESRB",
+  "gameq.game.table.developer": "Desenvolvedor",
+  "gameq.game.table.publisher": "Editora",
+  "gameq.game.list.header.title": "Lista de Jogos",
+  "table-dt-paginator-label": "Itens por página",
+  "data-table-no-data": "Sem dados disponíveis",
   "title.gameQ": "GameQ",
+  "title.games": "Jogos",
   "test.xbox": "Xbox",
   "test.ps": "Playstation"
 }

@@ -9,6 +9,7 @@ import {SortCriterion, SortState} from "../../util-request";
 })
 export class TableDtHeaderComponent {
   readonly field = input.required<string>();
+  readonly key = input.required<string>();
   readonly sortColumnChanged = output<SortCriterion>();
 
   private readonly sortCycle: Record<string, SortState> = {
@@ -27,6 +28,6 @@ export class TableDtHeaderComponent {
     const next = this.sortCycle[this.#currentState()].next;
     this.#currentState.set(next === null ? 'NONE' : next);
 
-    this.sortColumnChanged.emit({ field: this.field(), direction: next });
+    this.sortColumnChanged.emit({ field: this.key(), direction: next });
   }
 }
