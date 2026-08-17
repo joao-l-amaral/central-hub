@@ -32,27 +32,6 @@ import {SortCriterion} from "./util-request";
   ]
 })
 export class TableDtComponent {
-  // TODO
-  //1º fase -> columns [DONE]
-  //2º fase -> rows [DONE]
-  //3º fase -> bootstrap table styles [DONE]
-  //4º fase -> staticDataSource [DONE]
-  //5º fase -> remoteDataSource [DONE]
-  //6º fase -> pagination [DONE]
-  //7º fase -> search [DONE]
-  //8º fase -> select row [DONE]
-  //9º fase -> actions column [DONE]
-  //10ª fase -> row action [DONE]
-  //11ª fase -> select boxes (mass deletions) [DONE]
-  //12ª fase -> adicionar remove items no remoteDataSource [DONE]
-  //13ª fase -> adicionar loading no remoteDataSource [DONE]
-  //14º fase -> adicionar toastr notification [DONE]
-  //14ª fase -> implement order in remote and static [DONE]
-  //15ª fase -> Set a empty data row if no data is present [DONE]
-  //16ª fase -> fix remote datasource data id [DONE]
-  //17º fase -> check lint [DONE]
-  //18º fase -> check test
-
   readonly dataSource = input.required<DataSource>();
   readonly search = input(false);
   readonly removeRecords = input(false)

@@ -1,0 +1,14 @@
+<div class="header">
+  @if(icon()) {
+    <div class="header__icon">
+      <i [class]="icon()" aria-hidden="true"></i>
+    </div>
+  }
+  <div class="header__text">
+    <h5>{{ text() }}</h5>
+    @if(subText()) {
+      <span class="subtitle">{{ subText() }}</span>
+    }
+  </div>
+</div>
+

@@ -29,7 +29,7 @@
             type="button"
             [size]="'md'"
             [icon]="'bi bi-list'"
-            (click)="onSearchAll()"
+            [routerLink]="'games'"
           >
           </button>
         </lib-search-input>
@@ -55,7 +55,8 @@
               [label]="platform.platformName"
               [selected]="platform.selected"
               [icon]="platform.icon"
-              (clicked)="onPlatformSelect(platform)"
+              [routerLink]="['games']"
+              [queryParams]="{ platform: platform.platformName }"
             />
           </div>
         }

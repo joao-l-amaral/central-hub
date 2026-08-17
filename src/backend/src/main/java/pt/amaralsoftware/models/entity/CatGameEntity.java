@@ -2,6 +2,7 @@
 package pt.amaralsoftware.models.entity;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
@@ -13,11 +14,16 @@ import java.io.Serializable;
 public class CatGameEntity extends PanacheEntityBase implements Serializable {
     @Id
     private String name;
+    @Column(name="release_year")
     private String releaseYear;
+    @Column(name="release_date")
     private String releaseDate;
     private String overview;
+    @Column(name="max_players")
     private String maxPlayers;
+    @Column(name="video_url")
     private String videoUrl;
+    @Column(name="community_rating")
     private String communityRating;
     private String platform;
     private String esrb;
