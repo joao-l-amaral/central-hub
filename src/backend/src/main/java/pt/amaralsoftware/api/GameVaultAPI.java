@@ -10,6 +10,7 @@ import org.jboss.resteasy.reactive.RestResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pt.amaralsoftware.config.LoadGameDatabaseSchedule;
+import pt.amaralsoftware.models.DTO.ShelveProductDTO;
 import pt.amaralsoftware.models.DTO.gameq.GameQGameDTO;
 import pt.amaralsoftware.models.RemoteDataSourceResult;
 import pt.amaralsoftware.models.DTO.gameq.GameQConfigurationDTO;
@@ -20,6 +21,7 @@ import pt.amaralsoftware.service.CatConfigService;
 import pt.amaralsoftware.service.CatDigitalPcStoresService;
 import pt.amaralsoftware.service.CatGamePlatformService;
 import pt.amaralsoftware.service.CatGameService;
+import pt.amaralsoftware.util.JSONSerializer;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -198,6 +200,17 @@ public class GameVaultAPI {
         result.setTotalCount(totalGames);
 
         return RestResponse.ok(result);
+    }
+
+    @GET
+    @Path("/initialSearch")
+    @Produces(MediaType.APPLICATION_JSON)
+    public RestResponse<List<String>> getInitialSearch(
+            @QueryParam("game") String searchGame,
+            @QueryParam("page") @DefaultValue("1") String searchGamePage
+    ) {
+        List<String> gamesListFromSearch = catGameService.getGamesListFromSearch(searchGame, searchGamePage);
+        return RestResponse.ok(gamesListFromSearch);
     }
 
     @GET

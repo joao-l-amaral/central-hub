@@ -12,6 +12,11 @@ public class GameQGameDTO {
     public GameQGameDTO() {
     }
 
+    public GameQGameDTO(String name, String platform) {
+        this.name = name;
+        this.platform = platform;
+    }
+
     public GameQGameDTO(String name, String releaseYear, String communityRating, String platform, String esrb, String developer, String publisher) {
         this.name = name;
         this.releaseYear = releaseYear;

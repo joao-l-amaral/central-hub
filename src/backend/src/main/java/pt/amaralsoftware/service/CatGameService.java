@@ -12,6 +12,7 @@ import pt.amaralsoftware.util.MapSerializer;
 
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @ApplicationScoped
 public class CatGameService {
@@ -48,6 +49,16 @@ public class CatGameService {
         return catGameRepository.find("Where platform = ?1", resolveSort(sortOrder, "name"), platform)
                 .page(Page.of(page-1, pageSize))
                 .list();
+    }
+
+    public List<String> getGamesListFromSearch(String game, String searchGamePage) {
+        return catGameRepository
+                .find("Where name ILIKE ?1", Sort.by("name", Sort.Direction.Ascending), "%" + game + "%")
+                .page(Page.of(Integer.parseInt(searchGamePage) - 1, 10))
+                .list()
+                .stream()
+                .map(CatGameEntity::getName)
+                .collect(Collectors.toList());
     }
 
     private Sort resolveSort(String sortOrder, String defaultField) {
