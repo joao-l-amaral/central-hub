@@ -2,51 +2,29 @@ import {
   ChangeDetectionStrategy,
   Component,
   computed,
-  inject,
+  input,
+  output,
 } from '@angular/core';
-import {
-  AlertComponent,
-  ButtonComponent,
-  CircleComponent,
-  InternalizationPipe,
-  SearchInputComponent,
-} from '@central-hub/library';
-import { GameQConfigurationState } from './util-configuration/configuration-state';
-import { TooltipDirective } from 'ngx-smart-tooltip';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { SearchGameResult } from './games-list-interface';
 
 @Component({
-  selector: 'gameq-initial-search',
-  templateUrl: './initial-search.html',
-  styleUrl: './initial-search.scss',
+  selector: 'gameq-games-list-dropdown',
+  templateUrl: './games-list-dropdown.html',
+  styleUrl: './games-list-dropdown.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [
-    ButtonComponent,
-    CircleComponent,
-    SearchInputComponent,
-    InternalizationPipe,
-    TooltipDirective,
-    AlertComponent,
-    RouterLink,
-  ],
+  standalone: true,
+  imports: [CommonModule],
 })
-export class InitialSearchComponent {
-  showError = false;
-  readonly #gameQConfigurationState = inject(GameQConfigurationState);
-  readonly #router = inject(Router);
-  readonly #route = inject(ActivatedRoute);
+export class GamesListDropdownComponent {
+  readonly games = input.required<SearchGameResult[]>();
+  readonly gameSelector = output<string>();
 
-  readonly platforms = computed(() =>
-    this.#gameQConfigurationState.platforms(),
-  );
+  readonly isOpen = computed(() => {
+    return this.games().length > 0;
+  });
 
-  protected onConfigurationSelect() {
-    alert('navegar para a pagina de navegação');
-  }
-
-  protected onSearchGame($event: string) {
-    this.#router.navigate(['dashboard'], { relativeTo: this.#route });
-    console.log($event);
-    // this.showError = !this.showError;
+  protected selectGame(game: string) {
+    this.gameSelector.emit(game);
   }
 }

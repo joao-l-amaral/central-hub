@@ -19,19 +19,30 @@
         <span [ngxTooltip]="'gameq.search.label.tooltip' | translate">
           <i class="bi bi-info-circle-fill"></i>
         </span>
+
         <lib-search-input
           [placeholder]="'gameq.search.videogame' | translate"
           [errorState]="showError"
+          [onKeySearch]="true"
           (searchValue)="onSearchGame($event)"
         >
-          <button
-            chButton
-            type="button"
-            [size]="'md'"
-            [icon]="'bi bi-list'"
-            [routerLink]="'games'"
-          >
-          </button>
+          <ng-container buttonArea>
+            <button
+              chButton
+              type="button"
+              [size]="'md'"
+              [icon]="'bi bi-list'"
+              [routerLink]="'games'"
+            >
+            </button>
+          </ng-container>
+
+          <ng-container belowInputArea>
+            <gameq-games-list-dropdown
+              [games]="gamesList()"
+              (gameSelector)="onGameSelected($event)"
+            />
+          </ng-container>
         </lib-search-input>
         @if(showError) {
           <lib-alert-component

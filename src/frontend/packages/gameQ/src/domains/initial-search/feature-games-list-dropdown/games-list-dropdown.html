@@ -1,73 +1,25 @@
-<div class="container-flex initial__search">
-  <div class="row">
-    <div class="col-md-12 initial__search__settings">
-      <button
-        chButton
-        type="button"
-        [variant]="'tertiary'"
-        [size]="'lg'"
-        [icon]="'bi bi-gear'"
-        (click)="onConfigurationSelect()"
-      >
-      </button>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-md-12 initial__search__input">
-      <div>
-        <label for="search-input" class="initial__search__input__label">{{ 'gameq.search.label' | translate }}</label>
-        <span [ngxTooltip]="'gameq.search.label.tooltip' | translate">
-          <i class="bi bi-info-circle-fill"></i>
-        </span>
+<div class="games-dropdown">
+  @if (isOpen()) {
+    <div
+      class="games-dropdown__menu"
+      animate.enter="slide-down-enter"
+      animate.leave="slide-down-leave"
+    >
+      <div class="games-dropdown__list">
+        @for (game of games(); track game.name) {
+          <label class="games-dropdown__item" for="game-{{ game.name }}" (click)="selectGame(game.name)">
+            <span class="games-dropdown__item-name">{{ game.name }}</span>
+            <span class="games-dropdown__item-release-year">
+              @if (game.releaseYear !== -1) {
+                {{ game.releaseYear }}
+              }
+            </span>
+            <span class="games-dropdown__item-developer">{{ game.developer }}</span>
+            <span class="games-dropdown__item-icon"><i [class]="game.platformIcon"></i></span>
 
-        <lib-search-input
-          [placeholder]="'gameq.search.videogame' | translate"
-          [errorState]="showError"
-          (searchValue)="onSearchGame($event)"
-        >
-          <ng-container buttonArea>
-            <button
-              chButton
-              type="button"
-              [size]="'md'"
-              [icon]="'bi bi-list'"
-              [routerLink]="'games'"
-            >
-            </button>
-          </ng-container>
-
-          <ng-container belowInputArea>
-            <h1>a</h1>
-          </ng-container>
-        </lib-search-input>
-        @if(showError) {
-          <lib-alert-component
-            [status]="'danger'"
-            [title]="'gameq.search.error' | translate"
-            [dismissible]="true"
-            (visibleChange)="showError = $event"
-          />
+          </label>
         }
       </div>
     </div>
-  </div>
-  <hr>
-  <div class="row">
-    <div class="col-md-12">
-      <div class="initial__search__platforms">
-        @for(platform of platforms(); track platform.platformName) {
-          <div class="initial__search__platform">
-            <lib-circle-component
-              [id]="platform.platformName"
-              [label]="platform.platformName"
-              [selected]="platform.selected"
-              [icon]="platform.icon"
-              [routerLink]="['games']"
-              [queryParams]="{ platform: platform.platformName }"
-            />
-          </div>
-        }
-      </div>
-    </div>
-  </div>
+  }
 </div>

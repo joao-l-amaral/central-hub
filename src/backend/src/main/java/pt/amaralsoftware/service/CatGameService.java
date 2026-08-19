@@ -6,10 +6,16 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import pt.amaralsoftware.models.DTO.gameq.GameQGameDTO;
 import pt.amaralsoftware.models.entity.CatGameEntity;
 import pt.amaralsoftware.repository.CatGameRepository;
+import pt.amaralsoftware.resolvers.PlatformIconResolver;
 import pt.amaralsoftware.util.MapSerializer;
 
+import java.io.IOException;
+import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -17,8 +23,11 @@ import java.util.stream.Collectors;
 @ApplicationScoped
 public class CatGameService {
 
+    private static final Logger log = LoggerFactory.getLogger(CatGameService.class);
     @Inject
     CatGameRepository catGameRepository;
+    @Inject
+    PlatformIconResolver platformIconResolver;
 
     @Transactional
     public void saveGames(Map<String, Object> game) {
@@ -51,13 +60,23 @@ public class CatGameService {
                 .list();
     }
 
-    public List<String> getGamesListFromSearch(String game, String searchGamePage) {
+    public List<GameQGameDTO> getGamesListFromSearch(String game) {
         return catGameRepository
                 .find("Where name ILIKE ?1", Sort.by("name", Sort.Direction.Ascending), "%" + game + "%")
-                .page(Page.of(Integer.parseInt(searchGamePage) - 1, 10))
                 .list()
                 .stream()
-                .map(CatGameEntity::getName)
+                .map(gameEntity -> {
+                    try {
+                        Map<String, String> iconsByPlatformName = platformIconResolver.getIconsByPlatformName();
+                        String platformIcon = iconsByPlatformName.get(gameEntity.getPlatform());
+                        String releaseDate = gameEntity.getReleaseDate();
+                        Integer releaseYear = StringUtils.isNotBlank(releaseDate) ? ZonedDateTime.parse(releaseDate).getYear() : -1;
+                        return new GameQGameDTO(gameEntity.getName(), platformIcon, releaseYear, gameEntity.getDeveloper());
+                    } catch (IOException e) {
+                        log.error(e.getMessage());
+                    }
+                    return new GameQGameDTO();
+                })
                 .collect(Collectors.toList());
     }
 

@@ -3,6 +3,7 @@ import {
   Component,
   computed,
   inject,
+  signal,
 } from '@angular/core';
 import {
   AlertComponent,
@@ -14,6 +15,9 @@ import {
 import { GameQConfigurationState } from './util-configuration/configuration-state';
 import { TooltipDirective } from 'ngx-smart-tooltip';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { GamesListDropdownComponent } from './feature-games-list-dropdown/games-list-dropdown';
+import { GameQAPI } from './data-access/gameq-api';
+import { SearchGameResult } from './feature-games-list-dropdown/games-list-interface';
 
 @Component({
   selector: 'gameq-initial-search',
@@ -28,13 +32,17 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
     TooltipDirective,
     AlertComponent,
     RouterLink,
+    GamesListDropdownComponent,
   ],
 })
 export class InitialSearchComponent {
   showError = false;
   readonly #gameQConfigurationState = inject(GameQConfigurationState);
+  readonly #gameQAPI = inject(GameQAPI);
   readonly #router = inject(Router);
   readonly #route = inject(ActivatedRoute);
+
+  readonly gamesList = signal<SearchGameResult[]>([]);
 
   readonly platforms = computed(() =>
     this.#gameQConfigurationState.platforms(),
@@ -44,9 +52,22 @@ export class InitialSearchComponent {
     alert('navegar para a pagina de navegação');
   }
 
-  protected onSearchGame($event: string) {
-    this.#router.navigate(['dashboard'], { relativeTo: this.#route });
+  protected async onSearchGame($event: string) {
+    if (!$event) {
+      this.gamesList.set([]);
+      return;
+    }
+
+    const games = await this.#gameQAPI.initialSearch($event);
+    if (games.length === 0) {
+      this.showError = !this.showError;
+    } else {
+      this.gamesList.set(games);
+    }
+  }
+
+  protected onGameSelected($event: string) {
     console.log($event);
-    // this.showError = !this.showError;
+    this.#router.navigate([`dashboard/${$event}`], { relativeTo: this.#route });
   }
 }

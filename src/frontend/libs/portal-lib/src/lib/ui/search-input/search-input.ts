@@ -44,7 +44,14 @@ export class SearchInputComponent {
   }
 
   onSearch(event: Event) {
-    event.preventDefault();
-    this.searchValue.emit(this.searchForm.value);
+    if (!this.onKeySearch()) {
+      event.preventDefault();
+      this.searchValue.emit(this.searchForm.value);
+    }
+  }
+
+  protected onForceClear() {
+    this.searchForm.setValue('');
+    this.searchValue.emit("");
   }
 }
