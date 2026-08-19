@@ -1,0 +1,73 @@
+<div class="container-flex initial__search">
+  <div class="row">
+    <div class="col-md-12 initial__search__settings">
+      <button
+        chButton
+        type="button"
+        [variant]="'tertiary'"
+        [size]="'lg'"
+        [icon]="'bi bi-gear'"
+        (click)="onConfigurationSelect()"
+      >
+      </button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12 initial__search__input">
+      <div>
+        <label for="search-input" class="initial__search__input__label">{{ 'gameq.search.label' | translate }}</label>
+        <span [ngxTooltip]="'gameq.search.label.tooltip' | translate">
+          <i class="bi bi-info-circle-fill"></i>
+        </span>
+
+        <lib-search-input
+          [placeholder]="'gameq.search.videogame' | translate"
+          [errorState]="showError"
+          (searchValue)="onSearchGame($event)"
+        >
+          <ng-container buttonArea>
+            <button
+              chButton
+              type="button"
+              [size]="'md'"
+              [icon]="'bi bi-list'"
+              [routerLink]="'games'"
+            >
+            </button>
+          </ng-container>
+
+          <ng-container belowInputArea>
+            <h1>a</h1>
+          </ng-container>
+        </lib-search-input>
+        @if(showError) {
+          <lib-alert-component
+            [status]="'danger'"
+            [title]="'gameq.search.error' | translate"
+            [dismissible]="true"
+            (visibleChange)="showError = $event"
+          />
+        }
+      </div>
+    </div>
+  </div>
+  <hr>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="initial__search__platforms">
+        @for(platform of platforms(); track platform.platformName) {
+          <div class="initial__search__platform">
+            <lib-circle-component
+              [id]="platform.platformName"
+              [label]="platform.platformName"
+              [selected]="platform.selected"
+              [icon]="platform.icon"
+              [routerLink]="['games']"
+              [queryParams]="{ platform: platform.platformName }"
+            />
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+</div>
