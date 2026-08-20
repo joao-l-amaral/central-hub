@@ -6,6 +6,7 @@ import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.math.NumberUtils;
 import org.jboss.resteasy.reactive.RestResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,6 +25,7 @@ import pt.amaralsoftware.service.CatGameService;
 import pt.amaralsoftware.util.JSONSerializer;
 
 import java.io.IOException;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -190,7 +192,11 @@ public class GameVaultAPI {
 
         List<GameQGameDTO> gamesDTO = games.subList(0, Math.min(games.size(), pageSize))
                 .stream()
-                .map(game -> new GameQGameDTO(game.getName(), game.getReleaseYear(), game.getCommunityRating(), game.getPlatform(), game.getEsrb(), game.getDeveloper(), game.getPublisher()))
+                .map(gameEntity -> {
+                    String releaseDate = gameEntity.getReleaseDate();
+                    Integer releaseYear = StringUtils.isNotBlank(releaseDate) ? ZonedDateTime.parse(releaseDate).getYear() : -1;
+                    return new GameQGameDTO(gameEntity.getName(), releaseYear, gameEntity.getCommunityRating(), gameEntity.getPlatform(), gameEntity.getEsrb(), gameEntity.getDeveloper(), gameEntity.getPublisher());
+                })
                 .collect(Collectors.toList());
 
         RemoteDataSourceResult<GameQGameDTO> result = new RemoteDataSourceResult<>();
@@ -205,11 +211,8 @@ public class GameVaultAPI {
     @GET
     @Path("/initialSearch")
     @Produces(MediaType.APPLICATION_JSON)
-    public RestResponse<List<String>> getInitialSearch(
-            @QueryParam("game") String searchGame,
-            @QueryParam("page") @DefaultValue("1") String searchGamePage
-    ) {
-        List<String> gamesListFromSearch = catGameService.getGamesListFromSearch(searchGame, searchGamePage);
+    public RestResponse<List<GameQGameDTO>> getInitialSearch(@QueryParam("game") String searchGame) {
+        List<GameQGameDTO> gamesListFromSearch = catGameService.getGamesListFromSearch(searchGame);
         return RestResponse.ok(gamesListFromSearch);
     }
 

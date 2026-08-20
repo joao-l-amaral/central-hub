@@ -17,12 +17,13 @@ import {
   providerInternalization,
   providerOidcAuth,
 } from '@central-hub/library';
-import { httpErrorInterceptor } from './util-interceptors/httperror-interceptor';
+import { httpErrorInterceptor } from './util-interceptors/http-error-interceptor';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { processApplicationConfigurations } from './app-configuration';
 import { ApplicationConfigurationService } from '../shared/util-application/application-configuration-service';
 import { BreadcrumbStateService } from '../layout/feature-breadcrumb/breadcrumb-state';
 import { REMOTES_CONFIG, RemotesConfig } from '../shared/util-application/application-remotes-token';
+import { httpCacheInterceptor } from './util-interceptors/http-cache-interceptor';
 
 export function appConfigProviders(routes: Route[], remotesConfig: RemotesConfig): ApplicationConfig {
   return {
@@ -32,7 +33,10 @@ export function appConfigProviders(routes: Route[], remotesConfig: RemotesConfig
       provideRouter(routes),
       provideHttpClient(
         withInterceptorsFromDi(),
-        withInterceptors([httpErrorInterceptor]),
+        withInterceptors([
+          httpErrorInterceptor,
+          httpCacheInterceptor
+        ]),
       ),
       provideAnimations(),
       providerOidcAuth(),

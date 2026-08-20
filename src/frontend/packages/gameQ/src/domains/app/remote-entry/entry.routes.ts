@@ -23,7 +23,7 @@ export const remoteRoutes: Route[] = [
         component: GameSelectionComponent,
       },
       {
-        path: 'dashboard',
+        path: 'dashboard/:gameName',
         component: SideBarNavigationComponent,
         data: {
           config: {

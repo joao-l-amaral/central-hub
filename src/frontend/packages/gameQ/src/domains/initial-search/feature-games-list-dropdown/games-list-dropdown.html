@@ -1,0 +1,25 @@
+<div class="games-dropdown">
+  @if (isOpen()) {
+    <div
+      class="games-dropdown__menu"
+      animate.enter="slide-down-enter"
+      animate.leave="slide-down-leave"
+    >
+      <div class="games-dropdown__list">
+        @for (game of games(); track game.name) {
+          <label class="games-dropdown__item" for="game-{{ game.name }}" (click)="selectGame(game.name)">
+            <span class="games-dropdown__item-name">{{ game.name }}</span>
+            <span class="games-dropdown__item-release-year">
+              @if (game.releaseYear !== -1) {
+                {{ game.releaseYear }}
+              }
+            </span>
+            <span class="games-dropdown__item-developer">{{ game.developer }}</span>
+            <span class="games-dropdown__item-icon"><i [class]="game.platformIcon"></i></span>
+
+          </label>
+        }
+      </div>
+    </div>
+  }
+</div>

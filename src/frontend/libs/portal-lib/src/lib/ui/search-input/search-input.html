@@ -11,6 +11,8 @@
     [formControl]="searchForm"
     [class.ch-search-input__field-error]="errorState()"
     (keydown.enter)="onSearch($event)"
+    (keydown.esc)="onForceClear()"
   >
-  <ng-content/>
+  <ng-content select="[buttonArea]"/>
 </div>
+<ng-content select="[belowInputArea]"/>

@@ -25,7 +25,7 @@ public class CatConfigService {
         return JSONSerializer.fromJSON(catConfigEntity.getConfiguration(), GameVaultConfiguration.class);
     }
 
-    public GameQConfiguration getGameQPlatform() throws IOException {
+    public GameQConfiguration getGameQConfiguration() throws IOException {
         CatConfigEntity catConfigEntity = catConfigRepository.find("WHERE module = 'GameVault'").firstResult();
         String configuration = catConfigEntity.getConfiguration();
         return JSONSerializer.fromJSON(configuration, GameQConfiguration.class);

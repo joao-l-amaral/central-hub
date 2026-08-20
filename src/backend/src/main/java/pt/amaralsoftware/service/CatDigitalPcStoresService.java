@@ -6,15 +6,13 @@ import jakarta.inject.Inject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pt.amaralsoftware.models.entity.CatDigitalPcStoresEntity;
-import pt.amaralsoftware.models.gameq.GameQConfiguration;
 import pt.amaralsoftware.models.gameq.GameQPlatform;
 import pt.amaralsoftware.repository.CatDigitalPcStoresRepository;
-import pt.amaralsoftware.util.MapUtils;
+import pt.amaralsoftware.resolvers.PlatformIconResolver;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 @ApplicationScoped
 public class CatDigitalPcStoresService {
@@ -23,7 +21,7 @@ public class CatDigitalPcStoresService {
     @Inject
     CatDigitalPcStoresRepository catDigitalPcStoresRepository;
     @Inject
-    CatConfigService catConfigService;
+    PlatformIconResolver platformIconResolver;
 
     public List<GameQPlatform> getPCDigitalStoresNames() {
         log.debug("Getting PC digital stores names");
@@ -34,23 +32,13 @@ public class CatDigitalPcStoresService {
         List<GameQPlatform> gameVaultPlatforms = new ArrayList<>();
 
         try {
-            GameQConfiguration gameQConfiguration = catConfigService.getGameQPlatform();
-
-            List<Map<String, Object>> platforms = gameQConfiguration.getPlatforms();
-
-            Map<String, String> iconByPlatformName = platforms.stream()
-                    .collect(Collectors.toMap(
-                            p -> MapUtils.getPropertyAsString(p, "platform"),
-                            p -> MapUtils.getPropertyAsString(p, "icon"),
-                            (a, b) -> a
-                    ));
-
+            Map<String, String> iconMap = platformIconResolver.getIconsByPlatformName();
 
             gameVaultPlatforms = pcDigitalStores.stream()
                     .map(pcDigitalStore -> new GameQPlatform(
                             pcDigitalStore.getName(),
                             true,
-                            iconByPlatformName.get(pcDigitalStore.getName())
+                            iconMap.get(pcDigitalStore.getName())
                     ))
                     .toList();
 
