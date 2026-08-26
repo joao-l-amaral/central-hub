@@ -23,7 +23,7 @@ export const remoteRoutes: Route[] = [
         component: GameSelectionComponent,
       },
       {
-        path: 'dashboard/:gameName',
+        path: 'dashboard',
         component: SideBarNavigationComponent,
         data: {
           config: {
@@ -31,6 +31,7 @@ export const remoteRoutes: Route[] = [
               {
                 icon: 'bi bi-playstation',
                 label: 'test.ps',
+                queryParam: 'game',
                 component: PageSampleComponent,
               },
               {

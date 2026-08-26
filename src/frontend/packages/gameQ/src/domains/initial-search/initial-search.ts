@@ -10,6 +10,7 @@ import {
   ButtonComponent,
   CircleComponent,
   InternalizationPipe,
+  LoadingBlockService,
   SearchInputComponent,
 } from '@central-hub/library';
 import { GameQConfigurationState } from './util-configuration/configuration-state';
@@ -41,6 +42,7 @@ export class InitialSearchComponent {
   readonly #gameQAPI = inject(GameQAPI);
   readonly #router = inject(Router);
   readonly #route = inject(ActivatedRoute);
+  readonly #loadingService = inject(LoadingBlockService);
 
   readonly gamesList = signal<SearchGameResult[]>([]);
 
@@ -67,7 +69,10 @@ export class InitialSearchComponent {
   }
 
   protected onGameSelected($event: string) {
-    console.log($event);
-    this.#router.navigate([`dashboard/${$event}`], { relativeTo: this.#route });
+    this.#loadingService.show();
+    this.#router.navigate([`dashboard`], {
+      queryParams: { game: $event },
+      relativeTo: this.#route,
+    });
   }
 }

@@ -1,5 +1,5 @@
 import { applicationConfig, argsToTemplate, Meta, StoryObj } from '@storybook/angular';
-import { SideBarNavigationComponent } from './sidebar-nav';
+import SideBarNavigationComponent from './sidebar-nav';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import {I18nService} from "../../util-i18n/i18n-service";
 

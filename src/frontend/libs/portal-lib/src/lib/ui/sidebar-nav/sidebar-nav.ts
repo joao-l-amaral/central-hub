@@ -36,11 +36,14 @@ export class SideBarNavigationComponent {
   readonly resourceConfigurations = input<ResourceConfigurations>([]);
 
   readonly injectedComponent = signal<Type<unknown> | null>(null);
-  readonly usingSideNav = signal<boolean>(false);
+
+  usingSideNav = false;
+
+  readonly queryParam = Object.keys(
+    this.#activatedRoute?.snapshot.queryParams ?? {},
+  )[0];
 
   constructor() {
-
-    this.injectedComponent.set(this.resourceConfigurations()[0]?.component);
     effect(() => {
       const container = this.container();
       const component = this.injectedComponent();
@@ -50,6 +53,15 @@ export class SideBarNavigationComponent {
       if (container && component) {
         container.createComponent(component);
       }
+    });
+
+    effect(() => {
+      const dataResourcesOptions = this.dataResourcesOptions();
+      const currentResourceConfig = dataResourcesOptions.filter(
+        (resource) => resource.queryParam === this.queryParam,
+      );
+      this.injectedComponent.set(currentResourceConfig[0]?.component);
+      this.usingSideNav = true;
     });
   }
 
@@ -77,6 +89,8 @@ export class SideBarNavigationComponent {
 
   optionHandler(component: Type<unknown>) {
     this.injectedComponent.set(component);
-    this.usingSideNav.set(true);
+    this.usingSideNav = true;
   }
 }
+
+export default SideBarNavigationComponent

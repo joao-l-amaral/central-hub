@@ -1,7 +1,7 @@
 <div class="sidenav">
   <nav class="nav">
     <ul>
-      @for(option of dataResourcesOptions(); track option) {
+      @for(option of dataResourcesOptions(); track option.component) {
         <li
           class="ico-nav"
           [class.active-link]="selectedOption() === option.component"
@@ -12,7 +12,7 @@
             role="button"
             tabIndex={0}
           >
-            <i [ngClass]="option.icon"></i>
+            <i [class]="option.icon"></i>
             <span class="icon-text">{{ option.label  | translate }}</span>
           </a>
         </li>
@@ -22,7 +22,7 @@
 </div>
 
 <div class="content">
-  @if(usingSideNav()) {
+  @if(usingSideNav) {
     <ng-container #bodyArea/>
   }
   @else {
