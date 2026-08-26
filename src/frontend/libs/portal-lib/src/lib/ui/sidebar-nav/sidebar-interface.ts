@@ -3,6 +3,7 @@ import {Type} from "@angular/core";
 export interface ResourceConfig {
   label: string;
   href?: string;
+  queryParam?: string;
   icon: string;
   component: Type<unknown>
 }

@@ -1,8 +1,12 @@
-<div class="portal-wrapper">
-  <ch-nav-bar/>
-  <ch-breadcrumb/>
+<lib-loading-block
+  [loading]="loadingStatus()"
+>
+  <div class="portal-wrapper">
+    <ch-nav-bar/>
+    <ch-breadcrumb/>
 
-  <main class="portal-body">
-      <router-outlet/>
-  </main>
-</div>
+    <main class="portal-body">
+        <router-outlet/>
+    </main>
+  </div>
+</lib-loading-block>

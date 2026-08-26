@@ -12,11 +12,7 @@ import {
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { provideToastr } from 'ngx-toastr';
-import {
-  I18nService,
-  LoggingService,
-  provideLoadingBlock,
-} from '@central-hub/library';
+import { I18nService, LoggingService } from '@central-hub/library';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -29,7 +25,6 @@ export const appConfig: ApplicationConfig = {
       positionClass: 'toast-top-right',
       preventDuplicates: true,
     }),
-    provideLoadingBlock(),
     I18nService,
     LoggingService,
     MatButtonModule,

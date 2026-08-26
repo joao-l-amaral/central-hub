@@ -1,5 +1,5 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {SideBarNavigationComponent} from './sidebar-nav';
+import SideBarNavigationComponent from './sidebar-nav';
 import {PageSampleComponent} from './sidebar-nav.stories';
 import {ChangeDetectionStrategy, Component, Pipe, PipeTransform, Type} from '@angular/core';
 import {vi} from 'vitest';
