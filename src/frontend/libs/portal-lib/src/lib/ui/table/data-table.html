@@ -116,8 +116,10 @@
   </lib-loading-block>
 </div>
 
-<lib-table-dt-paginator
-  [dataSource]="dataSource()"
-  [pageSize]="[1, 5, 10, 15, 25, 50]"
-  [pageSizeSelector]="pageSize()"
-/>
+@if (showPaginator()) {
+  <lib-table-dt-paginator
+    [dataSource]="dataSource()"
+    [pageSize]="[1, 5, 10, 15, 25, 50]"
+    [pageSizeSelector]="pageSize()"
+  />
+}

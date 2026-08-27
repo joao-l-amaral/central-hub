@@ -36,6 +36,7 @@ export class TableDtComponent {
   readonly search = input(false);
   readonly removeRecords = input(false)
   readonly pageSize = input(5);
+  readonly showPaginator = input(true);
 
   readonly rowSelected = signal<TRow>({});
 

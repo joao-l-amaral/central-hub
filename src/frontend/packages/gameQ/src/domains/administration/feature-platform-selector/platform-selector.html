@@ -1,0 +1,11 @@
+<lib-table-dt
+  [dataSource]="dataSource"
+  [showPaginator]="false"
+  [pageSize]="50"
+>
+  <lib-dt-col [header]="'gameq.game.table.platform' | translate" key="name" class="hide-on-small">
+    <ng-template libDtTemplate let-value="value">
+      {{ value }}
+    </ng-template>
+  </lib-dt-col>
+</lib-table-dt>

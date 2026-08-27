@@ -1,0 +1,23 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12 game-administrator__header">
+      <lib-header
+        [text]="'gameq.administrator.title' | translate"
+        [icon]="'bi bi-gear'"
+      />
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <gameq-actions-administration/>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-6">
+      <gameq-platform-selector/>
+    </div>
+    <div class="col-lg-6">
+      <gameq-configuration-administration/>
+    </div>
+  </div>
+</div>

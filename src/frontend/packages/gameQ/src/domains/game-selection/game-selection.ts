@@ -23,7 +23,6 @@ import { GameQConfigurationState } from '../initial-search/util-configuration/co
 @Component({
   selector: 'gameq-game-selection',
   templateUrl: './game-selection.html',
-  styleUrl: './game-selection.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     TableDtComponent,
@@ -44,7 +43,8 @@ export class GameSelectionComponent {
   );
 
   readonly platformIcon = computed(() => {
-    return this.#gameQConfigurationState.getPlatformIconByName(this.platform());
+    const platformIconByName = this.#gameQConfigurationState.getPlatformIconByName(this.platform());
+    return platformIconByName || 'bi bi-list-ul';
   });
 
   readonly requestUrl = computed(() => {

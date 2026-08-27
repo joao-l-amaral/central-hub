@@ -51,7 +51,9 @@ export class InitialSearchComponent {
   );
 
   protected onConfigurationSelect() {
-    alert('navegar para a pagina de navegação');
+    this.#router.navigate(['administration'], {
+      relativeTo: this.#route,
+    });
   }
 
   protected async onSearchGame($event: string) {
