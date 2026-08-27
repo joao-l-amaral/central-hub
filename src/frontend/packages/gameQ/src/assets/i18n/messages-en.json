@@ -27,6 +27,8 @@
   "gameq.game.table.developer": "Developer",
   "gameq.game.table.publisher": "Publisher",
   "gameq.game.list.header.title": "Game List",
+  "gameq.administrator.title": "Page of administration",
+  "gameq.administrator.side-nav.title": "Settings",
   "table-dt-paginator-label": "Items per page",
   "data-table-no-data": "No data available",
   "title.gameQ": "GameQ",

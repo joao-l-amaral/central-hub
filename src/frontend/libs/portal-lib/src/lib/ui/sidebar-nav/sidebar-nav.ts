@@ -17,7 +17,6 @@ import {
   ResourceConfigurations,
 } from './sidebar-interface';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
-import { NgClass } from '@angular/common';
 import { InternalizationPipe } from '../../util-i18n';
 import { map } from 'rxjs';
 
@@ -25,7 +24,7 @@ import { map } from 'rxjs';
   selector: 'lib-nav-panel',
   templateUrl: 'sidebar-nav.html',
   styleUrls: ['sidebar-nav.scss'],
-  imports: [RouterOutlet, NgClass, InternalizationPipe],
+  imports: [RouterOutlet, InternalizationPipe],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SideBarNavigationComponent {

@@ -1,6 +1,6 @@
 <div class="header">
   @if(icon()) {
-    <div class="header__icon">
+    <div [class]="subText() ? 'header__icon' : 'header__icon_no_subtitle'">
       <i [class]="icon()" aria-hidden="true"></i>
     </div>
   }

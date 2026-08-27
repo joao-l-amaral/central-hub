@@ -27,6 +27,8 @@
   "gameq.game.table.developer": "Desenvolvedor",
   "gameq.game.table.publisher": "Editora",
   "gameq.game.list.header.title": "Lista de Jogos",
+  "gameq.administrator.title": "Pagina de administração",
+  "gameq.administrator.side-nav.title": "Opções",
   "table-dt-paginator-label": "Itens por página",
   "data-table-no-data": "Sem dados disponíveis",
   "title.gameQ": "GameQ",

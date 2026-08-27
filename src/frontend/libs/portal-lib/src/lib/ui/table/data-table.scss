@@ -45,10 +45,10 @@
     background-color: rgba(0, 0, 0, 0.02);
   }
 
-  &.dt-hover tbody tr {
+  &.dt-hover tbody tr:not(:has(.dt-no-data)) {
     cursor: pointer;
 
-    &:hover:not(:has(:is(.action-cell, .td-select-cell):hover)) {
+    &:hover:not(:has(:is(.action-cell, .td-select-cell, .dt-no-data):hover)) {
       background-color: var(--color-accent);
       color: var(--color-text);
     }
