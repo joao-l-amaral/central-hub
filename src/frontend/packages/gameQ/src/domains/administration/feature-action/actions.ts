@@ -18,8 +18,7 @@ import { GamePlatformApiService } from '../../../app/data-source/game-platform-a
   styleUrl: './actions.scss',
   imports: [InternalizationPipe, ButtonComponent],
   standalone: true,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class Actions {
   readonly #gamePlatformApiService = inject(GamePlatformApiService);

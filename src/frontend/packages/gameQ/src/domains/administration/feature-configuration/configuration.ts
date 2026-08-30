@@ -1,60 +1,42 @@
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import {
-  ChangeDetectionStrategy,
-  Component,
-  inject,
-  OnInit,
-  signal,
-} from '@angular/core';
-import { MatButtonToggleModule } from '@angular/material/button-toggle';
-import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatCard } from '@angular/material/card';
-import { MatError, MatFormField, MatLabel } from '@angular/material/form-field';
-import {
-  FormControl,
-  FormGroup,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
-import { MatInput } from '@angular/material/input';
-import { CdkTextareaAutosize } from '@angular/cdk/text-field';
-import {
-  ButtonComponent,
-  ConfirmationModalComponent,
-  I18nService,
+  CollapsableComponent,
   InternalizationPipe,
+  KeyValueComponent,
 } from '@central-hub/library';
-import { MatDialog } from '@angular/material/dialog';
 import { GameqAdministrationApi } from '../data-access/gameq-administration-api';
+import { derivedAsync } from 'ngxtension/derived-async';
+import { JsonPipe } from '@angular/common';
 
 @Component({
   selector: 'gameq-configuration-administration',
   templateUrl: './configuration.html',
   styleUrl: './configuration.scss',
   imports: [
-    MatButtonToggleModule,
-    MatCheckboxModule,
-    MatCard,
-    MatFormField,
-    ReactiveFormsModule,
-    MatLabel,
-    MatInput,
-    CdkTextareaAutosize,
+    CollapsableComponent,
     InternalizationPipe,
-    ButtonComponent,
-    MatError,
+    JsonPipe,
+    KeyValueComponent,
   ],
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class Configuration implements OnInit {
+export class Configuration {
   readonly #gameqAdministrationApi = inject(GameqAdministrationApi);
-  readonly #i18nService = inject(I18nService);
+  //readonly #i18nService = inject(I18nService);
   //readonly #toastr = inject(ToastrService);
-  readonly #dialog = inject(MatDialog);
+  //readonly #dialog = inject(MatDialog);
 
-  readonly configuration = signal('');
+  readonly platformConfigurations = derivedAsync(
+    () => this.#gameqAdministrationApi.getConfigurations(),
+    {
+      initialValue: {
+        platforms: []
+      },
+    },
+  );
 
-  readonly catConfigConfigurationEdit = signal(false);
+  /* readonly catConfigConfigurationEdit = signal(false);
 
   readonly form = new FormGroup({
     configurationData: new FormControl('', [Validators.required]),
@@ -102,7 +84,7 @@ export class Configuration implements OnInit {
         this.catConfigConfigurationEdit.set(false);
         this.form.get('configurationData')?.disable();
       }); */
-    throw Error('To be implemented');
+  /* throw Error('To be implemented');
   }
 
   onSaveConfiguration() {
@@ -124,5 +106,5 @@ export class Configuration implements OnInit {
         this.updatePlatformConfiguration(configuration);
       }
     });
-  }
+  } */
 }

@@ -10,6 +10,7 @@ import {SortCriterion, SortState} from "../../util-request";
 export class TableDtHeaderComponent {
   readonly field = input.required<string>();
   readonly key = input.required<string>();
+  readonly sort = input(true);
   readonly sortColumnChanged = output<SortCriterion>();
 
   private readonly sortCycle: Record<string, SortState> = {

@@ -1,11 +1,15 @@
 <lib-table-dt
   [dataSource]="dataSource"
   [showPaginator]="false"
+  [sort]="false"
   [pageSize]="50"
+  [rowActionPersist]="false"
+  [rowIndexProperty]="'platformName'"
+  (rowClicked)="onRowClicked($event)"
 >
-  <lib-dt-col [header]="'gameq.game.table.platform' | translate" key="name" class="hide-on-small">
+  <lib-dt-col [header]="'gameq.game.table.console.platform' | translate" key="icon">
     <ng-template libDtTemplate let-value="value">
-      {{ value }}
+      <i [class]="value"></i>
     </ng-template>
   </lib-dt-col>
 </lib-table-dt>

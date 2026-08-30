@@ -1,9 +1,10 @@
 <button
     chButton
     type="button"
-    [label]="'gameq.actions.force.update' | translate"
+    [title]="'gameq.actions.force.update' | translate"
     [loading]="isLoading()"
     [variant]="'primary'"
+    [icon]="'bi bi-arrow-clockwise'"
     (click)="onForceGamesUpdate()"
 >
 </button>

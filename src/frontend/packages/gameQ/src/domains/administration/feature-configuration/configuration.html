@@ -1,50 +1,9 @@
-<div class="mb-2 catconfig-configuration-actions">
-    <div>
-        @if(!catConfigConfigurationEdit()) {
-            <button
-                chButton
-                type="button"
-                [label]="'gameq.catconfig.edit' | translate"
-                [variant]="'primary'"
-                (click)="onChangeEditState()"
-            >
-            </button>
-        }
-        @else {
-            <button
-                chButton
-                type="button"
-                class="ml-2"
-                [label]="'gameq.catconfig.cancel' | translate"
-                [variant]="'secondary'"
-                (click)="onChangeEditState()"
-            >
-            </button>
-            <button
-                chButton
-                type="button"
-                class="ml-2"
-                [label]="'gameq.catconfig.save' | translate"
-                [variant]="'primary'"
-                (click)="onSaveConfiguration()"
-            >
-            </button>
-        }
-    </div>
-</div>
+<lib-collapsable [title]="'gameq.catconfig.icon.configuration' | translate">
+  @for (gamePlatform of platformConfigurations().platforms; track gamePlatform.platform) {
+    <lib-key-value
+      [label]="gamePlatform.platform"
+      [value]="gamePlatform.icon"
+    />
+  }
+</lib-collapsable>
 
-<mat-card>
-    <form [formGroup]="form" class="w-100">
-        <mat-form-field appearance="fill" subscriptSizing="dynamic" class="w-100">
-            <mat-label>{{ 'gameq.catconfig.configuration' | translate }}</mat-label>
-            <textarea
-                matInput
-                cdkTextareaAutosize
-                cdkAutosizeMinRows="5"
-                formControlName="configurationData"
-                placeholder="Edit configuration..."
-                class="config-textarea"
-            ></textarea>
-        </mat-form-field>
-    </form>
-</mat-card>
