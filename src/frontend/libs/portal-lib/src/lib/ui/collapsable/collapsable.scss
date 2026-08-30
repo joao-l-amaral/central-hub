@@ -1,0 +1,36 @@
+.accordion {
+
+  &__collapsed {
+    border-radius: 5px !important;
+  }
+
+  &__header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    background-color: var(--mat-sys-secondary-container);
+    padding: 10px 20px;
+    border-radius: 5px 5px 0 0;
+    color: var(--color-text);
+
+    span:nth-of-type(2) {
+      font-weight: bold;
+    }
+  }
+
+  &__body {
+    padding-top: 16px;
+    padding-left: 16px;
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+    flex-wrap: wrap;
+    border-left: 3px solid var(--mat-sys-secondary-container);
+  }
+}
+
+@media (max-width: 400px) {
+  .accordion__body {
+      display: unset;
+  }
+}

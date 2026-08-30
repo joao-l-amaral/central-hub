@@ -1,0 +1,38 @@
+<div class="accordion">
+  <div ngAccordionGroup [multiExpandable]="false">
+    <div
+      [class]="{'accordion__collapsed': !trigger1.expanded()}"
+      class="accordion__header"
+      ngAccordionTrigger
+      [panel]="panel1"
+      #trigger1="ngAccordionTrigger"
+      [expanded]="isExpanded()"
+      role="button"
+      tabindex="0"
+      [attr.aria-expanded]="trigger1.expanded()"
+      [attr.aria-controls]="panel1.id"
+    >
+      <span>
+        {{ title() | translate }}
+      </span>
+      <span
+        aria-hidden="true"
+        class="bi bi-chevron-compact-down"
+        [class.bi-chevron-compact-up]="trigger1.expanded()"
+      ></span>
+    </div>
+
+    <div
+      ngAccordionPanel
+      #panel1="ngAccordionPanel"
+      class="accordion__body"
+      role="region"
+      [attr.aria-labelledby]="trigger1.id"
+      [hidden]="!trigger1.expanded()"
+    >
+      <ng-template ngAccordionContent>
+        <ng-content/>
+      </ng-template>
+    </div>
+  </div>
+</div>
