@@ -57,6 +57,15 @@
   tbody tr.dt-active {
     background-color: var(--color-primary) !important;
     color: var(--color-text);
+
+    &-multi-selected {
+      background-color: var(--color-primary) !important;
+
+      &:hover:not(:has(:is(.action-cell, .td-select-cell, .dt-no-data):hover)) {
+        background-color: var(--color-accent) !important;
+        color: var(--color-text);
+      }
+    }
   }
 
   @media (max-width: 576px) {
@@ -95,4 +104,8 @@ tr.dt-active .action-cell .action-element:hover {
 .form-check-input:checked {
   background-color: var(--color-primary);
   border-color: var(--color-primary);
+}
+
+.paginator-hide {
+  display: none;
 }

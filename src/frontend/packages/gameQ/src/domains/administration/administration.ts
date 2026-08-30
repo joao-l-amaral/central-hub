@@ -9,6 +9,7 @@ import { GameqAdministrationApi } from './data-access/gameq-administration-api';
 @Component({
   selector: 'gameq-administration-administration',
   templateUrl: './administration.html',
+  styleUrl: './administration.scss',
   imports: [
     HeaderComponent,
     InternalizationPipe,

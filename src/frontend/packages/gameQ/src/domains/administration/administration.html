@@ -1,22 +1,19 @@
 <div class="container-fluid">
   <div class="row">
-    <div class="col-md-12 game-administrator__header">
+    <div class="col-md-12">
       <lib-header
         [text]="'gameq.administrator.title' | translate"
         [icon]="'bi bi-gear'"
-      />
+      >
+        <gameq-actions-administration/>
+      </lib-header>
     </div>
   </div>
   <div class="row">
-    <div class="col-md-12">
-      <gameq-actions-administration/>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-lg-6">
+    <div class="col-lg-2 administration-selector">
       <gameq-platform-selector/>
     </div>
-    <div class="col-lg-6">
+    <div class="col-lg-10 administration-configuration">
       <gameq-configuration-administration/>
     </div>
   </div>

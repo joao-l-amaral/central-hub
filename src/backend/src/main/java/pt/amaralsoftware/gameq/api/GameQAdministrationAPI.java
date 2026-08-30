@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pt.amaralsoftware.application.service.CatConfigService;
 import pt.amaralsoftware.gameq.config.LoadGameDatabaseSchedule;
+import pt.amaralsoftware.gameq.models.GameQPlatform;
 import pt.amaralsoftware.gameq.service.CatGamePlatformService;
 import pt.amaralsoftware.shared.models.RemoteDataSourceResult;
 
@@ -50,19 +51,19 @@ public class GameQAdministrationAPI {
     @GET
     @Path("/listOfPlatforms")
     @Produces(MediaType.APPLICATION_JSON)
-    public RestResponse<RemoteDataSourceResult<String>> getListOfPlatforms(
+    public RestResponse<RemoteDataSourceResult<GameQPlatform>> getListOfPlatforms(
         @QueryParam("page") @DefaultValue("0") Integer page,
         @QueryParam("pageSize") @DefaultValue("15") Integer pageSize
     ) {
         log.debug("Get list of platforms");
 
-        List<String> selectedPlatforms = catGamePlatformService.getSelectedPlatforms();
+        List<GameQPlatform> selectedPlatforms = catGamePlatformService.getPlatformNames();
 
         if (CollectionUtils.isEmpty(selectedPlatforms)) {
             return RestResponse.noContent();
         }
 
-        RemoteDataSourceResult<String> result = new RemoteDataSourceResult<>();
+        RemoteDataSourceResult<GameQPlatform> result = new RemoteDataSourceResult<>();
         result.setItems(selectedPlatforms);
         result.setPage(page);
         result.setPageSize(pageSize);
@@ -92,4 +93,16 @@ public class GameQAdministrationAPI {
         return RestResponse.ok();
     }
 
+    @PUT
+    @Path("/selected-console")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public RestResponse<Void> selectedConsole(String payload) {
+        try {
+            catGamePlatformService.updatePlatformImportStatus(payload);
+            return RestResponse.ok();
+        } catch (IOException e) {
+            log.error("Error updating platform import status. {}", e.getMessage());
+        }
+        return RestResponse.noContent();
+    }
 }
