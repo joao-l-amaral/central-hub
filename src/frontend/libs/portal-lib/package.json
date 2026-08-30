@@ -4,6 +4,7 @@
   "peerDependencies": {
     "@angular/common": "^21.2.0",
     "@angular/core": "^21.2.0",
+    "@angular/material": "^21.2.14",
     "vite": "^6.0.0",
     "vitest": "^4.0.8",
     "ngxtension": "7.2.0"
