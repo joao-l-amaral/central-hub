@@ -25,6 +25,7 @@ export interface DialogData {
 @Component({
   selector: 'lib-confirmation-modal-component',
   templateUrl: './confirmation-modal.component.html',
+  styleUrl: 'confirmation-modal.component.scss',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
