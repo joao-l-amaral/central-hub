@@ -1,0 +1,57 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      <lib-header
+        [text]="'gameq.administrator.title' | translate"
+        [icon]="'bi bi-gear'"
+      >
+        <gameq-actions-administration/>
+      </lib-header>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-2 administration-selector">
+      <gameq-platform-selector/>
+    </div>
+    <div class="col-lg-10 administration-configuration">
+      <div class="administration-configuration__action">
+        @if(catConfigConfigurationEdit) {
+          <button
+            chButton
+            type="button"
+            class="ml-2"
+            [label]="'gameq.catconfig.cancel' | translate"
+            [variant]="'secondary'"
+            (click)="onChangeEditState()"
+          >
+          </button>
+          <button
+            chButton
+            type="button"
+            class="ml-2"
+            [label]="'gameq.catconfig.save' | translate"
+            [variant]="'primary'"
+            (click)="onSaveConfiguration()"
+          >
+          </button>
+        }
+        @else {
+          <button
+            chButton
+            type="button"
+            [icon]="'bi bi-pencil-fill'"
+            [variant]="'primary'"
+            (click)="onChangeEditState()"
+          >
+          </button>
+        }
+      </div>
+      @if(catConfigConfigurationEdit) {
+        <gameq-administration-edit-card/>
+      }
+      @else {
+        <gameq-configuration-administration/>
+      }
+    </div>
+  </div>
+</div>

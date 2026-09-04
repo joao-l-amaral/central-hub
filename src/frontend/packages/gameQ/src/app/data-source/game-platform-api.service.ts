@@ -17,7 +17,11 @@ export class GamePlatformApiService {
     }
 
     public getConfigurations() {
-        return firstValueFrom(this.httpClient.get<string>("/api/games/configuration"));
+        return firstValueFrom(
+          this.httpClient.get<string>(
+            '/api/gameq/administration/configuration',
+          ),
+        );
     }
 
     public updatePlatformConfiguration(configuration: string) {

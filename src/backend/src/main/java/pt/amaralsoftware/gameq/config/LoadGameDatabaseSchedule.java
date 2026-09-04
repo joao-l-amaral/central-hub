@@ -293,7 +293,7 @@ public class LoadGameDatabaseSchedule {
     }
 
     private void parseDataByStream() {
-        List<String> consolePlatformToLookUp = catGamePlatformService.getSelectedPlatforms();
+        List<String> consolePlatformToLookUp = catGamePlatformService.getSelectedPlatformsList();
 
         File xmlFile = new File(String.format("%s/%s", FILE_EXTRACTED_PATH, LoadGameDatabaseSchedule.FILE_WITH_GAME_DATA));
 

@@ -2,10 +2,12 @@
   <span>
     <b>{{ field() }}</b>
   </span>
-  <a>
-    <i
-      [class]="sortIcon()"
-      (click)="onSortClick($event)"
-    ></i>
-  </a>
+  @if (sort()) {
+    <a>
+      <i
+        [class]="sortIcon()"
+        (click)="onSortClick($event)"
+      ></i>
+    </a>
+  }
 </ng-container>

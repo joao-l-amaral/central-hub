@@ -1,4 +1,12 @@
-import {ChangeDetectionStrategy, Component, computed, contentChildren, input, output, signal} from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  contentChildren,
+  input,
+  output,
+  signal,
+} from '@angular/core';
 import {NgTemplateOutlet} from "@angular/common";
 import {DataTableCell} from "./feature-data-table-cell/ui-cell/data-table-cell";
 import {ActionCell} from "./feature-data-table-cell/ui-action/action-cell";
@@ -28,14 +36,18 @@ import {SortCriterion} from "./util-request";
     StopPropagationDirective,
     ButtonComponent,
     InternalizationPipe,
-    LoadingBlockComponent
-  ]
+    LoadingBlockComponent,
+  ],
 })
 export class TableDtComponent {
   readonly dataSource = input.required<DataSource>();
   readonly search = input(false);
-  readonly removeRecords = input(false)
+  readonly removeRecords = input(false);
   readonly pageSize = input(5);
+  readonly showPaginator = input(true);
+  readonly sort = input(true);
+  readonly rowActionPersist = input(true);
+  readonly rowIndexProperty = input<string>();
 
   readonly rowSelected = signal<TRow>({});
 
@@ -49,13 +61,20 @@ export class TableDtComponent {
     descendants: true,
   });
 
-  readonly columns = computed(() => [...this.dataColumns(), ...this.actionColumns()]);
+  readonly columns = computed(() => [
+    ...this.dataColumns(),
+    ...this.actionColumns(),
+  ]);
 
-  readonly rows = derivedAsync(() => this.dataSource().data$, { initialValue: [] });
+  readonly rows = derivedAsync(() => this.dataSource().data$, {
+    initialValue: [],
+  });
 
   readonly selectedRowsToRemove = signal<TRow[]>([]);
 
-  readonly haveSelectedRowsToRemote = computed(() => this.selectedRowsToRemove().length > 0);
+  readonly haveSelectedRowsToRemote = computed(
+    () => this.selectedRowsToRemove().length > 0,
+  );
 
   onSearch(search: string) {
     this.dataSource().setSearch(search);
@@ -63,10 +82,10 @@ export class TableDtComponent {
 
   protected rowClickedFn($event: TRow) {
     if (this.rowSelected().id === $event.id) {
-      this.rowSelected.set({});
+      if (this.rowActionPersist()) this.rowSelected.set({});
       this.rowClicked.emit({});
     } else {
-      this.rowSelected.set($event);
+      if (this.rowActionPersist()) this.rowSelected.set($event);
       this.rowClicked.emit($event);
     }
   }
@@ -82,18 +101,19 @@ export class TableDtComponent {
   selectRowToRemove(row: TRow) {
     this.selectedRowsToRemove.update((rows) => {
       const exists = rows.some((r) => r.id === row.id);
-      return exists
-        ? rows.filter((r) => r !== row)
-        : [...rows, row];
+      return exists ? rows.filter((r) => r !== row) : [...rows, row];
     });
   }
 
   protected isRowChecked(row: TRow) {
-    return this.selectedRowsToRemove().some(selected => selected.id === row.id);
+    return this.selectedRowsToRemove().some(
+      (selected) => selected.id === row.id,
+    );
   }
 
   protected selectAllVisibleRows() {
-    const allSelected = this.selectedRowsToRemove().length === this.rows().length;
+    const allSelected =
+      this.selectedRowsToRemove().length === this.rows().length;
     this.selectedRowsToRemove.set([]);
     if (!allSelected) {
       this.selectedRowsToRemove.set([...this.rows()]);
@@ -101,10 +121,15 @@ export class TableDtComponent {
   }
 
   protected isAllVisibleRowsChecked() {
-    return this.selectedRowsToRemove().length === this.rows().length && this.rows().length > 0;
+    return (
+      this.selectedRowsToRemove().length === this.rows().length &&
+      this.rows().length > 0
+    );
   }
 
   protected onSortColumnChanged($event: SortCriterion) {
     this.dataSource().setSort($event);
   }
+
+  protected readonly JSON = JSON;
 }

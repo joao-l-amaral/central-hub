@@ -86,4 +86,6 @@ public class CatGameEntity extends PanacheEntityBase implements Serializable {
     public String getPublisher() {
         return publisher;
     }
+
+
 }

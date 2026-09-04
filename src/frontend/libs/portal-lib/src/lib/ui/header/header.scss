@@ -1,9 +1,28 @@
 .header {
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
   gap: 20px;
+  padding: 20px;
+
+  &__content {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+  }
 
   &__icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+
+  &__icon_no_subtitle {
+    position: relative;
+    top: -5px;
+    font-size: 25px;
     display: flex;
     justify-content: center;
     align-items: center;

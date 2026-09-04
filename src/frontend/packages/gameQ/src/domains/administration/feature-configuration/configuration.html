@@ -1,0 +1,9 @@
+<lib-collapsable [title]="'gameq.catconfig.icon.configuration' | translate">
+  @for (gamePlatform of platformConfigurations().platforms; track gamePlatform.platform) {
+    <lib-key-value
+      [label]="gamePlatform.platform"
+      [value]="gamePlatform.icon"
+    />
+  }
+</lib-collapsable>
+

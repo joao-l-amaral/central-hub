@@ -4,9 +4,12 @@ import io.quarkus.panache.common.Sort;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
+import jakarta.ws.rs.NotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pt.amaralsoftware.gameq.models.GameQPlatform;
+import pt.amaralsoftware.gameq.models.UpdateSelectedPlatformPayload;
+import pt.amaralsoftware.gameq.models.entity.CatGameEntity;
 import pt.amaralsoftware.gameq.models.entity.CatGamePlatformEntity;
 import pt.amaralsoftware.gameq.repository.CatGamePlatformRepository;
 import pt.amaralsoftware.gameq.resolvers.PlatformIconResolver;
@@ -28,12 +31,13 @@ public class CatGamePlatformService {
     @Inject
     PlatformIconResolver platformIconResolver;
 
-    public List<String> getSelectedPlatforms() {
-         return catGamePlatformRepository.getSelectedPlatforms();
+    public List<String> getSelectedPlatformsList() {
+        return catGamePlatformRepository.getSelectedPlatforms();
     }
 
     public List<GameQPlatform> getPlatformNames() {
-        List<CatGamePlatformEntity> videoGamePlatforms = catGamePlatformRepository.findAll(Sort.by("name", Sort.Direction.Ascending)).list();
+
+        List<CatGamePlatformEntity> videoGamePlatforms = videoGamePlatforms = catGamePlatformRepository.findAll(Sort.by("name", Sort.Direction.Ascending)).list();
 
         List<GameQPlatform> gameVaultPlatformFiltered = new ArrayList<>();
 
@@ -80,5 +84,16 @@ public class CatGamePlatformService {
             }
 
         }
+    }
+
+    @Transactional
+    public void updatePlatformImportStatus(String payload) throws IOException {
+        UpdateSelectedPlatformPayload updatePayload = JSONSerializer.fromJSON(payload, UpdateSelectedPlatformPayload.class);
+
+        CatGamePlatformEntity platform = catGamePlatformRepository
+                .find("name", updatePayload.getConsoleName())
+                .firstResult();
+
+        platform.setToImport(updatePayload.getToImport());
     }
 }
