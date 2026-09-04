@@ -14,7 +14,44 @@
       <gameq-platform-selector/>
     </div>
     <div class="col-lg-10 administration-configuration">
-      <gameq-configuration-administration/>
+      <div class="administration-configuration__action">
+        @if(catConfigConfigurationEdit) {
+          <button
+            chButton
+            type="button"
+            class="ml-2"
+            [label]="'gameq.catconfig.cancel' | translate"
+            [variant]="'secondary'"
+            (click)="onChangeEditState()"
+          >
+          </button>
+          <button
+            chButton
+            type="button"
+            class="ml-2"
+            [label]="'gameq.catconfig.save' | translate"
+            [variant]="'primary'"
+            (click)="onSaveConfiguration()"
+          >
+          </button>
+        }
+        @else {
+          <button
+            chButton
+            type="button"
+            [icon]="'bi bi-pencil-fill'"
+            [variant]="'primary'"
+            (click)="onChangeEditState()"
+          >
+          </button>
+        }
+      </div>
+      @if(catConfigConfigurationEdit) {
+        <gameq-administration-edit-card/>
+      }
+      @else {
+        <gameq-configuration-administration/>
+      }
     </div>
   </div>
 </div>
