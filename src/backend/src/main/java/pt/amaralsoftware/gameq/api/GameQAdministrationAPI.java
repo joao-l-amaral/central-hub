@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import pt.amaralsoftware.application.service.CatConfigService;
 import pt.amaralsoftware.gameq.config.LoadGameDatabaseSchedule;
 import pt.amaralsoftware.gameq.models.GameVaultConfiguration;
+import pt.amaralsoftware.gameq.modules.dataProcessor.GameQGameDataProcessor;
 import pt.amaralsoftware.gameq.service.CatGamePlatformService;
 
 import java.io.IOException;
@@ -25,11 +26,14 @@ public class GameQAdministrationAPI {
     CatGamePlatformService catGamePlatformService;
     @Inject
     CatConfigService catConfigService;
+    @Inject
+    GameQGameDataProcessor gameQGameDataProcessor;
 
     @GET
     @Path("/forceLoadGameVaultDatabase")
     public RestResponse<String> forceDatabaseLoad() {
-        loadGameDatabaseSchedule.init();
+        //loadGameDatabaseSchedule.init();
+        gameQGameDataProcessor.execute();
         return RestResponse.ok("Data base sync forcefully loaded.");
     }
 

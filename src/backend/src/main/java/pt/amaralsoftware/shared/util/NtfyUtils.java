@@ -1,6 +1,7 @@
 package pt.amaralsoftware.shared.util;
 
 import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 import pt.amaralsoftware.shared.client.NtfyClient;
@@ -19,6 +20,7 @@ public class NtfyUtils {
     @ConfigProperty(name = "ntfy.password")
     String ntfyPassword;
 
+    @Inject
     @RestClient
     NtfyClient ntfyClient;
 
