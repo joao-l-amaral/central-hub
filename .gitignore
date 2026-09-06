@@ -1,5 +1,6 @@
 frontend/src/assets/shelve-products.config.json
 frontend/bin/configurator.properties
+tmp/input/Metadata.zip
 
 .angular
 node_modules

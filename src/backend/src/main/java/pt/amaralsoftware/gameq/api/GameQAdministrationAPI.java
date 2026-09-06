@@ -5,12 +5,15 @@ import jakarta.ws.rs.GET;
 import jakarta.ws.rs.PATCH;
 import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
+import jakarta.ws.rs.core.Response;
+import net.dv8tion.jda.api.requests.ErrorResponse;
+import org.apache.commons.lang3.StringUtils;
 import org.jboss.resteasy.reactive.RestResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pt.amaralsoftware.application.service.CatConfigService;
-import pt.amaralsoftware.gameq.config.LoadGameDatabaseSchedule;
 import pt.amaralsoftware.gameq.models.GameVaultConfiguration;
+import pt.amaralsoftware.gameq.modules.dataProcessor.GameDataProcessor;
 import pt.amaralsoftware.gameq.service.CatGamePlatformService;
 
 import java.io.IOException;
@@ -20,16 +23,23 @@ public class GameQAdministrationAPI {
     private final Logger log = LoggerFactory.getLogger(GameQAdministrationAPI.class);
 
     @Inject
-    LoadGameDatabaseSchedule loadGameDatabaseSchedule;
-    @Inject
     CatGamePlatformService catGamePlatformService;
     @Inject
     CatConfigService catConfigService;
+    @Inject
+    GameDataProcessor gameDataProcessor;
 
     @GET
-    @Path("/forceLoadGameVaultDatabase")
+    @Path("/loadGameDatabase")
     public RestResponse<String> forceDatabaseLoad() {
-        loadGameDatabaseSchedule.init();
+        gameDataProcessor.run();
+
+        String errorMessage  = gameDataProcessor.getLastErrorMessage();
+
+        if (errorMessage != null) {
+            return RestResponse.status(Response.Status.INTERNAL_SERVER_ERROR, errorMessage);
+        }
+
         return RestResponse.ok("Data base sync forcefully loaded.");
     }
 
