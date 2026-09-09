@@ -4,6 +4,8 @@
 dist
 tmp
 out-tsc
+src/backend/tmp/input/Metadata.zip
+src/backend/tmp/output/hash.txt
 
 # dependencies
 node_modules
