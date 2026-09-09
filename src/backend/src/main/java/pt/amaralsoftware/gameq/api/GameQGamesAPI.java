@@ -35,7 +35,7 @@ public class GameQGamesAPI {
     public RestResponse<GameQConfigurationDTO> getInitialSearchPlatformList() {
         log.info("Get initial search platform list");
 
-        List<GameQPlatform> platforms = catGamePlatformService.getPlatformNames();
+        List<GameQPlatform> platforms = catGamePlatformService.getPlatforms();
         List<GameQPlatform> pcDigitalStoresPlatforms = catDigitalPcStoresService.getPCDigitalStoresNames();
 
         List<GameQPlatform> mergedPlatforms = new ArrayList<>();

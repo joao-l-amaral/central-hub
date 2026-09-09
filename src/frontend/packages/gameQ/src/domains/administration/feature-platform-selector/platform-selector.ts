@@ -37,7 +37,7 @@ export class PlatformSelectorComponent {
     sortOrder: string | undefined,
   ) =>
     this.#requestFactory.get<PaginationPage<string>>(
-      '/api/gameq/administration/listOfPlatforms',
+      '/api/gameq/administration/selectedPlatforms',
       {
         params: { search, page, pageSize, sortOrder },
       },
@@ -52,7 +52,10 @@ export class PlatformSelectorComponent {
     this.#gameqAdministrationApi
       .updateSelectedConsole(platformName, isSelected)
       .then(() => {
-        this.#gameQConfigurationState.updatePlatformStatus(platformName, isSelected);
+        this.#gameQConfigurationState.updatePlatformStatus(
+          platformName,
+          isSelected,
+        );
         this.dataSource.reload();
       });
   }

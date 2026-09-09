@@ -20,9 +20,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 @ApplicationScoped
-public class DataPlatformParser extends ParsingFlow {
+public class DataPlatformParserFlow extends ParsingFlow {
 
-    private final Logger log = LoggerFactory.getLogger(DataPlatformParser.class);
+    private final Logger log = LoggerFactory.getLogger(DataPlatformParserFlow.class);
 
     @Inject
     CatGamePlatformService catGamePlatformService;
@@ -30,6 +30,8 @@ public class DataPlatformParser extends ParsingFlow {
     @Override
     public ParsingResult executeWorkflow(GameQParsingStates currentState) {
         log.info("Starting GameQPlatformParser flow");
+
+        int numberOfPlatform = 0;
 
         try {
             File xmlFile = new File(String.format("%s/%s", FILE_EXTRACTED_PATH, "Platforms.xml"));
@@ -57,13 +59,14 @@ public class DataPlatformParser extends ParsingFlow {
 
                     Map<String, Object> processedPlatform = this.processPlatforms(element);
                     catGamePlatformService.savePlatforms(processedPlatform);
+                    numberOfPlatform++;
                 }
             }
         } catch (Exception e) {
             log.error("Failed to parse platform data. {}", e.getMessage());
         }
 
-        return ParsingResult.ok(GameQParsingStates.PLATFORMS_PARSED);
+        return ParsingResult.ok(GameQParsingStates.PLATFORMS_PARSED, null, numberOfPlatform);
     }
 
     private Map<String, Object> processPlatforms(Element platform) {

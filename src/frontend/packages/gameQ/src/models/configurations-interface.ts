@@ -1,4 +1,4 @@
-export interface Platforms {
+export interface Configurations {
   platforms: Platform[];
 }
 

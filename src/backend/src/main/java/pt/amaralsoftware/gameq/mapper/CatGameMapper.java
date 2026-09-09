@@ -5,14 +5,16 @@ import org.apache.commons.lang3.StringUtils;
 import pt.amaralsoftware.gameq.models.dto.GameQGameDTO;
 import pt.amaralsoftware.gameq.models.entity.CatGameEntity;
 
-import java.time.ZonedDateTime;
+import java.time.LocalDate;
 
 @ApplicationScoped
 public class CatGameMapper {
 
     public GameQGameDTO toDto(CatGameEntity entity) {
         String releaseDate = entity.getReleaseDate();
-        Integer releaseYear = StringUtils.isNotBlank(releaseDate) ? ZonedDateTime.parse(releaseDate).getYear() : -1;
+        Integer releaseYear = StringUtils.isNotBlank(releaseDate)
+                ? LocalDate.parse(releaseDate).getYear()
+                : -1;
 
         return new GameQGameDTO(
             entity.getName(),

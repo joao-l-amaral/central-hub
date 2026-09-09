@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
 import {
   ButtonComponent,
   ConfirmationModalComponent,
@@ -13,6 +13,7 @@ import { PlatformSelectorComponent } from './feature-platform-selector/platform-
 import { GameqAdministrationApi } from './data-access/gameq-administration-api';
 import { MatDialog } from '@angular/material/dialog';
 import { EditCard } from './feature-edit-card/edit-card';
+import { derivedAsync } from 'ngxtension/derived-async';
 
 @Component({
   selector: 'gameq-administration-administration',
@@ -32,33 +33,24 @@ import { EditCard } from './feature-edit-card/edit-card';
   providers: [GamePlatformApiService, GameqAdministrationApi],
 })
 export class Administration {
-  readonly #i18nService = inject(I18nService);
-  readonly #dialog = inject(MatDialog);
+  readonly #gameqAdministrationApi = inject(GameqAdministrationApi);
+
+  readonly configurations = derivedAsync(
+    () => this.#gameqAdministrationApi.getConfigurations(),
+    {
+      initialValue: {
+        platforms: [],
+      },
+    },
+  );
+
+  readonly configurationsAsString = computed(() => JSON.stringify(this.configurations()));
 
   catConfigConfigurationEdit = false;
 
   onChangeEditState() {
     this.catConfigConfigurationEdit = !this.catConfigConfigurationEdit;
   }
-  onSaveConfiguration() {
-    const modalMsg = this.#i18nService.translate(
-      'gameq.catconfig.edit.description',
-    );
 
-    const dialogRef = this.#dialog.open(ConfirmationModalComponent, {
-      data: {
-        title: this.#i18nService.translate('gameq.catconfig.edit.title'),
-        message: modalMsg,
-      },
-      position: { top: '100px' },
-    });
 
-    dialogRef.afterClosed().subscribe((result) => {
-      console.log(result);
-
-      /*if (result !== undefined) {
-
-      } */
-    });
-  }
 }

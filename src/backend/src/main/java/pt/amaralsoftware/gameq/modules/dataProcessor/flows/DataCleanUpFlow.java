@@ -13,9 +13,9 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 @ApplicationScoped
-public class DataCleanUp extends ParsingFlow {
+public class DataCleanUpFlow extends ParsingFlow {
 
-    private final Logger log = LoggerFactory.getLogger(DataCleanUp.class);
+    private final Logger log = LoggerFactory.getLogger(DataCleanUpFlow.class);
 
     @Override
     public ParsingResult executeWorkflow(GameQParsingStates currentState) {

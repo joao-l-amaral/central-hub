@@ -2,7 +2,6 @@ package pt.amaralsoftware.gameq.modules.dataProcessor.flows;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
-import jakarta.persistence.EntityManager;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -27,22 +26,20 @@ import java.util.List;
 import java.util.Map;
 
 @ApplicationScoped
-public class DataGameParser extends ParsingFlow {
+public class DataGameParserFlow extends ParsingFlow {
 
-    private final Logger log = LoggerFactory.getLogger(DataGameParser.class);
+    private final Logger log = LoggerFactory.getLogger(DataGameParserFlow.class);
 
     @Inject
     CatGamePlatformService catGamePlatformService;
     @Inject
     CatGameService catGameService;
-    @Inject
-    EntityManager entityManager;
 
     @Override
     public ParsingResult executeWorkflow(GameQParsingStates currentState) {
       log.info("Starting GameQGameParser flow");
 
-      List<String> consolePlatformToLookUp = catGamePlatformService.getSelectedPlatforms();
+      List<String> consolePlatformToLookUp = catGamePlatformService.getSelectedPlatformsList();
 
       if (CollectionUtils.isEmpty(consolePlatformToLookUp)) {
           log.warn("No console platforms selected for game lookup.");
@@ -109,7 +106,7 @@ public class DataGameParser extends ParsingFlow {
           }
 
           log.info("Finished parsing {} games", gamesParsed);
-          return ParsingResult.ok(GameQParsingStates.GAMES_PARSED);
+          return ParsingResult.ok(GameQParsingStates.GAMES_PARSED, gamesParsed, null);
 
       } catch (XMLStreamException | IOException e) {
           log.error("Failed to parse games after {} entries", gamesParsed, e);

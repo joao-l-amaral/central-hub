@@ -1,5 +1,6 @@
 package pt.amaralsoftware.gameq.service;
 
+import io.quarkus.hibernate.orm.panache.PanacheQuery;
 import io.quarkus.panache.common.Sort;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
@@ -35,7 +36,7 @@ public class CatGamePlatformService {
         return catGamePlatformRepository.getSelectedPlatforms();
     }
 
-    public List<GameQPlatform> getPlatformNames() {
+    public List<GameQPlatform> getPlatforms() {
 
         List<CatGamePlatformEntity> videoGamePlatforms = videoGamePlatforms = catGamePlatformRepository.findAll(Sort.by("name", Sort.Direction.Ascending)).list();
 

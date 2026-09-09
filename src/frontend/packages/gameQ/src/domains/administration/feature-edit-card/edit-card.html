@@ -1,1 +1,54 @@
-<h1>TO BE IMPLEMENTED</h1>
+<div class="administration-configuration__action">
+  <button
+    chButton
+    type="button"
+    [label]="'gameq.configuration.format' | translate"
+    [variant]="'tertiary'"
+    (click)="formatJson()"
+  >
+  </button>
+  <div class="d-flex gap-2">
+    <button
+      chButton
+      type="button"
+      class="ml-2"
+      [label]="'gameq.catconfig.cancel' | translate"
+      [variant]="'secondary'"
+      (click)="onChangeEditState()"
+    >
+    </button>
+    <button
+      chButton
+      type="button"
+      class="ml-2"
+      [label]="'gameq.catconfig.save' | translate"
+      [variant]="'primary'"
+      (click)="onSaveConfiguration()"
+    >
+    </button>
+  </div>
+</div>
+<div class="json-editor-wrapper">
+  <div class="json-editor-toolbar">
+    @if (errorMessage()) {
+      <span class="json-error">{{ errorMessage() }}</span>
+    }
+  </div>
+
+  <div class="editor-container">
+    <div class="line-numbers" #lineNumbers>
+      @for (line of lineNumbersArray(); track $index) {
+        <div class="line-number" [class.error-line]="line === errorLine()">{{ line }}</div>
+      }
+    </div>
+
+    <textarea
+      #textarea
+      [formControl]="textControl"
+      (keydown)="onKeydown($event)"
+      [class.invalid]="!!errorMessage()"
+      spellcheck="false"
+      rows="15"
+    ></textarea>
+  </div>
+</div>

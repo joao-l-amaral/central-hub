@@ -30,7 +30,7 @@ export class ActionsComponent {
 
   onForceGamesUpdate() {
     this.isLoading.set(true);
-    this.#gamePlatformApiService.forceGameSynchronization().then(() => {
+    this.#gamePlatformApiService.doSynchronizeGames().then(() => {
       this.isLoading.set(false);
       const successMsg = this.#i18nService.translate('gameq.game.sync.success');
       this.#toastr.success(successMsg);

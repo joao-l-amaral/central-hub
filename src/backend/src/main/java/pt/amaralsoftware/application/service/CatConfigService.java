@@ -19,11 +19,6 @@ public class CatConfigService {
     @Inject
     CatConfigRepository catConfigRepository;
 
-    public String getVideoGameConfig() {
-        CatConfigEntity catConfigEntity = catConfigRepository.find("WHERE module = 'GameVault'").firstResult();
-        return catConfigEntity.getConfiguration();
-    }
-
     public GameQConfiguration getGameQConfiguration() throws IOException {
         CatConfigEntity catConfigEntity = catConfigRepository.find("WHERE module = 'GameVault'").firstResult();
         String configuration = catConfigEntity.getConfiguration();

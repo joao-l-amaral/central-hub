@@ -28,7 +28,7 @@ export class GamePlatformApiService {
         return firstValueFrom(this.httpClient.put("/api/games/updatePlatformConfiguration", configuration));
     }
 
-    public forceGameSynchronization() {
-        return firstValueFrom(this.httpClient.get<string>("/api/games/forceLoadGameVaultDatabase"));
+    public doSynchronizeGames() {
+        return firstValueFrom(this.httpClient.get<string>('/api/games/loadGameDatabase'));
     }
 }
