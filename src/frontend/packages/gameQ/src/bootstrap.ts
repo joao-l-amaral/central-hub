@@ -1,8 +1,8 @@
 import { bootstrapApplication } from '@angular/platform-browser';
-import { GameQComponent } from './app/pages/gameQ/gameq.component';
 import { appConfig } from './domains/app/app.config';
+import { GameSelectionComponent } from './domains/app/app';
 
-bootstrapApplication(GameQComponent, appConfig).catch((err) =>
+bootstrapApplication(GameSelectionComponent, appConfig).catch((err) =>
   // eslint-disable-next-line no-console
   console.error(err),
 );

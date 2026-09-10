@@ -33,6 +33,7 @@ describe('HeaderComponent', () => {
 
   it('Icon should show in the element', async () => {
     fixture.componentRef.setInput('icon', 'bi bi-info-circle');
+    fixture.componentRef.setInput('subText', 'subText');
     const isIconPresent = await headerHarness.isIconPresent();
     expect(isIconPresent).toBeTruthy();
   });

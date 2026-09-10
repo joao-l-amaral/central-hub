@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Actions } from './actions';
 import {provideToastr} from "ngx-toastr";
 import { I18nService } from '@central-hub/library';
-import { GamePlatformApiService } from '../../../app/data-source/game-platform-api.service';
+import { GameqAdministrationApi } from '../data-access/gameq-administration-api';
 
 describe('ActionsComponent', () => {
   let component: Actions;
@@ -12,7 +12,7 @@ describe('ActionsComponent', () => {
     await TestBed.configureTestingModule({
         imports: [Actions],
         providers: [
-            GamePlatformApiService,
+            GameqAdministrationApi,
             provideToastr({
                 timeOut: 3000,
                 positionClass: 'toast-top-right',

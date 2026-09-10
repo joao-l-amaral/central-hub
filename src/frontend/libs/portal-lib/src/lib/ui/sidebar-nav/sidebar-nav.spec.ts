@@ -61,7 +61,7 @@ describe('SideBarNavigationComponent', () => {
     component.optionHandler(PageSampleComponent);
 
     expect(component.injectedComponent()).toBe(PageSampleComponent);
-    expect(component.usingSideNav()).toBe(true);
+    expect(component.usingSideNav).toBe(true);
   });
 
   it('should overwrite a previously injected component', () => {
@@ -71,18 +71,18 @@ describe('SideBarNavigationComponent', () => {
     component.optionHandler(AnotherComponent);
 
     expect(component.injectedComponent()).toBe(AnotherComponent);
-    expect(component.usingSideNav()).toBe(true);
+    expect(component.usingSideNav).toBe(true);
   });
 
   it('should keep usingSideNav true even if called multiple times', () => {
     component.optionHandler(PageSampleComponent);
     component.optionHandler(PageSampleComponent);
 
-    expect(component.usingSideNav()).toBe(true);
+    expect(component.usingSideNav).toBe(true);
   });
 
   it('should clear the container and create the injected component when both are set', () => {
-    component.usingSideNav.set(true);
+    component.usingSideNav = true;
     fixture.detectChanges();
 
     const container = component.container();

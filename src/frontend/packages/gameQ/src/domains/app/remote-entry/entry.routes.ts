@@ -4,7 +4,6 @@ import {
   PageResourcesComponentConfig,
   SideBarNavigationComponent,
 } from '@central-hub/library';
-import { PageSampleComponent } from '../../../app/pages/pageSample/page-sample.component';
 import { GameSelectionComponent } from '../../game-selection/game-selection';
 import { appRemoteConfig } from './app-remote.config';
 import { Administration } from '../../administration/administration';
@@ -32,12 +31,6 @@ export const remoteRoutes: Route[] = [
         data: {
           config: {
             resources: [
-              {
-                icon: 'bi bi-controller',
-                label: 'test.ps',
-                queryParam: 'game',
-                component: PageSampleComponent,
-              },
               {
                 icon: 'bi bi-list-ul',
                 label: 'gameq.game.list.header.title',

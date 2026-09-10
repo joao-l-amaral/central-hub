@@ -1,7 +1,12 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Administration } from './administration';
 import {provideToastr} from "ngx-toastr";
-import { I18nService } from '@central-hub/library';
+import {
+  I18nService,
+  LoadingBlockService,
+  RequestFactory,
+} from '@central-hub/library';
+import { GameQConfigurationState } from '../initial-search/util-configuration/configuration-state';
 
 describe('AdministrationComponent', () => {
   let component: Administration;
@@ -11,6 +16,9 @@ describe('AdministrationComponent', () => {
     await TestBed.configureTestingModule({
         imports: [Administration],
         providers: [
+            RequestFactory,
+            GameQConfigurationState,
+            LoadingBlockService,
             provideToastr({
                 timeOut: 3000,
                 positionClass: 'toast-top-right',
