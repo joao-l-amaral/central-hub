@@ -19,19 +19,23 @@ public class GameDataProcessor {
     @Inject
     DataExtractorFlow dataExtractorFlow;
     @Inject
-    DataPlatformParser dataPlatformParser;
+    DataPlatformParserFlow dataPlatformParserFlow;
     @Inject
-    DataGameParser dataGameParser;
+    DataGameParserFlow dataGameParserFlow;
     @Inject
-    DataCleanUp dataCleanUp;
+    DataCleanUpFlow dataCleanUpFlow;
     @Inject
     DataInitializeFlow dataInitializeFlow;
 
     private GameQParsingStates currentState = GameQParsingStates.INITIALIZE;
     private String lastErrorMessage;
+    private String message;
+    private Integer numberOfPlatformsImported;
+    private Integer numberOfGamesImported;
 
     public void run() {
         lastErrorMessage = null;
+        message = null;
 
         while (currentState != GameQParsingStates.COMPLETED) {
 
@@ -53,22 +57,44 @@ public class GameDataProcessor {
             case INITIALIZE -> dataInitializeFlow;
             case IDLE, DOWNLOADING -> dataDownloaderFlow;
             case DOWNLOADED -> dataExtractorFlow;
-            case EXTRACTED -> dataPlatformParser;
-            case PLATFORMS_PARSED -> dataGameParser;
-            case GAMES_PARSED -> dataCleanUp;
+            case EXTRACTED -> dataPlatformParserFlow;
+            case PLATFORMS_PARSED -> dataGameParserFlow;
+            case GAMES_PARSED -> dataCleanUpFlow;
             default -> throw new IllegalStateException("Unhandled state: " + currentState);
         };
 
         ParsingResult result = flow.executeWorkflow(currentState);
         currentState = result.state();
 
-        if (currentState == GameQParsingStates.ERROR) {
-            lastErrorMessage = result.errorMessage();
+        if(result.numberOfGamesImported() != null) {
+            numberOfGamesImported = result.numberOfGamesImported();
         }
+
+        if(result.numberOfPlatformsImported() != null) {
+            numberOfPlatformsImported = result.numberOfPlatformsImported();
+        }
+
+        if (currentState == GameQParsingStates.ERROR) {
+            lastErrorMessage = result.message();
+        } else {
+            message = result.message();
+        }
+
     }
 
     public String getLastErrorMessage() {
         return lastErrorMessage;
     }
 
+    public String getMessage() {
+        return message;
+    }
+
+    public Integer getNumberOfPlatformsImported() {
+        return numberOfPlatformsImported;
+    }
+
+    public Integer getNumberOfGamesImported() {
+        return numberOfGamesImported;
+    }
 }

@@ -51,7 +51,7 @@ public class DataDownloaderFlow extends ParsingFlow {
                 Files.delete(Paths.get(METADATA_DOWNLOAD_PATH));
                 log.debug("The downloaded file didn't change.");
                 ntfyUtils.send("Video game metadata game didn't change.");
-                return ParsingResult.error("The downloaded file didn't change.");
+                return ParsingResult.ok(GameQParsingStates.COMPLETED, "The downloaded file didn't change.");
             }
 
             if(StringUtils.isNotBlank(existingHashValue)) {
@@ -62,8 +62,8 @@ public class DataDownloaderFlow extends ParsingFlow {
             return ParsingResult.ok(GameQParsingStates.DOWNLOADED);
 
         } catch (IOException| NoSuchAlgorithmException e) {
-            log.error("Game vault data source failed to process. {}", e.getMessage());
-            this.ntfyUtils.send("[GameVault] Failed to process metadata file.");
+            log.error("Game data source failed to process. {}", e.getMessage());
+            this.ntfyUtils.send("[GameQ] Failed to process metadata file.");
         }
 
         return ParsingResult.error("Failed to process metadata file.");

@@ -1,14 +1,18 @@
 <div class="header">
-  @if(icon()) {
-    <div class="header__icon">
-      <i [class]="icon()" aria-hidden="true"></i>
-    </div>
-  }
-  <div class="header__text">
-    <h5>{{ text() }}</h5>
-    @if(subText()) {
-      <span class="subtitle">{{ subText() }}</span>
+  <div class="header__content">
+    @if(icon()) {
+      <div [class]="subText() ? 'header__icon' : 'header__icon_no_subtitle'">
+        <i [class]="icon()" aria-hidden="true"></i>
+      </div>
     }
+    <div class="header__text">
+      <h5>{{ text() }}</h5>
+      @if(subText()) {
+        <span class="subtitle">{{ subText() }}</span>
+      }
+    </div>
+  </div>
+  <div>
+    <ng-content/>
   </div>
 </div>
-

@@ -3,10 +3,11 @@
     <p>{{ data.message }}</p>
 </mat-dialog-content>
 <mat-dialog-actions>
+  <div class="confirmation-modal__actions">
     <button
       chButton
       type="button"
-      [label]="cancelTranslation"
+      [label]="'commons.cancel' | translate"
       [variant]="'secondary'"
       (click)="onNoClick()"
     >
@@ -14,9 +15,10 @@
     <button
       chButton
       type="button"
+      [label]="'commons.ok' | translate"
       [variant]="'primary'"
       [mat-dialog-close]="product()"
-      cdkFocusInitial>
-        {{ okTranslation }}
+    >
     </button>
+  </div>
 </mat-dialog-actions>

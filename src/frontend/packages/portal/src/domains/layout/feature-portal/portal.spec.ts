@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { PortalComponent } from './portal';
-import { AuthApi, AuthState, I18nService } from '@central-hub/library';
+import { AuthApi, AuthState, I18nService, LoadingBlockService } from '@central-hub/library';
 import { provideRouter, Router } from '@angular/router';
 import { BreadcrumbStateService } from '../feature-breadcrumb/breadcrumb-state';
 import { ApplicationConfigurationService } from '../../shared/util-application/application-configuration-service';
@@ -31,17 +31,18 @@ describe('PortalComponent - router tracker', () => {
         ApplicationConfigurationService,
         {
           provide: REMOTES_CONFIG,
-          useValue: [{ name: 'products', route: 'products' }]
+          useValue: [{ name: 'products', route: 'products' }],
         },
         {
           provide: I18nService,
-          useValue: { translate: vi.fn().mockReturnValue('translated') }
+          useValue: { translate: vi.fn().mockReturnValue('translated') },
         },
         {
           provide: BreadcrumbStateService,
-          useValue: breadcrumbStateMock
-        }
-      ]
+          useValue: breadcrumbStateMock,
+        },
+        LoadingBlockService,
+      ],
     }).compileComponents();
 
     router = TestBed.inject(Router);

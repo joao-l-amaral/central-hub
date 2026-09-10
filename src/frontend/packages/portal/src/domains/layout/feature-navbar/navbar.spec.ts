@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NavbarComponent } from './navbar';
-import { AuthApi, AuthState } from '@central-hub/library';
+import { AuthApi, AuthState, LoadingBlockService } from '@central-hub/library';
 import { provideRouter } from '@angular/router';
 import { ApplicationConfigurationService } from '../../shared/util-application/application-configuration-service';
 import { REMOTES_CONFIG } from '../../shared/util-application/application-remotes-token';
@@ -77,6 +77,13 @@ describe('NavComponent', () => {
         {
           provide: AuthApi,
           useValue: authApiMock,
+        },
+        {
+          provide: LoadingBlockService,
+          useValue: {
+            show: vi.fn(),
+            hide: vi.fn(),
+          },
         },
       ],
     }).compileComponents();

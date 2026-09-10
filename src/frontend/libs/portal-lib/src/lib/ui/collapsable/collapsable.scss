@@ -1,4 +1,5 @@
 .accordion {
+  padding-bottom: 10px;
 
   &__collapsed {
     border-radius: 5px !important;
@@ -19,13 +20,14 @@
   }
 
   &__body {
-    padding-top: 16px;
-    padding-left: 16px;
+    padding: 16px;
     display: flex;
     flex-direction: row;
     gap: 15px;
     flex-wrap: wrap;
     border-left: 3px solid var(--mat-sys-secondary-container);
+    background-color: #f3f2f2;
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.03);
   }
 }
 
