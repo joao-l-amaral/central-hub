@@ -1,0 +1,7 @@
+:root {
+  .table-hover > tbody > tr.selected {
+    --bs-table-hover-bg: var(--color-accent);
+    background-color: var(--bs-table-hover-bg) !important;
+    color: var(--color-white);
+  }
+}

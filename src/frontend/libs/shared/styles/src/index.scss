@@ -1,0 +1,12 @@
+@import 'ngx-toastr/toastr';
+@import '@angular/material/prebuilt-themes/azure-blue.css';
+@import 'bootstrap/dist/css/bootstrap.min.css';
+@import url('https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css');
+
+@import './lib/components/platform-icons';
+@import './lib/fonts/fonts';
+@import './lib/tokens/primitives';
+@import './lib/tokens/semantic';
+@import './lib/themes/material-bridge';
+@import './lib/themes/bootstrap-bridge';
+@import './lib/layout/base';

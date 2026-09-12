@@ -1,0 +1,87 @@
+@mixin orion-platform-icon($file, $w, $h) {
+  content: '';
+  display: inline-block;
+  width: $w;
+  height: $h;
+  background-color: currentColor;
+  mask-image: url('/assets/images/platforms/#{$file}.svg');
+  mask-repeat: no-repeat;
+  mask-size: contain;
+  -webkit-mask-image: url('/assets/images/platforms/#{$file}.svg');
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-size: contain;
+}
+
+.xbox360::before {
+  @include orion-platform-icon('xbox360', 24px, 24px);
+}
+
+.switch::before {
+  @include orion-platform-icon('nintendo-switch', 24px, 24px);
+}
+
+.wii::before {
+  @include orion-platform-icon('nintendo-wii', 40px, 21px);
+}
+
+.wiiu::before {
+  @include orion-platform-icon('nintendo-wiiu', 53px, 21px);
+}
+
+.play2::before {
+  @include orion-platform-icon('sony-playstation2', 66px, 14px);
+  background-repeat: no-repeat;
+}
+
+.dreamcast::before {
+  @include orion-platform-icon('sega-dreamcast', 24px, 24px);
+  background-repeat: no-repeat;
+}
+
+.switch2::before {
+  @include orion-platform-icon('nintendo-switch-2', 41px, 22px);
+}
+
+.n64::before {
+  @include orion-platform-icon('nintendo-64', 32px, 31px);
+}
+
+.play4::before {
+  @include orion-platform-icon('sony-playstation4', 60px, 14px);
+}
+
+.play::before {
+  @include orion-platform-icon('sony-playstation', 30px, 23px);
+}
+
+.xbox::before {
+  @include orion-platform-icon('xbox', 60px, 13px);
+}
+
+.xboxone::before {
+  @include orion-platform-icon('xbox-one', 24px, 24px);
+}
+
+.ea::before {
+  @include orion-platform-icon('ea', 50px, 25px);
+}
+
+.blizzard::before {
+  @include orion-platform-icon('blizzard', 60px, 32px);
+}
+
+.epic::before {
+  @include orion-platform-icon('epic-games', 32px, 37px);
+}
+
+.gog::before {
+  @include orion-platform-icon('gog', 32px, 37px);
+}
+
+.steam::before {
+  @include orion-platform-icon('steam', 32px, 37px);
+}
+
+.ubisoft::before {
+  @include orion-platform-icon('ubisoft', 32px, 37px);
+}
