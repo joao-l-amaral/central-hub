@@ -1,0 +1,30 @@
+:root {
+  --color-primary-dark: var(--color-black);
+  --color-primary: var(--color-orange-500);
+  --color-danger: var(--color-red-500);
+  --color-secondary: color-mix(in srgb, var(--color-primary) 70%, white);
+  --color-accent: var(--color-orange-400);
+  --color-highlight: var(--color-white);
+
+  --color-text: var(--color-white);
+  --color-text-faint: rgba(17, 24, 39, 0.55);
+
+  --color-surface: var(--color-white);
+  --color-surface-offset: var(--color-grey-50);
+
+  --color-border: var(--color-grey-700);
+
+  --color-neutral: var(--color-grey-500);
+  --color-neutral-light: var(--color-grey-300);
+  --color-neutral-light-alt: var(--color-grey-100);
+  --color-neutral-border: var(--color-grey-200);
+
+  --font-family-base: 'Inter', sans-serif;
+
+  --loading-backdrop-color: 255 255 255;
+  --loading-backdrop-opacity: 0.8;
+}
+
+.force-white-color {
+  color: var(--color-text);
+}
