@@ -10,7 +10,6 @@
       role="button"
       tabindex="0"
       [attr.aria-expanded]="trigger1.expanded()"
-      [attr.aria-controls]="panel1.id"
     >
       <span>
         {{ title() | translate }}
@@ -27,7 +26,6 @@
       #panel1="ngAccordionPanel"
       class="accordion__body"
       role="region"
-      [attr.aria-labelledby]="trigger1.id"
       [hidden]="!trigger1.expanded()"
     >
       <ng-template ngAccordionContent>

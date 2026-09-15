@@ -57,7 +57,7 @@
     },
     "serve-static": {
       "continuous": true,
-      "executor": "@nx/web:file-server",
+      "executor": "@nx/vite:preview-server",
       "options": {
         "buildTarget": "gameQ:build",
         "port": 4200,
@@ -81,13 +81,19 @@
           {
             "glob": "**/*",
             "input": "packages/gameQ/public"
+          },
+          {
+            "glob": "**/*.svg",
+            "input": "libs/shared/styles/src/assets/images/platforms",
+            "output": "assets/images/platforms"
           }
         ],
         "styles": [
           "packages/gameQ/src/styles.scss",
           "@angular/material/prebuilt-themes/azure-blue.css",
           "node_modules/bootstrap/dist/css/bootstrap.min.css",
-          "node_modules/ngx-toastr/toastr.css"
+          "node_modules/ngx-toastr/toastr.css",
+          "libs/shared/styles/src/index.scss"
         ],
         "scripts": [
           "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
