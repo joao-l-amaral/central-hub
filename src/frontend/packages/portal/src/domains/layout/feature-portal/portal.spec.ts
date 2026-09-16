@@ -4,9 +4,9 @@ import { AuthApi, AuthState, I18nService, LoadingBlockService } from '@central-h
 import { provideRouter, Router } from '@angular/router';
 import { BreadcrumbStateService } from '../feature-breadcrumb/breadcrumb-state';
 import { ApplicationConfigurationService } from '../../shared/util-application/application-configuration-service';
-import { REMOTES_CONFIG } from '../../shared/util-application/application-remotes-token';
 import { vi } from 'vitest';
 import { provideZonelessChangeDetection, signal } from '@angular/core';
+import { RemoteRegistry } from '../../remotes/remote-registry';
 
 describe('PortalComponent - router tracker', () => {
   let fixture: ComponentFixture<PortalComponent>;
@@ -29,10 +29,7 @@ describe('PortalComponent - router tracker', () => {
         AuthApi,
         AuthState,
         ApplicationConfigurationService,
-        {
-          provide: REMOTES_CONFIG,
-          useValue: [{ name: 'products', route: 'products' }],
-        },
+        RemoteRegistry,
         {
           provide: I18nService,
           useValue: { translate: vi.fn().mockReturnValue('translated') },

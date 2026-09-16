@@ -1,7 +1,7 @@
 import { loadRemoteModule } from '@angular-architects/native-federation';
 import { I18nInitialization } from '@central-hub/library';
 import { inject } from '@angular/core';
-import { RemotesConfig } from '../shared/util-application/application-remotes-token';
+import { RemotesConfig } from '../remotes/remotes';
 
 function createRemoteI18nResolver(remoteName: string) {
   return () => {

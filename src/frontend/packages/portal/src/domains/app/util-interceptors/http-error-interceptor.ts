@@ -20,7 +20,7 @@ export function httpErrorInterceptor(
       const serverMessage = error.error?.message ?? error.message;
       logger.error(serverMessage);
 
-      if (error.status !== 401) {
+      if (error.status !== 401 && !req.url.endsWith('remoteEntry.json')) {
         toastr.error(`${error.status}: ${serverMessage}`, 'Request Failed');
       }
 

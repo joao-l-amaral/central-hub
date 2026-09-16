@@ -3,11 +3,11 @@ import { NavbarComponent } from './navbar';
 import { AuthApi, AuthState, LoadingBlockService } from '@central-hub/library';
 import { provideRouter } from '@angular/router';
 import { ApplicationConfigurationService } from '../../shared/util-application/application-configuration-service';
-import { REMOTES_CONFIG } from '../../shared/util-application/application-remotes-token';
 import { expect } from 'vitest';
 import { TestbedHarnessEnvironment } from '@angular/cdk/testing/testbed';
 import { NavbarHarness } from '@central-hub/testing';
 import { signal, WritableSignal } from '@angular/core';
+import { RemoteRegistry } from '../../remotes/remote-registry';
 
 describe('NavComponent', () => {
   let component: NavbarComponent;
@@ -57,15 +57,7 @@ describe('NavComponent', () => {
       imports: [NavbarComponent],
       providers: [
         provideRouter([]),
-        {
-          provide: REMOTES_CONFIG,
-          useValue: [
-            {
-              name: 'remoteName',
-              title: 'Remote title',
-            },
-          ],
-        },
+        RemoteRegistry,
         {
           provide: ApplicationConfigurationService,
           useValue: appConfigMock,
