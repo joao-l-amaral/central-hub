@@ -12,8 +12,8 @@ import {
 } from '@angular/common/http';
 import { provideToastr } from 'ngx-toastr';
 import {
-  provideLoadingBlock,
   LoggingService,
+  provideLoadingBlock,
   providerInternalization,
   providerOidcAuth,
 } from '@central-hub/library';
@@ -22,10 +22,14 @@ import { provideAnimations } from '@angular/platform-browser/animations';
 import { processApplicationConfigurations } from './app-configuration';
 import { ApplicationConfigurationService } from '../shared/util-application/application-configuration-service';
 import { BreadcrumbStateService } from '../layout/feature-breadcrumb/breadcrumb-state';
-import { REMOTES_CONFIG, RemotesConfig } from '../shared/util-application/application-remotes-token';
+import { RemotesConfig } from '../remotes/remotes';
 import { httpCacheInterceptor } from './util-interceptors/http-cache-interceptor';
+import { providerRemotesStatus } from '../remotes/providers';
 
-export function appConfigProviders(routes: Route[], remotesConfig: RemotesConfig): ApplicationConfig {
+export function appConfigProviders(
+  routes: Route[],
+  remotesConfig: RemotesConfig,
+): ApplicationConfig {
   return {
     providers: [
       provideBrowserGlobalErrorListeners(),
@@ -33,10 +37,7 @@ export function appConfigProviders(routes: Route[], remotesConfig: RemotesConfig
       provideRouter(routes),
       provideHttpClient(
         withInterceptorsFromDi(),
-        withInterceptors([
-          httpErrorInterceptor,
-          httpCacheInterceptor
-        ]),
+        withInterceptors([httpErrorInterceptor, httpCacheInterceptor]),
       ),
       provideAnimations(),
       providerOidcAuth(),
@@ -50,10 +51,10 @@ export function appConfigProviders(routes: Route[], remotesConfig: RemotesConfig
       ApplicationConfigurationService,
       LoggingService,
       BreadcrumbStateService,
+      providerRemotesStatus(remotesConfig),
       provideAppInitializer(() => {
         processApplicationConfigurations();
       }),
-      { provide: REMOTES_CONFIG, useValue: remotesConfig },
     ],
   };
 }

@@ -8,7 +8,7 @@ import { RouterModule } from '@angular/router';
 import { AuthApi, AuthState } from '@central-hub/library';
 import { MatIcon } from '@angular/material/icon';
 import { ApplicationConfigurationService } from '../../shared/util-application/application-configuration-service';
-import { REMOTES_CONFIG } from '../../shared/util-application/application-remotes-token';
+import { RemoteRegistry } from '../../remotes/remote-registry';
 
 @Component({
   imports: [RouterModule, MatIcon],
@@ -20,12 +20,14 @@ import { REMOTES_CONFIG } from '../../shared/util-application/application-remote
 export class NavbarComponent {
   protected title = 'Central-hub';
 
+  readonly #remotes = inject(RemoteRegistry);
   readonly #authApi = inject(AuthApi);
   readonly #authState = inject(AuthState);
   readonly #applicationConfigurationService = inject(
     ApplicationConfigurationService,
   );
-  readonly remotes = inject(REMOTES_CONFIG);
+
+  readonly remotes = this.#remotes.remotes();
 
   isAuthActivate = this.#applicationConfigurationService.isAuthActivate;
 

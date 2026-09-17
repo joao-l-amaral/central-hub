@@ -10,11 +10,13 @@
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
               @for(remote of remotes; track remote) {
                 <li class="nav-item">
+                  @if (remote.status === 'available') {
                     <a
                         class="nav-link"
                         [routerLink]="remote.name"
                         routerLinkActive="active-link"
                     > {{ remote.title }}</a>
+                  }
                 </li>
               }
           </ul>

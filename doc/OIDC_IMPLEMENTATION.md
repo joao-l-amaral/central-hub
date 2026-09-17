@@ -4,6 +4,10 @@
 
 This branch implements **full OIDC (OpenID Connect)** authentication and authorization using **Keycloak** as the identity provider.
 
+### Attention
+
+OIDC is implemented but disabled via is.auth.activate=false; enabled when it goes live.
+
 ### What's Implemented
 
 | Component | Details |
