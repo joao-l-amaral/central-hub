@@ -1,6 +1,5 @@
 import {
   ApplicationConfig,
-  inject,
   provideAppInitializer,
   provideBrowserGlobalErrorListeners,
   provideZonelessChangeDetection,
@@ -13,8 +12,8 @@ import {
 } from '@angular/common/http';
 import { provideToastr } from 'ngx-toastr';
 import {
-  provideLoadingBlock,
   LoggingService,
+  provideLoadingBlock,
   providerInternalization,
   providerOidcAuth,
 } from '@central-hub/library';
@@ -27,7 +26,10 @@ import { RemotesConfig } from '../remotes/remotes';
 import { httpCacheInterceptor } from './util-interceptors/http-cache-interceptor';
 import { providerRemotesStatus } from '../remotes/providers';
 
-export function appConfigProviders(routes: Route[], remotesConfig: RemotesConfig): ApplicationConfig {
+export function appConfigProviders(
+  routes: Route[],
+  remotesConfig: RemotesConfig,
+): ApplicationConfig {
   return {
     providers: [
       provideBrowserGlobalErrorListeners(),
