@@ -3,6 +3,10 @@
   border-bottom: 2px solid var(--color-primary);
   --bs-navbar-padding-y: 0 !important;
 
+  .remote-component {
+    width: 350px;
+  }
+
   img {
     height: 40px !important;
   }
@@ -74,4 +78,5 @@ nav.hidden {
     justify-content: center;
   }
 }
+
 

@@ -7,7 +7,7 @@ import { expect } from 'vitest';
 import { TestbedHarnessEnvironment } from '@angular/cdk/testing/testbed';
 import { NavbarHarness } from '@central-hub/testing';
 import { signal, WritableSignal } from '@angular/core';
-import { RemoteRegistry } from '../../remotes/remote-registry';
+import { RemoteRegistry } from '../../app/util-remotes/remote-registry';
 
 describe('NavComponent', () => {
   let component: NavbarComponent;

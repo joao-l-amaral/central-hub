@@ -22,9 +22,9 @@ import { provideAnimations } from '@angular/platform-browser/animations';
 import { processApplicationConfigurations } from './app-configuration';
 import { ApplicationConfigurationService } from '../shared/util-application/application-configuration-service';
 import { BreadcrumbStateService } from '../layout/feature-breadcrumb/breadcrumb-state';
-import { RemotesConfig } from '../remotes/remotes';
+import { RemotesConfig } from './util-remotes/remotes';
 import { httpCacheInterceptor } from './util-interceptors/http-cache-interceptor';
-import { providerRemotesStatus } from '../remotes/providers';
+import { providerRemotesStatus } from './util-remotes/providers';
 
 export function appConfigProviders(
   routes: Route[],

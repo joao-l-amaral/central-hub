@@ -33,6 +33,11 @@ export class RemoteRegistry {
     );
   }
 
+  getRemoteStatus(remoteName: string) {
+    const remoteMetas = this.state();
+    return remoteMetas[remoteName]?.status;
+  }
+
   #setAvailable(name: string) {
     this.#update(name, {
       status: 'available'

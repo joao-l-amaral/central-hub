@@ -1,0 +1,17 @@
+<lib-search-input
+  [placeholder]="'gameq.search.videogame' | translate"
+  [errorState]="showError()"
+  [onKeySearch]="true"
+  (searchValue)="onSearchGame($event)"
+>
+  <ng-container buttonArea>
+    <ng-content/>
+  </ng-container>
+
+  <ng-container belowInputArea>
+    <gameq-games-list-dropdown
+      [games]="gamesList()"
+      (gameSelector)="onGameSelected($event)"
+    />
+  </ng-container>
+</lib-search-input>

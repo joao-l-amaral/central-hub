@@ -4,5 +4,6 @@ import { provideRouter } from '@angular/router';
 import { appRoutes } from '../app.routes';
 
 export const appRemoteConfig = {
-  providers: [provideConfiguration(), provideRouter(appRoutes), RequestFactory],
+  providers: [
+    provideConfiguration(), provideRouter(appRoutes), RequestFactory],
 };
