@@ -61,9 +61,3 @@ export class SearchComponent {
     });
   }
 }
-
-
-/*
-TODO:
-- Melhorar a logica no lado do import do remote component
- */
