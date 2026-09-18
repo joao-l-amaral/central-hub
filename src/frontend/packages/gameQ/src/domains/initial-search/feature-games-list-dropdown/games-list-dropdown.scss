@@ -1,6 +1,33 @@
 .games-dropdown {
   position: relative;
   width: 100%;
+  container-type: inline-size;
+  container-name: games-dropdown;
+
+  @container games-dropdown (width: 350px) {
+    .games-dropdown__list {
+      overflow-x: hidden;
+      width: 350px;
+      text-overflow: ellipsis;
+      text-wrap: wrap;
+      font-size: 12px;
+    }
+
+    .games-dropdown__item {
+      text-overflow: ellipsis;
+    }
+
+    .games-dropdown__item-name {
+      grid-column: unset;
+      overflow: unset;
+    }
+
+    .games-dropdown__item-release-year,
+    .games-dropdown__item-developer,
+    .games-dropdown__item-icon {
+      display: none;
+    }
+  }
 
   .slide-down-enter {
     animation: slideDownEnter 200ms ease-out;

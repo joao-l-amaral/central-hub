@@ -1,8 +1,8 @@
 import { loadRemoteModule } from '@angular-architects/native-federation';
 import { I18nInitialization } from '@central-hub/library';
 import { inject } from '@angular/core';
-import { RemotesConfig } from '../remotes/remotes';
-import { remoteStatusGuard } from '../remotes/api';
+import { RemotesConfig } from './util-remotes/remotes';
+import { remoteStatusGuard } from './api';
 import { ErrorPageComponent } from '../layout/feature-error-page/error-page';
 
 function createRemoteI18nResolver(remoteName: string) {

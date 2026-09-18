@@ -1,6 +1,7 @@
 {
-    "shell.home": "Home",
-    "commons.ok": "Ok",
-    "commons.cancel": "Cancelar",
-    "title.error": "Erro"
+  "shell.home": "Home",
+  "commons.ok": "Ok",
+  "commons.cancel": "Cancelar",
+  "title.error": "Erro",
+  "gameq.search.videogame": "Pesquise por um jogo."
 }

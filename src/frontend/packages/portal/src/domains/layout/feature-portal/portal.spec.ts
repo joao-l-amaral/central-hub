@@ -6,7 +6,7 @@ import { BreadcrumbStateService } from '../feature-breadcrumb/breadcrumb-state';
 import { ApplicationConfigurationService } from '../../shared/util-application/application-configuration-service';
 import { vi } from 'vitest';
 import { provideZonelessChangeDetection, signal } from '@angular/core';
-import { RemoteRegistry } from '../../remotes/remote-registry';
+import { RemoteRegistry } from '../../app/util-remotes/remote-registry';
 
 describe('PortalComponent - router tracker', () => {
   let fixture: ComponentFixture<PortalComponent>;

@@ -21,6 +21,14 @@
               }
           </ul>
 
+          <div class="remote-component">
+            <ng-container
+              chInsertRemoteComponent
+              [remoteName]="'gameQ'"
+              [remoteComponent]="'./search'"
+            />
+          </div>
+
           @if (isAuthActivate()) {
               <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                   @if(!authState().isLoggedIn) {

@@ -8,10 +8,13 @@ import { RouterModule } from '@angular/router';
 import { AuthApi, AuthState } from '@central-hub/library';
 import { MatIcon } from '@angular/material/icon';
 import { ApplicationConfigurationService } from '../../shared/util-application/application-configuration-service';
-import { RemoteRegistry } from '../../remotes/remote-registry';
+import {
+  InsertRemoteComponentDirective,
+  RemoteRegistry,
+} from '../../app/api';
 
 @Component({
-  imports: [RouterModule, MatIcon],
+  imports: [RouterModule, MatIcon, InsertRemoteComponentDirective],
   selector: 'ch-nav-bar',
   templateUrl: './navbar.html',
   styleUrl: './navbar.scss',

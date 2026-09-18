@@ -2,5 +2,6 @@
   "shell.home": "Home",
   "commons.ok": "Ok",
   "commons.cancel": "Cancel",
-  "title.error": "Error"
+  "title.error": "Error",
+  "gameq.search.videogame": "Search for a game."
 }

@@ -5,10 +5,15 @@ module.exports = withNativeFederation({
 
   exposes: {
     './Routes': 'packages/gameQ/src/domains/app/remote-entry/entry.routes.ts',
+    './search': 'packages/gameQ/src/domains/initial-search/feature-search/search.ts',
   },
 
   shared: {
-    ...shareAll({ singleton: true, strictVersion: true, requiredVersion: 'auto' }),
+    ...shareAll({
+      singleton: true,
+      strictVersion: true,
+      requiredVersion: 'auto',
+    }),
   },
 
   skip: [
@@ -26,6 +31,6 @@ module.exports = withNativeFederation({
     // New feature for more performance and avoiding
     // issues with node libs. Comment this out to
     // get the traditional behavior:
-    ignoreUnusedDeps: true
-  }
+    ignoreUnusedDeps: true,
+  },
 });
