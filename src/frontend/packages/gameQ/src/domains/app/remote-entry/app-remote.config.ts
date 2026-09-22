@@ -1,9 +1,12 @@
 import { provideConfiguration } from '../../initial-search/util-configuration/providers';
-import { RequestFactory } from '@central-hub/library';
 import { provideRouter } from '@angular/router';
 import { appRoutes } from '../app.routes';
+import { provideGameSelectionHandler } from '../../game-selected/api/provide-game-selection-handler';
 
 export const appRemoteConfig = {
   providers: [
-    provideConfiguration(), provideRouter(appRoutes), RequestFactory],
+    provideConfiguration(),
+    provideRouter(appRoutes),
+    provideGameSelectionHandler(),
+  ],
 };
