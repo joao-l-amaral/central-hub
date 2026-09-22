@@ -91,5 +91,3 @@ export class SideBarNavigationComponent {
     this.usingSideNav = true;
   }
 }
-
-export default SideBarNavigationComponent

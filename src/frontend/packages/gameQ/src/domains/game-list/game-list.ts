@@ -17,12 +17,12 @@ import {
   TableDtComponent,
   TRow,
 } from '@central-hub/library';
-import { GameSelectionInterface } from './game-selection-interface';
+import { GameListInterface } from './game-list-interface';
 import { GameQConfigurationState } from '../initial-search/util-configuration/configuration-state';
 
 @Component({
-  selector: 'gameq-game-selection',
-  templateUrl: './game-selection.html',
+  selector: 'gameq-game-list',
+  templateUrl: './game-list.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     TableDtComponent,
@@ -32,7 +32,7 @@ import { GameQConfigurationState } from '../initial-search/util-configuration/co
     HeaderComponent,
   ],
 })
-export class GameSelectionComponent {
+export class GameListComponent {
   readonly #route = inject(ActivatedRoute);
   readonly #requestFactory = inject(RequestFactory);
   readonly #gameQConfigurationState = inject(GameQConfigurationState);
@@ -60,14 +60,14 @@ export class GameSelectionComponent {
     pageSize: number,
     sortOrder: string,
   ) =>
-    this.#requestFactory.get<PaginationPage<GameSelectionInterface>>(
+    this.#requestFactory.get<PaginationPage<GameListInterface>>(
       this.requestUrl(),
       {
         params: { search, page, pageSize, sortOrder },
       },
     );
 
-  readonly dataSource = new RemoteDataSource<GameSelectionInterface>(
+  readonly dataSource = new RemoteDataSource<GameListInterface>(
     this.#requestSubject$,
   );
 

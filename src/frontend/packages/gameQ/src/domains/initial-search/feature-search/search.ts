@@ -54,10 +54,15 @@ export class SearchComponent {
     }
   }
 
-  protected onGameSelected($event: string) {
+  protected onGameSelected(selectedGame: string) {
     this.#loadingService.show();
+
     this.#router.navigate(['gameQ', 'dashboard'], {
-      queryParams: { game: $event },
+      queryParams: { game: selectedGame },
     });
+
+    setTimeout(() => {
+      this.#loadingService.hide();
+    }, 1000);
   }
 }
