@@ -8,9 +8,11 @@ import org.jboss.resteasy.reactive.RestResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pt.amaralsoftware.gameq.models.GameQPlatform;
+import pt.amaralsoftware.gameq.models.dto.GameDTO;
 import pt.amaralsoftware.gameq.models.dto.GameQConfigurationDTO;
-import pt.amaralsoftware.gameq.models.dto.GameQGameDTO;
-import pt.amaralsoftware.gameq.service.CatDigitalPcStoresService;
+import pt.amaralsoftware.gameq.modules.base.models.Order;
+import pt.amaralsoftware.gameq.modules.gameProcessor.GameProcessor;
+import pt.amaralsoftware.gameq.service.CatDigitalStoresService;
 import pt.amaralsoftware.gameq.service.CatGamePlatformService;
 import pt.amaralsoftware.gameq.service.CatGameService;
 import pt.amaralsoftware.shared.models.RemoteDataSourceResult;
@@ -25,9 +27,11 @@ public class GameQGamesAPI {
     @Inject
     CatGamePlatformService catGamePlatformService;
     @Inject
-    CatDigitalPcStoresService catDigitalPcStoresService;
+    CatDigitalStoresService catDigitalStoresService;
     @Inject
     CatGameService catGameService;
+    @Inject
+    GameProcessor gameProcessor;
 
     @GET
     @Path("/")
@@ -36,7 +40,7 @@ public class GameQGamesAPI {
         log.info("Get initial search platform list");
 
         List<GameQPlatform> platforms = catGamePlatformService.getPlatforms();
-        List<GameQPlatform> pcDigitalStoresPlatforms = catDigitalPcStoresService.getPCDigitalStoresNames();
+        List<GameQPlatform> pcDigitalStoresPlatforms = catDigitalStoresService.getPCDigitalStoresNames();
 
         List<GameQPlatform> mergedPlatforms = new ArrayList<>();
         if (CollectionUtils.isNotEmpty(platforms)) {
@@ -61,11 +65,11 @@ public class GameQGamesAPI {
     @GET
     @Path("/games")
     @Produces(MediaType.APPLICATION_JSON)
-    public RestResponse<RemoteDataSourceResult<GameQGameDTO>> getGameByPlatform(
-        @QueryParam("platform") String platform,
-        @QueryParam("page") @DefaultValue("0") Integer page,
-        @QueryParam("pageSize") @DefaultValue("15") Integer pageSize,
-        @QueryParam("sortOrder") String sortOrder
+    public RestResponse<RemoteDataSourceResult<GameDTO>> getGameByPlatform(
+            @QueryParam("platform") String platform,
+            @QueryParam("page") @DefaultValue("0") Integer page,
+            @QueryParam("pageSize") @DefaultValue("15") Integer pageSize,
+            @QueryParam("sortOrder") String sortOrder
     ) {
         log.info("Get game by platform");
 
@@ -76,9 +80,9 @@ public class GameQGamesAPI {
 
         Long totalGames = catGameService.getTotalGamesCount(platform);
 
-        List<GameQGameDTO> gamesDTO = catGameService.getGamesList(platform, page, pageSize, sortOrder);
+        List<GameDTO> gamesDTO = catGameService.getGamesList(platform, page, pageSize, sortOrder);
 
-        RemoteDataSourceResult<GameQGameDTO> result = new RemoteDataSourceResult<>();
+        RemoteDataSourceResult<GameDTO> result = new RemoteDataSourceResult<>();
         result.setItems(gamesDTO);
         result.setPage(page);
         result.setPageSize(pageSize);
@@ -90,11 +94,18 @@ public class GameQGamesAPI {
     @GET
     @Path("/initialSearch")
     @Produces(MediaType.APPLICATION_JSON)
-    public RestResponse<List<GameQGameDTO>> getInitialSearch(@QueryParam("game") String searchGame) {
+    public RestResponse<List<GameDTO>> getInitialSearch(@QueryParam("game") String searchGame) {
         log.info("Search data from the game: {}", searchGame);
 
-        List<GameQGameDTO> gamesListFromSearch = catGameService.getGamesListFromSearch(searchGame);
+        List<GameDTO> gamesListFromSearch = catGameService.getGamesListFromSearch(searchGame);
         return RestResponse.ok(gamesListFromSearch);
     }
 
+    @GET
+    @Path("/game/{game}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public RestResponse<Order> getGameByName(@PathParam("game") String gameName) {
+        Order restultOrder = this.gameProcessor.run(gameName);
+        return RestResponse.ok(restultOrder);
+    }
 }

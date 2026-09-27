@@ -1,0 +1,1 @@
+ALTER TABLE cat_digital_stores RENAME COLUMN cooperationname TO cooperation_name;

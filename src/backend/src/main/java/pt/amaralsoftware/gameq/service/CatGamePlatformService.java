@@ -1,16 +1,15 @@
 package pt.amaralsoftware.gameq.service;
 
-import io.quarkus.hibernate.orm.panache.PanacheQuery;
 import io.quarkus.panache.common.Sort;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
-import jakarta.ws.rs.NotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import pt.amaralsoftware.gameq.mapper.CatPlatformMapper;
 import pt.amaralsoftware.gameq.models.GameQPlatform;
 import pt.amaralsoftware.gameq.models.UpdateSelectedPlatformPayload;
-import pt.amaralsoftware.gameq.models.entity.CatGameEntity;
+import pt.amaralsoftware.gameq.models.dto.PlatformDTO;
 import pt.amaralsoftware.gameq.models.entity.CatGamePlatformEntity;
 import pt.amaralsoftware.gameq.repository.CatGamePlatformRepository;
 import pt.amaralsoftware.gameq.resolvers.PlatformIconResolver;
@@ -25,12 +24,34 @@ import java.util.Map;
 @ApplicationScoped
 public class CatGamePlatformService {
 
-    private static Logger log = LoggerFactory.getLogger(CatGamePlatformService.class);
+    private static final Logger log = LoggerFactory.getLogger(CatGamePlatformService.class);
 
     @Inject
     CatGamePlatformRepository catGamePlatformRepository;
     @Inject
     PlatformIconResolver platformIconResolver;
+    @Inject
+    CatPlatformMapper catPlatformMapper;
+
+    public List<String> getPlatformFamily(String name) {
+        log.debug("Getting platform family by name");
+        List<CatGamePlatformEntity> list = catGamePlatformRepository.find("name ILIKE ?1", "%" + name + "%").list();
+
+        return list.stream()
+                .map(CatGamePlatformEntity::getName)
+                .toList();
+    }
+
+    public PlatformDTO getPlatformByName(String name) {
+        log.debug("Getting platform by name: {}", name);
+        CatGamePlatformEntity catGamePlatformEntity = catGamePlatformRepository.find("name = ?1", name).firstResult();
+
+        if(catGamePlatformEntity != null) {
+            return catPlatformMapper.toDto(catGamePlatformEntity);
+        }
+
+        return null;
+    }
 
     public List<String> getSelectedPlatformsList() {
         return catGamePlatformRepository.getSelectedPlatforms();
@@ -38,7 +59,7 @@ public class CatGamePlatformService {
 
     public List<GameQPlatform> getPlatforms() {
 
-        List<CatGamePlatformEntity> videoGamePlatforms = videoGamePlatforms = catGamePlatformRepository.findAll(Sort.by("name", Sort.Direction.Ascending)).list();
+        List<CatGamePlatformEntity> videoGamePlatforms = catGamePlatformRepository.findAll(Sort.by("name", Sort.Direction.Ascending)).list();
 
         List<GameQPlatform> gameVaultPlatformFiltered = new ArrayList<>();
 

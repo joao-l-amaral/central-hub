@@ -28,6 +28,21 @@ public class CatGamePlatformEntity extends PanacheEntityBase implements Serializ
     public CatGamePlatformEntity() {
     }
 
+    public CatGamePlatformEntity(String name, String releaseDate, String developer, String manufacturer, String cpu, String memory, String graphics, String sound, String display, String notes, String media, String maxControllers) {
+        this.name = name;
+        this.releaseDate = releaseDate;
+        this.developer = developer;
+        this.manufacturer = manufacturer;
+        this.cpu = cpu;
+        this.memory = memory;
+        this.graphics = graphics;
+        this.sound = sound;
+        this.display = display;
+        this.notes = notes;
+        this.media = media;
+        this.maxControllers = maxControllers;
+    }
+
     public CatGamePlatformEntity(String name, String releaseDate, String developer, String manufacturer, String cpu, String memory, String graphics, String sound, String display, String notes, String media, String maxControllers, Boolean isToImport) {
         this.name = name;
         this.releaseDate = releaseDate;

@@ -6,27 +6,33 @@ import jakarta.inject.Inject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pt.amaralsoftware.gameq.models.GameQPlatform;
-import pt.amaralsoftware.gameq.models.entity.CatDigitalPcStoresEntity;
-import pt.amaralsoftware.gameq.repository.CatDigitalPcStoresRepository;
+import pt.amaralsoftware.gameq.models.entity.CatDigitalStoresEntity;
+import pt.amaralsoftware.gameq.repository.CatDigitalStoresRepository;
 import pt.amaralsoftware.gameq.resolvers.PlatformIconResolver;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @ApplicationScoped
-public class CatDigitalPcStoresService {
+public class CatDigitalStoresService {
 
-    private static final Logger log = LoggerFactory.getLogger(CatDigitalPcStoresService.class);
+    private static final Logger log = LoggerFactory.getLogger(CatDigitalStoresService.class);
     @Inject
-    CatDigitalPcStoresRepository catDigitalPcStoresRepository;
+    CatDigitalStoresRepository catDigitalStoresRepository;
     @Inject
     PlatformIconResolver platformIconResolver;
+
+    public void getGameMetadata(String platformName) {
+        Set<String> ignorePlatform = Set.of("Microsoft Xbox");
+
+        if(ignorePlatform.contains(platformName)){
+            log.info("Ingore platform");
+        }
+    }
 
     public List<GameQPlatform> getPCDigitalStoresNames() {
         log.debug("Getting PC digital stores names");
 
-        List<CatDigitalPcStoresEntity> pcDigitalStores = catDigitalPcStoresRepository.findAll(Sort.by("name", Sort.Direction.Ascending)).list();
+        List<CatDigitalStoresEntity> pcDigitalStores = catDigitalStoresRepository.findAll(Sort.by("name", Sort.Direction.Ascending)).list();
 
 
         List<GameQPlatform> gameVaultPlatforms = new ArrayList<>();

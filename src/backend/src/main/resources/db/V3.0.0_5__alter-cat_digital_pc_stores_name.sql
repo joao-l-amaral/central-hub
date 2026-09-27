@@ -1,0 +1,1 @@
+ALTER TABLE cat_digital_pc_stores RENAME TO cat_digital_stores;

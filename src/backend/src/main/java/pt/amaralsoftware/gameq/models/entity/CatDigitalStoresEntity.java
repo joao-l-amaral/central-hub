@@ -10,18 +10,18 @@ import jakarta.persistence.Table;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "cat_digital_pc_stores")
-public class CatDigitalPcStoresEntity extends PanacheEntityBase implements Serializable {
+@Table(name = "cat_digital_stores")
+public class CatDigitalStoresEntity extends PanacheEntityBase implements Serializable {
     @Id
     private String name;
-    @Column(name ="cooperationname")
+    @Column(name ="cooperation_name")
     private String cooperationName;
     private String website;
 
-    public CatDigitalPcStoresEntity() {
+    public CatDigitalStoresEntity() {
     }
 
-    public CatDigitalPcStoresEntity(String name, String cooperationName, String website) {
+    public CatDigitalStoresEntity(String name, String cooperationName, String website) {
         this.name = name;
         this.cooperationName = cooperationName;
         this.website = website;

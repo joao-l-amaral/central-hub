@@ -10,9 +10,9 @@ import pt.amaralsoftware.gameq.modules.dataProcessor.models.ParsingFlow;
 import pt.amaralsoftware.gameq.modules.dataProcessor.models.ParsingResult;
 
 @ApplicationScoped
-public class GameDataProcessor {
+public class DataProcessor {
 
-    private final Logger log = LoggerFactory.getLogger(GameDataProcessor.class);
+    private final Logger log = LoggerFactory.getLogger(DataProcessor.class);
 
     @Inject
     DataDownloaderFlow dataDownloaderFlow;
