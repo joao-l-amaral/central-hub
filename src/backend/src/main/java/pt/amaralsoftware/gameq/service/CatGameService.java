@@ -9,7 +9,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pt.amaralsoftware.gameq.mapper.CatGameMapper;
-import pt.amaralsoftware.gameq.models.dto.GameQGameDTO;
+import pt.amaralsoftware.gameq.models.dto.GameDTO;
 import pt.amaralsoftware.gameq.models.entity.CatGameEntity;
 import pt.amaralsoftware.gameq.repository.CatGameRepository;
 import pt.amaralsoftware.gameq.resolvers.PlatformIconResolver;
@@ -48,7 +48,7 @@ public class CatGameService {
                 catGameRepository.find("platform = ?1", platform).count();
     }
 
-    public List<GameQGameDTO> getGamesList(String platform, Integer page, Integer pageSize, String sortOrder) {
+    public List<GameDTO> getGamesList(String platform, Integer page, Integer pageSize, String sortOrder) {
         List<CatGameEntity> games = (StringUtils.isBlank(platform))
                 ?
                 catGameRepository.findAll(resolveSort(sortOrder, "name"))
@@ -64,7 +64,7 @@ public class CatGameService {
                 .collect(Collectors.toList());
     }
 
-    public List<GameQGameDTO> getGamesListFromSearch(String game) {
+    public List<GameDTO> getGamesListFromSearch(String game) {
         return catGameRepository
                 .find("name ILIKE ?1", Sort.by("name", Sort.Direction.Ascending), "%" + game + "%")
                 .list()
@@ -74,16 +74,26 @@ public class CatGameService {
                         Map<String, String> iconsByPlatformName = platformIconResolver.getIconsByPlatformName();
                         String platformIcon = iconsByPlatformName.get(gameEntity.getPlatform());
 
-                        GameQGameDTO gameQGameDTO = catGameMapper.toDto(gameEntity);
+                        GameDTO gameQGameDTO = catGameMapper.toDto(gameEntity);
                         gameQGameDTO.setPlatformIcon(platformIcon);
 
                         return gameQGameDTO;
                     } catch (IOException e) {
                         log.error(e.getMessage());
                     }
-                    return new GameQGameDTO();
+                    return new GameDTO();
                 })
                 .collect(Collectors.toList());
+    }
+
+    public GameDTO getSelectedGame(String gameName) {
+        CatGameEntity catGameEntity = catGameRepository.find("name = ?1", gameName).firstResult();
+
+        if(catGameEntity != null) {
+            return catGameMapper.toDto(catGameEntity);
+        }
+
+        return null;
     }
 
     private Sort resolveSort(String sortOrder, String defaultField) {

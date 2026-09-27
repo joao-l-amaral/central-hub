@@ -2,33 +2,41 @@
 package pt.amaralsoftware.gameq.models.entity;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import java.io.Serializable;
 
 @Entity
 @Table(name = "cat_game")
 public class CatGameEntity extends PanacheEntityBase implements Serializable {
+
     @Id
     private String name;
-    @Column(name="release_year")
+
+    @Column(name = "release_year")
     private String releaseYear;
-    @Column(name="release_date")
+
+    @Column(name = "release_date")
     private String releaseDate;
+
     private String overview;
-    @Column(name="max_players")
+
+    @Column(name = "max_players")
     private String maxPlayers;
-    @Column(name="video_url")
+
+    @Column(name = "video_url")
     private String videoUrl;
-    @Column(name="community_rating")
+
+    @Column(name = "community_rating")
     private String communityRating;
+
     private String platform;
     private String esrb;
     private String developer;
     private String publisher;
+
+    @OneToOne(mappedBy = "game", fetch = FetchType.EAGER)
+    private CatOwnGameEntity ownGame;
 
     public CatGameEntity() {
     }
@@ -47,45 +55,95 @@ public class CatGameEntity extends PanacheEntityBase implements Serializable {
         return name;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public String getReleaseYear() {
         return releaseYear;
+    }
+
+    public void setReleaseYear(String releaseYear) {
+        this.releaseYear = releaseYear;
     }
 
     public String getReleaseDate() {
         return releaseDate;
     }
 
+    public void setReleaseDate(String releaseDate) {
+        this.releaseDate = releaseDate;
+    }
+
     public String getOverview() {
         return overview;
+    }
+
+    public void setOverview(String overview) {
+        this.overview = overview;
     }
 
     public String getMaxPlayers() {
         return maxPlayers;
     }
 
+    public void setMaxPlayers(String maxPlayers) {
+        this.maxPlayers = maxPlayers;
+    }
+
     public String getVideoUrl() {
         return videoUrl;
+    }
+
+    public void setVideoUrl(String videoUrl) {
+        this.videoUrl = videoUrl;
     }
 
     public String getCommunityRating() {
         return communityRating;
     }
 
+    public void setCommunityRating(String communityRating) {
+        this.communityRating = communityRating;
+    }
+
     public String getPlatform() {
         return platform;
+    }
+
+    public void setPlatform(String platform) {
+        this.platform = platform;
     }
 
     public String getEsrb() {
         return esrb;
     }
 
+    public void setEsrb(String esrb) {
+        this.esrb = esrb;
+    }
+
     public String getDeveloper() {
         return developer;
+    }
+
+    public void setDeveloper(String developer) {
+        this.developer = developer;
     }
 
     public String getPublisher() {
         return publisher;
     }
 
+    public void setPublisher(String publisher) {
+        this.publisher = publisher;
+    }
 
+    public CatOwnGameEntity getOwnGame() {
+        return ownGame;
+    }
+
+    public void setOwnGame(CatOwnGameEntity ownGame) {
+        this.ownGame = ownGame;
+    }
 }

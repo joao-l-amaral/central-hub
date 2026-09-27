@@ -10,7 +10,7 @@ import org.slf4j.LoggerFactory;
 import pt.amaralsoftware.application.service.CatConfigService;
 import pt.amaralsoftware.gameq.models.GameQConfiguration;
 import pt.amaralsoftware.gameq.models.GameQPlatform;
-import pt.amaralsoftware.gameq.modules.dataProcessor.GameDataProcessor;
+import pt.amaralsoftware.gameq.modules.dataProcessor.DataProcessor;
 import pt.amaralsoftware.gameq.service.CatGamePlatformService;
 import pt.amaralsoftware.shared.models.RemoteDataSourceResult;
 
@@ -28,7 +28,7 @@ public class GameQAdministrationAPI {
     @Inject
     CatConfigService catConfigService;
     @Inject
-    GameDataProcessor gameDataProcessor;
+    DataProcessor gameDataProcessor;
 
     @GET
     @Path("/loadGameDatabase")

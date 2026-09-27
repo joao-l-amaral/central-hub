@@ -2,9 +2,9 @@ package pt.amaralsoftware.gameq.repository;
 
 import io.quarkus.hibernate.orm.panache.PanacheRepository;
 import jakarta.enterprise.context.ApplicationScoped;
-import pt.amaralsoftware.gameq.models.entity.CatDigitalPcStoresEntity;
+import pt.amaralsoftware.gameq.models.entity.CatDigitalStoresEntity;
 
 @ApplicationScoped
-public class CatDigitalPcStoresRepository implements PanacheRepository<CatDigitalPcStoresEntity> {
+public class CatDigitalStoresRepository implements PanacheRepository<CatDigitalStoresEntity> {
 
 }
