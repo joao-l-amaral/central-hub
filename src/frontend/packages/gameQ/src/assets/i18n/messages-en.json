@@ -35,6 +35,7 @@
   "gameq.administrator.title": "Page of administration",
   "gameq.administrator.side-nav.title": "Settings",
   "gameq.configuration.format": "Format",
+  "gameq.selected.game": "Selected Game",
   "table-dt-paginator-label": "Items per page",
   "data-table-no-data": "No data available",
   "title.administration": "Administration",

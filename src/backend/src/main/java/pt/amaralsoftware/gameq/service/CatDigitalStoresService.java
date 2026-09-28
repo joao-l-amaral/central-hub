@@ -25,26 +25,26 @@ public class CatDigitalStoresService {
         Set<String> ignorePlatform = Set.of("Microsoft Xbox");
 
         if(ignorePlatform.contains(platformName)){
-            log.info("Ingore platform");
+            log.info("Ignore platform");
         }
     }
 
-    public List<GameQPlatform> getPCDigitalStoresNames() {
+    public List<GameQPlatform> getDigitalStoresNames() {
         log.debug("Getting PC digital stores names");
 
-        List<CatDigitalStoresEntity> pcDigitalStores = catDigitalStoresRepository.findAll(Sort.by("name", Sort.Direction.Ascending)).list();
+        List<CatDigitalStoresEntity> digitalStores = catDigitalStoresRepository.findAll(Sort.by("name", Sort.Direction.Ascending)).list();
 
-
-        List<GameQPlatform> gameVaultPlatforms = new ArrayList<>();
+        List<GameQPlatform> gameQPlatforms = new ArrayList<>();
 
         try {
             Map<String, String> iconMap = platformIconResolver.getIconsByPlatformName();
 
-            gameVaultPlatforms = pcDigitalStores.stream()
-                    .map(pcDigitalStore -> new GameQPlatform(
-                            pcDigitalStore.getName(),
+            gameQPlatforms = digitalStores.stream()
+                    .filter(digitalStore -> Boolean.FALSE.equals(digitalStore.getConsole()))
+                    .map(digitalStore -> new GameQPlatform(
+                            digitalStore.getName(),
                             true,
-                            iconMap.get(pcDigitalStore.getName())
+                            iconMap.get(digitalStore.getName())
                     ))
                     .toList();
 
@@ -52,6 +52,6 @@ public class CatDigitalStoresService {
             log.error("Error occurred while getting PC digital stores names", e);
         }
 
-        return gameVaultPlatforms;
+        return gameQPlatforms;
     }
 }
