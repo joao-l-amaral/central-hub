@@ -17,14 +17,17 @@ public class CatDigitalStoresEntity extends PanacheEntityBase implements Seriali
     @Column(name ="cooperation_name")
     private String cooperationName;
     private String website;
+    @Column(name ="isconsole")
+    private Boolean isConsole;
 
     public CatDigitalStoresEntity() {
     }
 
-    public CatDigitalStoresEntity(String name, String cooperationName, String website) {
+    public CatDigitalStoresEntity(String name, String cooperationName, String website, Boolean isConsole) {
         this.name = name;
         this.cooperationName = cooperationName;
         this.website = website;
+        this.isConsole = isConsole;
     }
 
     public String getName() {
@@ -49,5 +52,13 @@ public class CatDigitalStoresEntity extends PanacheEntityBase implements Seriali
 
     public void setWebsite(String website) {
         this.website = website;
+    }
+
+    public Boolean getConsole() {
+        return isConsole;
+    }
+
+    public void setConsole(Boolean console) {
+        isConsole = console;
     }
 }

@@ -40,15 +40,16 @@ public class GameQGamesAPI {
         log.info("Get initial search platform list");
 
         List<GameQPlatform> platforms = catGamePlatformService.getPlatforms();
-        List<GameQPlatform> pcDigitalStoresPlatforms = catDigitalStoresService.getPCDigitalStoresNames();
+        List<GameQPlatform> digitalStoresPlatforms = catDigitalStoresService.getDigitalStoresNames();
 
         List<GameQPlatform> mergedPlatforms = new ArrayList<>();
+
         if (CollectionUtils.isNotEmpty(platforms)) {
             mergedPlatforms.addAll(platforms);
         }
 
-        if (CollectionUtils.isNotEmpty(pcDigitalStoresPlatforms)) {
-            mergedPlatforms.addAll(pcDigitalStoresPlatforms);
+        if (CollectionUtils.isNotEmpty(digitalStoresPlatforms)) {
+            mergedPlatforms.addAll(digitalStoresPlatforms);
         }
 
         mergedPlatforms.sort(java.util.Comparator.comparing(

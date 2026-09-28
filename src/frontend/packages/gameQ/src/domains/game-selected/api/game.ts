@@ -1,17 +1,15 @@
 import { Injectable, signal } from '@angular/core';
-
-export interface Game {
-  name: string;
-}
+import { Game } from '../data-game-selected/game';
 
 @Injectable()
 export class GameState {
   readonly game = signal<Partial<Game>>({});
 
-  selectName(name: string) {
-    this.game.update((game) => ({
-      ...game,
-      name,
+  selectName(game: Game) {
+    this.game.update((prevGame) => ({
+      ...prevGame,
+      game,
     }));
   }
+
 }
