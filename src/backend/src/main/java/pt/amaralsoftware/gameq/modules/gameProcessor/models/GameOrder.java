@@ -2,7 +2,7 @@ package pt.amaralsoftware.gameq.modules.gameProcessor.models;
 
 import pt.amaralsoftware.gameq.models.dto.GameDTO;
 import pt.amaralsoftware.gameq.models.dto.PlatformDTO;
-import pt.amaralsoftware.gameq.modules.base.models.Order;
+import pt.amaralsoftware.core.modules.processor.models.Order;
 
 import java.util.List;
 

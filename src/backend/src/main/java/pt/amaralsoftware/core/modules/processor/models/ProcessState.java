@@ -1,4 +1,4 @@
-package pt.amaralsoftware.gameq.modules.base.models;
+package pt.amaralsoftware.core.modules.processor.models;
 
 import java.io.Serializable;
 

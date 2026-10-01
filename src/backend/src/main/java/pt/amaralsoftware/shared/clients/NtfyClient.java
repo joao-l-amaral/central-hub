@@ -1,4 +1,4 @@
-package pt.amaralsoftware.shared.client;
+package pt.amaralsoftware.shared.clients;
 
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;

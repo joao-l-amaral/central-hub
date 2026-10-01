@@ -1,6 +1,6 @@
 package pt.amaralsoftware.gameq.modules.gameProcessor.models;
 
-import pt.amaralsoftware.gameq.modules.base.models.ProcessState;
+import pt.amaralsoftware.core.modules.processor.models.ProcessState;
 
 public enum GameDataStates implements ProcessState {
     IDLE,

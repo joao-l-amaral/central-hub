@@ -1,10 +1,10 @@
-package pt.amaralsoftware.gameq.modules.base;
+package pt.amaralsoftware.core.modules.processor;
 
 import org.apache.commons.lang3.BooleanUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import pt.amaralsoftware.gameq.modules.base.models.Order;
-import pt.amaralsoftware.gameq.modules.base.models.ProcessState;
+import pt.amaralsoftware.core.modules.processor.models.Order;
+import pt.amaralsoftware.core.modules.processor.models.ProcessState;
 
 import java.time.ZonedDateTime;
 

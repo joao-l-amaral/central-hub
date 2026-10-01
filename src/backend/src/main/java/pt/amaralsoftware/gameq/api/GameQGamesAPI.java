@@ -4,13 +4,17 @@ import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import org.apache.commons.collections4.CollectionUtils;
+import org.eclipse.microprofile.config.inject.ConfigProperty;
+import org.eclipse.microprofile.rest.client.inject.RestClient;
 import org.jboss.resteasy.reactive.RestResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import pt.amaralsoftware.gameq.clients.XboxApiClient;
 import pt.amaralsoftware.gameq.models.GameQPlatform;
 import pt.amaralsoftware.gameq.models.dto.GameDTO;
 import pt.amaralsoftware.gameq.models.dto.GameQConfigurationDTO;
-import pt.amaralsoftware.gameq.modules.base.models.Order;
+import pt.amaralsoftware.gameq.models.xboxApi.XboxApiResponse;
+import pt.amaralsoftware.core.modules.processor.models.Order;
 import pt.amaralsoftware.gameq.modules.gameProcessor.GameProcessor;
 import pt.amaralsoftware.gameq.service.CatDigitalStoresService;
 import pt.amaralsoftware.gameq.service.CatGamePlatformService;
@@ -32,6 +36,12 @@ public class GameQGamesAPI {
     CatGameService catGameService;
     @Inject
     GameProcessor gameProcessor;
+    @Inject
+    @RestClient
+    XboxApiClient xboxApiClient;
+
+    @ConfigProperty(name = "xbox.api.xuid")
+    String xuid;
 
     @GET
     @Path("/")
@@ -108,5 +118,13 @@ public class GameQGamesAPI {
     public RestResponse<Order> getGameByName(@PathParam("game") String gameName) {
         Order restultOrder = this.gameProcessor.run(gameName);
         return RestResponse.ok(restultOrder);
+    }
+
+    @GET
+    @Path("/xbox")
+    @Produces(MediaType.APPLICATION_JSON)
+    public RestResponse<XboxApiResponse> getStuff() {
+        XboxApiResponse titlesByXuid = this.xboxApiClient.getTitleByXuid(xuid);
+        return RestResponse.ok(titlesByXuid);
     }
 }
