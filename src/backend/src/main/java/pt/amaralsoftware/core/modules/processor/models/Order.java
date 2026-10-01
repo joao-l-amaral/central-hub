@@ -13,6 +13,8 @@ public class Order<T extends ProcessState> implements Serializable {
     private DiagnosticMessage diagnosticMessage;
 
     public Order() {
+        this.id = String.valueOf(UUID.randomUUID());
+        this.startTime = ZonedDateTime.now();
     }
 
     public Order(String targetEntity) {

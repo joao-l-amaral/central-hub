@@ -1,11 +1,11 @@
 package pt.amaralsoftware.gameq.modules.dataProcessor.flows;
 
 import jakarta.enterprise.context.ApplicationScoped;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import pt.amaralsoftware.gameq.modules.dataProcessor.models.GameQParsingStates;
-import pt.amaralsoftware.gameq.modules.dataProcessor.models.ParsingFlow;
-import pt.amaralsoftware.gameq.modules.dataProcessor.models.ParsingResult;
+import pt.amaralsoftware.core.modules.processor.models.Criticity;
+import pt.amaralsoftware.core.modules.processor.models.DiagnosticMessage;
+import pt.amaralsoftware.gameq.modules.dataProcessor.models.ExecutionFlow;
+import pt.amaralsoftware.gameq.modules.dataProcessor.models.GameParsingStates;
+import pt.amaralsoftware.gameq.modules.dataProcessor.models.ParsingGamesOrder;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -15,14 +15,12 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
 @ApplicationScoped
-public class DataExtractorFlow extends ParsingFlow {
-
-    private final Logger log = LoggerFactory.getLogger(DataExtractorFlow.class);
+public class DataExtractorFlow extends ExecutionFlow {
 
     private static final long MAX_UNCOMPRESSED_SIZE = 1024L * 1024 * 1024;
 
     @Override
-    public ParsingResult executeWorkflow(GameQParsingStates currentState) {
+    public void executeWorkflow(ParsingGamesOrder order) {
         log.info("Starting extractor flow by extracting {}", METADATA_DOWNLOAD_PATH);
 
         File destDir = new File(FILE_EXTRACTED_PATH);
@@ -62,13 +60,12 @@ public class DataExtractorFlow extends ParsingFlow {
                 zis.closeEntry();
             }
 
-            return ParsingResult.ok(GameQParsingStates.EXTRACTED);
+            order.setState(GameParsingStates.EXTRACTED);
 
         } catch (IOException e) {
             log.error("Error occurred while extracting files", e);
+            order.setDiagnosticMessage(new DiagnosticMessage("Error occurred while extracting files: " + e.getMessage(), Criticity.ERROR));
         }
-
-        return ParsingResult.error("Error occurred while extracting files");
     }
 
 }

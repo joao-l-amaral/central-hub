@@ -2,15 +2,13 @@ package pt.amaralsoftware.gameq.modules.dataProcessor.flows;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import pt.amaralsoftware.gameq.modules.dataProcessor.models.GameQParsingStates;
-import pt.amaralsoftware.gameq.modules.dataProcessor.models.ParsingFlow;
-import pt.amaralsoftware.gameq.modules.dataProcessor.models.ParsingResult;
+import pt.amaralsoftware.gameq.modules.dataProcessor.models.ExecutionFlow;
+import pt.amaralsoftware.gameq.modules.dataProcessor.models.GameParsingStates;
+import pt.amaralsoftware.gameq.modules.dataProcessor.models.ParsingGamesOrder;
 import pt.amaralsoftware.gameq.service.CatGamePlatformService;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -20,15 +18,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 @ApplicationScoped
-public class DataPlatformParserFlow extends ParsingFlow {
-
-    private final Logger log = LoggerFactory.getLogger(DataPlatformParserFlow.class);
+public class DataPlatformParserFlow extends ExecutionFlow {
 
     @Inject
     CatGamePlatformService catGamePlatformService;
 
     @Override
-    public ParsingResult executeWorkflow(GameQParsingStates currentState) {
+    public void executeWorkflow(ParsingGamesOrder order) {
         log.info("Starting GameQPlatformParser flow");
 
         int numberOfPlatform = 0;
@@ -66,7 +62,8 @@ public class DataPlatformParserFlow extends ParsingFlow {
             log.error("Failed to parse platform data. {}", e.getMessage());
         }
 
-        return ParsingResult.ok(GameQParsingStates.PLATFORMS_PARSED, null, numberOfPlatform);
+        order.setState(GameParsingStates.PLATFORMS_PARSED);
+        order.setNumberOfPlatformsImported(numberOfPlatform);
     }
 
     private Map<String, Object> processPlatforms(Element platform) {

@@ -9,6 +9,11 @@ public class DiagnosticMessage implements Serializable {
     public DiagnosticMessage() {
     }
 
+    public DiagnosticMessage(String message, Criticity criticity) {
+        this.message = message;
+        this.criticity = criticity;
+    }
+
     public String getMessage() {
         return message;
     }

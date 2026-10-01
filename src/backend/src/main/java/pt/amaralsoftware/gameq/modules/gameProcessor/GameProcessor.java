@@ -31,7 +31,7 @@ public class GameProcessor extends Processor<GameDataStates> {
 
     @Override
     public void executeFlow() {
-        log.info("Current game data processing state");
+        log.info("Current game data processing state: {}", order.getState());
 
         ExecutionFlow flow = switch (order.getState()) {
             case IDLE -> gameSelectionFlow;
