@@ -36,7 +36,7 @@ public class GameQAdministrationAPI {
     public RestResponse<Order> forceDatabaseLoad() {
         log.info("Loading game database");
 
-        Order restultOrder = gameDataProcessor.run("");
+        Order restultOrder = gameDataProcessor.run();
 
         if(restultOrder.getState() == GameParsingStates.ERROR) {
             log.error("Error loading game database. {}", restultOrder.getDiagnosticMessage().getMessage());

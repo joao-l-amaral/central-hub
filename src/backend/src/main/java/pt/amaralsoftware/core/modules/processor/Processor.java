@@ -16,8 +16,7 @@ public abstract class Processor<TState extends ProcessState> {
     public abstract void executeFlow();
     protected abstract Order<TState> createOrder(String targetEntity);
 
-    public Order<TState> run(String targetEntity) {
-        this.order = createOrder(targetEntity);
+    private Order<TState> getOrder() {
         boolean workFlowFinished = false;
         while (BooleanUtils.isNotTrue(workFlowFinished)) {
             executeFlow();
@@ -27,5 +26,15 @@ public abstract class Processor<TState extends ProcessState> {
         this.order.setEndTime(ZonedDateTime.now());
 
         return this.order;
+    }
+
+    public Order<TState> run() {
+        this.order = createOrder(null);
+        return getOrder();
+    }
+
+    public Order<TState> run(String targetEntity) {
+        this.order = createOrder(targetEntity);
+        return getOrder();
     }
 }

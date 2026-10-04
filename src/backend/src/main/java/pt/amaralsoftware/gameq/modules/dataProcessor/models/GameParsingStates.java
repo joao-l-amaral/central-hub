@@ -10,6 +10,7 @@ public enum GameParsingStates implements ProcessState {
      EXTRACTED,
      PLATFORMS_PARSED,
      GAMES_PARSED,
+     XBOX_GAMES_PARSED,
      FINISHED,
      NO_CHANGE,
      ERROR;

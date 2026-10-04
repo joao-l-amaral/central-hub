@@ -5,6 +5,7 @@ import io.quarkus.panache.common.Sort;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,6 +31,37 @@ public class CatGameService {
     PlatformIconResolver platformIconResolver;
     @Inject
     CatGameMapper catGameMapper;
+
+    final Map<String, String> mapPlatformMatrix = Map.of(
+            "Microsoft Xbox One", "Application",
+            "Microsoft Xbox 360", "Xbox360Game"
+    );
+
+    @Transactional
+    public CatGameEntity setExtraInfoForGameCatalog(String gameName, String titleId, String displayImage, String platform) {
+
+        String name=gameName.replace("™", "").replace("®", "").trim();
+
+        List<CatGameEntity> games = this.findGames(name);
+
+        if (CollectionUtils.isEmpty(games)) {
+            return null;
+        }
+
+        CatGameEntity catGameEntity = games.getFirst();
+
+        String mappedPlatform = mapPlatformMatrix .get(catGameEntity.getPlatform());
+
+        boolean isFromCorrectPlatform = mappedPlatform != null && mappedPlatform.equals(platform);
+
+        if(isFromCorrectPlatform) {
+            catGameEntity.setTitleId(titleId);
+            catGameEntity.setDisplayImage(displayImage);
+            catGameRepository.persist(catGameEntity);
+        }
+
+        return catGameEntity;
+    }
 
     @Transactional
     public void saveGames(Map<String, Object> game) {
@@ -117,6 +149,18 @@ public class CatGameService {
         }
 
         return Sort.by(field, direction);
+    }
+
+    public List<CatGameEntity> findGames(String inputName) {
+        List<CatGameEntity> exactMatches = catGameRepository
+                .find("name = ?1", inputName)
+                .list();
+
+        if (!exactMatches.isEmpty()) {
+            return exactMatches;
+        }
+
+        return catGameRepository.find("name ilike ?1 order by releaseDate ASC", "%" + inputName + "%").list();
     }
 
 }

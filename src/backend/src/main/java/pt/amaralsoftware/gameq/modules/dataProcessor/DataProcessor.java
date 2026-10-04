@@ -24,6 +24,8 @@ public class DataProcessor extends Processor<GameParsingStates> {
     DataCleanUpFlow dataCleanUpFlow;
     @Inject
     DataInitializeFlow dataInitializeFlow;
+    @Inject
+    DataProcessXboxGamesFlow dataProcessXboxGamesFlow;
 
     @Override
     protected Order<GameParsingStates> createOrder(String targetEntity) {
@@ -35,12 +37,13 @@ public class DataProcessor extends Processor<GameParsingStates> {
         log.info("Current game data processing state: {}", order.getState());
 
         ExecutionFlow flow = switch (order.getState()) {
-            case INITIALIZE -> dataInitializeFlow;
+            //case INITIALIZE -> dataInitializeFlow;
             case IDLE, DOWNLOADING -> dataDownloaderFlow;
             case DOWNLOADED -> dataExtractorFlow;
             case EXTRACTED -> dataPlatformParserFlow;
-            case PLATFORMS_PARSED -> dataGameParserFlow;
-            case GAMES_PARSED -> dataCleanUpFlow;
+            case INITIALIZE -> dataGameParserFlow;
+            case GAMES_PARSED -> dataProcessXboxGamesFlow;
+            case XBOX_GAMES_PARSED -> dataCleanUpFlow;
             default -> null;
         };
 

@@ -12,28 +12,25 @@ public class CatGameEntity extends PanacheEntityBase implements Serializable {
 
     @Id
     private String name;
-
     @Column(name = "release_year")
     private String releaseYear;
-
     @Column(name = "release_date")
     private String releaseDate;
-
     private String overview;
-
     @Column(name = "max_players")
     private String maxPlayers;
-
     @Column(name = "video_url")
     private String videoUrl;
-
     @Column(name = "community_rating")
     private String communityRating;
-
     private String platform;
     private String esrb;
     private String developer;
     private String publisher;
+    @Column(name = "title_id")
+    private String titleId;
+    @Column(name = "display_image")
+    private String displayImage;
 
     @OneToOne(mappedBy = "game", fetch = FetchType.EAGER)
     private CatOwnGameEntity ownGame;
@@ -145,5 +142,21 @@ public class CatGameEntity extends PanacheEntityBase implements Serializable {
 
     public void setOwnGame(CatOwnGameEntity ownGame) {
         this.ownGame = ownGame;
+    }
+
+    public String getTitleId() {
+        return titleId;
+    }
+
+    public void setTitleId(String titleId) {
+        this.titleId = titleId;
+    }
+
+    public String getDisplayImage() {
+        return displayImage;
+    }
+
+    public void setDisplayImage(String displayImage) {
+        this.displayImage = displayImage;
     }
 }
