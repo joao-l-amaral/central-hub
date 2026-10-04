@@ -17,7 +17,7 @@ public class CatOwnGameEntity extends PanacheEntityBase implements Serializable 
     private UUID id;
 
     @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "game_name", referencedColumnName = "name", unique = true)
+    @JoinColumn(name = "game_id", referencedColumnName = "id", unique = true)
     private CatGameEntity game;
 
     @ManyToOne(fetch = FetchType.EAGER, optional = true)

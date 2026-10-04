@@ -33,6 +33,8 @@ public class DataGameParserFlow extends ExecutionFlow {
     @Inject
     CatGameService catGameService;
 
+    private int gamesParsed = 0;
+
     @Override
     public void executeWorkflow(ParsingGamesOrder order) {
       log.info("Starting GameQGameParser flow");
@@ -50,6 +52,7 @@ public class DataGameParserFlow extends ExecutionFlow {
 
       if (!xmlFile.exists()) {
           log.error("Metadata XML file not found: {}", xmlFile.getAbsolutePath());
+          order.setState(GameParsingStates.ERROR);
           order.setDiagnosticMessage(new DiagnosticMessage("Metadata XML file not found.", Criticity.ERROR));
           return;
       }
@@ -60,7 +63,6 @@ public class DataGameParserFlow extends ExecutionFlow {
       factory.setProperty(XMLConstants.ACCESS_EXTERNAL_DTD, "");
 
       ParsedMetadataModel parsedMetadataModel = new ParsedMetadataModel();
-      int gamesParsed = 0;
 
       try (InputStream is = new BufferedInputStream(new FileInputStream(xmlFile))) {
           XMLEventReader reader = factory.createXMLEventReader(is);
@@ -75,6 +77,7 @@ public class DataGameParserFlow extends ExecutionFlow {
                       if (tagName.equals("Game")) {
                           parsedMetadataModel.setGame(true);
                           parsedMetadataModel.setNameFoundInLookUpList(false);
+                          logParsedGames();
                           continue;
                       }
 
@@ -90,11 +93,6 @@ public class DataGameParserFlow extends ExecutionFlow {
                       if (tagName.equals("Game")) {
                           saveGame(parsedMetadataModel, consolePlatformToLookUp);
                           parsedMetadataModel = new ParsedMetadataModel();
-
-                          gamesParsed++;
-                          if (gamesParsed % 1000 == 0) {
-                              log.info("Parsed {} games so far", gamesParsed);
-                          }
                           continue;
                       }
 
@@ -115,6 +113,12 @@ public class DataGameParserFlow extends ExecutionFlow {
         order.setState(GameParsingStates.ERROR);
         order.setDiagnosticMessage(new DiagnosticMessage("Failed to parse games.", Criticity.ERROR));
       }
+    }
+
+    private void logParsedGames() {
+        if (gamesParsed % 1000 == 0 && gamesParsed > 0) {
+            log.info("Parsed {} games so far", gamesParsed);
+        }
     }
 
     private String setKey(ParsedMetadataModel parsedMetadataModel, String tagName) {
@@ -149,6 +153,7 @@ public class DataGameParserFlow extends ExecutionFlow {
         Map<String, Object> processedGame = this.processGames(gameMap, consolePlatformToLookUp, nameFoundInLookUpList);
         if (!processedGame.isEmpty()) {
             log.debug("Saving game {}", processedGame);
+            gamesParsed++;
             catGameService.saveGames(processedGame);
         }
         parsedMetadataModel.clearGameMap();

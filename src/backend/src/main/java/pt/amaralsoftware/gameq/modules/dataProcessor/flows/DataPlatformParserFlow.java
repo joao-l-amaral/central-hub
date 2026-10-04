@@ -58,6 +58,17 @@ public class DataPlatformParserFlow extends ExecutionFlow {
                     numberOfPlatform++;
                 }
             }
+
+            Map<String, Object> personalPc = new HashMap<>();
+            personalPc.put("name", "Windows");
+            personalPc.put("cpu", "AMD Ryzen 9 5900X");
+            personalPc.put("memory", "16GB");
+            personalPc.put("graphics", "Radeon RX 9070XT");
+            personalPc.put("notes", "Personal PC");
+            personalPc.put("isToImport", true);
+
+            catGamePlatformService.savePlatforms(personalPc);
+
         } catch (Exception e) {
             log.error("Failed to parse platform data. {}", e.getMessage());
         }

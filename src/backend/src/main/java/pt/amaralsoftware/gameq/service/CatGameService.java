@@ -15,6 +15,7 @@ import pt.amaralsoftware.gameq.models.entity.CatGameEntity;
 import pt.amaralsoftware.gameq.repository.CatGameRepository;
 import pt.amaralsoftware.gameq.resolvers.PlatformIconResolver;
 import pt.amaralsoftware.shared.util.MapSerializer;
+import pt.amaralsoftware.shared.util.MapUtils;
 
 import java.io.IOException;
 import java.util.List;
@@ -55,7 +56,6 @@ public class CatGameService {
         boolean isFromCorrectPlatform = mappedPlatform != null && mappedPlatform.equals(platform);
 
         if(isFromCorrectPlatform) {
-            catGameEntity.setTitleId(titleId);
             catGameEntity.setDisplayImage(displayImage);
             catGameRepository.persist(catGameEntity);
         }
@@ -67,8 +67,9 @@ public class CatGameService {
     public void saveGames(Map<String, Object> game) {
         if(!game.isEmpty()) {
             CatGameEntity catGameEntity = MapSerializer.fromMapToObj(game, CatGameEntity.class);
+            catGameEntity.setId(MapUtils.getPropertyAsString(game, "databaseID"));
 
-            if (catGameRepository.find("name = ?1", catGameEntity.getName()).firstResult() == null) {
+            if (catGameRepository.find("id = ?1", catGameEntity.getId()).firstResult() == null) {
                 catGameRepository.persist(catGameEntity);
             }
         }
@@ -140,9 +141,13 @@ public class CatGameService {
             String[] kv = part.split(":", 2);
             if (kv.length != 2) continue;
 
-            switch (kv[0].trim().toLowerCase()) {
-                case "field" -> field = kv[1].trim();
-                case "direction" -> direction = "DESC".equalsIgnoreCase(kv[1].trim())
+            String key = kv[0].trim().toLowerCase();
+            String value = kv[1].trim();
+
+            if ("field".equals(key)) {
+                field = value;
+            } else if ("direction".equals(key)) {
+                direction = "DESC".equalsIgnoreCase(value)
                         ? Sort.Direction.Descending
                         : Sort.Direction.Ascending;
             }

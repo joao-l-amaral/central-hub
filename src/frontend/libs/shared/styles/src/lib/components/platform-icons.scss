@@ -12,6 +12,10 @@
   -webkit-mask-size: contain;
 }
 
+.pc::before {
+  @include orion-platform-icon('pc', 24px, 24px);
+}
+
 .xbox360::before {
   @include orion-platform-icon('xbox360', 24px, 24px);
 }

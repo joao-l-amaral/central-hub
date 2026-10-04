@@ -30,8 +30,8 @@ export function provideGameSelectionHandler() {
         const game = route.queryParamMap.get('game') ?? undefined;
 
         if (game) {
-          gameData.getGame(game).then((gameData) => {
-            gameState.selectName(gameData);
+          gameData.getSelectedGame(game).then((gameData) => {
+            gameState.selectGame(gameData);
           });
         }
       });

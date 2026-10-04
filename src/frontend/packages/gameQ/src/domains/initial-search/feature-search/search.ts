@@ -62,9 +62,9 @@ export class SearchComponent {
     this.#loadingService.show();
 
     this.#gameData
-      .getGame(selectedGame)
+      .getSelectedGame(selectedGame)
       .then((gameData) => {
-        this.#gameState.selectName(gameData);
+        this.#gameState.selectGame(gameData);
         this.#router.navigate(['gameQ', 'dashboard'], {
           queryParams: { game: selectedGame },
         });

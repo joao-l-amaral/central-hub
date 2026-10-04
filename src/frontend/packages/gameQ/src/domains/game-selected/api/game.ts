@@ -5,7 +5,7 @@ import { Game } from '../data-game-selected/game';
 export class GameState {
   readonly game = signal<Partial<Game>>({});
 
-  selectName(game: Game) {
+  selectGame(game: Game) {
     this.game.update((prevGame) => ({
       ...prevGame,
       game,

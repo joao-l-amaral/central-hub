@@ -9,8 +9,8 @@ import java.io.Serializable;
 @Entity
 @Table(name = "cat_game")
 public class CatGameEntity extends PanacheEntityBase implements Serializable {
-
     @Id
+    private String id;
     private String name;
     @Column(name = "release_year")
     private String releaseYear;
@@ -27,8 +27,6 @@ public class CatGameEntity extends PanacheEntityBase implements Serializable {
     private String esrb;
     private String developer;
     private String publisher;
-    @Column(name = "title_id")
-    private String titleId;
     @Column(name = "display_image")
     private String displayImage;
 
@@ -46,6 +44,14 @@ public class CatGameEntity extends PanacheEntityBase implements Serializable {
         this.esrb = esrb;
         this.developer = developer;
         this.publisher = publisher;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -142,14 +148,6 @@ public class CatGameEntity extends PanacheEntityBase implements Serializable {
 
     public void setOwnGame(CatOwnGameEntity ownGame) {
         this.ownGame = ownGame;
-    }
-
-    public String getTitleId() {
-        return titleId;
-    }
-
-    public void setTitleId(String titleId) {
-        this.titleId = titleId;
     }
 
     public String getDisplayImage() {
