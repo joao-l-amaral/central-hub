@@ -5,6 +5,7 @@ import io.quarkus.panache.common.Sort;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,6 +15,7 @@ import pt.amaralsoftware.gameq.models.entity.CatGameEntity;
 import pt.amaralsoftware.gameq.repository.CatGameRepository;
 import pt.amaralsoftware.gameq.resolvers.PlatformIconResolver;
 import pt.amaralsoftware.shared.util.MapSerializer;
+import pt.amaralsoftware.shared.util.MapUtils;
 
 import java.io.IOException;
 import java.util.List;
@@ -31,12 +33,43 @@ public class CatGameService {
     @Inject
     CatGameMapper catGameMapper;
 
+    final Map<String, String> mapPlatformMatrix = Map.of(
+            "Microsoft Xbox One", "Application",
+            "Microsoft Xbox 360", "Xbox360Game"
+    );
+
+    @Transactional
+    public CatGameEntity setExtraInfoForGameCatalog(String gameName, String titleId, String displayImage, String platform) {
+
+        String name=gameName.replace("™", "").replace("®", "").trim();
+
+        List<CatGameEntity> games = this.findGames(name);
+
+        if (CollectionUtils.isEmpty(games)) {
+            return null;
+        }
+
+        CatGameEntity catGameEntity = games.getFirst();
+
+        String mappedPlatform = mapPlatformMatrix .get(catGameEntity.getPlatform());
+
+        boolean isFromCorrectPlatform = mappedPlatform != null && mappedPlatform.equals(platform);
+
+        if(isFromCorrectPlatform) {
+            catGameEntity.setDisplayImage(displayImage);
+            catGameRepository.persist(catGameEntity);
+        }
+
+        return catGameEntity;
+    }
+
     @Transactional
     public void saveGames(Map<String, Object> game) {
         if(!game.isEmpty()) {
             CatGameEntity catGameEntity = MapSerializer.fromMapToObj(game, CatGameEntity.class);
+            catGameEntity.setId(MapUtils.getPropertyAsString(game, "databaseID"));
 
-            if (catGameRepository.find("name = ?1", catGameEntity.getName()).firstResult() == null) {
+            if (catGameRepository.find("id = ?1", catGameEntity.getId()).firstResult() == null) {
                 catGameRepository.persist(catGameEntity);
             }
         }
@@ -108,15 +141,31 @@ public class CatGameService {
             String[] kv = part.split(":", 2);
             if (kv.length != 2) continue;
 
-            switch (kv[0].trim().toLowerCase()) {
-                case "field" -> field = kv[1].trim();
-                case "direction" -> direction = "DESC".equalsIgnoreCase(kv[1].trim())
+            String key = kv[0].trim().toLowerCase();
+            String value = kv[1].trim();
+
+            if ("field".equals(key)) {
+                field = value;
+            } else if ("direction".equals(key)) {
+                direction = "DESC".equalsIgnoreCase(value)
                         ? Sort.Direction.Descending
                         : Sort.Direction.Ascending;
             }
         }
 
         return Sort.by(field, direction);
+    }
+
+    public List<CatGameEntity> findGames(String inputName) {
+        List<CatGameEntity> exactMatches = catGameRepository
+                .find("name = ?1", inputName)
+                .list();
+
+        if (!exactMatches.isEmpty()) {
+            return exactMatches;
+        }
+
+        return catGameRepository.find("name ilike ?1 order by releaseDate ASC", "%" + inputName + "%").list();
     }
 
 }

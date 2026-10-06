@@ -2,17 +2,15 @@ package pt.amaralsoftware.gameq.modules.dataProcessor;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import pt.amaralsoftware.core.modules.processor.Processor;
+import pt.amaralsoftware.core.modules.processor.models.Order;
 import pt.amaralsoftware.gameq.modules.dataProcessor.flows.*;
-import pt.amaralsoftware.gameq.modules.dataProcessor.models.GameQParsingStates;
-import pt.amaralsoftware.gameq.modules.dataProcessor.models.ParsingFlow;
-import pt.amaralsoftware.gameq.modules.dataProcessor.models.ParsingResult;
+import pt.amaralsoftware.gameq.modules.dataProcessor.models.ExecutionFlow;
+import pt.amaralsoftware.gameq.modules.dataProcessor.models.GameParsingStates;
+import pt.amaralsoftware.gameq.modules.dataProcessor.models.ParsingGamesOrder;
 
 @ApplicationScoped
-public class DataProcessor {
-
-    private final Logger log = LoggerFactory.getLogger(DataProcessor.class);
+public class DataProcessor extends Processor<GameParsingStates> {
 
     @Inject
     DataDownloaderFlow dataDownloaderFlow;
@@ -26,75 +24,34 @@ public class DataProcessor {
     DataCleanUpFlow dataCleanUpFlow;
     @Inject
     DataInitializeFlow dataInitializeFlow;
+    @Inject
+    DataProcessXboxGamesFlow dataProcessXboxGamesFlow;
 
-    private GameQParsingStates currentState = GameQParsingStates.INITIALIZE;
-    private String lastErrorMessage;
-    private String message;
-    private Integer numberOfPlatformsImported;
-    private Integer numberOfGamesImported;
-
-    public void run() {
-        lastErrorMessage = null;
-        message = null;
-
-        while (currentState != GameQParsingStates.COMPLETED) {
-
-            if (currentState == GameQParsingStates.ERROR) {
-                log.warn("Recovering from ERROR state by resetting to INITIALIZE.");
-                currentState = GameQParsingStates.INITIALIZE;
-                return;
-            }
-
-            executeFlow();
-        }
-        currentState = GameQParsingStates.INITIALIZE;
+    @Override
+    protected Order<GameParsingStates> createOrder(String targetEntity) {
+        return new ParsingGamesOrder();
     }
 
-    private void executeFlow() {
-        log.info("Current game data processing state: {}", currentState);
+    @Override
+    public void executeFlow() {
+        log.info("Current game data processing state: {}", order.getState());
 
-        ParsingFlow flow = switch (currentState) {
+        ExecutionFlow flow = switch (order.getState()) {
             case INITIALIZE -> dataInitializeFlow;
             case IDLE, DOWNLOADING -> dataDownloaderFlow;
             case DOWNLOADED -> dataExtractorFlow;
             case EXTRACTED -> dataPlatformParserFlow;
             case PLATFORMS_PARSED -> dataGameParserFlow;
-            case GAMES_PARSED -> dataCleanUpFlow;
-            default -> throw new IllegalStateException("Unhandled state: " + currentState);
+            case GAMES_PARSED -> dataProcessXboxGamesFlow;
+            //case XBOX_GAMES_PARSED -> dataProcessPlayStationGamesFlow; // Through psn-api solo docker container
+            //case PS_GAMES_PARSED -> dataProcessSteamGamesFlow; // Through steam public API
+            //case STEAM_GAMES_PARSED -> dataCleanUpFlow; // TO finish... placeholder
+            case XBOX_GAMES_PARSED -> dataCleanUpFlow;
+            default -> null;
         };
 
-        ParsingResult result = flow.executeWorkflow(currentState);
-        currentState = result.state();
-
-        if(result.numberOfGamesImported() != null) {
-            numberOfGamesImported = result.numberOfGamesImported();
+        if (flow != null) {
+            flow.executeWorkflow((ParsingGamesOrder) order);
         }
-
-        if(result.numberOfPlatformsImported() != null) {
-            numberOfPlatformsImported = result.numberOfPlatformsImported();
-        }
-
-        if (currentState == GameQParsingStates.ERROR) {
-            lastErrorMessage = result.message();
-        } else {
-            message = result.message();
-        }
-
-    }
-
-    public String getLastErrorMessage() {
-        return lastErrorMessage;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public Integer getNumberOfPlatformsImported() {
-        return numberOfPlatformsImported;
-    }
-
-    public Integer getNumberOfGamesImported() {
-        return numberOfGamesImported;
     }
 }

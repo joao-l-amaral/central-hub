@@ -8,16 +8,16 @@ import org.jboss.resteasy.reactive.RestResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pt.amaralsoftware.application.service.CatConfigService;
+import pt.amaralsoftware.core.modules.processor.models.Order;
 import pt.amaralsoftware.gameq.models.GameQConfiguration;
 import pt.amaralsoftware.gameq.models.GameQPlatform;
 import pt.amaralsoftware.gameq.modules.dataProcessor.DataProcessor;
+import pt.amaralsoftware.gameq.modules.dataProcessor.models.GameParsingStates;
 import pt.amaralsoftware.gameq.service.CatGamePlatformService;
 import pt.amaralsoftware.shared.models.RemoteDataSourceResult;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Path("/gameq/administration")
 public class GameQAdministrationAPI {
@@ -33,31 +33,17 @@ public class GameQAdministrationAPI {
     @GET
     @Path("/loadGameDatabase")
     @Produces(MediaType.APPLICATION_JSON)
-    public RestResponse<Map<String, Object>> forceDatabaseLoad() {
+    public RestResponse<Order> forceDatabaseLoad() {
         log.info("Loading game database");
 
-        gameDataProcessor.run();
+        Order restultOrder = gameDataProcessor.run();
 
-        String errorMessage = gameDataProcessor.getLastErrorMessage();
-
-        Map<String, Object> result = new HashMap<>();
-
-        if (errorMessage != null) {
-            log.error("Error loading game database. {}", errorMessage);
-            result.put("message", errorMessage);
-            return RestResponse.status(Response.Status.INTERNAL_SERVER_ERROR, result);
+        if(restultOrder.getState() == GameParsingStates.ERROR) {
+            log.error("Error loading game database. {}", restultOrder.getDiagnosticMessage().getMessage());
+            return RestResponse.status(Response.Status.INTERNAL_SERVER_ERROR, restultOrder);
         }
 
-        String message = gameDataProcessor.getMessage();
-
-        Integer numberOfGamesImported = gameDataProcessor.getNumberOfGamesImported();
-        Integer numberOfPlatformsImported = gameDataProcessor.getNumberOfPlatformsImported();
-
-        result.put("message", message);
-        result.put("numberOfGamesImported", numberOfGamesImported);
-        result.put("numberOfPlatformsImported", numberOfPlatformsImported);
-
-        return RestResponse.ok(result);
+        return RestResponse.ok(restultOrder);
     }
 
     @GET

@@ -4,11 +4,11 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import pt.amaralsoftware.gameq.modules.dataProcessor.models.GameQParsingStates;
-import pt.amaralsoftware.gameq.modules.dataProcessor.models.ParsingFlow;
-import pt.amaralsoftware.gameq.modules.dataProcessor.models.ParsingResult;
+import pt.amaralsoftware.core.modules.processor.models.Criticity;
+import pt.amaralsoftware.core.modules.processor.models.DiagnosticMessage;
+import pt.amaralsoftware.gameq.modules.dataProcessor.models.ExecutionFlow;
+import pt.amaralsoftware.gameq.modules.dataProcessor.models.GameParsingStates;
+import pt.amaralsoftware.gameq.modules.dataProcessor.models.ParsingGamesOrder;
 import pt.amaralsoftware.shared.util.NtfyUtils;
 
 import java.io.*;
@@ -24,25 +24,23 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 @ApplicationScoped
-public class DataDownloaderFlow extends ParsingFlow {
-
-    private final Logger log = LoggerFactory.getLogger(DataDownloaderFlow.class);
+public class DataDownloaderFlow extends ExecutionFlow {
 
     @Inject
     NtfyUtils ntfyUtils;
 
     @Override
-    public ParsingResult executeWorkflow(GameQParsingStates currentState) {
+    public void executeWorkflow(ParsingGamesOrder order) {
         log.info("Starting data downloader flow");
 
         Boolean haveData = checkAndLoadFile();
 
         try {
             if (BooleanUtils.isNotTrue(haveData)) {
-                return downloadMetaData();
+                downloadMetaData(order);
             }
 
-            String metadataHashValue = calcFileHash(METADATA_DOWNLOAD_PATH);
+            String metadataHashValue = calcFileHash();
             File hashFile = new File(String.format("%s/%s", FILE_EXTRACTED_PATH, FILE_HASH_FILE));
 
             String existingHashValue = readHashFile(hashFile);
@@ -51,7 +49,9 @@ public class DataDownloaderFlow extends ParsingFlow {
                 Files.delete(Paths.get(METADATA_DOWNLOAD_PATH));
                 log.debug("The downloaded file didn't change.");
                 ntfyUtils.send("Video game metadata game didn't change.");
-                return ParsingResult.ok(GameQParsingStates.COMPLETED, "The downloaded file didn't change.");
+                order.setState(GameParsingStates.NO_CHANGE);
+                order.setMessage("The downloaded file didn't change.");
+                return;
             }
 
             if(StringUtils.isNotBlank(existingHashValue)) {
@@ -59,14 +59,14 @@ public class DataDownloaderFlow extends ParsingFlow {
             }
 
             createHashFile(metadataHashValue);
-            return ParsingResult.ok(GameQParsingStates.DOWNLOADED);
+            order.setState(GameParsingStates.DOWNLOADED);
 
         } catch (IOException| NoSuchAlgorithmException e) {
             log.error("Game data source failed to process. {}", e.getMessage());
             this.ntfyUtils.send("[GameQ] Failed to process metadata file.");
+            order.setState(GameParsingStates.ERROR);
+            order.setDiagnosticMessage(new DiagnosticMessage("Failed to process metadata file.", Criticity.ERROR));
         }
-
-        return ParsingResult.error("Failed to process metadata file.");
     }
 
     private Boolean checkAndLoadFile() {
@@ -82,7 +82,7 @@ public class DataDownloaderFlow extends ParsingFlow {
         return false;
     }
 
-    private ParsingResult downloadMetaData() throws IOException, NoSuchAlgorithmException {
+    private void downloadMetaData(ParsingGamesOrder order) throws IOException {
 
         String metaDataPath = METADATA_DOWNLOAD_PATH;
 
@@ -95,10 +95,11 @@ public class DataDownloaderFlow extends ParsingFlow {
         if(bytesDownloaded == 0) {
             log.error("Could not download file {}", file.getAbsolutePath());
             this.ntfyUtils.send("[GameVault] It was not possible to download the metadata file.");
-            return ParsingResult.error("Failed to download metadata file.");
+            order.setState(GameParsingStates.ERROR);
+            order.setDiagnosticMessage(new DiagnosticMessage("Failed to download metadata file.", Criticity.ERROR));
         }
 
-        return ParsingResult.ok(GameQParsingStates.DOWNLOADING);
+        order.setState(GameParsingStates.DOWNLOADING);
     }
 
     private long downloadFile(String targetPath) throws IOException {
@@ -114,9 +115,9 @@ public class DataDownloaderFlow extends ParsingFlow {
         }
     }
 
-    private String calcFileHash(String targetPath) throws NoSuchAlgorithmException, IOException {
+    private String calcFileHash() throws NoSuchAlgorithmException, IOException {
         MessageDigest md = MessageDigest.getInstance("MD5");
-        md.update(Files.readAllBytes(Paths.get(targetPath)));
+        md.update(Files.readAllBytes(Paths.get(ExecutionFlow.METADATA_DOWNLOAD_PATH)));
         byte[] digest = md.digest();
         return Arrays.toString(digest);
     }

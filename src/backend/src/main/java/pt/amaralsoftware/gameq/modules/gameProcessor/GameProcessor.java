@@ -2,8 +2,8 @@ package pt.amaralsoftware.gameq.modules.gameProcessor;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
-import pt.amaralsoftware.gameq.modules.base.Processor;
-import pt.amaralsoftware.gameq.modules.base.models.Order;
+import pt.amaralsoftware.core.modules.processor.Processor;
+import pt.amaralsoftware.core.modules.processor.models.Order;
 import pt.amaralsoftware.gameq.modules.gameProcessor.flows.*;
 import pt.amaralsoftware.gameq.modules.gameProcessor.models.ExecutionFlow;
 import pt.amaralsoftware.gameq.modules.gameProcessor.models.GameDataStates;
@@ -31,7 +31,7 @@ public class GameProcessor extends Processor<GameDataStates> {
 
     @Override
     public void executeFlow() {
-        log.info("Current game data processing state");
+        log.info("Current game data processing state: {}", order.getState());
 
         ExecutionFlow flow = switch (order.getState()) {
             case IDLE -> gameSelectionFlow;

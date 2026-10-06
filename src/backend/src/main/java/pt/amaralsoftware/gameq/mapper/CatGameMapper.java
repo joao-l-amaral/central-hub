@@ -34,15 +34,17 @@ public class CatGameMapper {
 
         CatOwnGameEntity ownGame = entity.getOwnGame();
 
-        gameDTO.setComplete(ownGame.getCompleted());
-        gameDTO.setDateOfFinish(ownGame.getDateOfFinish());
+        if(ownGame != null) {
+            gameDTO.setComplete(ownGame.getCompleted());
+            gameDTO.setDateOfFinish(ownGame.getDateOfFinish());
 
-        CatDigitalStoresEntity digitalStore = ownGame.getDigitalStore();
+            CatDigitalStoresEntity digitalStore = ownGame.getDigitalStore();
 
-        if(digitalStore != null) {
-            gameDTO.setName(digitalStore.getName());
-            gameDTO.setCooperationName(digitalStore.getCooperationName());
-            gameDTO.setWebsite(digitalStore.getWebsite());
+            if(digitalStore != null) {
+                gameDTO.setName(digitalStore.getName());
+                gameDTO.setCooperationName(digitalStore.getCooperationName());
+                gameDTO.setWebsite(digitalStore.getWebsite());
+            }
         }
 
         return gameDTO;

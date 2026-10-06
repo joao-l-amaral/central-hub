@@ -4,7 +4,7 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
-import pt.amaralsoftware.shared.client.NtfyClient;
+import pt.amaralsoftware.shared.clients.NtfyClient;
 
 import java.util.Base64;
 

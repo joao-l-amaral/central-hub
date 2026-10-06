@@ -4,19 +4,26 @@ import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import org.apache.commons.collections4.CollectionUtils;
+import org.eclipse.microprofile.rest.client.inject.RestClient;
 import org.jboss.resteasy.reactive.RestResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import pt.amaralsoftware.application.service.CatConfigService;
+import pt.amaralsoftware.core.modules.processor.models.Order;
+import pt.amaralsoftware.gameq.clients.XboxApiClient;
+import pt.amaralsoftware.gameq.models.GameQConfiguration;
 import pt.amaralsoftware.gameq.models.GameQPlatform;
 import pt.amaralsoftware.gameq.models.dto.GameDTO;
 import pt.amaralsoftware.gameq.models.dto.GameQConfigurationDTO;
-import pt.amaralsoftware.gameq.modules.base.models.Order;
+import pt.amaralsoftware.gameq.models.xboxApi.XboxApiConfiguration;
+import pt.amaralsoftware.gameq.models.xboxApi.XboxApiResponse;
 import pt.amaralsoftware.gameq.modules.gameProcessor.GameProcessor;
 import pt.amaralsoftware.gameq.service.CatDigitalStoresService;
 import pt.amaralsoftware.gameq.service.CatGamePlatformService;
 import pt.amaralsoftware.gameq.service.CatGameService;
 import pt.amaralsoftware.shared.models.RemoteDataSourceResult;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,6 +39,11 @@ public class GameQGamesAPI {
     CatGameService catGameService;
     @Inject
     GameProcessor gameProcessor;
+    @Inject
+    CatConfigService catConfigService;
+    @Inject
+    @RestClient
+    XboxApiClient xboxApiClient;
 
     @GET
     @Path("/")
@@ -40,15 +52,16 @@ public class GameQGamesAPI {
         log.info("Get initial search platform list");
 
         List<GameQPlatform> platforms = catGamePlatformService.getPlatforms();
-        List<GameQPlatform> pcDigitalStoresPlatforms = catDigitalStoresService.getPCDigitalStoresNames();
+        List<GameQPlatform> digitalStoresPlatforms = catDigitalStoresService.getDigitalStoresNames();
 
         List<GameQPlatform> mergedPlatforms = new ArrayList<>();
+
         if (CollectionUtils.isNotEmpty(platforms)) {
             mergedPlatforms.addAll(platforms);
         }
 
-        if (CollectionUtils.isNotEmpty(pcDigitalStoresPlatforms)) {
-            mergedPlatforms.addAll(pcDigitalStoresPlatforms);
+        if (CollectionUtils.isNotEmpty(digitalStoresPlatforms)) {
+            mergedPlatforms.addAll(digitalStoresPlatforms);
         }
 
         mergedPlatforms.sort(java.util.Comparator.comparing(
@@ -107,5 +120,30 @@ public class GameQGamesAPI {
     public RestResponse<Order> getGameByName(@PathParam("game") String gameName) {
         Order restultOrder = this.gameProcessor.run(gameName);
         return RestResponse.ok(restultOrder);
+    }
+
+    @GET
+    @Path("/xbox")
+    @Produces(MediaType.APPLICATION_JSON)
+    public RestResponse<XboxApiResponse> getStuff() {
+        try {
+
+            GameQConfiguration gameQConfiguration = this.catConfigService.getGameQConfiguration();
+            XboxApiConfiguration xboxApiConfiguration = gameQConfiguration.getXbox();
+
+            if(xboxApiConfiguration != null) {
+                String xuid = xboxApiConfiguration.getXuid();
+                String apiKey = xboxApiConfiguration.getApiKey();
+
+                XboxApiResponse titlesByXuid = this.xboxApiClient.getTitles(xuid, apiKey);
+
+                return RestResponse.ok(titlesByXuid);
+            }
+
+        } catch (IOException e) {
+            log.error("Error fetching data from Xbox API. {}", e.getMessage());
+        }
+
+        return RestResponse.status(RestResponse.Status.INTERNAL_SERVER_ERROR);
     }
 }

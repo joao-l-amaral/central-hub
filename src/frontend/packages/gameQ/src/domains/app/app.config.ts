@@ -17,6 +17,7 @@ import {
   LoadingBlockService,
   LoggingService,
 } from '@central-hub/library';
+import { provideGameSelectionHandler } from '../game-selected/api/provide-game-selection-handler';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -29,6 +30,7 @@ export const appConfig: ApplicationConfig = {
       positionClass: 'toast-top-right',
       preventDuplicates: true,
     }),
+    provideGameSelectionHandler(),
     I18nService,
     LoggingService,
     LoadingBlockService,

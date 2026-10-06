@@ -1,11 +1,11 @@
 package pt.amaralsoftware.gameq.modules.dataProcessor.flows;
 
 import jakarta.enterprise.context.ApplicationScoped;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import pt.amaralsoftware.gameq.modules.dataProcessor.models.GameQParsingStates;
-import pt.amaralsoftware.gameq.modules.dataProcessor.models.ParsingFlow;
-import pt.amaralsoftware.gameq.modules.dataProcessor.models.ParsingResult;
+import pt.amaralsoftware.core.modules.processor.models.Criticity;
+import pt.amaralsoftware.core.modules.processor.models.DiagnosticMessage;
+import pt.amaralsoftware.gameq.modules.dataProcessor.models.ExecutionFlow;
+import pt.amaralsoftware.gameq.modules.dataProcessor.models.GameParsingStates;
+import pt.amaralsoftware.gameq.modules.dataProcessor.models.ParsingGamesOrder;
 
 import java.io.File;
 import java.nio.file.Files;
@@ -13,12 +13,10 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 @ApplicationScoped
-public class DataCleanUpFlow extends ParsingFlow {
-
-    private final Logger log = LoggerFactory.getLogger(DataCleanUpFlow.class);
+public class DataCleanUpFlow extends ExecutionFlow {
 
     @Override
-    public ParsingResult executeWorkflow(GameQParsingStates currentState) {
+    public void executeWorkflow(ParsingGamesOrder order) {
         log.info("Starting GameQCleanUp flow");
 
         try {
@@ -32,13 +30,11 @@ public class DataCleanUpFlow extends ParsingFlow {
                 }
             }
 
-            return ParsingResult.ok(GameQParsingStates.COMPLETED);
+            order.setState(GameParsingStates.FINISHED);
         } catch (Exception e) {
             log.error("Error occurred while cleaning up extracted files", e);
+            order.setState(GameParsingStates.ERROR);
+            order.setDiagnosticMessage(new DiagnosticMessage("Failed to clean up extracted files.", Criticity.ERROR));
         }
-
-        return ParsingResult.error("Failed to clean up extracted files.");
-
     }
-
 }

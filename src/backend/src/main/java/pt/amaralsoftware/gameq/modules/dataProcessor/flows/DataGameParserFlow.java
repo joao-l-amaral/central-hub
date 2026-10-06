@@ -6,12 +6,12 @@ import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.text.WordUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import pt.amaralsoftware.gameq.modules.dataProcessor.models.GameQParsingStates;
+import pt.amaralsoftware.core.modules.processor.models.Criticity;
+import pt.amaralsoftware.core.modules.processor.models.DiagnosticMessage;
+import pt.amaralsoftware.gameq.modules.dataProcessor.models.ExecutionFlow;
+import pt.amaralsoftware.gameq.modules.dataProcessor.models.GameParsingStates;
 import pt.amaralsoftware.gameq.modules.dataProcessor.models.ParsedMetadataModel;
-import pt.amaralsoftware.gameq.modules.dataProcessor.models.ParsingFlow;
-import pt.amaralsoftware.gameq.modules.dataProcessor.models.ParsingResult;
+import pt.amaralsoftware.gameq.modules.dataProcessor.models.ParsingGamesOrder;
 import pt.amaralsoftware.gameq.service.CatGamePlatformService;
 import pt.amaralsoftware.gameq.service.CatGameService;
 
@@ -26,31 +26,35 @@ import java.util.List;
 import java.util.Map;
 
 @ApplicationScoped
-public class DataGameParserFlow extends ParsingFlow {
-
-    private final Logger log = LoggerFactory.getLogger(DataGameParserFlow.class);
+public class DataGameParserFlow extends ExecutionFlow {
 
     @Inject
     CatGamePlatformService catGamePlatformService;
     @Inject
     CatGameService catGameService;
 
+    private int gamesParsed = 0;
+
     @Override
-    public ParsingResult executeWorkflow(GameQParsingStates currentState) {
+    public void executeWorkflow(ParsingGamesOrder order) {
       log.info("Starting GameQGameParser flow");
 
       List<String> consolePlatformToLookUp = catGamePlatformService.getSelectedPlatformsList();
 
       if (CollectionUtils.isEmpty(consolePlatformToLookUp)) {
           log.warn("No console platforms selected for game lookup.");
-          return ParsingResult.error("No console platforms selected for game lookup.");
+          order.setState(GameParsingStates.ERROR);
+          order.setDiagnosticMessage(new DiagnosticMessage("No console platforms selected for game lookup.", Criticity.ERROR));
+          return;
       }
 
       File xmlFile = new File(String.format("%s/%s", FILE_EXTRACTED_PATH, "Metadata.xml"));
 
       if (!xmlFile.exists()) {
           log.error("Metadata XML file not found: {}", xmlFile.getAbsolutePath());
-          return ParsingResult.error("Metadata XML file not found.");
+          order.setState(GameParsingStates.ERROR);
+          order.setDiagnosticMessage(new DiagnosticMessage("Metadata XML file not found.", Criticity.ERROR));
+          return;
       }
 
       XMLInputFactory factory = XMLInputFactory.newInstance();
@@ -59,7 +63,6 @@ public class DataGameParserFlow extends ParsingFlow {
       factory.setProperty(XMLConstants.ACCESS_EXTERNAL_DTD, "");
 
       ParsedMetadataModel parsedMetadataModel = new ParsedMetadataModel();
-      int gamesParsed = 0;
 
       try (InputStream is = new BufferedInputStream(new FileInputStream(xmlFile))) {
           XMLEventReader reader = factory.createXMLEventReader(is);
@@ -74,6 +77,7 @@ public class DataGameParserFlow extends ParsingFlow {
                       if (tagName.equals("Game")) {
                           parsedMetadataModel.setGame(true);
                           parsedMetadataModel.setNameFoundInLookUpList(false);
+                          logParsedGames();
                           continue;
                       }
 
@@ -89,11 +93,6 @@ public class DataGameParserFlow extends ParsingFlow {
                       if (tagName.equals("Game")) {
                           saveGame(parsedMetadataModel, consolePlatformToLookUp);
                           parsedMetadataModel = new ParsedMetadataModel();
-
-                          gamesParsed++;
-                          if (gamesParsed % 1000 == 0) {
-                              log.info("Parsed {} games so far", gamesParsed);
-                          }
                           continue;
                       }
 
@@ -106,13 +105,20 @@ public class DataGameParserFlow extends ParsingFlow {
           }
 
           log.info("Finished parsing {} games", gamesParsed);
-          return ParsingResult.ok(GameQParsingStates.GAMES_PARSED, gamesParsed, null);
+          order.setState(GameParsingStates.GAMES_PARSED);
+          order.setNumberOfGamesImported(gamesParsed);
 
       } catch (XMLStreamException | IOException e) {
-          log.error("Failed to parse games after {} entries", gamesParsed, e);
+        log.error("Failed to parse games after {} entries", gamesParsed, e);
+        order.setState(GameParsingStates.ERROR);
+        order.setDiagnosticMessage(new DiagnosticMessage("Failed to parse games.", Criticity.ERROR));
       }
+    }
 
-      return ParsingResult.error("Failed to parse games.");
+    private void logParsedGames() {
+        if (gamesParsed % 1000 == 0 && gamesParsed > 0) {
+            log.info("Parsed {} games so far", gamesParsed);
+        }
     }
 
     private String setKey(ParsedMetadataModel parsedMetadataModel, String tagName) {
@@ -147,6 +153,7 @@ public class DataGameParserFlow extends ParsingFlow {
         Map<String, Object> processedGame = this.processGames(gameMap, consolePlatformToLookUp, nameFoundInLookUpList);
         if (!processedGame.isEmpty()) {
             log.debug("Saving game {}", processedGame);
+            gamesParsed++;
             catGameService.saveGames(processedGame);
         }
         parsedMetadataModel.clearGameMap();
