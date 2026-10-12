@@ -8,7 +8,7 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "cat_own_pokemon", schema = "\"Card_Collection\"")
-public class OwnPokemonEntity implements Serializable {
+public class OwnCardEntity implements Serializable {
 
     @Id
     @Column(name = "id")
@@ -42,7 +42,7 @@ public class OwnPokemonEntity implements Serializable {
     @Column(name = "variant", length = 100)
     private String variant;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER, optional = true)
     @JoinColumn(name = "family", referencedColumnName = "id",
             foreignKey = @ForeignKey(name = "fk_own_pokemon_family"))
     private CardFamilyEntity family;
@@ -50,12 +50,15 @@ public class OwnPokemonEntity implements Serializable {
     @Column(name = "local_id", length = 50)
     private String localId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER, optional = true)
     @JoinColumn(name = "set_id", referencedColumnName = "id",
             foreignKey = @ForeignKey(name = "fk_own_pokemon_set"))
     private CardSetEntity set;
+    private String illustrator;
 
-    public OwnPokemonEntity() {}
+    private Integer index;
+
+    public OwnCardEntity() {}
 
     public String getId() { return id; }
     public void setId(String id) { this.id = id; }
@@ -95,4 +98,20 @@ public class OwnPokemonEntity implements Serializable {
 
     public CardSetEntity getSet() { return set; }
     public void setSet(CardSetEntity set) { this.set = set; }
+
+    public String getIllustrator() {
+        return illustrator;
+    }
+
+    public void setIllustrator(String illustrator) {
+        this.illustrator = illustrator;
+    }
+
+    public Integer getIndex() {
+        return index;
+    }
+
+    public void setIndex(Integer index) {
+        this.index = index;
+    }
 }

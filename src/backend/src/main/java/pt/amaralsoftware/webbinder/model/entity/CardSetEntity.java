@@ -24,6 +24,8 @@ public class CardSetEntity implements Serializable {
     @Column(name = "symbol", columnDefinition = "text")
     private String symbol;
 
+    private Integer size;
+
     public CardSetEntity() {}
 
     public String getId() { return id; }
@@ -37,4 +39,12 @@ public class CardSetEntity implements Serializable {
 
     public String getSymbol() { return symbol; }
     public void setSymbol(String symbol) { this.symbol = symbol; }
+
+    public Integer getSize() {
+        return size;
+    }
+
+    public void setSize(Integer size) {
+        this.size = size;
+    }
 }
