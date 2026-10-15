@@ -1,0 +1,136 @@
+{
+  "name": "cardBinder",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "prefix": "cb",
+  "sourceRoot": "packages/card-binder/src",
+  "tags": ["scope:cardBinder", "type:app"],
+  "targets": {
+    "build": {
+      "executor": "@angular-architects/native-federation:build",
+      "options": {
+        "assets": [
+          "packages/card-binder/src/assets",
+          {
+            "glob": "**/*",
+            "input": "packages/card-binder/public"
+          }
+        ]
+      },
+      "configurations": {
+        "production": {
+          "target": "cardBinder:esbuild:production"
+        },
+        "development": {
+          "target": "cardBinder:esbuild:development",
+          "dev": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "executor": "@angular-architects/native-federation:build",
+      "options": {
+        "target": "cardBinder:serve-original:development",
+        "rebuildDelay": 500,
+        "dev": true,
+        "cacheExternalArtifacts": false,
+        "port": 4203,
+        "viteConfigFile": "packages/portal/vite.config.mts"
+      },
+      "continuous": true
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    },
+    "test": {
+      "executor": "@angular/build:unit-test",
+      "options": {
+        "buildTarget": "portal:build:development",
+        "watch": false,
+        "coverage": true,
+        "coverageReporters": ["text", "html", "lcov"],
+        "coverageExclude": [
+          "**/*.harness.ts",
+          "**/portal-lib/*"
+        ]
+      }
+    },
+    "serve-static": {
+      "continuous": true,
+      "executor": "@nx/vite:preview-server",
+      "options": {
+        "buildTarget": "card-binder:build",
+        "port": 4200,
+        "staticFilePath": "dist/packages/card-binder/browser",
+        "spa": true,
+        "proxyConfig": "packages/card-binder/proxy-local.config.js"
+      }
+    },
+    "esbuild": {
+      "executor": "@angular/build:application",
+      "outputs": [
+        "{options.outputPath}"
+      ],
+      "options": {
+        "outputPath": "dist/packages/card-binder",
+        "browser": "packages/card-binder/src/main.ts",
+        "tsConfig": "packages/card-binder/tsconfig.app.json",
+        "inlineStyleLanguage": "scss",
+        "assets": [
+          "packages/card-binder/src/assets",
+          {
+            "glob": "**/*",
+            "input": "packages/card-binder/public"
+          }
+        ],
+        "styles": [
+          "packages/card-binder/src/styles.scss"
+        ],
+        "polyfills": [
+          "es-module-shims"
+        ]
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "4kb",
+              "maximumError": "8kb"
+            }
+          ],
+          "outputHashing": "all"
+        },
+        "development": {
+          "optimization": false,
+          "extractLicenses": false,
+          "sourceMap": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve-original": {
+      "continuous": true,
+      "executor": "@angular/build:dev-server",
+      "configurations": {
+        "production": {
+          "buildTarget": "cardBinder:esbuild:production"
+        },
+        "development": {
+          "buildTarget": "cardBinder:esbuild:development"
+        }
+      },
+      "defaultConfiguration": "development",
+      "options": {
+        "port": 4203,
+        "proxyConfig": "packages/card-binder/proxy-local.config.js"
+      }
+    }
+  }
+}

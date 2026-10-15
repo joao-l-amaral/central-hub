@@ -25,23 +25,27 @@ public class OwnCardService {
     public OwnCardDto getCardById(String id) {
         OwnCardEntity ownCardEntity = ownCardRepository.find("id = ?1", id).firstResult();
 
-        OwnCardDto ownCard = new OwnCardDto();
-        ownCard.setId(ownCardEntity.getId());
-        ownCard.setLocalId(ownCardEntity.getLocalId());
-        ownCard.setName(ownCardEntity.getName());
-        ownCard.setImage(ownCardEntity.getImage());
-        ownCard.setRarity(ownCardEntity.getRarity());
-        ownCard.setDescription(ownCardEntity.getDescription());
-        ownCard.setIllustrator(ownCardEntity.getIllustrator());
-        ownCard.setTypes(ownCardEntity.getType());
-        ownCard.setHasHolo(ownCardEntity.isHasHolo());
-        ownCard.setHasNormal(ownCardEntity.isHasNormal());
-        ownCard.setHasReverse(ownCardEntity.isHasReverse());
-        ownCard.setVariant(ownCardEntity.getVariant());
-        ownCard.setSetId(ownCardEntity.getSet().getId());
-        ownCard.setIndex(ownCardEntity.getIndex());
+        if(ownCardEntity != null) {
+            OwnCardDto ownCard = new OwnCardDto();
+            ownCard.setId(ownCardEntity.getId());
+            ownCard.setLocalId(ownCardEntity.getLocalId());
+            ownCard.setName(ownCardEntity.getName());
+            ownCard.setImage(ownCardEntity.getImage() + "/high.png");
+            ownCard.setRarity(ownCardEntity.getRarity());
+            ownCard.setDescription(ownCardEntity.getDescription());
+            ownCard.setIllustrator(ownCardEntity.getIllustrator());
+            ownCard.setTypes(ownCardEntity.getType());
+            ownCard.setHasHolo(ownCardEntity.isHasHolo());
+            ownCard.setHasNormal(ownCardEntity.isHasNormal());
+            ownCard.setHasReverse(ownCardEntity.isHasReverse());
+            ownCard.setVariant(ownCardEntity.getVariant());
+            ownCard.setSetId(ownCardEntity.getSet().getId());
+            ownCard.setIndex(ownCardEntity.getIndex());
 
-        return ownCard;
+            return ownCard;
+        }
+
+        return null;
     }
 
     @Transactional
@@ -77,7 +81,7 @@ public class OwnCardService {
             ownCard.setId(ownCardEntity.getId());
             ownCard.setLocalId(ownCardEntity.getLocalId());
             ownCard.setName(ownCardEntity.getName());
-            ownCard.setImage(ownCardEntity.getImage());
+            ownCard.setImage(ownCardEntity.getImage() + "/high.png");
             ownCard.setRarity(ownCardEntity.getRarity());
             ownCard.setDescription(ownCardEntity.getDescription());
             ownCard.setIllustrator(ownCardEntity.getIllustrator());
