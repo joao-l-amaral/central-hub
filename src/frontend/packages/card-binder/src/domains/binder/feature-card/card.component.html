@@ -1,0 +1,13 @@
+<div
+  class="card"
+  [style.--c1]="gradientColors()[0]"
+  [style.--c2]="gradientColors()[1]"
+  [style.--c3]="gradientColors()[2]"
+  [style.--c4]="gradientColors()[3]"
+  [style.--c5]="gradientColors()[4]"
+  [style.--c6]="gradientColors()[5]"
+  [style.boxShadow]="'0 0 10px '+shadowColors().primary+', 0 0 25px '+shadowColors().shadow+', inset 0 0 12px '+shadowColors().inner"
+  [class.animate]="visible()"
+>
+  <img [src]="card().image" [class]="card().isPlaceholder ? 'card-image-placeholder' : 'card-image'" alt="card" />
+</div>
